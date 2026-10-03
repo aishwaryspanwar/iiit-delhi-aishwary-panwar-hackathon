@@ -17,14 +17,13 @@ def condition_checks(event: dict, settings: dict) -> dict[str, bool]:
     }
 
 
-def cooldown_key(event: dict) -> tuple[str, str]:
-    targets = event["scope_targets"]
-    return event["class"], targets[0] if targets else "none"
+def cooldown_key(event: dict) -> str:
+    return event["class"]
 
 
 def evaluate_triggers(events: list[dict]) -> list[dict]:
     settings = shock_config()["trigger"]
-    last_fired: dict[tuple[str, str], tuple[datetime, float]] = {}
+    last_fired: dict[str, tuple[datetime, float]] = {}
     decisions = []
     for event in sorted(events, key=lambda e: (e["t_start"], e["cluster_id"])):
         checks = condition_checks(event, settings)

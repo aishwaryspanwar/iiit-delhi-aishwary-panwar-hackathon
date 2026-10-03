@@ -41,6 +41,10 @@ def test_cooldown_rearms_on_higher_impact_or_after_window():
     assert [d["triggered"] for d in later] == [True, True]
 
 
-def test_cooldown_is_per_class_and_target():
-    decisions = evaluate_triggers([event("a", "2022-02-24T03:00:00Z"), event("b", "2022-02-24T04:00:00Z", target="country:CN")])
-    assert [d["triggered"] for d in decisions] == [True, True]
+def test_cooldown_is_per_scenario_class():
+    decisions = evaluate_triggers([
+        event("a", "2022-02-24T03:00:00Z"),
+        event("b", "2022-02-24T04:00:00Z", target="country:UA"),
+        event("c", "2022-02-24T05:00:00Z", event_class="credit_event"),
+    ])
+    assert [d["triggered"] for d in decisions] == [True, False, True]
