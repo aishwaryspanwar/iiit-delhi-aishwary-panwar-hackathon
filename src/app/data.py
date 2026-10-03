@@ -11,7 +11,7 @@ DATASET_LABELS = {"w1": "W1 · Feb–Mar 2022 (GDELT + tweets)", "stub": "Stub s
 
 
 def available_datasets() -> list[str]:
-    return [name for name in DATASET_LABELS if (PROCESSED_DIR / name / "signals_v1.jsonl").exists()]
+    return [name for name in DATASET_LABELS if (PROCESSED_DIR / name / "signals_v1.jsonl.gz").exists()]
 
 
 def dataset_dir(name: str) -> Path:
@@ -20,7 +20,7 @@ def dataset_dir(name: str) -> Path:
 
 @st.cache_data(show_spinner=False)
 def load_signals(name: str) -> pd.DataFrame:
-    records = read_jsonl(dataset_dir(name) / "signals_v1.jsonl")
+    records = read_jsonl(dataset_dir(name) / "signals_v1.jsonl.gz")
     rows = []
     for record in records:
         rows.append({
@@ -44,7 +44,7 @@ def load_signals(name: str) -> pd.DataFrame:
 
 @st.cache_data(show_spinner=False)
 def load_events(name: str) -> pd.DataFrame:
-    records = read_jsonl(dataset_dir(name) / "events_v1.jsonl")
+    records = read_jsonl(dataset_dir(name) / "events_v1.jsonl.gz")
     frame = pd.DataFrame(records)
     frame["t_start"] = pd.to_datetime(frame["t_start"])
     frame["class_name"] = frame["class"].map(class_display_name)

@@ -3,13 +3,20 @@ from pathlib import Path
 
 from src.riskengine.build import run_engine
 from src.riskengine.config import PROCESSED_DIR
+from src.riskengine.ingest.gdelt import read_gdelt_documents
 from src.riskengine.ingest.stub import read_stub_documents
+from src.riskengine.ingest.tweets import read_tweet_documents
 from src.riskengine.io import validate_records, write_json, write_jsonl
 from src.riskengine.models import RawDoc
 from src.stress.engine import run_all
 from src.stress.portfolio_gen import PORTFOLIO_PATH, generate_portfolio, load_portfolio, write_portfolio
 
-DATASETS = {"stub": read_stub_documents}
+
+def read_w1_documents() -> list[RawDoc]:
+    return read_gdelt_documents() + read_tweet_documents()
+
+
+DATASETS = {"stub": read_stub_documents, "w1": read_w1_documents}
 
 
 def output_dir(dataset: str) -> Path:
@@ -35,8 +42,8 @@ def run_pipeline(dataset: str, sentiment: str = "vader", out: Path | None = None
     if not PORTFOLIO_PATH.exists():
         write_portfolio(generate_portfolio())
     results = run_all(load_portfolio(), events, signals)
-    write_jsonl(target / "signals_v1.jsonl", signals)
-    write_jsonl(target / "events_v1.jsonl", events)
+    write_jsonl(target / "signals_v1.jsonl.gz", signals)
+    write_jsonl(target / "events_v1.jsonl.gz", events)
     write_json(target / "stress_results_v1.json", results)
     return {"signals": len(signals), "events": len(events), "triggered": len(results["runs"]), "output": str(target)}
 

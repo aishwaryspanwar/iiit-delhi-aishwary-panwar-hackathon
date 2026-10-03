@@ -1,3 +1,5 @@
+import gzip
+import io
 import json
 from functools import lru_cache
 from pathlib import Path
@@ -27,14 +29,19 @@ def dumps(record: dict) -> str:
 
 def write_jsonl(path: Path, records: list[dict]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", encoding="utf-8", newline="\n") as handle:
-        for record in records:
-            handle.write(dumps(record) + "\n")
+    payload = "".join(dumps(record) + "\n" for record in records).encode("utf-8")
+    if path.suffix == ".gz":
+        buffer = io.BytesIO()
+        with gzip.GzipFile(filename="", mode="wb", fileobj=buffer, mtime=0, compresslevel=9) as archive:
+            archive.write(payload)
+        payload = buffer.getvalue()
+    path.write_bytes(payload)
 
 
 def read_jsonl(path: Path) -> list[dict]:
-    with path.open(encoding="utf-8") as handle:
-        return [json.loads(line) for line in handle if line.strip()]
+    raw = path.read_bytes()
+    text = gzip.decompress(raw).decode("utf-8") if path.suffix == ".gz" else raw.decode("utf-8")
+    return [json.loads(line) for line in text.splitlines() if line.strip()]
 
 
 def write_json(path: Path, payload: dict) -> None:

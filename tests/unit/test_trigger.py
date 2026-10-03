@@ -3,10 +3,10 @@ import pytest
 from src.stress.trigger import evaluate_triggers
 
 
-def event(cluster_id: str, t_start: str, impact: float = 8.5, event_class: str = "geopolitical", confidence: float = 0.8, sentiment: float = -0.5, target: str = "country:RU") -> dict:
+def event(cluster_id: str, t_start: str, impact: float = 8.5, event_class: str = "geopolitical", confidence: float = 0.8, sentiment: float = -0.5, target: str = "country:RU", outlets: int = 3) -> dict:
     return {
         "cluster_id": cluster_id, "t_start": t_start, "impact": impact, "class": event_class,
-        "confidence_mean": confidence, "sentiment_mean": sentiment, "scope_targets": [target],
+        "confidence_mean": confidence, "sentiment_mean": sentiment, "scope_targets": [target], "n_outlets": outlets,
     }
 
 
@@ -18,6 +18,8 @@ def event(cluster_id: str, t_start: str, impact: float = 8.5, event_class: str =
         ({"event_class": "product_launch"}, ["stress_class"]),
         ({"confidence": 0.5}, ["confidence_ok"]),
         ({"sentiment": 0.4}, ["not_positive"]),
+        ({"outlets": 1}, ["corroborated"]),
+        ({"outlets": 0}, ["corroborated"]),
     ],
 )
 def test_trigger_conditions(overrides, failed):
