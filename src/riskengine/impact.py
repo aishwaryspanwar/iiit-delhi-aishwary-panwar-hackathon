@@ -42,12 +42,30 @@ def item_impact(components: dict[str, float]) -> float:
     return round(clip(1.0 + 9.0 * weighted, 1.0, 10.0), 1)
 
 
-def breadth_term(n_outlets: int) -> float:
-    return round(rubric()["breadth_coefficient"] * math.log(max(1, n_outlets)), 4)
+def baseline_mentions(history: list[int]) -> float:
+    default = float(rubric()["cluster"]["default_baseline_mentions"])
+    if not history:
+        return default
+    ordered = sorted(history)
+    middle = len(ordered) // 2
+    median = ordered[middle] if len(ordered) % 2 else (ordered[middle - 1] + ordered[middle]) / 2
+    return max(default, float(median))
 
 
-def cluster_impact(item_impacts: list[float], n_outlets: int) -> tuple[float, float, float]:
-    top = sorted(item_impacts, reverse=True)[: rubric()["cluster_top_k"]]
-    aggregate = round(sum(top) / len(top), 4)
-    breadth = breadth_term(n_outlets)
-    return aggregate, breadth, round(clip(aggregate + breadth, 1.0, 10.0), 1)
+def cluster_components(item_impacts: list[float], n_outlets: int, n_mentions: int, baseline: float) -> dict[str, float]:
+    settings = rubric()["cluster"]
+    top = sorted(item_impacts, reverse=True)[: settings["top_k"]]
+    severity = (sum(top) / len(top) - 1.0) / 9.0
+    breadth = math.log(max(1, n_outlets)) / math.log(settings["breadth_full_at_outlets"])
+    volume = math.log2(max(n_mentions, 1) / baseline) / settings["volume_full_at_log2_ratio"]
+    return {
+        "severity": round(clip(severity, 0.0, 1.0), 4),
+        "breadth": round(clip(breadth, 0.0, 1.0), 4),
+        "abnormal_volume": round(clip(volume, 0.0, 1.0), 4),
+    }
+
+
+def cluster_impact(components: dict[str, float]) -> float:
+    weights = rubric()["cluster"]["weights"]
+    weighted = sum(weights[name] * value for name, value in components.items())
+    return round(clip(1.0 + 9.0 * weighted, 1.0, 10.0), 1)

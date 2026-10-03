@@ -1,4 +1,4 @@
-weights_version: impact-v1
+weights_version: impact-v2
 weights:
   class_prior: 0.35
   sentiment_mag: 0.25
@@ -18,7 +18,16 @@ default_entity_importance: 0.2
 cue_patterns:
   - '\b(invasion|invades?|default(s|ed)?|downgrad(e|ed|es)|bankrupt(cy)?|emergency|collapse[sd]?|crash(es|ed)?|plunge[sd]?|soar(s|ed)?|surge[sd]?)\b'
   - '\b(biggest|largest|highest|lowest|worst|first) (since|in|ever)\b'
-  - '\b(record|unprecedented|sweeping|severe|full-scale)\b'
+  - '\b(record|unprecedented|sweeping|severe|full-scale|junk|imminent)\b'
 cue_full_at: 2
-breadth_coefficient: 0.5
-cluster_top_k: 3
+cluster:
+  weights:
+    severity: 0.5
+    breadth: 0.2
+    abnormal_volume: 0.3
+  top_k: 3
+  breadth_full_at_outlets: 25
+  volume_full_at_log2_ratio: 3.0
+  baseline_days: 7
+  default_baseline_mentions: 2
+  warmup_days: 3

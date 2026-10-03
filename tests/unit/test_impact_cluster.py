@@ -1,7 +1,5 @@
-import math
-
 from src.riskengine.cluster import build_events
-from src.riskengine.impact import breadth_term, cluster_impact, impact_components, item_impact
+from src.riskengine.impact import baseline_mentions, cluster_components, cluster_impact, impact_components, item_impact
 
 
 def components(**overrides) -> dict[str, float]:
@@ -31,14 +29,31 @@ def test_impact_components_use_absolute_sentiment():
     assert negative == positive
 
 
-def test_breadth_zero_for_single_outlet():
-    assert breadth_term(1) == 0.0
-    assert breadth_term(0) == 0.0
-    assert breadth_term(4) == round(0.5 * math.log(4), 4)
+def test_baseline_uses_trailing_median_with_floor():
+    assert baseline_mentions([]) == 2.0
+    assert baseline_mentions([1, 1, 1]) == 2.0
+    assert baseline_mentions([10, 30, 20]) == 20.0
+    assert baseline_mentions([10, 20, 30, 40]) == 25.0
 
 
-def test_cluster_impact_capped_at_ten():
-    assert cluster_impact([9.8, 9.9], 50)[2] == 10.0
+def test_cluster_components_bounds_and_values():
+    quiet = cluster_components([5.5], 1, 2, 2.0)
+    assert quiet == {"severity": 0.5, "breadth": 0.0, "abnormal_volume": 0.0}
+    loud = cluster_components([10.0, 10.0, 10.0], 30, 200, 2.0)
+    assert loud == {"severity": 1.0, "breadth": 1.0, "abnormal_volume": 1.0}
+    assert cluster_impact(loud) == 10.0
+
+
+def test_abnormal_volume_separates_spike_from_routine_coverage():
+    routine = cluster_impact(cluster_components([9.0, 9.0, 9.0], 14, 30, 30.0))
+    spike = cluster_impact(cluster_components([9.0, 9.0, 9.0], 14, 240, 30.0))
+    assert spike - routine >= 2.0
+
+
+def test_cluster_impact_is_monotone_in_each_component():
+    base = {"severity": 0.5, "breadth": 0.5, "abnormal_volume": 0.5}
+    for name in base:
+        assert cluster_impact({**base, name: 0.9}) > cluster_impact(base)
 
 
 def signal(signal_id: str, day: str, event_class: str, target: str, impact: float, outlets: list[str]) -> dict:
@@ -61,5 +76,8 @@ def test_clusters_split_by_day_class_and_target():
     assert len(events) == 3
     merged = next(e for e in events if e["n_items"] == 2)
     assert merged["n_outlets"] == 2
-    assert merged["impact"] == round(min(10, 7.5 + 0.5 * math.log(2)), 1)
+    assert merged["n_mentions"] == 2
+    next_day = next(e for e in events if e["cluster_id"].startswith("2022-02-25"))
+    assert next_day["baseline_mentions"] == 2.0
+    assert all(e["warmup"] for e in events)
     assert all(s["cluster_id"] for s in signals)

@@ -14,6 +14,7 @@ def condition_checks(event: dict, settings: dict) -> dict[str, bool]:
         "confidence_ok": event["confidence_mean"] >= settings["min_confidence"],
         "not_positive": event["sentiment_mean"] <= settings["max_sentiment"],
         "corroborated": event["n_outlets"] >= settings["min_news_outlets"],
+        "baseline_ready": not event.get("warmup", False),
     }
 
 

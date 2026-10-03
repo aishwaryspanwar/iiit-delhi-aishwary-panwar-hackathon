@@ -80,3 +80,8 @@ sentiment_lexicon:
   funds: 0.0
   credit: 0.0
   growth: 0.5
+finbert:
+  model_id: ProsusAI/finbert
+  revision: 4556d13015211d73dccd3fdd39d39232506f3e43
+  batch_size: 32
+  max_length: 96

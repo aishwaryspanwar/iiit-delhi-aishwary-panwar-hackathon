@@ -24,3 +24,19 @@ stub_tweets,T004,2022-03-04T14:00:00Z,,,$TSM earnings beat estimates and the chi
 stub_tweets,T005,2022-03-09T20:15:00Z,,,<script>alert(1)</script> $META looks cheap here imo
 stub_tweets,T006,2022-03-16T18:30:00Z,,,Fed finally hiking. Rate hikes are bad news for tech stocks like $AMZN
 stub_tweets,T007,2022-03-21T11:11:00Z,,,Just ordered the new Tesla Model Y. Love it! https://t.co/qqq
+stub_news,N019,2022-02-24T04:10:00Z,cnbc.com,,Russian forces attack Ukraine on several fronts as invasion begins
+stub_news,N020,2022-02-24T04:45:00Z,wsj.com,,Russia invades Ukraine in biggest attack on a European state since 1945
+stub_news,N021,2022-02-24T05:30:00Z,bloomberg.com,,Russian troops cross into Ukraine as missiles strike military sites
+stub_news,N022,2022-02-24T06:00:00Z,theguardian.com,,Invasion of Ukraine: Russian military launches assault from north east and south
+stub_news,N023,2022-02-24T06:40:00Z,marketwatch.com,,Global markets slump after Russia launches military invasion of Ukraine
+stub_news,N024,2022-02-24T08:15:00Z,nytimes.com,,Ukraine war: Russian missiles hit airports as the invasion widens
+stub_news,N025,2022-02-24T09:00:00Z,economist.com,,Russia's invasion of Ukraine is the gravest security crisis in Europe for decades
+stub_news,N026,2022-02-24T10:20:00Z,aljazeera.com,,Russian military attack on Ukraine leaves dozens killed on first day of invasion
+stub_news,N027,2022-03-03T18:00:00Z,reuters.com,,Russia's credit rating cut to junk by two agencies as sanctions bite
+stub_news,N028,2022-03-03T18:40:00Z,ft.com,,Rating agencies push Russia into junk territory and warn of default risk
+stub_news,N029,2022-03-03T19:30:00Z,wsj.com,,Russian sovereign debt downgraded to junk with negative outlook
+stub_news,N030,2022-03-03T20:15:00Z,marketwatch.com,,Russia faces sovereign default risk after sweeping downgrade to junk
+stub_news,N031,2022-03-07T09:15:00Z,bloomberg.com,,Brent crude spikes towards $140 a barrel in historic oil price shock
+stub_news,N032,2022-03-07T11:45:00Z,ft.com,,Oil and gas prices soar as buyers shun Russian crude supplies
+stub_news,N033,2022-03-07T13:20:00Z,wsj.com,,Oil surges to highest since 2008 as energy crisis deepens
+stub_news,N034,2022-03-07T15:00:00Z,theguardian.com,,Commodity markets in turmoil as oil price spike and nickel record hit buyers

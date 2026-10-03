@@ -35,7 +35,7 @@ rules:
   - id: GEO-002
     class: geopolitical
     weight: 1.5
-    patterns: ['\bsanction(s|ed|ing)?\b']
+    patterns: ['\bsanction(s|ed|ing)?\b', '\bembargo(es)?\b']
   - id: GEO-003
     class: geopolitical
     weight: 1.5
@@ -43,11 +43,15 @@ rules:
   - id: GEO-004
     class: geopolitical
     weight: 1.0
-    patterns: ['\b(nato|ceasefire|peace talks|refugees?|annex(ation|ed)?|conflict|tensions?)\b']
+    patterns: ['\b(nato|ceasefire|peace talks|refugees?|annex(ation|ed)?|conflict|tensions?|diplomat(s|ic)?|kremlin)\b']
   - id: GEO-005
     class: geopolitical
     weight: 1.0
-    patterns: ['\bswift\b', '\bexport controls?\b', '\basset freezes?\b', '\bfrozen reserves\b']
+    patterns: ['\bswift\b', '\bexport controls?\b', '\basset freezes?\b', '\bfrozen reserves\b', '\b(seiz(e|es|ed|ure|ures)|oligarchs?)\b']
+  - id: GEO-006
+    class: geopolitical
+    weight: 1.5
+    patterns: ['\b(fighting|offensive|siege|bomb(s|ing|ed)?|shell(s|ed)|killed|casualties|escalat\w+|rebels?|separatists?|weapons?|arms (deals?|supplies|shipments)|nuclear (plant|power plant|facilit\w+)|no-fly zone)\b']
   - id: MAC-001
     class: macroeconomic
     weight: 2.0
@@ -64,58 +68,70 @@ rules:
     class: macroeconomic
     weight: 1.0
     patterns: ['\b(treasury yields?|bond yields?|yield curve|monetary policy|quantitative tightening|tightening)\b']
+  - id: MAC-005
+    class: macroeconomic
+    weight: 1.0
+    patterns: ['\b(rouble|ruble|rupee|yuan|yen|sterling|euro|dollar index|exchange rate|currency|forex|capital controls)\b']
   - id: CRD-001
     class: credit_event
     weight: 2.5
-    patterns: ['\bdefault(s|ed|ing)?\b', '\bmissed (a )?(coupon|payment|interest payment)\b']
+    patterns: ['\b(debt|bond|sovereign|technical|selective|payment) default\b', '\bdefault(s|ed|ing)? on\b', '\bdefault risk\b', '\b(avert(s|ed)?|avoid(s|ed)?|risk of|edge of|brink of|nears?|imminent|may|could|likely to|in) (a )?default\b', '\bdefault (is |looks )?(imminent|looms|likely)\b', '\bmissed (a )?(coupon|payment|interest payment)\b']
   - id: CRD-002
     class: credit_event
     weight: 2.0
-    patterns: ['\bdowngrad(e|es|ed|ing)\b', '\bjunk( status)?\b', '\bcredit watch\b', '\bnegative outlook\b']
+    patterns: ['\bdowngrad(e|es|ed|ing)\b.{0,40}\b(junk|credit|sovereign|rating|ratings|outlook|debt|bonds?|aaa|aa|bbb|bb|ccc|cc|baa\d|ba\d|caa\d)\b', '\b(cut|cuts|slash(es|ed)?|lower(s|ed)?)\b.{0,30}\bratings?\b', '\bjunk status\b', '\b(cut|cuts|downgraded|lowered|slashed|pushed|pushes)\b.{0,15}\b(to|into|further into)\W{0,2}junk\b', '\bratings? (cut|cuts|lowered|downgraded|slashed)\b', '\bcredit ?watch\b', '\bnegative outlook\b']
   - id: CRD-003
     class: credit_event
     weight: 2.0
-    patterns: ['\b(bankrupt(cy)?|insolven(t|cy)|chapter 11|restructuring of debt|debt restructuring)\b']
+    patterns: ['\b(bankrupt(cy)?|insolven(t|cy)|chapter 11|debt restructuring|restructur\w+ (its |of )?debt|receivership|administration proceedings)\b']
   - id: CRD-004
     class: credit_event
     weight: 1.0
-    patterns: ['\b(credit spreads?|bond spreads?|credit default swaps?|cds)\b']
+    patterns: ['\b(credit spreads?|bond spreads?|credit default swaps?|cds|junk bonds?|high-yield bonds?|distressed debt)\b']
+  - id: CRD-005
+    class: credit_event
+    weight: 1.0
+    patterns: ['\b(moody.?s|fitch|s&p global ratings|credit rating agenc(y|ies))\b']
   - id: COM-001
     class: commodity_energy
     weight: 1.5
-    patterns: ['\b(oil|crude|brent|wti|natural gas|lng|gasoline)\b']
+    patterns: ['\b(oil|crude|brent|wti|natural gas|lng|gasoline|gas prices?|gas supplies|russian gas|petrol|diesel|fuel prices?|pipeline)\b']
   - id: COM-002
     class: commodity_energy
     weight: 1.0
-    patterns: ['\b(wheat|nickel|aluminium|aluminum|palladium|metals|commodit(y|ies)|fertili[sz]er)\b']
+    patterns: ['\b(wheat|nickel|aluminium|aluminum|palladium|metals|commodit(y|ies)|fertili[sz]er|grain|copper|coal)\b']
   - id: COM-003
     class: commodity_energy
     weight: 1.0
-    patterns: ['\b(opec\+?|barrel|energy prices|supply shock|price spike)\b']
+    patterns: ['\b(opec\+?|barrel|energy prices|energy crisis|energy supplies|supply shock|price spike)\b']
   - id: REG-001
     class: regulatory
     weight: 1.5
-    patterns: ['\b(regulator(s|y)?|antitrust|fine[ds]?|probe|investigation|sec charges|lawsuit)\b']
+    patterns: ['\b(regulators?|regulatory|antitrust|watchdog|sec|ftc|doj|cma|competition (commission|authority)|fined|fines|penalty)\b', '\bprobe (into|of)\b']
   - id: REG-002
     class: regulatory
     weight: 1.0
-    patterns: ['\b(new rules?|legislation|ban(s|ned)?|crackdown|compliance)\b']
+    patterns: ['\b(new rules?|legislation|bill passes|crackdown|compliance|approval from regulators|license revoked|lawsuit|sues|sued)\b']
   - id: MNA-001
     class: merger_acquisition
     weight: 2.0
-    patterns: ['\b(acquir(e|es|ed|ing)|acquisition|takeover|merger|buyout|to buy)\b']
+    patterns: ['\b(acquir(e|es|ed|ing)|acquisition|takeover|merger|buyout)\b', '\b(agree(s|d)?|deal|plans?|offer(s|ed)?|bid) to (buy|acquire|purchase)\b']
   - id: MNA-002
     class: merger_acquisition
     weight: 1.0
-    patterns: ['\b(deal valued|all-cash deal|bid for|stake in)\b']
+    patterns: ['\b(deal valued|all-cash deal|cash-and-stock deal|bid for|stake in|tender offer)\b']
   - id: ERN-001
     class: earnings_corporate
     weight: 1.5
-    patterns: ['\b(earnings|quarterly results|revenue|profit|eps|guidance|beats estimates|misses estimates)\b']
+    patterns: ['\b(earnings|quarterly results|revenue|profit|eps|guidance|beats estimates|misses estimates|net (profit|loss)|operating (profit|income|result)|q[1-4] (results|20\d\d)|financial results)\b']
   - id: ERN-002
     class: earnings_corporate
     weight: 1.0
-    patterns: ['\b(stock split|buyback|dividend|layoffs|ceo|deliveries)\b']
+    patterns: ['\b(stock split|buyback|dividend|layoffs|ceo|cfo|appoints?|resigns?|steps down|ipo|initial public offering|deliveries|partnership|partners with)\b']
+  - id: ERN-003
+    class: earnings_corporate
+    weight: 2.0
+    patterns: ['\bprice target\b', '\b(upgrade|downgrade)[sd]?\b.{0,40}\b(buy|sell|hold|neutral|outperform|underperform|overweight|underweight|equal-weight)\b', '\banalysts? (say|says|see|expect)\b']
   - id: PRD-001
     class: product_launch
     weight: 1.5
