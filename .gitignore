@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+data/raw/
+.env
+.kaggle/
+*.zip
+.streamlit/secrets.toml
+.idea/
+.vscode/

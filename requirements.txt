@@ -1,0 +1,8 @@
+streamlit==1.65.0
+plotly==7.1.0
+pandas==3.0.6
+numpy==2.5.3
+PyYAML==6.0.3
+jsonschema==4.26.0
+vaderSentiment==3.3.2
+pytest==9.1.1
