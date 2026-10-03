@@ -1,0 +1,24 @@
+weights_version: impact-v1
+weights:
+  class_prior: 0.35
+  sentiment_mag: 0.25
+  entity_importance: 0.20
+  cue_bonus: 0.20
+class_prior:
+  geopolitical: 0.9
+  credit_event: 0.9
+  macroeconomic: 0.7
+  commodity_energy: 0.7
+  regulatory: 0.5
+  merger_acquisition: 0.4
+  earnings_corporate: 0.3
+  product_launch: 0.2
+  other: 0.1
+default_entity_importance: 0.2
+cue_patterns:
+  - '\b(invasion|invades?|default(s|ed)?|downgrad(e|ed|es)|bankrupt(cy)?|emergency|collapse[sd]?|crash(es|ed)?|plunge[sd]?|soar(s|ed)?|surge[sd]?)\b'
+  - '\b(biggest|largest|highest|lowest|worst|first) (since|in|ever)\b'
+  - '\b(record|unprecedented|sweeping|severe|full-scale)\b'
+cue_full_at: 2
+breadth_coefficient: 0.5
+cluster_top_k: 3

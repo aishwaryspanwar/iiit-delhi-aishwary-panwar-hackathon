@@ -1,0 +1,25 @@
+source,source_id,published_at,outlet,url,text
+stub_news,N001,2022-02-14T09:10:00Z,reuters.com,,Western officials warn Russian troops near Ukraine border could attack at any moment - Reuters
+stub_news,N002,2022-02-16T14:30:00Z,cnbc.com,,Fed minutes signal officials ready to raise rates faster to fight inflation
+stub_news,N003,2022-02-24T03:05:00Z,reuters.com,,Russia launches full-scale invasion of Ukraine as explosions heard in Kyiv - Reuters
+stub_news,N004,2022-02-24T03:40:00Z,bbc.com,,Russia launches full-scale invasion of Ukraine as explosions heard in Kyiv | BBC News
+stub_news,N005,2022-02-24T05:15:00Z,ft.com,,Russian invasion of Ukraine sends global markets into a sell-off
+stub_news,N006,2022-02-24T07:20:00Z,apnews.com,,Ukraine says Russian military attacks cities from three directions
+stub_news,N007,2022-02-24T11:00:00Z,marketwatch.com,,Brent crude surges above $100 a barrel for the first time since 2014
+stub_news,N008,2022-02-26T18:45:00Z,theguardian.com,,"EU, US and UK agree to cut Russian banks off SWIFT in sweeping sanctions"
+stub_news,N009,2022-02-28T06:30:00Z,reuters.com,,Russian central bank doubles key rate to 20% as rouble plunges
+stub_news,N010,2022-03-03T16:00:00Z,bloomberg.com,,Moody's downgrades Russia to junk status citing sanctions and capital controls
+stub_news,N011,2022-03-03T17:10:00Z,cnbc.com,,Fitch downgrades Russian sovereign rating to junk as default risk rises
+stub_news,N012,2022-03-07T08:00:00Z,reuters.com,,Oil soars and nickel prices hit record as commodity markets panic over supply shock
+stub_news,N013,2022-03-08T19:30:00Z,wsj.com,,US bans imports of Russian oil and gas in new sanctions push
+stub_news,N014,2022-03-16T18:05:00Z,reuters.com,,Federal Reserve raises interest rates by 25 basis points for the first time since 2018
+stub_news,N015,2022-03-16T19:00:00Z,cnbc.com,,Fed hikes rates by a quarter point and signals six more increases this year
+stub_news,N016,2022-03-10T12:00:00Z,marketwatch.com,,Apple unveils new iPhone SE and Mac Studio at spring event
+stub_news,N017,2022-03-22T13:00:00Z,forbes.com,,Microsoft completes review of Activision Blizzard acquisition plans with regulators
+stub_tweets,T001,2022-02-15T15:22:00Z,,,$TSLA deliveries looking strong this quarter @elonfan https://t.co/abc123 #bullish
+stub_tweets,T002,2022-02-24T09:12:00Z,,,Markets are getting crushed today. Russia invading Ukraine is terrifying. Sold my $AAPL and $MSFT https://t.co/xyz
+stub_tweets,T003,2022-02-24T10:05:00Z,,,Oil spiking hard on the invasion news. Energy is the only thing green in my portfolio @trader_joe
+stub_tweets,T004,2022-03-04T14:00:00Z,,,$TSM earnings beat estimates and the chip shortage keeps pricing power high
+stub_tweets,T005,2022-03-09T20:15:00Z,,,<script>alert(1)</script> $META looks cheap here imo
+stub_tweets,T006,2022-03-16T18:30:00Z,,,Fed finally hiking. Rate hikes are bad news for tech stocks like $AMZN
+stub_tweets,T007,2022-03-21T11:11:00Z,,,Just ordered the new Tesla Model Y. Love it! https://t.co/qqq

@@ -1,0 +1,68 @@
+id,name,type,ticker,sector,country,importance,case_sensitive,aliases
+company:TSLA,Tesla,company,TSLA,consumer,US,0.6,false,Tesla|Tesla Inc
+company:AAPL,Apple,company,AAPL,technology,US,0.7,true,Apple|Apple Inc
+company:MSFT,Microsoft,company,MSFT,technology,US,0.7,false,Microsoft
+company:AMZN,Amazon,company,AMZN,consumer,US,0.7,false,Amazon|Amazon.com
+company:TSM,TSMC,company,TSM,technology,TW,0.6,false,TSMC|Taiwan Semiconductor
+company:META,Meta Platforms,company,META,communication,US,0.6,true,Meta Platforms|Meta|Facebook
+company:GOOG,Alphabet,company,GOOG,communication,US,0.7,false,Alphabet|Google
+company:NFLX,Netflix,company,NFLX,communication,US,0.5,false,Netflix
+company:AMD,AMD,company,AMD,technology,US,0.5,true,AMD|Advanced Micro Devices
+company:INTC,Intel,company,INTC,technology,US,0.5,false,Intel
+company:NIO,NIO,company,NIO,consumer,CN,0.4,true,NIO
+company:XPEV,XPeng,company,XPEV,consumer,CN,0.3,false,XPeng
+company:PYPL,PayPal,company,PYPL,financials,US,0.5,false,PayPal
+company:DIS,Disney,company,DIS,communication,US,0.5,false,Disney|Walt Disney
+company:VZ,Verizon,company,VZ,communication,US,0.5,false,Verizon
+company:CRM,Salesforce,company,CRM,technology,US,0.5,false,Salesforce
+company:COST,Costco,company,COST,consumer,US,0.5,false,Costco
+company:PG,Procter & Gamble,company,PG,consumer,US,0.5,false,Procter & Gamble|Procter and Gamble|P&G
+company:KO,Coca-Cola,company,KO,consumer,US,0.5,false,Coca-Cola|Coca Cola
+company:BA,Boeing,company,BA,industrials,US,0.6,false,Boeing
+company:NOC,Northrop Grumman,company,NOC,industrials,US,0.5,false,Northrop Grumman|Northrop
+company:F,Ford,company,F,consumer,US,0.5,true,Ford Motor|Ford
+company:BX,Blackstone,company,BX,financials,US,0.5,false,Blackstone
+company:ENPH,Enphase,company,ENPH,energy,US,0.3,false,Enphase
+company:ZS,Zscaler,company,ZS,technology,US,0.3,false,Zscaler
+company:GAZP,Gazprom,company,,energy,RU,0.8,false,Gazprom
+company:ROSN,Rosneft,company,,energy,RU,0.7,false,Rosneft
+company:LKOH,Lukoil,company,,energy,RU,0.6,false,Lukoil
+company:SBER,Sberbank,company,,financials,RU,0.8,false,Sberbank|Sber
+company:VTBR,VTB,company,,financials,RU,0.7,true,VTB
+company:XOM,Exxon Mobil,company,,energy,US,0.7,false,Exxon Mobil|ExxonMobil|Exxon
+company:CVX,Chevron,company,,energy,US,0.6,false,Chevron
+company:SHEL,Shell,company,,energy,GB,0.7,true,Shell
+company:BP,BP,company,,energy,GB,0.7,true,BP
+company:JPM,JPMorgan,company,,financials,US,0.8,false,JPMorgan|JP Morgan|JPMorgan Chase
+company:ATVI,Activision Blizzard,company,,communication,US,0.4,false,Activision Blizzard|Activision
+country:US,United States,country,,,US,1.0,true,United States|U.S.|US|USA|America|American
+country:RU,Russia,country,,,RU,0.9,false,Russia|Russian|Moscow|Kremlin|Putin
+country:UA,Ukraine,country,,,UA,0.7,false,Ukraine|Ukrainian|Kyiv|Kiev|Zelenskiy|Zelensky
+country:BY,Belarus,country,,,BY,0.4,false,Belarus|Belarusian|Minsk
+country:CN,China,country,,,CN,0.9,false,China|Chinese|Beijing
+country:TW,Taiwan,country,,,TW,0.6,false,Taiwan|Taiwanese
+country:DE,Germany,country,,,DE,0.8,false,Germany|German|Berlin
+country:GB,United Kingdom,country,,,GB,0.8,true,United Kingdom|Britain|British|UK|U.K.
+country:FR,France,country,,,FR,0.7,false,France|French
+country:IT,Italy,country,,,IT,0.6,false,Italy|Italian
+country:PL,Poland,country,,,PL,0.5,false,Poland|Polish
+country:TR,Turkey,country,,,TR,0.5,false,Turkey|Turkish|Turkiye
+country:IN,India,country,,,IN,0.7,false,India|Indian
+country:JP,Japan,country,,,JP,0.7,false,Japan|Japanese
+country:EU,European Union,country,,,EU,0.9,true,European Union|EU|eurozone|euro zone|Europe|European
+sector:energy,Energy,sector,,energy,,0.6,false,energy sector|energy stocks|energy companies|oil companies|oil majors
+sector:financials,Financials,sector,,financials,,0.7,false,banks|banking|lenders|bank stocks|financial sector|financial system
+sector:technology,Technology,sector,,technology,,0.5,false,tech stocks|technology stocks|tech sector|chipmakers|semiconductors|chip shortage
+sector:industrials,Industrials,sector,,industrials,,0.5,false,airlines|aerospace|defense stocks|defence stocks|automakers|carmakers
+sector:materials,Materials,sector,,materials,,0.5,false,metals|mining|miners|steel|aluminium|aluminum|nickel|palladium|wheat|grain|fertilizer|fertiliser
+sector:real_estate,Real Estate,sector,,real_estate,,0.4,false,real estate|property developers|homebuilders|housing market
+sector:utilities,Utilities,sector,,utilities,,0.5,false,utilities|power prices|electricity prices|power companies
+commodity:oil,Crude Oil,commodity,,energy,,0.8,false,oil prices|oil price|crude oil|crude|Brent|WTI|oil|OPEC|OPEC+
+commodity:gas,Natural Gas,commodity,,energy,,0.7,false,natural gas|gas prices|gas supplies|LNG|Nord Stream 2|Nord Stream
+commodity:gold,Gold,commodity,,materials,,0.4,false,gold prices|gold
+central_bank:FED,Federal Reserve,central_bank,,,US,1.0,true,Federal Reserve|Fed|FOMC|Powell
+central_bank:ECB,European Central Bank,central_bank,,,EU,0.9,true,European Central Bank|ECB|Lagarde
+central_bank:BOE,Bank of England,central_bank,,,GB,0.8,true,Bank of England|BoE|BOE
+central_bank:CBR,Bank of Russia,central_bank,,,RU,0.7,false,Bank of Russia|Russian central bank|Russia's central bank
+central_bank:RBI,Reserve Bank of India,central_bank,,,IN,0.7,true,Reserve Bank of India|RBI
+index:GLOBAL,Global Markets,index,,,,0.8,false,Wall Street|S&P 500|Nasdaq|Dow Jones|global markets|world markets|stock markets|equity markets|bond markets|global economy

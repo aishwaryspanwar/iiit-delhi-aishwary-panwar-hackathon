@@ -1,0 +1,122 @@
+classes:
+  geopolitical: Geopolitical
+  macroeconomic: Macroeconomic
+  credit_event: Credit Event
+  commodity_energy: Commodity/Energy
+  regulatory: Regulatory
+  merger_acquisition: Merger/Acquisition
+  earnings_corporate: Earnings/Corporate
+  product_launch: Product Launch
+  other: Other
+priority:
+  - credit_event
+  - geopolitical
+  - macroeconomic
+  - commodity_energy
+  - regulatory
+  - merger_acquisition
+  - earnings_corporate
+  - product_launch
+  - other
+min_score: 1.0
+scope_precedence:
+  default: [single_name, sector, country, macro]
+  geopolitical: [country, sector, single_name, macro]
+  macroeconomic: [macro, country, sector, single_name]
+  commodity_energy: [sector, country, single_name, macro]
+  credit_event: [single_name, country, sector, macro]
+actor_countries: [country:US, country:EU, country:GB]
+confidence_saturation: 2.0
+rules:
+  - id: GEO-001
+    class: geopolitical
+    weight: 2.0
+    patterns: ['\binvad(e|es|ed|ing)\b', '\binvasion\b']
+  - id: GEO-002
+    class: geopolitical
+    weight: 1.5
+    patterns: ['\bsanction(s|ed|ing)?\b']
+  - id: GEO-003
+    class: geopolitical
+    weight: 1.5
+    patterns: ['\b(war|warfare|military|troops|missiles?|shelling|airstrikes?|attack(s|ed)?)\b']
+  - id: GEO-004
+    class: geopolitical
+    weight: 1.0
+    patterns: ['\b(nato|ceasefire|peace talks|refugees?|annex(ation|ed)?|conflict|tensions?)\b']
+  - id: GEO-005
+    class: geopolitical
+    weight: 1.0
+    patterns: ['\bswift\b', '\bexport controls?\b', '\basset freezes?\b', '\bfrozen reserves\b']
+  - id: MAC-001
+    class: macroeconomic
+    weight: 2.0
+    patterns: ['\b(rate hikes?|raises? (interest )?rates|hikes? (interest )?rates|rate increases?|basis[- ]points?|bps)\b', '\b(key|policy|benchmark) (interest )?rates?\b', '\binterest rates?\b']
+  - id: MAC-002
+    class: macroeconomic
+    weight: 1.5
+    patterns: ['\b(inflation|cpi|consumer prices|stagflation)\b']
+  - id: MAC-003
+    class: macroeconomic
+    weight: 1.0
+    patterns: ['\b(gdp|recession|unemployment|jobs report|payrolls|economic growth|slowdown)\b']
+  - id: MAC-004
+    class: macroeconomic
+    weight: 1.0
+    patterns: ['\b(treasury yields?|bond yields?|yield curve|monetary policy|quantitative tightening|tightening)\b']
+  - id: CRD-001
+    class: credit_event
+    weight: 2.5
+    patterns: ['\bdefault(s|ed|ing)?\b', '\bmissed (a )?(coupon|payment|interest payment)\b']
+  - id: CRD-002
+    class: credit_event
+    weight: 2.0
+    patterns: ['\bdowngrad(e|es|ed|ing)\b', '\bjunk( status)?\b', '\bcredit watch\b', '\bnegative outlook\b']
+  - id: CRD-003
+    class: credit_event
+    weight: 2.0
+    patterns: ['\b(bankrupt(cy)?|insolven(t|cy)|chapter 11|restructuring of debt|debt restructuring)\b']
+  - id: CRD-004
+    class: credit_event
+    weight: 1.0
+    patterns: ['\b(credit spreads?|bond spreads?|credit default swaps?|cds)\b']
+  - id: COM-001
+    class: commodity_energy
+    weight: 1.5
+    patterns: ['\b(oil|crude|brent|wti|natural gas|lng|gasoline)\b']
+  - id: COM-002
+    class: commodity_energy
+    weight: 1.0
+    patterns: ['\b(wheat|nickel|aluminium|aluminum|palladium|metals|commodit(y|ies)|fertili[sz]er)\b']
+  - id: COM-003
+    class: commodity_energy
+    weight: 1.0
+    patterns: ['\b(opec\+?|barrel|energy prices|supply shock|price spike)\b']
+  - id: REG-001
+    class: regulatory
+    weight: 1.5
+    patterns: ['\b(regulator(s|y)?|antitrust|fine[ds]?|probe|investigation|sec charges|lawsuit)\b']
+  - id: REG-002
+    class: regulatory
+    weight: 1.0
+    patterns: ['\b(new rules?|legislation|ban(s|ned)?|crackdown|compliance)\b']
+  - id: MNA-001
+    class: merger_acquisition
+    weight: 2.0
+    patterns: ['\b(acquir(e|es|ed|ing)|acquisition|takeover|merger|buyout|to buy)\b']
+  - id: MNA-002
+    class: merger_acquisition
+    weight: 1.0
+    patterns: ['\b(deal valued|all-cash deal|bid for|stake in)\b']
+  - id: ERN-001
+    class: earnings_corporate
+    weight: 1.5
+    patterns: ['\b(earnings|quarterly results|revenue|profit|eps|guidance|beats estimates|misses estimates)\b']
+  - id: ERN-002
+    class: earnings_corporate
+    weight: 1.0
+    patterns: ['\b(stock split|buyback|dividend|layoffs|ceo|deliveries)\b']
+  - id: PRD-001
+    class: product_launch
+    weight: 1.5
+    patterns: ['\b(launch(es|ed)?|unveil(s|ed)?|introduc(es|ed)|rolls? out|new model|release(s|d)?)\b']

@@ -1,0 +1,82 @@
+max_length: 500
+outlet_suffixes:
+  - Reuters
+  - Bloomberg
+  - CNBC
+  - Financial Times
+  - FT
+  - WSJ
+  - MarketWatch
+  - Yahoo Finance
+  - Business Insider
+  - Forbes
+  - The Guardian
+  - BBC News
+  - AP News
+  - CNN
+  - CNN Business
+  - The New York Times
+  - The Washington Post
+  - Fox Business
+  - The Economic Times
+  - Mint
+  - Business Standard
+  - Moneycontrol
+  - Barron's
+  - Nasdaq
+  - Benzinga
+  - Al Jazeera
+sentiment_lexicon_version: fin-lexicon-v1
+sentiment_lexicon:
+  invasion: -3.0
+  invade: -3.0
+  invades: -3.0
+  invaded: -3.0
+  sanctions: -2.0
+  sanctioned: -2.0
+  default: -2.5
+  defaults: -2.5
+  defaulted: -3.0
+  downgrade: -2.5
+  downgrades: -2.5
+  downgraded: -2.5
+  junk: -2.0
+  bankruptcy: -3.0
+  insolvency: -3.0
+  plunge: -2.5
+  plunges: -2.5
+  plunged: -2.5
+  tumble: -2.0
+  tumbles: -2.0
+  slump: -2.0
+  slumps: -2.0
+  sell-off: -2.0
+  selloff: -2.0
+  recession: -2.5
+  stagflation: -2.5
+  inflation: -1.0
+  hike: -0.8
+  hikes: -0.8
+  tightening: -1.0
+  volatility: -1.0
+  shortage: -1.5
+  shortages: -1.5
+  war: -3.0
+  shelling: -3.0
+  missiles: -2.0
+  beats: 1.5
+  rally: 2.0
+  rallies: 2.0
+  rebound: 1.5
+  rebounds: 1.5
+  upgrade: 2.0
+  upgraded: 2.0
+  ceasefire: 1.5
+  interest: 0.0
+  interests: 0.0
+  share: 0.0
+  shares: 0.0
+  fund: 0.0
+  funds: 0.0
+  credit: 0.0
+  growth: 0.5
