@@ -90,6 +90,11 @@ def render(dataset: str) -> None:
     cols[1].metric("After stress", musd(totals["value_after"]), delta=f"{totals['pnl_pct']:+.2%}")
     cols[2].metric("Stress P&L", musd(totals["pnl"]))
     cols[3].metric("In-scope positions", run["in_scope_positions"])
+    loan_views = run["loan_loss_views"]
+    st.caption(
+        f"Loans are held at amortised cost: their P&L is the change in 1-year expected loss from rating migration ({musd(loan_views['one_year_el_change'])}). "
+        f"On a lifetime-EL view (IFRS 9 stage-2 style sensitivity) the same downgrades cost {musd(loan_views['lifetime_el_change'])}."
+    )
     st.text(run["explanation"])
     by_asset = pd.DataFrame(run["by_asset_class"])
     left, right = st.columns(2)

@@ -14,7 +14,7 @@ def scope_target_names(event: dict) -> str:
     return f"{label} ({', '.join(refinements)})" if refinements else label
 
 
-def explanation_text(event: dict, signals_by_id: dict[str, dict], summary: dict, totals: dict, top_losses: list[dict]) -> str:
+def explanation_text(event: dict, signals_by_id: dict[str, dict], summary: dict, totals: dict, top_losses: list[dict], loan_views: dict) -> str:
     lead = signals_by_id.get(event["representative_signal_ids"][0], {})
     rules = sorted({r for sid in event["representative_signal_ids"] for r in signals_by_id.get(sid, {}).get("event", {}).get("matched_rules", [])})
     headline = lead.get("text") or f"signal {lead.get('signal_id', 'n/a')}"
@@ -30,6 +30,8 @@ def explanation_text(event: dict, signals_by_id: dict[str, dict], summary: dict,
         f"Scope: {event['scope']} -> {scope_line}. "
         f"Shocks at severity multiplier {summary['multiplier']:.2f}: equities {summary['equity_market']:+.1%} x beta, "
         f"rates {summary['rates_bp']:+.0f}bp, IG spreads {summary['spread_bp']['IG']:+.0f}bp, HY spreads {summary['spread_bp']['HY']:+.0f}bp, "
-        f"in-scope add-on {summary['in_scope']['spread_bp']:+.0f}bp and {summary['in_scope']['rating_notches']} notch downgrade(s). "
-        f"Portfolio value moves {format_musd(totals['pnl'])} ({totals['pnl_pct']:+.2%}). Largest losses: {loss_line}."
+        f"implied vol {summary['vol_pts']:+.1f} pts, in-scope add-on {summary['in_scope']['spread_bp']:+.0f}bp and {summary['in_scope']['rating_notches']} notch downgrade(s). "
+        f"Portfolio value moves {format_musd(totals['pnl'])} ({totals['pnl_pct']:+.2%}). Largest losses: {loss_line}. "
+        f"Loan expected-loss change: {format_musd(loan_views['one_year_el_change'])} on a 1-year view, "
+        f"{format_musd(loan_views['lifetime_el_change'])} on a lifetime (IFRS 9 stage-2 style) view."
     )

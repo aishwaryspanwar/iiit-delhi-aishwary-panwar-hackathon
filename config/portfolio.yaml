@@ -59,3 +59,12 @@ equities:
   - {ticker: BA, beta: 1.4}
   - {ticker: NOC, beta: 0.7}
   - {ticker: F, beta: 1.3}
+options:
+  underlying_price: 100.0
+  multiplier: 100
+  risk_free_rate: 0.01
+  positions:
+    - {ticker: TSLA, option_type: put, contracts: 1500, strike_pct: 0.90, expiry_years: 0.25, implied_vol: 0.60}
+    - {ticker: AAPL, option_type: put, contracts: 4000, strike_pct: 0.95, expiry_years: 0.50, implied_vol: 0.30}
+    - {ticker: MSFT, option_type: call, contracts: 3000, strike_pct: 1.05, expiry_years: 0.50, implied_vol: 0.28}
+    - {ticker: BA, option_type: call, contracts: -2000, strike_pct: 1.10, expiry_years: 0.25, implied_vol: 0.45}

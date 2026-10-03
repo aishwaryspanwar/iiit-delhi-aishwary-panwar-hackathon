@@ -25,8 +25,9 @@ def impact_timeline(events: pd.DataFrame, threshold: float, cutoff: pd.Timestamp
         figure.add_trace(go.Scatter(
             x=subset["t_start"], y=subset["impact"], mode="markers", name=status,
             marker={"size": 8 + subset["n_items"].clip(upper=12) * 1.5, "color": color, "line": {"width": 2, "color": "rgba(252,252,251,0.9)"}},
-            customdata=subset[["class_name", "scope", "n_items", "n_outlets", "confidence_mean", "sentiment_mean"]].to_numpy(),
-            hovertemplate="<b>%{customdata[0]}</b> · %{customdata[1]}<br>Impact %{y:.1f} · %{customdata[2]} items · %{customdata[3]} outlets"
+            customdata=subset[["class_name", "scope", "n_items", "n_outlets", "confidence_mean", "sentiment_mean", "severity", "breadth", "abnormal_volume", "target"]].to_numpy(),
+            hovertemplate="<b>%{customdata[0]}</b> · %{customdata[1]}: %{customdata[9]}<br>Impact %{y:.1f} · %{customdata[2]} items · %{customdata[3]} outlets"
+                          "<br>Severity %{customdata[6]:.2f} · Breadth %{customdata[7]:.2f} · Abnormal volume %{customdata[8]:.2f}"
                           "<br>Confidence %{customdata[4]:.2f} · Sentiment %{customdata[5]:+.2f}<br>%{x|%d %b %Y}<extra></extra>",
         ))
     figure.add_hline(y=threshold, line={"color": "#898781", "width": 1, "dash": "dot"}, annotation_text=f"Trigger threshold > {threshold:g}", annotation_position="top left")
@@ -41,6 +42,9 @@ def render(dataset: str) -> None:
     events = load_events(dataset)
     stress = load_stress(dataset)
     events["status"] = event_status(events, stress)
+    components = pd.DataFrame(events["impact_components"].tolist(), index=events.index)
+    events = events.join(components)
+    events["target"] = events["scope_targets"].map(lambda targets: targets[0] if targets else "none")
     days = sorted(signals["published_at"].dt.normalize().unique())
     st.subheader("Signal feed — replay")
     st.caption("Historical replay: the scrubber moves the clock forward; only signals published up to that day are shown.")

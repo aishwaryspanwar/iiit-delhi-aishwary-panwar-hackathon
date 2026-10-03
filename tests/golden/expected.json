@@ -1,0 +1,114 @@
+{
+ "golden-commodity-oil": {
+  "by_asset_class": {
+   "bond": -20639503.34,
+   "equity": -21913706.05,
+   "irs": 2508651.68,
+   "loan": 0.0,
+   "option": 1782754.64
+  },
+  "by_factor": {
+   "equity": -21013484.81,
+   "migration": 0.0,
+   "rates": -4663850.31,
+   "second_order": 358564.56,
+   "spread": -13771107.35,
+   "vol": 828074.85
+  },
+  "in_scope_positions": [
+   "BD006",
+   "BD007",
+   "LN001",
+   "LN003",
+   "LN004"
+  ],
+  "loan_loss_views": {
+   "lifetime_el_change": 0.0,
+   "one_year_el_change": 0.0
+  },
+  "multiplier": 0.5833,
+  "total_pnl": -38261803.07
+ },
+ "golden-credit-financials": {
+  "by_asset_class": {
+   "bond": -78302359.93,
+   "equity": -22907000.35,
+   "irs": -2150309.73,
+   "loan": -545625.0,
+   "option": 2549544.47
+  },
+  "by_factor": {
+   "equity": -21990107.74,
+   "migration": -7902598.78,
+   "rates": 3997654.51,
+   "second_order": 10171371.69,
+   "spread": -87110800.67,
+   "vol": 1478730.43
+  },
+  "in_scope_positions": [
+   "BD008",
+   "BD009",
+   "LN002",
+   "LN008"
+  ],
+  "loan_loss_views": {
+   "lifetime_el_change": -3583992.53,
+   "one_year_el_change": -545625.0
+  },
+  "multiplier": 0.8333,
+  "total_pnl": -101355750.55
+ },
+ "golden-geo-russia": {
+  "by_asset_class": {
+   "bond": -53427209.05,
+   "equity": -45759750.0,
+   "irs": -3870712.35,
+   "loan": -6687045.0,
+   "option": 4313059.08
+  },
+  "by_factor": {
+   "equity": -43925981.85,
+   "migration": -14274096.96,
+   "rates": 7196065.97,
+   "second_order": 5574293.29,
+   "spread": -61998303.7,
+   "vol": 1996365.94
+  },
+  "in_scope_positions": [
+   "BD004",
+   "LN001",
+   "LN002",
+   "LN007"
+  ],
+  "loan_loss_views": {
+   "lifetime_el_change": -22204277.96,
+   "one_year_el_change": -6687045.0
+  },
+  "multiplier": 0.75,
+  "total_pnl": -105431657.32
+ },
+ "golden-macro-fed": {
+  "by_asset_class": {
+   "bond": -35187651.77,
+   "equity": -25260862.98,
+   "irs": 5734675.39,
+   "loan": 0.0,
+   "option": 2192967.21
+  },
+  "by_factor": {
+   "equity": -24362835.03,
+   "migration": 0.0,
+   "rates": -10661371.52,
+   "second_order": 1231980.18,
+   "spread": -19675118.45,
+   "vol": 946472.65
+  },
+  "in_scope_positions": [],
+  "loan_loss_views": {
+   "lifetime_el_change": 0.0,
+   "one_year_el_change": 0.0
+  },
+  "multiplier": 0.6667,
+  "total_pnl": -52520872.16
+ }
+}

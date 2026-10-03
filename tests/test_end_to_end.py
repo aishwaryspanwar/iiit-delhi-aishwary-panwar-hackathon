@@ -41,12 +41,12 @@ def test_portfolio_regenerates_byte_identical(tmp_path):
     regenerated_path = tmp_path / "portfolio.csv"
     write_portfolio(generate_portfolio(), regenerated_path)
     assert digest(regenerated_path) == digest(PORTFOLIO_PATH)
-    assert len(load_portfolio()) == 40
+    assert len(load_portfolio()) == 44
 
 
 def test_portfolio_has_required_asset_mix():
     portfolio = load_portfolio()
-    assert {"loan", "bond", "irs", "equity"} <= set(portfolio["asset_class"])
+    assert {"loan", "bond", "irs", "equity", "option"} <= set(portfolio["asset_class"])
     assert (portfolio["market_value_usd"] > 0).sum() > 30
 
 

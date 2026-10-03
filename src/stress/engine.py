@@ -3,13 +3,13 @@ import pandas as pd
 from src.stress.explain import explanation_text
 from src.stress.shocks import position_shocks, scenario_summary, shock_config
 from src.stress.trigger import evaluate_triggers
-from src.stress.valuation import FACTORS, revalue
+from src.stress.valuation import FACTORS, loan_lifetime_el_change, revalue
 
 POSITION_FIELDS = ["position_id", "asset_class", "name", "sector", "country", "rating", "ticker"]
 
 
 def rounded(value: float) -> float:
-    return round(float(value), 2)
+    return round(float(value), 2) + 0.0
 
 
 def grouped_totals(frame: pd.DataFrame, column: str) -> list[dict]:
@@ -29,6 +29,10 @@ def run_stress(portfolio: pd.DataFrame, event: dict, signals_by_id: dict[str, di
     totals = {"value_before": rounded(before), "value_after": rounded(before + pnl), "pnl": rounded(pnl), "pnl_pct": round(pnl / before, 6)}
     summary = scenario_summary(event["class"], event["impact"])
     top_losses = detail.sort_values(["pnl", "position_id"]).head(3)[["position_id", "name", "pnl"]].to_dict("records")
+    loan_views = {
+        "one_year_el_change": rounded(valued.loc[valued["asset_class"] == "loan", "migration"].sum()),
+        "lifetime_el_change": rounded(loan_lifetime_el_change(portfolio, shocks)),
+    }
     positions = []
     for record in detail.sort_values("position_id").to_dict("records"):
         positions.append({k: (rounded(v) if isinstance(v, float) else (bool(v) if k == "in_scope" else v)) for k, v in record.items()})
@@ -44,8 +48,9 @@ def run_stress(portfolio: pd.DataFrame, event: dict, signals_by_id: dict[str, di
         "totals": totals,
         "by_asset_class": grouped_totals(valued, "asset_class"),
         "by_factor": {factor: rounded(valued[factor].sum()) for factor in FACTORS},
+        "loan_loss_views": loan_views,
         "positions": positions,
-        "explanation": explanation_text(event, signals_by_id, summary, totals, top_losses),
+        "explanation": explanation_text(event, signals_by_id, summary, totals, top_losses, loan_views),
     }
 
 

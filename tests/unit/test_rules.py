@@ -46,7 +46,16 @@ FALSE_POSITIVE_GUARDS = [
     ("Fasano adds Brazilian glamour to fine dining scene", "regulatory"),
     ("3 top tech stocks to buy in February", "merger_acquisition"),
     ("West Belfast murder investigation after stabbing", "regulatory"),
+    ("Russia launches full-scale invasion of Ukraine", "product_launch"),
+    ("EU unveils new sanctions package against Moscow", "product_launch"),
 ]
+
+
+def test_military_launch_is_not_a_product_launch_signal():
+    result = classify("Russia launches full-scale invasion of Ukraine as explosions heard in Kyiv")
+    assert result.event_class == "geopolitical"
+    assert "PRD-001" not in result.matched_rules
+    assert result.confidence == 1.0
 
 
 def test_every_rule_has_a_positive_example():

@@ -135,4 +135,4 @@ rules:
   - id: PRD-001
     class: product_launch
     weight: 1.5
-    patterns: ['\b(launch(es|ed)?|unveil(s|ed)?|introduc(es|ed)|rolls? out|new model|release(s|d)?)\b']
+    patterns: ['\b(launch(es|ed)?|unveil(s|ed)?|introduc(es|ed)|rolls? out|new model|release(s|d)?)\b(?!.{0,30}\b(invasion|attacks?|offensive|assault|strikes?|missiles?|operation|probe|investigation|sanctions?|war|crackdown|counter-?offensive)\b)']

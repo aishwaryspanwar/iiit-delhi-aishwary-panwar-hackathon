@@ -114,7 +114,7 @@ def position_shocks(portfolio: pd.DataFrame, event_class: str, impact: float, sc
         "d_migration_spread_bp": np.where(rated, new_spread - old_spread, 0.0),
         "pd_before": portfolio["rating"].map(table["pd_1y"]).fillna(0.0).to_numpy(),
         "pd_after": new_rating.map(table["pd_1y"]).fillna(0.0).to_numpy(),
-        "equity_return": np.where(portfolio["asset_class"].isin(["equity"]).to_numpy(), equity_return, 0.0),
+        "equity_return": np.where(portfolio["asset_class"].isin(["equity", "option"]).to_numpy(), equity_return, 0.0),
         "d_vol_pts": np.full(len(portfolio), scenario["vol_pts"] * multiplier),
     })
 

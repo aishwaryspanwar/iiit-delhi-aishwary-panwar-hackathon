@@ -1,0 +1,6 @@
+[
+  {"cluster_id": "golden-geo-russia", "class": "geopolitical", "impact": 8.5, "scope": "country", "scope_targets": ["country:RU", "country:UA"], "t_start": "2022-02-24T03:00:00Z", "representative_signal_ids": ["none"], "confidence_mean": 0.9, "sentiment_mean": -0.6, "n_items": 50, "n_outlets": 20},
+  {"cluster_id": "golden-macro-fed", "class": "macroeconomic", "impact": 8.0, "scope": "macro", "scope_targets": ["central_bank:FED"], "t_start": "2022-03-16T18:00:00Z", "representative_signal_ids": ["none"], "confidence_mean": 0.9, "sentiment_mean": -0.3, "n_items": 20, "n_outlets": 10},
+  {"cluster_id": "golden-credit-financials", "class": "credit_event", "impact": 9.0, "scope": "sector", "scope_targets": ["sector:financials"], "t_start": "2022-03-09T12:00:00Z", "representative_signal_ids": ["none"], "confidence_mean": 0.9, "sentiment_mean": -0.8, "n_items": 10, "n_outlets": 6},
+  {"cluster_id": "golden-commodity-oil", "class": "commodity_energy", "impact": 7.5, "scope": "sector", "scope_targets": ["commodity:oil"], "t_start": "2022-03-07T09:00:00Z", "representative_signal_ids": ["none"], "confidence_mean": 0.9, "sentiment_mean": -0.5, "n_items": 15, "n_outlets": 8}
+]
