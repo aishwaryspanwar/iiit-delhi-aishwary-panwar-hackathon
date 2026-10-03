@@ -66,3 +66,51 @@ central_bank:BOE,Bank of England,central_bank,,,GB,0.8,true,Bank of England|BoE|
 central_bank:CBR,Bank of Russia,central_bank,,,RU,0.7,false,Bank of Russia|Russian central bank|Russia's central bank
 central_bank:RBI,Reserve Bank of India,central_bank,,,IN,0.7,true,Reserve Bank of India|RBI
 index:GLOBAL,Global Markets,index,,,,0.8,false,Wall Street|S&P 500|Nasdaq|Dow Jones|global markets|world markets|stock markets|equity markets|bond markets|global economy
+company:GS,Goldman Sachs,company,,financials,US,0.7,false,Goldman Sachs|Goldman
+company:MS,Morgan Stanley,company,,financials,US,0.7,false,Morgan Stanley
+company:C,Citigroup,company,,financials,US,0.7,false,Citigroup|Citibank|Citi
+company:BAC,Bank of America,company,,financials,US,0.7,false,Bank of America|BofA
+company:HSBC,HSBC,company,,financials,GB,0.7,true,HSBC
+company:BARC,Barclays,company,,financials,GB,0.6,false,Barclays
+company:DBK,Deutsche Bank,company,,financials,DE,0.7,false,Deutsche Bank
+company:BNP,BNP Paribas,company,,financials,FR,0.7,false,BNP Paribas|BNP
+company:CSGN,Credit Suisse,company,,financials,CH,0.7,false,Credit Suisse
+company:UBS,UBS,company,,financials,CH,0.6,true,UBS
+company:RBI_AG,Raiffeisen Bank International,company,,financials,AT,0.6,false,Raiffeisen
+company:UCG,UniCredit,company,,financials,IT,0.6,false,UniCredit
+company:GLE,Societe Generale,company,,financials,FR,0.6,false,Societe Generale|SocGen
+company:TTE,TotalEnergies,company,,energy,FR,0.7,false,TotalEnergies|Total Energies
+company:EQNR,Equinor,company,,energy,NO,0.6,false,Equinor
+company:ARAMCO,Saudi Aramco,company,,energy,SA,0.8,false,Saudi Aramco|Aramco
+company:NORNICKEL,Norilsk Nickel,company,,materials,RU,0.7,false,Norilsk Nickel|Nornickel|Norilsk
+company:RUSAL,Rusal,company,,materials,RU,0.6,false,Rusal
+company:NOVATEK,Novatek,company,,energy,RU,0.6,false,Novatek
+company:AFLT,Aeroflot,company,,industrials,RU,0.5,false,Aeroflot
+company:YNDX,Yandex,company,,communication,RU,0.5,false,Yandex
+company:NVDA,Nvidia,company,,technology,US,0.6,false,Nvidia
+company:BABA,Alibaba,company,,consumer,CN,0.6,false,Alibaba
+company:BIDU,Baidu,company,,communication,CN,0.5,false,Baidu
+company:VOW,Volkswagen,company,,consumer,DE,0.6,false,Volkswagen|VW
+company:UNIPER,Uniper,company,,utilities,DE,0.5,false,Uniper
+country:IR,Iran,country,,,IR,0.6,false,Iran|Iranian|Tehran
+country:SA,Saudi Arabia,country,,,SA,0.7,false,Saudi Arabia|Saudi|Riyadh
+country:IL,Israel,country,,,IL,0.5,false,Israel|Israeli
+country:HU,Hungary,country,,,HU,0.4,false,Hungary|Hungarian|Budapest
+country:KZ,Kazakhstan,country,,,KZ,0.4,false,Kazakhstan|Kazakh
+country:MD,Moldova,country,,,MD,0.3,false,Moldova|Moldovan
+country:FI,Finland,country,,,FI,0.4,false,Finland|Finnish
+country:SE,Sweden,country,,,SE,0.4,false,Sweden|Swedish
+country:CH,Switzerland,country,,,CH,0.6,false,Switzerland|Swiss
+country:AT,Austria,country,,,AT,0.4,false,Austria|Austrian
+country:NO,Norway,country,,,NO,0.4,false,Norway|Norwegian
+country:CA,Canada,country,,,CA,0.6,false,Canada|Canadian|Ottawa
+country:AU,Australia,country,,,AU,0.5,false,Australia|Australian
+country:BR,Brazil,country,,,BR,0.5,false,Brazil|Brazilian
+country:KR,South Korea,country,,,KR,0.5,false,South Korea|South Korean|Seoul
+country:KP,North Korea,country,,,KP,0.4,false,North Korea|North Korean|Pyongyang
+country:MX,Mexico,country,,,MX,0.4,false,Mexico|Mexican
+country:SG,Singapore,country,,,SG,0.4,false,Singapore
+country:HK,Hong Kong,country,,,HK,0.5,false,Hong Kong
+sector:shipping,Shipping,sector,,industrials,,0.4,false,shipping|shipowners|container rates|freight rates
+sector:insurance,Insurance,sector,,financials,,0.4,false,insurers|reinsurers|insurance sector
+index:MOEX,Moscow Exchange,index,,,RU,0.6,false,Moscow Exchange|MOEX|Moscow stock exchange|Russian stocks|Russian stock market

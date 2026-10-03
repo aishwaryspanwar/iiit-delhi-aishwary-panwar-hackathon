@@ -78,3 +78,19 @@ def test_confidence_bounds():
     result = classify("Russia invades Ukraine as troops attack and sanctions follow")
     assert 0.0 <= result.confidence <= 1.0
     assert result.confidence == 1.0
+
+
+@pytest.mark.parametrize(
+    ("text", "expected", "absent"),
+    [
+        ("Deutsche Bank cuts Russia exposure", "company:DBK", "country:DE"),
+        ("Credit Suisse shares slide", "company:CSGN", "country:CH"),
+        ("Saudi Aramco raises output", "company:ARAMCO", "country:SA"),
+        ("Nornickel shares halted in Moscow", "company:NORNICKEL", None),
+    ],
+)
+def test_expanded_lexicon(text, expected, absent):
+    found = ids(text)
+    assert expected in found
+    if absent:
+        assert absent not in found
