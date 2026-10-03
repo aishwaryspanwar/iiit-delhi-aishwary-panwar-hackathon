@@ -1,0 +1,61 @@
+portfolio_version: portfolio-v1
+seed: 20220224
+currency: USD
+ranges:
+  loan_notional_musd: [60, 260]
+  loan_maturity_years: [1, 7]
+  bond_notional_musd: [30, 160]
+  bond_maturity_years: [2, 12]
+  bond_price_pct: [94.0, 103.0]
+  irs_notional_musd: [150, 450]
+  irs_maturity_years: [2, 10]
+  equity_value_musd: [15, 70]
+lgd:
+  secured: 0.30
+  unsecured: 0.45
+yield_for_convexity: 0.04
+frn_rate_duration: 0.25
+loans:
+  - {sector: energy, country: RU, rating: BB+, secured: false}
+  - {sector: financials, country: RU, rating: BBB-, secured: false}
+  - {sector: energy, country: DE, rating: A-, secured: true}
+  - {sector: energy, country: US, rating: BBB, secured: true}
+  - {sector: utilities, country: DE, rating: BBB+, secured: true}
+  - {sector: industrials, country: PL, rating: BBB-, secured: false}
+  - {sector: materials, country: UA, rating: B, secured: true}
+  - {sector: financials, country: GB, rating: A, secured: false}
+  - {sector: consumer, country: IN, rating: BBB-, secured: false}
+  - {sector: real_estate, country: US, rating: BB, secured: true}
+  - {sector: technology, country: US, rating: A+, secured: false}
+  - {sector: industrials, country: TR, rating: B+, secured: true}
+bonds:
+  - {sector: sovereign, country: US, rating: AA+, coupon_type: fixed}
+  - {sector: sovereign, country: DE, rating: AAA, coupon_type: fixed}
+  - {sector: sovereign, country: IT, rating: BBB, coupon_type: fixed}
+  - {sector: sovereign, country: RU, rating: BBB-, coupon_type: fixed}
+  - {sector: sovereign, country: TR, rating: B+, coupon_type: fixed}
+  - {sector: energy, country: US, rating: BBB+, coupon_type: fixed}
+  - {sector: energy, country: GB, rating: A, coupon_type: fixed}
+  - {sector: financials, country: US, rating: A-, coupon_type: frn}
+  - {sector: financials, country: FR, rating: A, coupon_type: frn}
+  - {sector: utilities, country: FR, rating: BBB, coupon_type: fixed}
+  - {sector: materials, country: PL, rating: BB, coupon_type: fixed}
+  - {sector: consumer, country: US, rating: BB-, coupon_type: frn}
+irs:
+  - {direction: payer}
+  - {direction: payer}
+  - {direction: payer}
+  - {direction: receiver}
+  - {direction: receiver}
+  - {direction: receiver}
+equities:
+  - {ticker: TSLA, beta: 2.0}
+  - {ticker: AAPL, beta: 1.2}
+  - {ticker: MSFT, beta: 1.1}
+  - {ticker: AMZN, beta: 1.3}
+  - {ticker: TSM, beta: 1.2}
+  - {ticker: META, beta: 1.3}
+  - {ticker: KO, beta: 0.6}
+  - {ticker: BA, beta: 1.4}
+  - {ticker: NOC, beta: 0.7}
+  - {ticker: F, beta: 1.3}

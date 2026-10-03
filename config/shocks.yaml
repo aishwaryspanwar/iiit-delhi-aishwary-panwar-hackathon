@@ -1,0 +1,47 @@
+shocks_version: shocks-v1
+trigger:
+  stress_classes: [geopolitical, macroeconomic, credit_event, commodity_energy, regulatory]
+  impact_threshold: 7.0
+  min_confidence: 0.6
+  max_sentiment: 0.1
+  cooldown_hours: 72
+  rearm_impact_delta: 1.0
+severity:
+  floor_multiplier: 0.5
+  max_rating_notches: 3
+scenarios:
+  geopolitical:
+    equity_market: -0.10
+    sector_excess: {energy: 0.08, materials: 0.03, financials: -0.04, industrials: -0.02, consumer: -0.02}
+    rates_bp: -30
+    spread_bp: {IG: 60, HY: 200}
+    vol_pts: 15
+    in_scope: {spread_bp: 250, rating_notches: -2, equity_excess: -0.15}
+  macroeconomic:
+    equity_market: -0.06
+    sector_excess: {technology: -0.04, real_estate: -0.04, communication: -0.02, financials: 0.01}
+    rates_bp: 50
+    spread_bp: {IG: 25, HY: 100}
+    vol_pts: 8
+    in_scope: {spread_bp: 0, rating_notches: 0, equity_excess: 0.0}
+  credit_event:
+    equity_market: -0.05
+    sector_excess: {financials: -0.03}
+    rates_bp: -15
+    spread_bp: {IG: 40, HY: 150}
+    vol_pts: 10
+    in_scope: {spread_bp: 300, rating_notches: -2, equity_excess: -0.20}
+  commodity_energy:
+    equity_market: -0.05
+    sector_excess: {energy: 0.10, materials: 0.05, industrials: -0.04, consumer: -0.03, utilities: -0.03}
+    rates_bp: 25
+    spread_bp: {IG: 20, HY: 80}
+    vol_pts: 8
+    in_scope: {spread_bp: 0, rating_notches: 0, equity_excess: 0.0}
+  regulatory:
+    equity_market: -0.02
+    sector_excess: {}
+    rates_bp: 0
+    spread_bp: {IG: 10, HY: 40}
+    vol_pts: 4
+    in_scope: {spread_bp: 75, rating_notches: -1, equity_excess: -0.08}
