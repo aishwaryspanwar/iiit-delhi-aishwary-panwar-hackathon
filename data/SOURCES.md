@@ -14,6 +14,8 @@ No real or confidential client data is used anywhere. The portfolio and every ra
 | `processed/<dataset>/signals_v1.jsonl` | **The engine's output contract**: one structured risk signal per de-duplicated item (sentiment, event class, impact with components, entities, scope). | Built by the engine | Derived | `python -m src.pipeline --dataset w1` |
 | `processed/<dataset>/events_v1.jsonl` | Event clusters (class × scope target × day) with cluster-level impact and breadth. | Built by the engine | Derived | same |
 | `processed/<dataset>/stress_results_v1.json` | Module B output: trigger decision for every event and full stress results for triggered ones. | Built by Module B | Derived | same |
+| `eval/labels_sheet.csv`, `eval/relabel_sheet.csv` | Blind labelling sheets (150 + 30 items) for the evaluation; no model outputs included. `labels_key.csv` / `relabel_key.csv` map items back to signals and sampling strata. | Sampled from `processed/w1` by `scripts/make_label_sheet.py` (seed 20221) | Derived | `python -m scripts.make_label_sheet` |
+| `eval/sentiment_finbert_w1.csv` | FinBERT sentiment score for every W1 signal, used to compare against the build's VADER + finance-lexicon sentiment. | `ProsusAI/finbert` at revision `4556d13`, run offline on CPU | Model: Apache-2.0 (source repo); scores derived | `python -m scripts.score_finbert --dataset w1` |
 | `../config/rating_table.csv` | Illustrative 1-year PDs and credit spreads by rating notch. | Illustrative values, monotone in rating, broadly in line with public long-run corporate default averages; PD floor 0.03% (Basel). | Ours | — |
 
 ## Assumptions about the data
