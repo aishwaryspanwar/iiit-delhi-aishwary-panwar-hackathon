@@ -31,3 +31,4 @@ cluster:
   baseline_days: 7
   default_baseline_mentions: 2
   warmup_days: 3
+  target_min_share: 0.2

@@ -1,6 +1,7 @@
 from collections import defaultdict
 from datetime import date, timedelta
 
+from src.riskengine.config import load_yaml
 from src.riskengine.impact import baseline_mentions, cluster_components, cluster_impact, rubric
 
 
@@ -30,13 +31,19 @@ def trailing_history(key: tuple[str, str, str, str], mentions_by_key: dict[tuple
     return history
 
 
-def ordered_targets(members: list[dict]) -> list[str]:
-    targets: list[str] = []
-    for member in members:
-        for target in member["scope_targets"]:
-            if target not in targets:
-                targets.append(target)
-    return targets
+def consensus_targets(primary: str, members: list[dict], event_class: str) -> list[str]:
+    if event_class in load_yaml("taxonomy_rules.yaml")["primary_target_only_classes"]:
+        return [primary] if primary != "none" else []
+    min_share = rubric()["cluster"]["target_min_share"]
+    counts: dict[str, int] = {}
+    first_seen: dict[str, int] = {}
+    for index, member in enumerate(members):
+        for target in set(member["scope_targets"]):
+            counts[target] = counts.get(target, 0) + 1
+            first_seen.setdefault(target, index)
+    kept = [t for t in counts if t != primary and counts[t] / len(members) >= min_share]
+    kept.sort(key=lambda t: (-counts[t], first_seen[t], t))
+    return ([primary] if primary != "none" else []) + kept
 
 
 def build_events(signals: list[dict]) -> list[dict]:
@@ -61,7 +68,7 @@ def build_events(signals: list[dict]) -> list[dict]:
             "cluster_id": cluster_id_for(key),
             "class": key[1],
             "scope": key[2],
-            "scope_targets": ordered_targets(members),
+            "scope_targets": consensus_targets(key[3], members, key[1]),
             "t_start": min(m["published_at"] for m in members),
             "t_end": max(m["published_at"] for m in members),
             "n_items": len(members),

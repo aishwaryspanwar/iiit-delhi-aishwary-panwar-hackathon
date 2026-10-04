@@ -81,3 +81,19 @@ def test_clusters_split_by_day_class_and_target():
     assert next_day["baseline_mentions"] == 2.0
     assert all(e["warmup"] for e in events)
     assert all(s["cluster_id"] for s in signals)
+
+
+def test_cluster_scope_keeps_only_consensus_targets():
+    signals = [signal(str(i), "2022-02-24", "geopolitical", "country:RU", 8.0, ["reuters.com"]) for i in range(10)]
+    for member in signals[:4]:
+        member["scope_targets"] = ["country:RU", "country:UA"]
+    signals[5]["scope_targets"] = ["country:RU", "country:PL", "sector:materials"]
+    event = build_events(signals)[0]
+    assert event["scope_targets"] == ["country:RU", "country:UA"]
+
+
+def test_credit_event_scope_is_primary_target_only():
+    signals = [signal(str(i), "2022-03-09", "credit_event", "country:RU", 8.0, ["reuters.com"]) for i in range(4)]
+    for member in signals:
+        member["scope_targets"] = ["country:RU", "country:UA"]
+    assert build_events(signals)[0]["scope_targets"] == ["country:RU"]

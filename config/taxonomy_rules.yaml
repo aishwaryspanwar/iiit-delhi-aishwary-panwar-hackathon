@@ -26,6 +26,7 @@ scope_precedence:
   commodity_energy: [sector, country, single_name, macro]
   credit_event: [single_name, country, sector, macro]
 actor_countries: [country:US, country:EU, country:GB]
+primary_target_only_classes: [credit_event]
 confidence_saturation: 2.0
 rules:
   - id: GEO-001

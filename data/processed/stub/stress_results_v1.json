@@ -1468,10 +1468,7 @@
    "scope": "country",
    "scope_targets": [
     "country:RU",
-    "country:UA",
-    "index:GLOBAL",
-    "company:AAPL",
-    "company:MSFT"
+    "country:UA"
    ],
    "shocks_applied": {
     "equity_market": -0.0767,
