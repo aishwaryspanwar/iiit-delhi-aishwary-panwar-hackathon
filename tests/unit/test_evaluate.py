@@ -3,7 +3,8 @@ from pathlib import Path
 
 import pytest
 
-from scripts.evaluate import accuracy, classification_report, cohen_kappa, compare_windows, evaluate, macro_f1, per_class_scores, percentile
+from scripts.evaluate import accuracy, bootstrap_interval, classification_report, cohen_kappa, compare_windows, evaluate, macro_f1, naive_keyword_class, per_class_scores, percentile, spearman
+from src.riskengine.config import config_hash
 
 REPO = Path(__file__).resolve().parents[2]
 
@@ -35,9 +36,40 @@ def test_majority_baseline():
     assert report["accuracy"] == 0.5
 
 
+COMMITTED = json.loads((REPO / "data" / "eval" / "metrics.json").read_text(encoding="utf-8"))
+
+
 def test_committed_metrics_are_current():
-    committed = json.loads((REPO / "data" / "eval" / "metrics.json").read_text(encoding="utf-8"))
-    assert evaluate("w1") == committed
+    assert evaluate() == COMMITTED
+
+
+def test_metrics_record_the_current_config():
+    assert COMMITTED["config_hash"] == config_hash()
+
+
+@pytest.mark.parametrize("split", ["w1_test", "w3_test"])
+def test_claim_event_classes_beat_majority_and_naive_baselines(split):
+    report = COMMITTED["splits"][split]["representative"]
+    assert report["event_class"]["macro_f1"] > report["event_class"]["majority_macro_f1"]
+    assert report["event_class"]["macro_f1"] > report["event_class_naive_keywords"]["macro_f1"]
+
+
+@pytest.mark.parametrize("split", ["w1_test", "w3_test"])
+def test_claim_finbert_is_the_better_sentiment_model(split):
+    report = COMMITTED["splits"][split]["representative"]
+    assert report["sentiment_finbert"]["macro_f1"] >= report["sentiment_vader"]["macro_f1"]
+
+
+def test_spearman_and_bootstrap_helpers():
+    assert spearman([1, 2, 3, 4], [10, 20, 30, 40]) == pytest.approx(1.0)
+    assert spearman([1, 2, 3, 4], [4, 3, 2, 1]) == pytest.approx(-1.0)
+    interval = bootstrap_interval(["a", "b", "a", "b"], ["a", "b", "a", "a"], accuracy)
+    assert 0.0 <= interval[0] <= interval[1] <= 1.0
+
+
+def test_naive_keyword_baseline():
+    assert naive_keyword_class("Oil prices jump") == "commodity_energy"
+    assert naive_keyword_class("Team wins final") == "other"
 
 
 def test_committed_window_comparison_is_current():

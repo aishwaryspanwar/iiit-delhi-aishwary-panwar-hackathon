@@ -37,7 +37,7 @@ Write anything ambiguous, e.g. "could be macro or geopolitical", "sarcasm", "not
 The test labels (W1 test, 150 items; W3 test, 120 items) are checked by a person in two stages. Use the same class and sentiment definitions as above.
 
 1. **Stage A (blind), `data/eval/human_verify_stage_a.csv`, 50 items.** A seeded random 25 items from each test set, with no other label shown. Fill `event_class` and `sentiment` from scratch. These answers measure how often the LLM annotator agrees with a person, with no anchoring.
-2. **Stage B (confirm or correct), `data/eval/human_verify_stage_b.csv`, the remaining items.** The LLM label is shown in `llm_event_class` and `llm_sentiment` and pre-filled in `event_class` and `sentiment`. Change the pre-filled columns where you disagree and add a short note.
+2. **Stage B (confirm or correct), `data/eval/human_verify_stage_b.csv`, the remaining items.** The LLM label is shown in `llm_event_class` and `llm_sentiment` and pre-filled in `event_class` and `sentiment`. Change the pre-filled columns where you disagree and add a short note. Put `y` in `reviewed` for every row you have checked, including rows you leave unchanged; rows without `y` are not counted as human-verified.
 
 The final test labels are the human answers from both stages. Development labels (`labels_w1_dev_sheet.csv`, 200 items) stay LLM-only and are used for tuning; the test sets are never used for tuning.
 

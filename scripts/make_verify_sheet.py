@@ -11,7 +11,7 @@ STAGE_A_PER_WINDOW = 25
 STAGE_A_PATH = EVAL_DIR / "human_verify_stage_a.csv"
 STAGE_B_PATH = EVAL_DIR / "human_verify_stage_b.csv"
 STAGE_A_FIELDS = ["verify_id", "window", "item_id", "source_type", "text", "event_class", "sentiment", "notes"]
-STAGE_B_FIELDS = ["verify_id", "window", "item_id", "source_type", "text", "llm_event_class", "llm_sentiment", "event_class", "sentiment", "notes"]
+STAGE_B_FIELDS = ["verify_id", "window", "item_id", "source_type", "text", "llm_event_class", "llm_sentiment", "event_class", "sentiment", "reviewed", "notes"]
 
 
 def read_rows(name: str) -> list[dict]:
@@ -61,7 +61,7 @@ def build_stage_b() -> None:
             rows.append({
                 "window": window, "item_id": row["item_id"], "source_type": row["source_type"], "text": row["text"],
                 "llm_event_class": row["event_class"], "llm_sentiment": row["sentiment"],
-                "event_class": row["event_class"], "sentiment": row["sentiment"], "notes": "",
+                "event_class": row["event_class"], "sentiment": row["sentiment"], "reviewed": "", "notes": "",
             })
     random.Random(SEED + 2).shuffle(rows)
     for index, row in enumerate(rows, start=1):
