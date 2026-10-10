@@ -1,11 +1,11 @@
-# React frontend (Phase 6, parallel to Streamlit)
+# React frontend
 
 A second presentation layer over the same Python engine. Streamlit (`src/app/dashboard.py`) remains the reference UI. Both read the same precomputed files in `data/processed/<dataset>/` through the same Python modules. React never re-implements scoring, triggers or valuation.
 
 ```
-config/ + data/processed/*.jsonl.gz + stress_results_v1.json
+config/ + data/processed/*.jsonl.gz + stress_results_v1.json + data/eval/*.json
                      │
-        Python core (src/riskengine, src/stress)
+        Python core (src/riskengine, src/stream, src/stress)
              │                         │
   Streamlit (src/app)        thin JSON API (src/api, stdlib http.server)
    port 8501                  port 8000, read-only + POST /api/score
@@ -52,16 +52,21 @@ Other scripts: `npm run typecheck`, `npm test` (Vitest), `npm run preview`. To u
 | GET | `/api/datasets/{id}/signals?until&class&source&sentiment&min_impact&q&sort&offset&limit` | `signals_v1`, filtered and paginated server-side (W1 has 34k signals) |
 | GET | `/api/datasets/{id}/signals/{signal_id}` | signal record + its cluster, decision and run |
 | GET | `/api/datasets/{id}/stress`, `/stress/{cluster_id}` | `stress_results_v1.json` runs and decisions, unchanged |
-| GET | `/api/portfolio` | `data/portfolio/portfolio_v1.csv` via `load_portfolio` |
+| GET | `/api/datasets/{id}/alerts` | `alerts_v1` from the as-of stream, with the stress P&L of each alert |
+| GET | `/api/datasets/{id}/entities`, `/entities/{entity_id}` | per-entity signal counts, daily sentiment and impact, and the event clusters that target it |
+| GET | `/api/evaluation` | `data/eval/metrics.json`, `window_comparison.json`, `backtest.json`, `benchmark.json` |
+| GET | `/api/portfolio` | `data/portfolio/portfolio_v2.csv` via `load_portfolio` |
 | POST | `/api/score` | `score_single_text` → `what_if_event` → `condition_checks` → `run_stress` (same path as Streamlit's "Try a headline") |
 
 The API binds to 127.0.0.1. It validates every query and body field (text ≤ 300 chars, outlets 1–30, volume from the fixed option list), caps bodies at 8 KB, gzips large responses and returns JSON errors without stack traces. It never fetches URLs. User text is rendered as plain text only.
 
 ## Screens
 
-- **Overview:** replay clock with play/pause and trigger markers, plus a risk posture card (peak event impact over the trailing 72 h). Also: KPIs, the event-impact timeline, signal mix by class, latest high-impact events, sentiment, and the latest triggered stress test with its causal chain.
+- **Overview:** replay clock with play/pause and trigger markers, plus a risk posture card (peak event impact over the trailing 72 h). Also: KPIs, the event-impact timeline, **real-time alerts with detection times and lead over an end-of-day batch**, signal mix by class, latest high-impact events, sentiment, and the latest triggered stress test with its causal chain.
 - **Signal feed:** search plus class, source, sentiment and impact filters, following the replay clock. Clicking a row opens the explainability drawer: matched rules with their patterns, impact components × weights, entities, provenance, the cluster's trigger checks with their actual values, and a link to the stress run.
-- **Stress test:** triggered-event picker, the causal chain (event → classification → impact → scenario → shock → portfolio), before/after values, P&L by asset class, factor waterfall, before/after table by asset class, base vs applied shocks, trigger checks, the engine's explanation, sortable positions, and the trigger funnel.
+- **Companies:** for any company, country or sector: daily signals, mean sentiment, peak impact and the event clusters that target it.
+- **Stress test:** triggered-event picker, the causal chain (event → classification → impact → scenario → shock → portfolio), before/after values, P&L by asset class, factor waterfall, before/after table by asset class, **credit losses and capital (P&L by book, IFRS 9 stages, loan-loss views, RWA)**, **severity curve**, base vs applied shocks, trigger checks, the engine's explanation, sortable positions, and the trigger funnel.
+- **Evaluation:** held-out classification and sentiment scores with confidence intervals and baselines, impact against market moves, trigger precision and recall against naive triggers, alert lead time, and the stress backtest.
 - **Try a headline:** live scoring, what-if outlets and volume, trigger checks, and a Module B preview.
 - **Methodology:** pipeline, dataset/build provenance, trigger settings, portfolio composition and scenario library.
 
