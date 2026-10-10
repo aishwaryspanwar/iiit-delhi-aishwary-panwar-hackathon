@@ -7,7 +7,7 @@
   "properties": {
     "schema_version": {"const": "1.1"},
     "signal_id": {"type": "string", "pattern": "^[0-9a-f]{16}$"},
-    "source": {"enum": ["gdelt_gkg", "kaggle_tweets", "stub_news", "stub_tweets", "user_input"]},
+    "source": {"enum": ["gdelt_gkg", "gdelt_live", "kaggle_tweets", "stub_news", "stub_tweets", "user_input"]},
     "source_id": {"type": "string", "minLength": 1},
     "url": {"type": ["string", "null"]},
     "outlet": {"type": ["string", "null"]},

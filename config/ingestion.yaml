@@ -2,6 +2,7 @@ sampling_rate:
   gdelt_gkg: 0.25
   kaggle_tweets: 1.0
   stub_news: 0.25
+  gdelt_live: 1.0
   default: 1.0
 window:
   name: w1
