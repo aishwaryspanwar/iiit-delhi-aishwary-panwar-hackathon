@@ -9,7 +9,7 @@ from src.riskengine.config import ENGINE_VERSION, PROCESSED_DIR, load_yaml
 from src.riskengine.entities import entity_table
 from src.riskengine.events import taxonomy
 from src.riskengine.io import read_json, read_jsonl
-from src.riskengine.sentiment.vader import VaderSentiment
+from src.riskengine.sentiment.loader import load_live_model
 from src.stress.engine import run_stress
 from src.stress.explain import scope_target_names
 from src.stress.portfolio_gen import load_portfolio
@@ -75,8 +75,8 @@ def bundle(name: str) -> DatasetBundle:
 
 
 @lru_cache(maxsize=1)
-def sentiment_model() -> VaderSentiment:
-    return VaderSentiment()
+def sentiment_model():
+    return load_live_model()
 
 
 def health() -> dict:
@@ -314,6 +314,59 @@ def signal_detail(name: str, signal_id: str) -> dict:
         raise NotFound("Signal not found")
     cluster_id = signal["cluster_id"]
     return {"signal": signal, "cluster": event_detail(name, cluster_id) if cluster_id in data.events_by_id else None}
+
+
+@lru_cache(maxsize=None)
+def entity_signals(name: str) -> dict[str, list[dict]]:
+    by_entity: dict[str, list[dict]] = defaultdict(list)
+    for signal in bundle(name).signals:
+        for entity in signal["entities"]:
+            by_entity[entity["id"]].append(signal)
+    return dict(by_entity)
+
+
+def entities(name: str) -> list[dict]:
+    table = entity_table()
+    rows = []
+    for entity_id, members in entity_signals(name).items():
+        row = table.get(entity_id, {})
+        rows.append({
+            "id": entity_id,
+            "name": row.get("name", entity_id),
+            "type": row.get("type"),
+            "signals": len(members),
+            "mean_sentiment": round(sum(s["sentiment"]["score"] for s in members) / len(members), 4),
+            "max_impact": max(s["impact"]["score"] for s in members),
+        })
+    return sorted(rows, key=lambda r: (-r["signals"], r["id"]))
+
+
+def entity_detail(name: str, entity_id: str) -> dict:
+    members = entity_signals(name).get(entity_id)
+    if not members:
+        raise NotFound("No signals mention this entity")
+    data = bundle(name)
+    days: dict[str, dict] = {}
+    for signal in members:
+        day = days.setdefault(signal["published_at"][:10], {"date": signal["published_at"][:10], "signals": 0, "sentiment_sum": 0.0, "max_impact": 0.0, "by_class": {}})
+        day["signals"] += 1
+        day["sentiment_sum"] += signal["sentiment"]["score"]
+        day["max_impact"] = max(day["max_impact"], signal["impact"]["score"])
+        day["by_class"][signal["event"]["class"]] = day["by_class"].get(signal["event"]["class"], 0) + 1
+    timeline = []
+    for key in sorted(days):
+        day = days[key]
+        timeline.append({**{k: v for k, v in day.items() if k != "sentiment_sum"}, "mean_sentiment": round(day["sentiment_sum"] / day["signals"], 4)})
+    related = [event_row(data, e) for e in data.events if entity_id in e["scope_targets"]]
+    top = sorted(members, key=lambda s: (-s["impact"]["score"], s["signal_id"]))[:CLUSTER_SIGNAL_LIMIT]
+    row = entity_table().get(entity_id, {})
+    return {
+        "entity": {"id": entity_id, "name": row.get("name", entity_id), "type": row.get("type"), "ticker": row.get("ticker") or None, "sector": row.get("sector") or None, "country": row.get("country") or None},
+        "signals": len(members),
+        "timeline": timeline,
+        "events": sorted(related, key=lambda e: (-e["impact"], e["cluster_id"]))[:CLUSTER_SIGNAL_LIMIT],
+        "top_signals": top,
+    }
 
 
 def stress(name: str) -> dict:
