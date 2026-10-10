@@ -30,6 +30,8 @@ ROUTES: list[tuple[str, re.Pattern[str], Handler]] = [
     ("GET", re.compile(rf"^/api/datasets/{DATASET}/events/(?P<item>[^/]+)$"), lambda p, q, b: service.event_detail(p["dataset"], p["item"])),
     ("GET", re.compile(rf"^/api/datasets/{DATASET}/signals$"), lambda p, q, b: service.signals(p["dataset"], q)),
     ("GET", re.compile(rf"^/api/datasets/{DATASET}/signals/(?P<item>[^/]+)$"), lambda p, q, b: service.signal_detail(p["dataset"], p["item"])),
+    ("GET", re.compile(r"^/api/evaluation$"), lambda p, q, b: service.evaluation()),
+    ("GET", re.compile(rf"^/api/datasets/{DATASET}/alerts$"), lambda p, q, b: service.alerts(p["dataset"])),
     ("GET", re.compile(rf"^/api/datasets/{DATASET}/entities$"), lambda p, q, b: service.entities(p["dataset"])),
     ("GET", re.compile(rf"^/api/datasets/{DATASET}/entities/(?P<item>[^/]+)$"), lambda p, q, b: service.entity_detail(p["dataset"], p["item"])),
     ("GET", re.compile(rf"^/api/datasets/{DATASET}/stress$"), lambda p, q, b: service.stress(p["dataset"])),

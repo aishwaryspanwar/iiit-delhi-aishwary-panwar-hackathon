@@ -6,7 +6,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 import streamlit as st
 
 from src.app.data import DATASET_LABELS, available_datasets
-from src.app.views import feed, stress, try_headline
+from src.app.views import evaluation, feed, stress, try_headline
 
 st.set_page_config(page_title="Event-Driven Risk Engine", layout="wide")
 st.title("Event-Driven Risk Engine → Portfolio Stress Testing")
@@ -19,10 +19,12 @@ if not datasets:
 dataset = st.sidebar.selectbox("Dataset", datasets, format_func=DATASET_LABELS.get)
 st.sidebar.caption("All views run on precomputed files in data/processed — no network, model or GPU needed at runtime.")
 
-feed_tab, stress_tab, try_tab = st.tabs(["Signal feed", "Stress test", "Try a headline"])
+feed_tab, stress_tab, evaluation_tab, try_tab = st.tabs(["Signal feed", "Stress test", "Alerts and evaluation", "Try a headline"])
 with feed_tab:
     feed.render(dataset)
 with stress_tab:
     stress.render(dataset)
+with evaluation_tab:
+    evaluation.render(dataset)
 with try_tab:
     try_headline.render()

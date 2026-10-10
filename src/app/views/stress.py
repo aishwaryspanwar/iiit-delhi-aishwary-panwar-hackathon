@@ -7,7 +7,7 @@ from src.app.theme import NEGATIVE, NEUTRAL, POSITIVE, style_figure
 from src.riskengine.events import class_display_name
 
 DISCLAIMER = "Illustrative model on a synthetic portfolio — not a regulatory stress test and not investment advice. Ratings, PDs and sensitivities are synthetic."
-FACTOR_LABELS = {"rates": "Rates", "spread": "Credit spread", "migration": "Rating migration", "equity": "Equity", "vol": "Volatility", "second_order": "Convexity (2nd order)"}
+FACTOR_LABELS = {"rates": "Rates", "spread": "Credit spread", "migration": "Migration and provisions", "equity": "Equity", "vol": "Volatility", "second_order": "Convexity (2nd order)"}
 ASSET_LABELS = {"loan": "Loans", "bond": "Bonds", "irs": "Interest-rate swaps", "equity": "Equities", "option": "Equity options"}
 
 
@@ -54,7 +54,7 @@ def position_table(run: dict) -> pd.DataFrame:
     frame["asset_class"] = frame["asset_class"].map(ASSET_LABELS)
     frame["pnl_musd"] = frame["pnl"] / 1e6
     frame["value_before_musd"] = frame["value_before"] / 1e6
-    columns = ["position_id", "asset_class", "name", "sector", "country", "rating", "rating_after", "in_scope", "value_before_musd", "pnl_musd", "d_rate_bp", "d_spread_bp", "equity_return"]
+    columns = ["position_id", "asset_class", "name", "sector", "country", "rating", "rating_after", "stage_after", "in_scope", "contagion_weight", "value_before_musd", "pnl_musd", "d_rate_bp", "d_spread_bp", "equity_return"]
     return frame.sort_values("pnl")[columns]
 
 
@@ -90,12 +90,26 @@ def render(dataset: str) -> None:
     cols[1].metric("After stress", musd(totals["value_after"]), delta=f"{totals['pnl_pct']:+.2%}")
     cols[2].metric("Stress P&L", musd(totals["pnl"]))
     cols[3].metric("In-scope positions", run["in_scope_positions"])
+    if run.get("detected_at"):
+        st.caption(f"Detected by the hourly stream at {run['detected_at'].replace('T', ' ').replace('Z', ' UTC')}, using only data available at that hour.")
     loan_views = run["loan_loss_views"]
+    capital = run["capital"]
+    books = {b["book"]: b["pnl"] for b in run["by_book"]}
+    cols = st.columns(4)
+    cols[0].metric("Banking book (IFRS 9 provisions)", musd(books.get("banking", 0.0)), help=f"{loan_views['stage2_loans']} loan(s) to stage 2, {loan_views['stage3_loans']} to stage 3")
+    cols[1].metric("Fair-value book", musd(books.get("fair_value", 0.0)))
+    cols[2].metric("RWA change (Basel III SA)", musd(capital["rwa_change"]))
+    cols[3].metric(f"Extra capital at {capital['capital_ratio']:.0%}", musd(capital["capital_requirement_change"]))
     st.caption(
-        f"Loans are held at amortised cost: their P&L is the change in 1-year expected loss from rating migration ({musd(loan_views['one_year_el_change'])}). "
-        f"On a lifetime-EL view (IFRS 9 stage-2 style sensitivity) the same downgrades cost {musd(loan_views['lifetime_el_change'])}."
+        f"Loan views: IFRS 9 staging {musd(loan_views['ifrs9_provision_change'])} (headline), 12-month EL only {musd(loan_views['one_year_el_change'])}, "
+        f"lifetime EL on every loan {musd(loan_views['lifetime_el_change'])}, fair value {musd(loan_views['fair_value_change'])}."
     )
     st.text(run["explanation"])
+    curve = pd.DataFrame(run["severity_curve"])
+    figure = go.Figure(go.Scatter(x=curve["impact"], y=curve["pnl"] / 1e6, mode="lines+markers", line={"color": NEGATIVE}))
+    figure.add_vline(x=run["impact"], line={"color": "#c3c2b7", "dash": "dot"})
+    figure.update_layout(title="Severity curve: stress P&L for impact 7 to 10 (USD m)", showlegend=False)
+    st.plotly_chart(style_figure(figure, 280), width="stretch", theme="streamlit")
     by_asset = pd.DataFrame(run["by_asset_class"])
     left, right = st.columns(2)
     left.plotly_chart(asset_impact_chart(by_asset), width="stretch", theme="streamlit")

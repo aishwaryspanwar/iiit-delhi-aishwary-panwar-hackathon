@@ -317,6 +317,33 @@ def signal_detail(name: str, signal_id: str) -> dict:
 
 
 @lru_cache(maxsize=None)
+def alerts(name: str) -> list[dict]:
+    if name not in available_datasets():
+        raise NotFound(f"Dataset '{name}' is not available")
+    path = PROCESSED_DIR / name / "alerts_v1.jsonl.gz"
+    data = bundle(name)
+    rows = []
+    for alert in (read_jsonl(path) if path.exists() else []):
+        run = data.runs_by_id.get(alert["cluster_id"])
+        event = data.events_by_id.get(alert["cluster_id"])
+        rows.append({
+            **alert,
+            "scope_label": scope_target_names({**event, "scope_targets": alert["scope_targets"]}) if event else ", ".join(alert["scope_targets"]),
+            "lead": lead_signal(data, {"representative_signal_ids": alert["representative_signal_ids"]}),
+            "pnl": run["totals"]["pnl"] if run else None,
+            "pnl_pct": run["totals"]["pnl_pct"] if run else None,
+        })
+    return rows
+
+
+@lru_cache(maxsize=1)
+def evaluation() -> dict:
+    files = {"metrics": "metrics.json", "windows": "window_comparison.json", "backtest": "backtest.json", "benchmark": "benchmark.json"}
+    folder = PROCESSED_DIR.parent / "eval"
+    return {key: read_json(folder / name) if (folder / name).exists() else None for key, name in files.items()}
+
+
+@lru_cache(maxsize=None)
 def entity_signals(name: str) -> dict[str, list[dict]]:
     by_entity: dict[str, list[dict]] = defaultdict(list)
     for signal in bundle(name).signals:
