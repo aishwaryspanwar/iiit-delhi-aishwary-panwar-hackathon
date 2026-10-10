@@ -30,10 +30,11 @@ def test_impact_components_use_absolute_sentiment():
 
 
 def test_baseline_uses_trailing_median_with_floor():
-    assert baseline_mentions([]) == 2.0
-    assert baseline_mentions([1, 1, 1]) == 2.0
+    assert baseline_mentions([]) == 8.0
+    assert baseline_mentions([1, 1, 1]) == 8.0
     assert baseline_mentions([10, 30, 20]) == 20.0
     assert baseline_mentions([10, 20, 30, 40]) == 25.0
+    assert baseline_mentions([0, 0, 0, 40, 40]) == 8.0
 
 
 def test_cluster_components_bounds_and_values():
@@ -78,7 +79,7 @@ def test_clusters_split_by_day_class_and_target():
     assert merged["n_outlets"] == 2
     assert merged["n_mentions"] == 2
     next_day = next(e for e in events if e["cluster_id"].startswith("2022-02-25"))
-    assert next_day["baseline_mentions"] == 2.0
+    assert next_day["baseline_mentions"] == 8.0
     assert all(e["warmup"] for e in events)
     assert all(s["cluster_id"] for s in signals)
 

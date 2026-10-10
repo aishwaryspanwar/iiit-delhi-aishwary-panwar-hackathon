@@ -8,6 +8,7 @@ from src.riskengine.ingest.stub import read_stub_documents
 from src.riskengine.ingest.tweets import read_tweet_documents, tweets_source_path
 from src.riskengine.io import validate_records, write_json, write_jsonl
 from src.riskengine.models import RawDoc
+from src.riskengine.sentiment.loader import BUILD_DEFAULT, load_sentiment_model
 from src.stress.engine import run_all
 from src.stress.portfolio_gen import PORTFOLIO_PATH, generate_portfolio, load_portfolio, write_portfolio
 
@@ -40,35 +41,31 @@ def available_datasets() -> list[str]:
     return [name for name in DATASET_LABELS if (PROCESSED_DIR / name / "signals_v1.jsonl.gz").exists()]
 
 
-def load_sentiment_model(name: str):
-    if name == "finbert":
-        from src.riskengine.sentiment.finbert import FinbertSentiment
-
-        return FinbertSentiment()
-    from src.riskengine.sentiment.vader import VaderSentiment
-
-    return VaderSentiment()
+def default_sentiment(dataset: str) -> str:
+    return "vader" if dataset == "stub" else BUILD_DEFAULT
 
 
-def run_pipeline(dataset: str, sentiment: str = "vader", out: Path | None = None) -> dict:
+def run_pipeline(dataset: str, sentiment: str | None = None, out: Path | None = None) -> dict:
     target = out or output_dir(dataset)
     docs: list[RawDoc] = DATASETS[dataset]()
-    signals, events = run_engine(docs, load_sentiment_model(sentiment))
+    signals, stream = run_engine(docs, load_sentiment_model(sentiment or default_sentiment(dataset)))
     validate_records(signals, "signal_v1")
-    validate_records(events, "event_v1")
+    validate_records(stream.events, "event_v1")
+    validate_records(stream.alerts, "alert_v1")
     if not PORTFOLIO_PATH.exists():
         write_portfolio(generate_portfolio())
-    results = run_all(load_portfolio(), events, signals)
+    results = run_all(load_portfolio(), stream.events, signals, stream.decisions, stream.alerts)
     write_jsonl(target / "signals_v1.jsonl.gz", signals)
-    write_jsonl(target / "events_v1.jsonl.gz", events)
+    write_jsonl(target / "events_v1.jsonl.gz", stream.events)
+    write_jsonl(target / "alerts_v1.jsonl.gz", stream.alerts)
     write_json(target / "stress_results_v1.json", results)
-    return {"signals": len(signals), "events": len(events), "triggered": len(results["runs"]), "output": str(target)}
+    return {"signals": len(signals), "events": len(stream.events), "output": str(target)}
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--dataset", choices=sorted(DATASETS), default="stub")
-    parser.add_argument("--sentiment", choices=["vader", "finbert"], default="vader")
+    parser.add_argument("--sentiment", choices=["vader", "finbert"])
     args = parser.parse_args()
     print(run_pipeline(args.dataset, args.sentiment))
 

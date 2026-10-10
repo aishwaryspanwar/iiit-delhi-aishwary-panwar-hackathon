@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "alert_v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "alert_id", "cluster_id", "class", "scope", "scope_targets", "detected_at", "first_headline_at", "day_end_at", "impact", "impact_components", "window", "checks", "representative_signal_ids"],
+  "properties": {
+    "schema_version": {"const": "1.0"},
+    "alert_id": {"type": "string", "minLength": 1},
+    "cluster_id": {"type": "string", "minLength": 1},
+    "class": {"enum": ["geopolitical", "macroeconomic", "credit_event", "commodity_energy", "regulatory", "merger_acquisition", "earnings_corporate", "product_launch", "other"]},
+    "scope": {"enum": ["single_name", "sector", "country", "macro", "none"]},
+    "scope_targets": {"type": "array", "items": {"type": "string"}},
+    "detected_at": {"$ref": "#/$defs/timestamp"},
+    "first_headline_at": {"$ref": "#/$defs/timestamp"},
+    "day_end_at": {"$ref": "#/$defs/timestamp"},
+    "impact": {"type": "number", "minimum": 1, "maximum": 10},
+    "impact_components": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["severity", "breadth", "abnormal_volume"],
+      "properties": {
+        "severity": {"type": "number", "minimum": 0, "maximum": 1},
+        "breadth": {"type": "number", "minimum": 0, "maximum": 1},
+        "abnormal_volume": {"type": "number", "minimum": 0, "maximum": 1}
+      }
+    },
+    "window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["n_mentions_est", "n_outlets", "sentiment_mean", "confidence_mean", "positive_share", "baseline_mentions"],
+      "properties": {
+        "n_mentions_est": {"type": "number", "minimum": 0},
+        "n_outlets": {"type": "integer", "minimum": 0},
+        "sentiment_mean": {"type": "number", "minimum": -1, "maximum": 1},
+        "confidence_mean": {"type": "number", "minimum": 0, "maximum": 1},
+        "positive_share": {"type": "number", "minimum": 0, "maximum": 1},
+        "baseline_mentions": {"type": "number", "minimum": 0}
+      }
+    },
+    "checks": {"type": "object", "additionalProperties": {"type": "boolean"}},
+    "representative_signal_ids": {"type": "array", "minItems": 1, "maxItems": 3, "items": {"type": "string"}}
+  },
+  "$defs": {
+    "timestamp": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$"}
+  }
+}

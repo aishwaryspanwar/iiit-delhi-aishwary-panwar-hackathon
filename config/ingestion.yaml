@@ -1,3 +1,8 @@
+sampling_rate:
+  gdelt_gkg: 0.25
+  kaggle_tweets: 1.0
+  stub_news: 0.25
+  default: 1.0
 window:
   name: w1
   start: "2022-02-10"

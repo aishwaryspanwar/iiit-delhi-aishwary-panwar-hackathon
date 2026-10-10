@@ -26,14 +26,17 @@ def test_all_records_schema_valid(stub_output):
     validate_records(read_jsonl(stub_output / "events_v1.jsonl.gz"), "event_v1")
 
 
+OUTPUTS = ["signals_v1.jsonl.gz", "events_v1.jsonl.gz", "alerts_v1.jsonl.gz", "stress_results_v1.json"]
+
+
 def test_build_is_deterministic(stub_output, tmp_path):
     run_pipeline("stub", "vader", tmp_path)
-    for name in ["signals_v1.jsonl.gz", "events_v1.jsonl.gz", "stress_results_v1.json"]:
+    for name in OUTPUTS:
         assert digest(stub_output / name) == digest(tmp_path / name)
 
 
 def test_committed_stub_outputs_are_current(stub_output):
-    for name in ["signals_v1.jsonl.gz", "events_v1.jsonl.gz", "stress_results_v1.json"]:
+    for name in OUTPUTS:
         assert digest(PROCESSED_DIR / "stub" / name) == digest(stub_output / name)
 
 

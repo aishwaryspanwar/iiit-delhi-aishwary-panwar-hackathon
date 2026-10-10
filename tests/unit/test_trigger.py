@@ -1,13 +1,20 @@
+from datetime import datetime, timedelta, timezone
+
 import pytest
 
-from src.stress.trigger import evaluate_triggers
+from src.stress.shocks import shock_config
+from src.stress.trigger import CHECK_LABELS, CooldownTracker, condition_checks, cooldown_key
+
+START = datetime(2022, 2, 24, 3, tzinfo=timezone.utc)
 
 
-def event(cluster_id: str, t_start: str, impact: float = 8.5, event_class: str = "geopolitical", confidence: float = 0.8, sentiment: float = -0.5, target: str = "country:RU", outlets: int = 3, warmup: bool = False) -> dict:
-    return {
-        "cluster_id": cluster_id, "t_start": t_start, "impact": impact, "class": event_class,
-        "confidence_mean": confidence, "sentiment_mean": sentiment, "scope_targets": [target], "n_outlets": outlets, "warmup": warmup,
+def state(**overrides) -> dict:
+    base = {
+        "class": "geopolitical", "impact": 8.5, "confidence_mean": 0.8, "sentiment_mean": -0.5,
+        "positive_share": 0.0, "n_outlets": 3, "n_mentions_est": 40.0, "warmup": False,
     }
+    base.update(overrides)
+    return base
 
 
 @pytest.mark.parametrize(
@@ -15,37 +22,36 @@ def event(cluster_id: str, t_start: str, impact: float = 8.5, event_class: str =
     [
         ({}, []),
         ({"impact": 7.0}, ["impact_above_threshold"]),
-        ({"event_class": "product_launch"}, ["stress_class"]),
-        ({"confidence": 0.5}, ["confidence_ok"]),
-        ({"sentiment": 0.4}, ["not_positive"]),
-        ({"outlets": 1}, ["corroborated"]),
-        ({"outlets": 0}, ["corroborated"]),
+        ({"class": "product_launch"}, ["stress_class"]),
+        ({"confidence_mean": 0.5}, ["confidence_ok"]),
+        ({"sentiment_mean": 0.4}, ["not_positive"]),
+        ({"positive_share": 0.8}, ["direction_ok"]),
+        ({"n_outlets": 1}, ["corroborated"]),
+        ({"n_mentions_est": 6.0}, ["enough_mentions"]),
         ({"warmup": True}, ["baseline_ready"]),
     ],
 )
 def test_trigger_conditions(overrides, failed):
-    decision = evaluate_triggers([event("x", "2022-02-24T03:00:00Z", **overrides)])[0]
-    assert decision["failed"] == failed
-    assert decision["triggered"] is (not failed)
+    checks = condition_checks(state(**overrides), shock_config()["trigger"])
+    assert [name for name, passed in checks.items() if not passed] == failed
 
 
-def test_cooldown_blocks_repeat_within_window():
-    decisions = evaluate_triggers([event("a", "2022-02-24T03:00:00Z"), event("b", "2022-02-25T03:00:00Z")])
-    assert [d["triggered"] for d in decisions] == [True, False]
-    assert decisions[1]["failed"] == ["cooldown"]
+def test_every_check_has_a_label():
+    assert set(condition_checks(state(), shock_config()["trigger"])) | {"cooldown"} == set(CHECK_LABELS)
 
 
-def test_cooldown_rearms_on_higher_impact_or_after_window():
-    escalated = evaluate_triggers([event("a", "2022-02-24T03:00:00Z", impact=7.5), event("b", "2022-02-25T03:00:00Z", impact=8.6)])
-    assert [d["triggered"] for d in escalated] == [True, True]
-    later = evaluate_triggers([event("a", "2022-02-24T03:00:00Z"), event("b", "2022-02-28T03:00:00Z")])
-    assert [d["triggered"] for d in later] == [True, True]
+def test_cooldown_blocks_repeat_within_window_and_rearms():
+    tracker = CooldownTracker(hours=72, rearm_delta=1.0)
+    key = cooldown_key("geopolitical", ["country:RU"])
+    tracker.fire(key, START, 7.5)
+    assert not tracker.allows(key, START + timedelta(hours=24), 8.0)
+    assert tracker.allows(key, START + timedelta(hours=24), 8.5)
+    assert tracker.allows(key, START + timedelta(hours=73), 7.1)
 
 
-def test_cooldown_is_per_scenario_class():
-    decisions = evaluate_triggers([
-        event("a", "2022-02-24T03:00:00Z"),
-        event("b", "2022-02-24T04:00:00Z", target="country:UA"),
-        event("c", "2022-02-24T05:00:00Z", event_class="credit_event"),
-    ])
-    assert [d["triggered"] for d in decisions] == [True, False, True]
+def test_cooldown_is_per_class_and_target():
+    tracker = CooldownTracker(hours=72, rearm_delta=1.0)
+    tracker.fire(cooldown_key("geopolitical", ["country:RU"]), START, 8.5)
+    assert tracker.allows(cooldown_key("geopolitical", ["country:TW"]), START + timedelta(hours=1), 7.5)
+    assert tracker.allows(cooldown_key("credit_event", ["country:RU"]), START + timedelta(hours=1), 7.5)
+    assert not tracker.allows(cooldown_key("geopolitical", ["country:RU", "country:UA"]), START + timedelta(hours=1), 8.6)

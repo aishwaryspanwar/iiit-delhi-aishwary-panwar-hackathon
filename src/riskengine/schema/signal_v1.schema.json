@@ -5,7 +5,7 @@
   "additionalProperties": false,
   "required": ["schema_version", "signal_id", "source", "source_id", "url", "outlet", "outlets", "sources", "duplicate_count", "published_at", "text", "text_hash", "lang", "entities", "scope", "scope_targets", "sentiment", "event", "impact", "cluster_id", "build"],
   "properties": {
-    "schema_version": {"const": "1.0"},
+    "schema_version": {"const": "1.1"},
     "signal_id": {"type": "string", "pattern": "^[0-9a-f]{16}$"},
     "source": {"enum": ["gdelt_gkg", "kaggle_tweets", "stub_news", "stub_tweets", "user_input"]},
     "source_id": {"type": "string", "minLength": 1},
@@ -48,12 +48,13 @@
     "event": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["class", "confidence", "matched_rules", "runner_up"],
+      "required": ["class", "confidence", "matched_rules", "runner_up", "direction"],
       "properties": {
         "class": {"$ref": "#/$defs/event_class"},
         "confidence": {"type": "number", "minimum": 0, "maximum": 1},
         "matched_rules": {"type": "array", "items": {"type": "string"}},
-        "runner_up": {"anyOf": [{"$ref": "#/$defs/event_class"}, {"type": "null"}]}
+        "runner_up": {"anyOf": [{"$ref": "#/$defs/event_class"}, {"type": "null"}]},
+        "direction": {"enum": ["negative", "positive", "neutral"]}
       }
     },
     "impact": {

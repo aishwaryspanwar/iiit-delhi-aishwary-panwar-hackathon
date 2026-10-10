@@ -1,7 +1,7 @@
 import hashlib
 from datetime import datetime, timezone
 
-from src.riskengine.cluster import build_events
+from src.riskengine.cluster import StreamResult, build_stream
 from src.riskengine.config import ENGINE_VERSION, config_hash
 from src.riskengine.dedup import clean_and_dedup
 from src.riskengine.entities import resolve_scope, tag_entities
@@ -28,7 +28,7 @@ def to_signal(doc: CleanDoc, sentiment, build: dict) -> dict:
     scope, targets = resolve_scope(entities, event.event_class)
     components = impact_components(event.event_class, sentiment.score, entities, doc.text)
     return {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "signal_id": signal_id_for(doc.source, doc.source_id),
         "source": doc.source,
         "source_id": doc.source_id,
@@ -53,6 +53,7 @@ def to_signal(doc: CleanDoc, sentiment, build: dict) -> dict:
             "confidence": event.confidence,
             "matched_rules": list(event.matched_rules),
             "runner_up": event.runner_up,
+            "direction": event.direction,
         },
         "impact": {
             "score": item_impact(components),
@@ -64,18 +65,18 @@ def to_signal(doc: CleanDoc, sentiment, build: dict) -> dict:
     }
 
 
-def run_engine(raw_docs: list[RawDoc], model: SentimentModel) -> tuple[list[dict], list[dict]]:
+def run_engine(raw_docs: list[RawDoc], model: SentimentModel) -> tuple[list[dict], StreamResult]:
     docs = clean_and_dedup(raw_docs)
     build = {"build_id": build_id_for(docs, model.name), "engine_version": ENGINE_VERSION, "config_hash": config_hash()}
     sentiments = model.score([d.text for d in docs])
     signals = [to_signal(doc, sentiment, build) for doc, sentiment in zip(docs, sentiments)]
-    events = build_events(signals)
-    return signals, events
+    return signals, build_stream(signals)
 
 
 def score_single_text(text: str, model: SentimentModel, source: str = "user_input") -> dict:
     doc = RawDoc(source=source, source_id=hashlib.sha1(text.encode("utf-8")).hexdigest()[:12], published_at=datetime.now(timezone.utc).replace(microsecond=0), text=text)
-    signals, events = run_engine([doc], model)
+    signals, stream = run_engine([doc], model)
+    events = stream.events
     if not signals:
         raise ValueError("Text is empty after cleaning")
     return {"signal": signals[0], "event": events[0]}

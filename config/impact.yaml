@@ -28,7 +28,8 @@ cluster:
   top_k: 3
   breadth_full_at_outlets: 25
   volume_full_at_log2_ratio: 3.0
+  window_hours: 24
   baseline_days: 7
-  default_baseline_mentions: 2
+  default_baseline_mentions: 8
   warmup_days: 3
   target_min_share: 0.2
