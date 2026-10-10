@@ -19,7 +19,15 @@ POSITIVE_EXAMPLES = {
     "CRD-002": "Agency downgrades Russia to junk status",
     "CRD-003": "Retailer files for Chapter 11 bankruptcy protection",
     "CRD-004": "Credit default swaps on Russian debt surge",
-    "CRD-005": "Fitch places sovereign on watch",
+    "CRD-005": "Fitch warns of wider credit spreads",
+    "CRD-006": "Moody's upgrades senior unsecured rating of CNH Industrial from Baa3 to Baa2",
+    "GEO-007": "China pledges aid to Ukraine",
+    "MAC-006": "Fed's forecasts clouded by fog of war",
+    "REG-003": "Shareholders file lawsuit against the regulator",
+    "REG-004": "Law firm investigates the merger and encourages investors to contact the firm",
+    "ERN-004": "Why DigitalOcean Stock Soared More Than 20% This Week",
+    "ERN-005": "Web Werks to set up data centres in Chennai",
+    "PRD-002": "Siri gets a new voice in the beta version of iOS 15.4",
     "COM-001": "Brent crude jumps above $110 as gas prices soar",
     "COM-002": "Wheat and nickel hit record highs",
     "COM-003": "OPEC+ sticks to plan despite energy crisis",
@@ -48,6 +56,33 @@ FALSE_POSITIVE_GUARDS = [
     ("West Belfast murder investigation after stabbing", "regulatory"),
     ("Russia launches full-scale invasion of Ukraine", "product_launch"),
     ("EU unveils new sanctions package against Moscow", "product_launch"),
+    ("Normally Faze shuts down early aggression and sets the pace for the match", "geopolitical"),
+    ("Payments resume May 2: Are you at risk of defaulting on student loans?", "credit_event"),
+    ("Intel Has Fallen 30% Since This Analyst Cut His Rating. He Just Upgraded the Stock.", "credit_event"),
+    ("Risk of recession 'uncomfortably high': Moody's Analytics chief economist", "credit_event"),
+    ("Federal jury awards $85 million to California family in wrongful death lawsuit", "regulatory"),
+    ("Mask violations: TSA issued hundreds of thousands of dollars in fines", "regulatory"),
+    ("Ex-officer who shot and killed unarmed US teen convicted of negligent homicide", "geopolitical"),
+    ("Ukraine's bid for fast-track membership of EU likely to end in disappointment", "merger_acquisition"),
+    ("NIRI presents a discussion with Andy Fastow, former CFO of Enron", "earnings_corporate"),
+    ("My wife loves her new Model X Plaid!", "product_launch"),
+]
+
+EXPECTED_CLASSES = [
+    ("Employers add 475,000 jobs in February: ADP", "macroeconomic"),
+    ("Germany, Britain and Italy Hit by Surge in Pump Prices", "commodity_energy"),
+    ("Philadelphia Fed's manufacturing gauge softens in February", "macroeconomic"),
+    ("Ruble 'destroyed' as Russia slides towards default", "credit_event"),
+    ("JPM cuts Indian shares to 'underweight', trims target for MSCI EM index", "earnings_corporate"),
+    ("Trend Micro Announces Record-Setting Results for Q4 and Fiscal Year 2021", "earnings_corporate"),
+    ("UN peacekeeping mission in South Sudan extended for a year", "geopolitical"),
+]
+
+DIRECTIONS = [
+    ("Fitch slashes Russian debt further into junk, says default imminent", "negative"),
+    ("Moody's upgrades senior unsecured rating of CNH Industrial from Baa3 to Baa2", "positive"),
+    ("S&P revises outlook on Indonesia to positive outlook", "positive"),
+    ("Fed raises interest rates by 25 basis points", "neutral"),
 ]
 
 
@@ -79,3 +114,19 @@ def test_known_false_positives_are_avoided(text, wrong_class):
 @pytest.mark.parametrize("text", CREDIT_PHRASINGS)
 def test_credit_rating_actions_in_any_word_order(text):
     assert classify(text).event_class == "credit_event"
+
+
+@pytest.mark.parametrize(("text", "expected"), EXPECTED_CLASSES)
+def test_review_misses_are_classified(text, expected):
+    assert classify(text).event_class == expected
+
+
+@pytest.mark.parametrize(("text", "direction"), DIRECTIONS)
+def test_event_direction(text, direction):
+    assert classify(text).direction == direction
+
+
+def test_sports_context_overrides_rules():
+    result = classify("TSM are your world champions after a tense grand final attack")
+    assert result.event_class == "other"
+    assert result.matched_rules == ("CTX-EXCLUDE",)

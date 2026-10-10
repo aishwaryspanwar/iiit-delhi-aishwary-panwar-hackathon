@@ -51,3 +51,4 @@ class EventResult:
     confidence: float
     matched_rules: tuple[str, ...]
     runner_up: str | None
+    direction: str = "neutral"
