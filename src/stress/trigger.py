@@ -2,6 +2,21 @@ from datetime import datetime
 
 from src.stress.shocks import shock_config
 
+CHECK_LABELS = {
+    "stress_class": "Event class is stress-relevant",
+    "impact_above_threshold": "Event impact above threshold",
+    "confidence_ok": "Classification confidence high enough",
+    "not_positive": "News is not positive",
+    "corroborated": "Corroborated by enough news outlets",
+    "baseline_ready": "Baseline established",
+    "cooldown": "Outside cooldown of a recent trigger",
+}
+EVENT_STATUS_LABELS = {
+    "below": "Below threshold",
+    "triggered": "Triggered stress test",
+    "blocked": "Above threshold, blocked",
+}
+
 
 def parse_time(value: str) -> datetime:
     return datetime.fromisoformat(value.replace("Z", "+00:00"))
@@ -46,3 +61,9 @@ def evaluate_triggers(events: list[dict]) -> list[dict]:
             "failed": failed,
         })
     return decisions
+
+
+def event_status(event, triggered_ids: set[str], threshold: float) -> str:
+    if event["cluster_id"] in triggered_ids:
+        return "triggered"
+    return "blocked" if event["impact"] > threshold else "below"

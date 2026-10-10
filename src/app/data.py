@@ -3,15 +3,10 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
+from src.pipeline import DATASET_LABELS, available_datasets
 from src.riskengine.config import PROCESSED_DIR
 from src.riskengine.events import class_display_name
 from src.riskengine.io import read_json, read_jsonl
-
-DATASET_LABELS = {"w1": "W1 · Feb–Mar 2022 (GDELT + tweets)", "stub": "Stub sample (hand-written)"}
-
-
-def available_datasets() -> list[str]:
-    return [name for name in DATASET_LABELS if (PROCESSED_DIR / name / "signals_v1.jsonl.gz").exists()]
 
 
 def dataset_dir(name: str) -> Path:

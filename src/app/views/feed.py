@@ -4,6 +4,7 @@ import streamlit as st
 
 from src.app.data import load_events, load_signals, load_stress
 from src.app.theme import STATUS_COLORS, style_figure
+from src.stress.trigger import EVENT_STATUS_LABELS, event_status as status_key
 
 FEED_COLUMNS = ["published_at", "source", "outlet", "text", "event_class", "confidence", "sentiment", "impact", "scope", "targets", "rules", "mentions"]
 
@@ -11,11 +12,7 @@ FEED_COLUMNS = ["published_at", "source", "outlet", "text", "event_class", "conf
 def event_status(events: pd.DataFrame, stress: dict) -> pd.Series:
     triggered = {d["cluster_id"] for d in stress["decisions"] if d["triggered"]}
     threshold = stress["trigger_settings"]["impact_threshold"]
-    return events.apply(
-        lambda e: "Triggered stress test" if e["cluster_id"] in triggered
-        else ("Above threshold, blocked" if e["impact"] > threshold else "Below threshold"),
-        axis=1,
-    )
+    return events.apply(lambda e: EVENT_STATUS_LABELS[status_key(e, triggered, threshold)], axis=1)
 
 
 def impact_timeline(events: pd.DataFrame, threshold: float, cutoff: pd.Timestamp) -> go.Figure:

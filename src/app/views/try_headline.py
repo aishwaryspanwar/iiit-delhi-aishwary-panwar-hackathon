@@ -5,30 +5,12 @@ from src.app.views.stress import musd
 
 from src.riskengine.build import score_single_text
 from src.riskengine.events import class_display_name
-from src.riskengine.impact import cluster_components, cluster_impact
 from src.riskengine.sentiment.vader import VaderSentiment
 from src.stress.engine import run_stress
 from src.stress.portfolio_gen import load_portfolio
 from src.stress.shocks import shock_config
-from src.stress.trigger import condition_checks
-
-MAX_LENGTH = 300
-EXAMPLES = [
-    "Russia launches full-scale invasion of Ukraine as explosions heard in Kyiv",
-    "Fitch cuts Russia's rating further into junk, says debt default is imminent",
-    "Federal Reserve raises interest rates by 50 basis points to fight inflation",
-    "Brent crude surges above $130 a barrel as US weighs ban on Russian oil",
-    "Apple unveils new iPhone SE at spring event",
-    "Antitrust regulators open probe into Google ad business",
-]
-CHECK_LABELS = {
-    "stress_class": "Event class is stress-relevant",
-    "impact_above_threshold": "Event impact above threshold",
-    "confidence_ok": "Classification confidence high enough",
-    "not_positive": "News is not positive",
-    "corroborated": "Corroborated by enough news outlets",
-    "baseline_ready": "Baseline established",
-}
+from src.stress.trigger import CHECK_LABELS, condition_checks
+from src.stress.whatif import EXAMPLES, MAX_LENGTH, OUTLET_RANGE, VOLUME_OPTIONS, what_if_event
 
 
 @st.cache_resource(show_spinner=False)
@@ -39,21 +21,6 @@ def sentiment_model() -> VaderSentiment:
 @st.cache_data(show_spinner=False)
 def portfolio() -> pd.DataFrame:
     return load_portfolio()
-
-
-def what_if_event(result: dict, outlets: int, volume_multiple: float) -> dict:
-    signal = result["signal"]
-    baseline = 10.0
-    components = cluster_components([signal["impact"]["score"]], outlets, int(round(baseline * volume_multiple)), baseline)
-    event = dict(result["event"])
-    event.update({
-        "impact_components": components,
-        "impact": cluster_impact(components),
-        "n_outlets": outlets,
-        "warmup": False,
-        "representative_signal_ids": [signal["signal_id"]],
-    })
-    return event
 
 
 def render_signal(signal: dict) -> None:
@@ -91,8 +58,8 @@ def render() -> None:
     st.divider()
     st.markdown("**Would this trigger a stress test?** A single item is never enough on its own — set how widely the story is being reported:")
     left, right = st.columns(2)
-    outlets = left.slider("Distinct news outlets reporting", 1, 30, 1)
-    volume = right.select_slider("Mentions vs the topic's normal daily volume", options=[1.0, 1.5, 2.0, 3.0, 4.0, 6.0, 8.0, 12.0], value=1.0, format_func=lambda v: f"{v:g}×")
+    outlets = left.slider("Distinct news outlets reporting", OUTLET_RANGE[0], OUTLET_RANGE[1], 1)
+    volume = right.select_slider("Mentions vs the topic's normal daily volume", options=VOLUME_OPTIONS, value=1.0, format_func=lambda v: f"{v:g}×")
     event = what_if_event(result, outlets, volume)
     checks = condition_checks(event, shock_config()["trigger"])
     st.metric("Event impact (what-if)", f"{event['impact']:.1f} / 10", help=str(event["impact_components"]))
