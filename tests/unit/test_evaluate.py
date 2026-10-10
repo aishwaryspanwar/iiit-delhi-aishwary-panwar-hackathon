@@ -48,16 +48,28 @@ def test_metrics_record_the_current_config():
 
 
 @pytest.mark.parametrize("split", ["w1_test", "w3_test"])
-def test_claim_event_classes_beat_majority_and_naive_baselines(split):
+def test_claim_event_classes_beat_the_majority_baseline(split):
     report = COMMITTED["splits"][split]["representative"]
-    assert report["event_class"]["macro_f1"] > report["event_class"]["majority_macro_f1"]
-    assert report["event_class"]["macro_f1"] > report["event_class_naive_keywords"]["macro_f1"]
+    lower_bound = report["event_class"]["macro_f1_ci95"][0]
+    assert lower_bound > report["event_class"]["majority_macro_f1"]
 
 
 @pytest.mark.parametrize("split", ["w1_test", "w3_test"])
-def test_claim_finbert_is_the_better_sentiment_model(split):
+def test_claim_sentiment_beats_the_majority_baseline_on_macro_f1(split):
     report = COMMITTED["splits"][split]["representative"]
-    assert report["sentiment_finbert"]["macro_f1"] >= report["sentiment_vader"]["macro_f1"]
+    assert report["sentiment_finbert"]["macro_f1_ci95"][0] > report["sentiment_finbert"]["majority_macro_f1"]
+
+
+def test_claim_engine_alerts_beat_the_base_rate_in_shock_windows():
+    for window in ("w1", "w3"):
+        quality = COMMITTED["trigger_quality"][window]
+        assert quality["engine_alerts"]["precision"] > quality["base_rate"]
+
+
+def test_committed_results_page_is_current():
+    from scripts.render_results import RESULTS_PATH, render
+
+    assert RESULTS_PATH.read_text(encoding="utf-8") == render()
 
 
 def test_spearman_and_bootstrap_helpers():

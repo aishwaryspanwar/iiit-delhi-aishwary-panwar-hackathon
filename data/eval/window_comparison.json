@@ -1,19 +1,23 @@
 {
  "n1": {
-  "cluster_impact_max": 7.1,
-  "cluster_impact_p50": 2.8,
-  "cluster_impact_p90": 4.4,
-  "cluster_impact_p99": 6.11,
-  "clusters": 1988,
-  "clusters_above_threshold": 2,
+  "cluster_impact_max": 8.0,
+  "cluster_impact_p50": 3.2,
+  "cluster_impact_p90": 5.2,
+  "cluster_impact_p99": 6.7,
+  "clusters": 2368,
+  "clusters_above_threshold": 12,
   "dataset": "n1",
+  "entity_coverage": 0.3582,
   "failed_checks": {
-   "baseline_ready": 182,
-   "confidence_ok": 1318,
-   "corroborated": 1093,
-   "impact_above_threshold": 1986,
-   "not_positive": 552,
-   "stress_class": 1357
+   "baseline_ready": 214,
+   "confidence_ok": 1587,
+   "cooldown": 3,
+   "corroborated": 1197,
+   "direction_ok": 3,
+   "enough_mentions": 1816,
+   "impact_above_threshold": 2356,
+   "not_positive": 801,
+   "stress_class": 1609
   },
   "market": {
    "sp500_annualised_volatility": 0.0822,
@@ -22,52 +26,97 @@
    "sp500_worst_day": -0.00867,
    "trading_days": 22
   },
+  "role": "untouched test, calm window",
   "runs": [
    {
+    "class": "macroeconomic",
+    "date": "2026-08-12",
+    "detected_at": "2026-08-12T16:00:00Z",
+    "impact": 7.2,
+    "pnl": -47872381.09,
+    "pnl_pct": -0.013127,
+    "scope_targets": [
+     "country:US"
+    ]
+   },
+   {
     "class": "geopolitical",
-    "date": "2026-09-03",
+    "date": "2026-08-20",
+    "detected_at": "2026-08-20T04:00:00Z",
+    "impact": 7.3,
+    "pnl": -6911734.27,
+    "pnl_pct": -0.001895,
+    "scope_targets": [
+     "country:IR",
+     "country:IL"
+    ]
+   },
+   {
+    "class": "macroeconomic",
+    "date": "2026-08-27",
+    "detected_at": "2026-08-27T13:00:00Z",
+    "impact": 7.2,
+    "pnl": -47872381.09,
+    "pnl_pct": -0.013127,
+    "scope_targets": [
+     "central_bank:FED",
+     "country:CN",
+     "commodity:gold"
+    ]
+   },
+   {
+    "class": "macroeconomic",
+    "date": "2026-09-04",
+    "detected_at": "2026-09-04T22:00:00Z",
     "impact": 7.1,
-    "pnl": -56488150.88,
-    "pnl_pct": -0.014649
+    "pnl": -46406403.55,
+    "pnl_pct": -0.012725,
+    "scope_targets": [
+     "country:US",
+     "commodity:gold"
+    ]
    }
   ],
   "signal_class_share": {
-   "commodity_energy": 0.0282,
-   "credit_event": 0.0017,
-   "earnings_corporate": 0.0951,
-   "geopolitical": 0.0524,
-   "macroeconomic": 0.0267,
+   "commodity_energy": 0.0356,
+   "credit_event": 0.0013,
+   "earnings_corporate": 0.1058,
+   "geopolitical": 0.0604,
+   "macroeconomic": 0.0391,
    "merger_acquisition": 0.009,
-   "other": 0.7518,
-   "product_launch": 0.0238,
-   "regulatory": 0.0113
+   "other": 0.7102,
+   "product_launch": 0.0237,
+   "regulatory": 0.0149
   },
-  "signals": 14434,
+  "signals": 14429,
   "sources": {
-   "gdelt_gkg": 14434
+   "gdelt_gkg": 14429
   },
-  "stress_tests_triggered": 1,
+  "stress_tests_triggered": 4,
   "window": {
    "end": "2026-09-04",
    "start": "2026-08-06"
   }
  },
  "w1": {
-  "cluster_impact_max": 9.0,
-  "cluster_impact_p50": 2.9,
-  "cluster_impact_p90": 4.5,
-  "cluster_impact_p99": 6.6,
-  "clusters": 3678,
-  "clusters_above_threshold": 17,
+  "cluster_impact_max": 8.9,
+  "cluster_impact_p50": 3.0,
+  "cluster_impact_p90": 5.1,
+  "cluster_impact_p99": 7.26,
+  "clusters": 4243,
+  "clusters_above_threshold": 54,
   "dataset": "w1",
+  "entity_coverage": 0.4605,
   "failed_checks": {
-   "baseline_ready": 251,
-   "confidence_ok": 2379,
-   "cooldown": 4,
-   "corroborated": 2214,
-   "impact_above_threshold": 3661,
-   "not_positive": 1128,
-   "stress_class": 2539
+   "baseline_ready": 291,
+   "confidence_ok": 2696,
+   "cooldown": 17,
+   "corroborated": 2573,
+   "direction_ok": 4,
+   "enough_mentions": 3400,
+   "impact_above_threshold": 4189,
+   "not_positive": 1407,
+   "stress_class": 2922
   },
   "market": {
    "sp500_annualised_volatility": 0.2441,
@@ -76,84 +125,310 @@
    "sp500_worst_day": -0.02952,
    "trading_days": 30
   },
+  "role": "development and calibration",
   "runs": [
    {
     "class": "geopolitical",
     "date": "2022-02-14",
-    "impact": 7.2,
-    "pnl": -71511133.42,
-    "pnl_pct": -0.018545
+    "detected_at": "2022-02-14T17:00:00Z",
+    "impact": 7.1,
+    "pnl": -10469138.01,
+    "pnl_pct": -0.002871,
+    "scope_targets": [
+     "country:UA"
+    ]
    },
    {
     "class": "geopolitical",
     "date": "2022-02-17",
-    "impact": 7.2,
-    "pnl": -71511133.42,
-    "pnl_pct": -0.018545
+    "detected_at": "2022-02-17T23:00:00Z",
+    "impact": 7.3,
+    "pnl": -21157976.65,
+    "pnl_pct": -0.005802,
+    "scope_targets": [
+     "country:RU",
+     "country:UA"
+    ]
    },
    {
     "class": "geopolitical",
     "date": "2022-02-22",
-    "impact": 7.9,
-    "pnl": -85581458.02,
-    "pnl_pct": -0.022194
+    "detected_at": "2022-02-22T02:00:00Z",
+    "impact": 7.1,
+    "pnl": -20201568.98,
+    "pnl_pct": -0.005539,
+    "scope_targets": [
+     "country:RU",
+     "country:UA"
+    ]
    },
    {
     "class": "geopolitical",
     "date": "2022-02-24",
-    "impact": 9.0,
-    "pnl": -115181161.12,
-    "pnl_pct": -0.02987
+    "detected_at": "2022-02-24T12:00:00Z",
+    "impact": 8.1,
+    "pnl": -24964862.85,
+    "pnl_pct": -0.006845,
+    "scope_targets": [
+     "country:RU",
+     "country:UA"
+    ]
    },
    {
     "class": "geopolitical",
     "date": "2022-02-28",
-    "impact": 7.4,
-    "pnl": -75555061.58,
-    "pnl_pct": -0.019594
+    "detected_at": "2022-02-28T20:00:00Z",
+    "impact": 7.2,
+    "pnl": -20678606.61,
+    "pnl_pct": -0.00567,
+    "scope_targets": [
+     "country:RU",
+     "country:UA"
+    ]
    },
    {
     "class": "commodity_energy",
     "date": "2022-03-07",
-    "impact": 7.3,
-    "pnl": -36096777.36,
-    "pnl_pct": -0.009361
+    "detected_at": "2022-03-07T22:00:00Z",
+    "impact": 7.2,
+    "pnl": -5860748.6,
+    "pnl_pct": -0.001607,
+    "scope_targets": [
+     "commodity:oil",
+     "country:RU"
+    ]
    },
    {
     "class": "credit_event",
     "date": "2022-03-09",
-    "impact": 7.4,
-    "pnl": -51111597.95,
-    "pnl_pct": -0.013255
+    "detected_at": "2022-03-09T08:00:00Z",
+    "impact": 7.3,
+    "pnl": -83027221.01,
+    "pnl_pct": -0.022766,
+    "scope_targets": [
+     "country:RU"
+    ]
+   },
+   {
+    "class": "commodity_energy",
+    "date": "2022-03-09",
+    "detected_at": "2022-03-09T15:00:00Z",
+    "impact": 7.1,
+    "pnl": -5681596.76,
+    "pnl_pct": -0.001558,
+    "scope_targets": [
+     "commodity:gas"
+    ]
+   },
+   {
+    "class": "macroeconomic",
+    "date": "2022-03-10",
+    "detected_at": "2022-03-10T20:00:00Z",
+    "impact": 7.7,
+    "pnl": -55214117.85,
+    "pnl_pct": -0.01514,
+    "scope_targets": [
+     "country:US"
+    ]
+   },
+   {
+    "class": "macroeconomic",
+    "date": "2022-03-14",
+    "detected_at": "2022-03-14T14:00:00Z",
+    "impact": 7.3,
+    "pnl": -49345624.47,
+    "pnl_pct": -0.013531,
+    "scope_targets": [
+     "central_bank:FED"
+    ]
+   },
+   {
+    "class": "geopolitical",
+    "date": "2022-03-15",
+    "detected_at": "2022-03-15T12:00:00Z",
+    "impact": 7.3,
+    "pnl": -22465601.65,
+    "pnl_pct": -0.00616,
+    "scope_targets": [
+     "country:CN",
+     "country:UA",
+     "country:RU"
+    ]
    },
    {
     "class": "macroeconomic",
     "date": "2022-03-16",
-    "impact": 8.1,
-    "pnl": -53797137.95,
-    "pnl_pct": -0.013951
+    "detected_at": "2022-03-16T11:00:00Z",
+    "impact": 8.3,
+    "pnl": -63965535.48,
+    "pnl_pct": -0.01754,
+    "scope_targets": [
+     "central_bank:FED",
+     "commodity:oil"
+    ]
    }
   ],
   "signal_class_share": {
-   "commodity_energy": 0.0291,
-   "credit_event": 0.0021,
-   "earnings_corporate": 0.0698,
-   "geopolitical": 0.1039,
-   "macroeconomic": 0.023,
-   "merger_acquisition": 0.0097,
-   "other": 0.7364,
+   "commodity_energy": 0.0305,
+   "credit_event": 0.0017,
+   "earnings_corporate": 0.0804,
+   "geopolitical": 0.1729,
+   "macroeconomic": 0.0318,
+   "merger_acquisition": 0.0094,
+   "other": 0.644,
    "product_launch": 0.0164,
-   "regulatory": 0.0096
+   "regulatory": 0.0129
   },
-  "signals": 34307,
+  "signals": 34298,
   "sources": {
-   "gdelt_gkg": 27029,
-   "kaggle_tweets": 7278
+   "gdelt_gkg": 27021,
+   "kaggle_tweets": 7277
   },
-  "stress_tests_triggered": 8,
+  "stress_tests_triggered": 12,
   "window": {
    "end": "2022-03-24",
    "start": "2022-02-10"
+  }
+ },
+ "w3": {
+  "cluster_impact_max": 8.2,
+  "cluster_impact_p50": 3.1,
+  "cluster_impact_p90": 5.2,
+  "cluster_impact_p99": 6.8,
+  "clusters": 2363,
+  "clusters_above_threshold": 16,
+  "dataset": "w3",
+  "entity_coverage": 0.4442,
+  "failed_checks": {
+   "baseline_ready": 242,
+   "confidence_ok": 1571,
+   "cooldown": 5,
+   "corroborated": 1359,
+   "enough_mentions": 1898,
+   "impact_above_threshold": 2347,
+   "not_positive": 663,
+   "stress_class": 1659
+  },
+  "market": {
+   "sp500_annualised_volatility": 0.2383,
+   "sp500_mean_abs_daily_return": 0.01366,
+   "sp500_window_return": -0.11844,
+   "sp500_worst_day": -0.04324,
+   "trading_days": 15
+  },
+  "role": "untouched test, shock window",
+  "runs": [
+   {
+    "class": "macroeconomic",
+    "date": "2022-09-13",
+    "detected_at": "2022-09-13T05:00:00Z",
+    "impact": 7.1,
+    "pnl": -46406403.55,
+    "pnl_pct": -0.012725,
+    "scope_targets": [
+     "country:US",
+     "commodity:gold"
+    ]
+   },
+   {
+    "class": "macroeconomic",
+    "date": "2022-09-13",
+    "detected_at": "2022-09-14T00:00:00Z",
+    "impact": 7.2,
+    "pnl": -47872381.09,
+    "pnl_pct": -0.013127,
+    "scope_targets": []
+   },
+   {
+    "class": "macroeconomic",
+    "date": "2022-09-14",
+    "detected_at": "2022-09-14T01:00:00Z",
+    "impact": 8.2,
+    "pnl": -62507964.48,
+    "pnl_pct": -0.01714,
+    "scope_targets": [
+     "country:US"
+    ]
+   },
+   {
+    "class": "macroeconomic",
+    "date": "2022-09-14",
+    "detected_at": "2022-09-14T05:00:00Z",
+    "impact": 7.1,
+    "pnl": -46406403.55,
+    "pnl_pct": -0.012725,
+    "scope_targets": [
+     "central_bank:FED",
+     "country:US"
+    ]
+   },
+   {
+    "class": "geopolitical",
+    "date": "2022-09-21",
+    "detected_at": "2022-09-21T14:00:00Z",
+    "impact": 7.2,
+    "pnl": -20678606.61,
+    "pnl_pct": -0.00567,
+    "scope_targets": [
+     "country:RU",
+     "country:UA"
+    ]
+   },
+   {
+    "class": "macroeconomic",
+    "date": "2022-09-21",
+    "detected_at": "2022-09-21T16:00:00Z",
+    "impact": 7.3,
+    "pnl": -49345624.47,
+    "pnl_pct": -0.013531,
+    "scope_targets": [
+     "central_bank:FED"
+    ]
+   },
+   {
+    "class": "macroeconomic",
+    "date": "2022-09-27",
+    "detected_at": "2022-09-27T10:00:00Z",
+    "impact": 7.1,
+    "pnl": -46406403.55,
+    "pnl_pct": -0.012725,
+    "scope_targets": [
+     "central_bank:BOE"
+    ]
+   },
+   {
+    "class": "commodity_energy",
+    "date": "2022-09-29",
+    "detected_at": "2022-09-29T20:00:00Z",
+    "impact": 7.1,
+    "pnl": -5681596.76,
+    "pnl_pct": -0.001558,
+    "scope_targets": [
+     "commodity:gas",
+     "country:RU"
+    ]
+   }
+  ],
+  "signal_class_share": {
+   "commodity_energy": 0.0264,
+   "credit_event": 0.0025,
+   "earnings_corporate": 0.0515,
+   "geopolitical": 0.0632,
+   "macroeconomic": 0.0698,
+   "merger_acquisition": 0.0096,
+   "other": 0.7478,
+   "product_launch": 0.0175,
+   "regulatory": 0.0117
+  },
+  "signals": 14943,
+  "sources": {
+   "gdelt_gkg": 12446,
+   "kaggle_tweets": 2497
+  },
+  "stress_tests_triggered": 8,
+  "window": {
+   "end": "2022-09-30",
+   "start": "2022-09-10"
   }
  }
 }

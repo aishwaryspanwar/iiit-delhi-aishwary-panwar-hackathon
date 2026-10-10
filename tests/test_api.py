@@ -117,8 +117,32 @@ def test_stress_detail_is_the_engine_output(base_url):
     assert status == 200 and len(overview["runs"]) == len(stress["runs"])
 
 
+def test_alerts_are_the_stream_output_with_stress_pnl(base_url):
+    alerts = read_jsonl(PROCESSED_DIR / DATASET / "alerts_v1.jsonl.gz")
+    stress = read_json(PROCESSED_DIR / DATASET / "stress_results_v1.json")
+    status, rows, _ = fetch(f"{base_url}/api/datasets/{DATASET}/alerts")
+    assert status == 200 and [r["alert_id"] for r in rows] == [a["alert_id"] for a in alerts]
+    pnl = {r["cluster_id"]: r["totals"]["pnl"] for r in stress["runs"]}
+    assert all(r["pnl"] == pnl[r["cluster_id"]] for r in rows)
+
+
+def test_entity_views_aggregate_signals(base_url):
+    status, rows, _ = fetch(f"{base_url}/api/datasets/{DATASET}/entities")
+    assert status == 200 and rows
+    top = rows[0]
+    status, detail, _ = fetch(f"{base_url}/api/datasets/{DATASET}/entities/{top['id'].replace(':', '%3A')}")
+    assert status == 200 and detail["signals"] == top["signals"]
+    assert sum(day["signals"] for day in detail["timeline"]) == top["signals"]
+
+
+def test_evaluation_endpoint_serves_committed_files(base_url):
+    status, payload, _ = fetch(f"{base_url}/api/evaluation")
+    assert status == 200 and payload["metrics"] == read_json(PROCESSED_DIR.parent / "eval" / "metrics.json")
+
+
 @pytest.mark.parametrize("path", [
     "/api/datasets/nope/summary",
+    f"/api/datasets/{DATASET}/entities/company:NOPE",
     f"/api/datasets/{DATASET}/signals/0000000000000000",
     f"/api/datasets/{DATASET}/events/missing",
     f"/api/datasets/{DATASET}/stress/missing",
