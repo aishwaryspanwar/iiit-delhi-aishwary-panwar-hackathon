@@ -1,5 +1,10 @@
-portfolio_version: portfolio-v1
-seed: 20220224
+portfolio_version: portfolio-v2
+seed: 42
+profile: "European wholesale bank with CEE and emerging-market corporate lending, a sovereign and corporate bond book, rates hedges and a small listed-equity sleeve. The CEE/EM tilt (RU, UA, PL, TR) is intentional so regional shocks are visible; the same book is run unchanged on every window."
+beta_estimation:
+  returns_file: market/returns_daily_2021.csv
+  market: "^GSPC"
+  method: OLS slope of daily returns on the S&P 500 over calendar 2021 (before every test window)
 currency: USD
 ranges:
   loan_notional_musd: [60, 260]
@@ -49,16 +54,16 @@ irs:
   - {direction: receiver}
   - {direction: receiver}
 equities:
-  - {ticker: TSLA, beta: 2.0}
-  - {ticker: AAPL, beta: 1.2}
-  - {ticker: MSFT, beta: 1.1}
-  - {ticker: AMZN, beta: 1.3}
-  - {ticker: TSM, beta: 1.2}
-  - {ticker: META, beta: 1.3}
-  - {ticker: KO, beta: 0.6}
-  - {ticker: BA, beta: 1.4}
-  - {ticker: NOC, beta: 0.7}
-  - {ticker: F, beta: 1.3}
+  - {ticker: TSLA}
+  - {ticker: AAPL}
+  - {ticker: MSFT}
+  - {ticker: AMZN}
+  - {ticker: TSM}
+  - {ticker: META}
+  - {ticker: KO}
+  - {ticker: BA}
+  - {ticker: NOC}
+  - {ticker: F}
 options:
   underlying_price: 100.0
   multiplier: 100

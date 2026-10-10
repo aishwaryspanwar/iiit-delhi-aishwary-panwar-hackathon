@@ -1,0 +1,352 @@
+{
+ "method": {
+  "full_severity_multiple": 2.0,
+  "hy_spread_proxy": "-(HYG - IEF return) / 4.0",
+  "ig_spread_proxy": "-(LQD - IEF return) / 8.5",
+  "rule": "base shock (severity multiplier 1.0, impact 10) = full_severity_multiple x mean of the analogue episodes' selected 5-day moves; at the trigger threshold (multiplier 0.5) the shock equals the analogue mean",
+  "window_trading_days": 5
+ },
+ "scenarios": {
+  "commodity_energy": {
+   "analogue_mean": {
+    "equity_market": -0.010307,
+    "hy_spread_bp": 25.966868,
+    "ig_spread_bp": -0.51065,
+    "rates_bp": -13.849998,
+    "sector_excess": {
+     "consumer": -0.012891,
+     "energy": 0.035677,
+     "financials": -0.008729,
+     "industrials": -0.015116,
+     "materials": -0.008417,
+     "technology": -0.008787,
+     "utilities": 0.018952
+    },
+    "vol_pts": 3.669998
+   },
+   "base_shock": {
+    "equity_market": -0.021,
+    "rates_bp": -28,
+    "sector_excess": {
+     "consumer": -0.026,
+     "energy": 0.071,
+     "financials": -0.017,
+     "industrials": -0.03,
+     "materials": -0.017,
+     "technology": -0.018,
+     "utilities": 0.038
+    },
+    "spread_bp": {
+     "HY": 52,
+     "IG": 0
+    },
+    "vol_pts": 7.3
+   },
+   "episodes": [
+    {
+     "episode": "Libya supply shock",
+     "equity_market": -0.015519,
+     "from": "2011-02-15",
+     "hy_spread_bp": 27.175174,
+     "ig_spread_bp": 6.506044,
+     "oil": 0.163425,
+     "rates_bp": -12.899995,
+     "sector_excess": {
+      "consumer": -0.009563,
+      "energy": 0.053811,
+      "financials": -0.013186,
+      "industrials": -0.021114,
+      "materials": -0.013362,
+      "technology": -0.01466,
+      "utilities": 0.010185
+     },
+     "select": "largest_oil_rise",
+     "to": "2011-02-23",
+     "vol_pts": 5.759998
+    },
+    {
+     "episode": "Abqaiq attack",
+     "equity_market": -0.005095,
+     "from": "2019-09-13",
+     "hy_spread_bp": 24.758561,
+     "ig_spread_bp": -7.527345,
+     "oil": 0.05907,
+     "rates_bp": -14.8,
+     "sector_excess": {
+      "consumer": -0.016219,
+      "energy": 0.017544,
+      "financials": -0.004271,
+      "industrials": -0.009117,
+      "materials": -0.003473,
+      "technology": -0.002914,
+      "utilities": 0.027719
+     },
+     "select": "largest_oil_rise",
+     "to": "2019-09-20",
+     "vol_pts": 1.579999
+    }
+   ]
+  },
+  "credit_event": {
+   "analogue_mean": {
+    "equity_market": -0.08403,
+    "hy_spread_bp": 199.888452,
+    "ig_spread_bp": 27.055916,
+    "rates_bp": -26.850009,
+    "sector_excess": {
+     "consumer": -0.003629,
+     "energy": -0.040825,
+     "financials": -0.030603,
+     "industrials": -0.005518,
+     "materials": -0.016607,
+     "technology": 0.009307,
+     "utilities": 0.029887
+    },
+    "vol_pts": 16.959999
+   },
+   "base_shock": {
+    "equity_market": -0.168,
+    "rates_bp": -54,
+    "sector_excess": {
+     "consumer": -0.007,
+     "energy": -0.082,
+     "financials": -0.061,
+     "industrials": -0.011,
+     "materials": -0.033,
+     "technology": 0.019,
+     "utilities": 0.06
+    },
+    "spread_bp": {
+     "HY": 400,
+     "IG": 54
+    },
+    "vol_pts": 33.9
+   },
+   "episodes": [
+    {
+     "episode": "US sovereign downgrade and euro-area credit stress",
+     "equity_market": -0.130138,
+     "from": "2011-08-01",
+     "hy_spread_bp": 276.91869,
+     "ig_spread_bp": 40.476466,
+     "oil": -0.143113,
+     "rates_bp": -40.100002,
+     "sector_excess": {
+      "consumer": -0.006272,
+      "energy": -0.054038,
+      "financials": -0.045455,
+      "industrials": -0.013215,
+      "materials": -0.030105,
+      "technology": 0.020406,
+      "utilities": 0.037863
+     },
+     "select": "worst_equity",
+     "to": "2011-08-08",
+     "vol_pts": 24.34
+    },
+    {
+     "episode": "Energy high-yield stress",
+     "equity_market": -0.037921,
+     "from": "2015-12-04",
+     "hy_spread_bp": 122.858214,
+     "ig_spread_bp": 13.635366,
+     "oil": -0.108832,
+     "rates_bp": -13.600015,
+     "sector_excess": {
+      "consumer": -0.000986,
+      "energy": -0.027612,
+      "financials": -0.015751,
+      "industrials": 0.00218,
+      "materials": -0.003109,
+      "technology": -0.001792,
+      "utilities": 0.02191
+     },
+     "select": "widest_hy",
+     "to": "2015-12-11",
+     "vol_pts": 9.579999
+    }
+   ]
+  },
+  "geopolitical": {
+   "analogue_mean": {
+    "equity_market": -0.012137,
+    "hy_spread_bp": 21.782282,
+    "ig_spread_bp": 4.335316,
+    "rates_bp": -10.033333,
+    "sector_excess": {
+     "consumer": -0.003786,
+     "energy": -0.001791,
+     "financials": -0.004352,
+     "industrials": -0.00103,
+     "materials": -0.004497,
+     "technology": 0.000914,
+     "utilities": 0.022349
+    },
+    "vol_pts": 1.98
+   },
+   "base_shock": {
+    "equity_market": -0.024,
+    "rates_bp": -20,
+    "sector_excess": {
+     "consumer": -0.008,
+     "energy": -0.004,
+     "financials": -0.009,
+     "industrials": -0.002,
+     "materials": -0.009,
+     "technology": 0.002,
+     "utilities": 0.045
+    },
+    "spread_bp": {
+     "HY": 44,
+     "IG": 9
+    },
+    "vol_pts": 4.0
+   },
+   "episodes": [
+    {
+     "episode": "Crimea annexation",
+     "equity_market": -0.019654,
+     "from": "2014-03-07",
+     "hy_spread_bp": 36.770682,
+     "ig_spread_bp": 8.588774,
+     "oil": -0.035971,
+     "rates_bp": -14.499998,
+     "sector_excess": {
+      "consumer": -0.003198,
+      "energy": 0.001022,
+      "financials": -0.005827,
+      "industrials": -0.011477,
+      "materials": 0.001031,
+      "technology": -0.002037,
+      "utilities": 0.042159
+     },
+     "select": "worst_equity",
+     "to": "2014-03-14",
+     "vol_pts": 3.71
+    },
+    {
+     "episode": "North Korea missile crisis",
+     "equity_market": -0.015195,
+     "from": "2017-08-14",
+     "hy_spread_bp": 14.708664,
+     "ig_spread_bp": -0.167534,
+     "oil": -0.004623,
+     "rates_bp": -3.900003,
+     "sector_excess": {
+      "consumer": -0.007899,
+      "energy": -0.012256,
+      "financials": -0.005548,
+      "industrials": -0.003909,
+      "materials": 0.01112,
+      "technology": -0.001353,
+      "utilities": 0.027221
+     },
+     "select": "worst_equity",
+     "to": "2017-08-21",
+     "vol_pts": 0.859999
+    },
+    {
+     "episode": "US strike on Soleimani",
+     "equity_market": -0.001562,
+     "from": "2019-12-26",
+     "hy_spread_bp": 13.8675,
+     "ig_spread_bp": 4.584706,
+     "oil": 0.022211,
+     "rates_bp": -11.699998,
+     "sector_excess": {
+      "consumer": -0.000263,
+      "energy": 0.005861,
+      "financials": -0.00168,
+      "industrials": 0.012298,
+      "materials": -0.025641,
+      "technology": 0.006131,
+      "utilities": -0.002333
+     },
+     "select": "worst_equity",
+     "to": "2020-01-03",
+     "vol_pts": 1.370001
+    }
+   ]
+  },
+  "macroeconomic": {
+   "analogue_mean": {
+    "equity_market": -0.057571,
+    "hy_spread_bp": 46.093209,
+    "ig_spread_bp": 10.986041,
+    "rates_bp": 14.950002,
+    "sector_excess": {
+     "consumer": 0.002758,
+     "energy": -0.015995,
+     "financials": 0.00858,
+     "industrials": -0.00337,
+     "materials": 0.006773,
+     "technology": -0.006159,
+     "utilities": 0.017213
+    },
+    "vol_pts": 6.705
+   },
+   "base_shock": {
+    "equity_market": -0.115,
+    "rates_bp": 30,
+    "sector_excess": {
+     "consumer": 0.006,
+     "energy": -0.032,
+     "financials": 0.017,
+     "industrials": -0.007,
+     "materials": 0.014,
+     "technology": -0.012,
+     "utilities": 0.034
+    },
+    "spread_bp": {
+     "HY": 92,
+     "IG": 22
+    },
+    "vol_pts": 13.4
+   },
+   "episodes": [
+    {
+     "episode": "Taper tantrum",
+     "equity_market": -0.038612,
+     "from": "2013-06-18",
+     "hy_spread_bp": -7.122077,
+     "ig_spread_bp": 7.948032,
+     "oil": -0.031694,
+     "rates_bp": 40.700007,
+     "sector_excess": {
+      "consumer": 0.003082,
+      "energy": 1.8e-05,
+      "financials": 0.005251,
+      "industrials": -0.003858,
+      "materials": -0.007629,
+      "technology": -0.004512,
+      "utilities": 0.012309
+     },
+     "select": "largest_rate_rise",
+     "to": "2013-06-25",
+     "vol_pts": 1.859999
+    },
+    {
+     "episode": "Q4 2018 Fed tightening sell-off",
+     "equity_market": -0.076529,
+     "from": "2018-12-17",
+     "hy_spread_bp": 99.308494,
+     "ig_spread_bp": 14.02405,
+     "oil": -0.147354,
+     "rates_bp": -10.800004,
+     "sector_excess": {
+      "consumer": 0.002434,
+      "energy": -0.032007,
+      "financials": 0.011909,
+      "industrials": -0.002882,
+      "materials": 0.021176,
+      "technology": -0.007805,
+      "utilities": 0.022118
+     },
+     "select": "worst_equity",
+     "to": "2018-12-24",
+     "vol_pts": 11.55
+    }
+   ]
+  }
+ }
+}

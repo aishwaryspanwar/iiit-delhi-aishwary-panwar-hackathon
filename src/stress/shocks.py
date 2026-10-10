@@ -28,6 +28,8 @@ def rating_table() -> pd.DataFrame:
     table["notch_index"] = table["notch_index"].astype(int)
     table["pd_1y"] = table["pd_1y"].astype(float)
     table["spread_bp"] = table["spread_bp"].astype(float)
+    table["rw_corporate"] = table["rw_corporate"].astype(float)
+    table["rw_sovereign"] = table["rw_sovereign"].astype(float)
     return table.set_index("rating")
 
 
@@ -85,30 +87,59 @@ def downgraded_ratings(ratings: pd.Series, notches: np.ndarray) -> pd.Series:
     return pd.Series(new_index, index=ratings.index)
 
 
+@lru_cache(maxsize=1)
+def contagion_links() -> dict[str, dict[str, float]]:
+    return {k: {c: float(w) for c, w in (v or {}).items()} for k, v in load_yaml("contagion.yaml")["links"].items()}
+
+
+def contagion_weights(portfolio: pd.DataFrame, selection: ScopeFilter, direct: np.ndarray) -> np.ndarray:
+    if selection.scope != "country":
+        return np.where(direct, 1.0, 0.0)
+    linked: dict[str, float] = {}
+    for country in selection.countries:
+        for partner, weight in contagion_links().get(country, {}).items():
+            linked[partner] = max(linked.get(partner, 0.0), weight)
+    partial = portfolio["country"].map(linked).fillna(0.0).astype(float).to_numpy()
+    return np.where(direct, 1.0, partial)
+
+
+def spread_buckets(portfolio: pd.DataFrame) -> pd.Series:
+    settings = shock_config()["safe_haven"]
+    table = rating_table()
+    bucket = portfolio["rating"].map(table["bucket"]).fillna("IG")
+    notch = portfolio["rating"].map(table["notch_index"])
+    safe = portfolio["sector"].isin(settings["sectors"]) & notch.notna() & (notch.fillna(99) <= settings["max_notch_index"])
+    return bucket.where(~safe, "SAFE")
+
+
 def position_shocks(portfolio: pd.DataFrame, event_class: str, impact: float, scope: str, targets: list[str]) -> pd.DataFrame:
     settings = shock_config()
     scenario = settings["scenarios"][event_class]
     multiplier = severity_multiplier(impact)
     table = rating_table()
-    mask = in_scope_mask(portfolio, scope_filter(scope, targets))
+    selection = scope_filter(scope, targets)
+    mask = in_scope_mask(portfolio, selection)
+    weight = contagion_weights(portfolio, selection, mask)
     rated = portfolio["rating"].isin(table.index).to_numpy()
-    bucket = portfolio["rating"].map(table["bucket"]).fillna("IG")
-    base_spread = bucket.map(scenario["spread_bp"]).astype(float).to_numpy() * multiplier
+    bucket = spread_buckets(portfolio)
+    base_spread = bucket.map(scenario["spread_bp"]).fillna(0.0).astype(float).to_numpy() * multiplier
     in_scope = scenario["in_scope"]
     max_notches = settings["severity"]["max_rating_notches"]
-    notches_value = min(max_notches, abs(int(round(in_scope["rating_notches"] * multiplier))))
-    notches = np.where(mask & rated, notches_value, 0)
+    notches = np.array([min(max_notches, abs(int(round(in_scope["rating_notches"] * multiplier * w)))) for w in weight])
+    notches = np.where(rated, notches, 0)
     new_rating = downgraded_ratings(portfolio["rating"], notches)
     old_spread = portfolio["rating"].map(table["spread_bp"]).fillna(0.0).to_numpy()
     new_spread = new_rating.map(table["spread_bp"]).fillna(0.0).to_numpy()
     sector_excess = portfolio["sector"].map(scenario["sector_excess"]).fillna(0.0).astype(float).to_numpy()
     beta = portfolio["beta"].to_numpy()
-    equity_return = (beta * scenario["equity_market"] + sector_excess + np.where(mask, in_scope["equity_excess"], 0.0)) * multiplier
+    equity_return = (beta * scenario["equity_market"] + sector_excess + weight * in_scope["equity_excess"]) * multiplier
     return pd.DataFrame({
         "position_id": portfolio["position_id"].to_numpy(),
         "in_scope": mask,
+        "contagion_weight": np.round(weight, 4),
+        "spread_bucket": bucket.to_numpy(),
         "d_rate_bp": np.full(len(portfolio), scenario["rates_bp"] * multiplier),
-        "d_spread_bp": np.where(rated, base_spread + np.where(mask, in_scope["spread_bp"] * multiplier, 0.0), 0.0),
+        "d_spread_bp": np.where(rated, base_spread + weight * in_scope["spread_bp"] * multiplier, 0.0),
         "rating_notches": notches,
         "rating_after": new_rating.to_numpy(),
         "d_migration_spread_bp": np.where(rated, new_spread - old_spread, 0.0),
@@ -123,6 +154,7 @@ def scenario_summary(event_class: str, impact: float) -> dict:
     scenario = shock_config()["scenarios"][event_class]
     multiplier = severity_multiplier(impact)
     return {
+        "source": scenario.get("source", ""),
         "multiplier": multiplier,
         "equity_market": round(scenario["equity_market"] * multiplier, 4),
         "sector_excess": {k: round(v * multiplier, 4) for k, v in sorted(scenario["sector_excess"].items())},

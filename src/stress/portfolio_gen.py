@@ -7,7 +7,7 @@ import pandas as pd
 
 from src.riskengine.config import DATA_DIR, load_csv, load_yaml
 
-PORTFOLIO_PATH = DATA_DIR / "portfolio" / "portfolio_v1.csv"
+PORTFOLIO_PATH = DATA_DIR / "portfolio" / "portfolio_v2.csv"
 COLUMNS = [
     "position_id", "asset_class", "name", "sector", "country", "rating", "ticker", "coupon_type", "direction",
     "secured", "notional_usd", "market_value_usd", "maturity_years", "ead_usd", "lgd", "rate_duration",
@@ -157,8 +157,20 @@ def option_rows(settings: dict, equities: dict[str, dict]) -> list[dict]:
     return rows
 
 
+def estimated_betas(tickers: list[str], settings: dict) -> dict[str, float]:
+    returns = pd.read_csv(DATA_DIR / settings["beta_estimation"]["returns_file"], index_col="date")
+    market = returns[settings["beta_estimation"]["market"]]
+    betas = {}
+    for ticker in tickers:
+        paired = pd.concat([returns[ticker], market], axis=1).dropna()
+        covariance = float(np.cov(paired.iloc[:, 0], paired.iloc[:, 1], ddof=1)[0, 1])
+        betas[ticker] = round(covariance / float(paired.iloc[:, 1].var(ddof=1)), 2)
+    return betas
+
+
 def equity_rows(rng: np.random.Generator, settings: dict) -> list[dict]:
     companies = load_csv("entities.csv").set_index("ticker")
+    betas = estimated_betas([spec["ticker"] for spec in settings["equities"]], settings)
     rows = []
     for index, spec in enumerate(settings["equities"], start=1):
         company = companies.loc[spec["ticker"]]
@@ -167,7 +179,7 @@ def equity_rows(rng: np.random.Generator, settings: dict) -> list[dict]:
         row.update({
             "position_id": f"EQ{index:03d}", "asset_class": "equity", "name": company["name"], "sector": company["sector"],
             "country": company["country"], "ticker": spec["ticker"], "notional_usd": value, "market_value_usd": value,
-            "beta": spec["beta"],
+            "beta": betas[spec["ticker"]],
         })
         rows.append(row)
     return rows

@@ -1,4 +1,5 @@
-shocks_version: shocks-v1
+shocks_version: shocks-v2
+calibration: data/market/shock_calibration.json
 trigger:
   stress_classes: [geopolitical, macroeconomic, credit_event, commodity_energy, regulatory]
   impact_threshold: 7.0
@@ -7,42 +8,52 @@ trigger:
   cooldown_hours: 72
   rearm_impact_delta: 1.0
   min_news_outlets: 2
+  min_mentions: 20
+  max_positive_share: 0.5
 severity:
   floor_multiplier: 0.5
   max_rating_notches: 3
+safe_haven:
+  sectors: [sovereign]
+  max_notch_index: 3
 scenarios:
   geopolitical:
-    equity_market: -0.10
-    sector_excess: {energy: 0.08, materials: 0.03, financials: -0.04, industrials: -0.02, consumer: -0.02}
-    rates_bp: -30
-    spread_bp: {IG: 60, HY: 200}
-    vol_pts: 15
+    source: "2x mean worst 5-day move of Crimea 2014, North Korea Aug 2017, Soleimani Jan 2020 (calibrated); in-scope add-ons are judgement"
+    equity_market: -0.024
+    sector_excess: {energy: -0.004, financials: -0.009, industrials: -0.002, consumer: -0.008, technology: 0.002, materials: -0.009, utilities: 0.045}
+    rates_bp: -20
+    spread_bp: {SAFE: 0, IG: 9, HY: 44}
+    vol_pts: 4.0
     in_scope: {spread_bp: 250, rating_notches: -2, equity_excess: -0.15}
   macroeconomic:
-    equity_market: -0.06
-    sector_excess: {technology: -0.04, real_estate: -0.04, communication: -0.02, financials: 0.01}
-    rates_bp: 50
-    spread_bp: {IG: 25, HY: 100}
-    vol_pts: 8
+    source: "2x mean selected 5-day move of the 2013 taper tantrum and the Q4 2018 Fed sell-off (calibrated)"
+    equity_market: -0.115
+    sector_excess: {energy: -0.032, financials: 0.017, industrials: -0.007, consumer: 0.006, technology: -0.012, materials: 0.014, utilities: 0.034}
+    rates_bp: 30
+    spread_bp: {SAFE: 0, IG: 22, HY: 92}
+    vol_pts: 13.4
     in_scope: {spread_bp: 0, rating_notches: 0, equity_excess: 0.0}
   credit_event:
-    equity_market: -0.05
-    sector_excess: {financials: -0.03}
-    rates_bp: -15
-    spread_bp: {IG: 40, HY: 150}
-    vol_pts: 10
+    source: "2x mean selected 5-day move of the Aug 2011 US downgrade and the 2015-16 energy high-yield stress (calibrated); in-scope add-ons are judgement"
+    equity_market: -0.168
+    sector_excess: {energy: -0.082, financials: -0.061, industrials: -0.011, consumer: -0.007, technology: 0.019, materials: -0.033, utilities: 0.06}
+    rates_bp: -54
+    spread_bp: {SAFE: 0, IG: 54, HY: 400}
+    vol_pts: 33.9
     in_scope: {spread_bp: 300, rating_notches: -2, equity_excess: -0.20}
   commodity_energy:
-    equity_market: -0.05
-    sector_excess: {energy: 0.10, materials: 0.05, industrials: -0.04, consumer: -0.03, utilities: -0.03}
-    rates_bp: 25
-    spread_bp: {IG: 20, HY: 80}
-    vol_pts: 8
+    source: "2x mean largest 5-day oil rise of the 2011 Libya shock and the 2019 Abqaiq attack (calibrated)"
+    equity_market: -0.021
+    sector_excess: {energy: 0.071, financials: -0.017, industrials: -0.03, consumer: -0.026, technology: -0.018, materials: -0.017, utilities: 0.038}
+    rates_bp: -28
+    spread_bp: {SAFE: 0, IG: 0, HY: 52}
+    vol_pts: 7.3
     in_scope: {spread_bp: 0, rating_notches: 0, equity_excess: 0.0}
   regulatory:
+    source: "judgement: small market-wide move, losses concentrated on the targeted names"
     equity_market: -0.02
     sector_excess: {}
     rates_bp: 0
-    spread_bp: {IG: 10, HY: 40}
+    spread_bp: {SAFE: 0, IG: 10, HY: 40}
     vol_pts: 4
     in_scope: {spread_bp: 75, rating_notches: -1, equity_excess: -0.08}

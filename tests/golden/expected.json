@@ -1,19 +1,19 @@
 {
  "golden-commodity-oil": {
   "by_asset_class": {
-   "bond": -20639503.34,
-   "equity": -21913706.05,
-   "irs": 2508651.68,
+   "bond": 5399661.08,
+   "equity": -11541377.37,
+   "irs": -1537641.4,
    "loan": 0.0,
-   "option": 1782754.64
+   "option": 1280266.74
   },
   "by_factor": {
-   "equity": -21013484.81,
+   "equity": -11051011.23,
    "migration": 0.0,
-   "rates": -4663850.31,
-   "second_order": 358564.56,
-   "spread": -13771107.35,
-   "vol": 828074.85
+   "rates": 8244486.56,
+   "second_order": 129926.22,
+   "spread": -4478110.8,
+   "vol": 755618.3
   },
   "in_scope_positions": [
    "BD006",
@@ -23,27 +23,31 @@
    "LN004"
   ],
   "loan_loss_views": {
+   "fair_value_change": -7718970.08,
+   "ifrs9_provision_change": 0.0,
    "lifetime_el_change": 0.0,
-   "one_year_el_change": 0.0
+   "one_year_el_change": 0.0,
+   "stage2_loans": 0,
+   "stage3_loans": 0
   },
   "multiplier": 0.5833,
-  "total_pnl": -38261803.07
+  "total_pnl": -6399090.95
  },
  "golden-credit-financials": {
   "by_asset_class": {
-   "bond": -78302359.93,
-   "equity": -22907000.35,
-   "irs": -2150309.73,
-   "loan": -545625.0,
-   "option": 2549544.47
+   "bond": -53844732.58,
+   "equity": -68248346.62,
+   "irs": -4236431.59,
+   "loan": -3050118.35,
+   "option": 9770327.95
   },
   "by_factor": {
-   "equity": -21990107.74,
-   "migration": -7902598.78,
-   "rates": 3997654.51,
-   "second_order": 10171371.69,
-   "spread": -87110800.67,
-   "vol": 1478730.43
+   "equity": -64959399.37,
+   "migration": -5674408.33,
+   "rates": 22714791.15,
+   "second_order": 12290307.73,
+   "spread": -88993488.54,
+   "vol": 5012896.16
   },
   "in_scope_positions": [
    "BD008",
@@ -52,27 +56,31 @@
    "LN008"
   ],
   "loan_loss_views": {
-   "lifetime_el_change": -3583992.53,
-   "one_year_el_change": -545625.0
+   "fair_value_change": -153573913.17,
+   "ifrs9_provision_change": -3050118.35,
+   "lifetime_el_change": -2249510.78,
+   "one_year_el_change": -587583.0,
+   "stage2_loans": 1,
+   "stage3_loans": 0
   },
   "multiplier": 0.8333,
-  "total_pnl": -101355750.55
+  "total_pnl": -119609301.19
  },
  "golden-geo-russia": {
   "by_asset_class": {
-   "bond": -53427209.05,
-   "equity": -45759750.0,
-   "irs": -3870712.35,
-   "loan": -6687045.0,
-   "option": 4313059.08
+   "bond": -14487818.02,
+   "equity": -9933792.0,
+   "irs": -1412200.35,
+   "loan": -46985940.35,
+   "option": 1010917.66
   },
   "by_factor": {
-   "equity": -43925981.85,
-   "migration": -14274096.96,
-   "rates": 7196065.97,
-   "second_order": 5574293.29,
-   "spread": -61998303.7,
-   "vol": 1996365.94
+   "equity": -9484064.29,
+   "migration": -50248941.54,
+   "rates": 7571899.93,
+   "second_order": 903955.69,
+   "spread": -21084047.08,
+   "vol": 532364.25
   },
   "in_scope_positions": [
    "BD004",
@@ -81,34 +89,42 @@
    "LN007"
   ],
   "loan_loss_views": {
-   "lifetime_el_change": -22204277.96,
-   "one_year_el_change": -6687045.0
+   "fair_value_change": -107062362.29,
+   "ifrs9_provision_change": -46985940.35,
+   "lifetime_el_change": -29778595.49,
+   "one_year_el_change": -10750905.0,
+   "stage2_loans": 1,
+   "stage3_loans": 1
   },
   "multiplier": 0.75,
-  "total_pnl": -105431657.32
+  "total_pnl": -71808833.05
  },
  "golden-macro-fed": {
   "by_asset_class": {
-   "bond": -35187651.77,
-   "equity": -25260862.98,
-   "irs": 5734675.39,
+   "bond": -27464992.68,
+   "equity": -38005723.52,
+   "irs": 1883027.95,
    "loan": 0.0,
-   "option": 2192967.21
+   "option": 3990824.51
   },
   "by_factor": {
-   "equity": -24362835.03,
+   "equity": -36229021.9,
    "migration": 0.0,
-   "rates": -10661371.52,
-   "second_order": 1231980.18,
-   "spread": -19675118.45,
-   "vol": 946472.65
+   "rates": -10096371.36,
+   "second_order": 1251162.46,
+   "spread": -16107974.65,
+   "vol": 1585341.7
   },
   "in_scope_positions": [],
   "loan_loss_views": {
+   "fair_value_change": -21960259.23,
+   "ifrs9_provision_change": 0.0,
    "lifetime_el_change": 0.0,
-   "one_year_el_change": 0.0
+   "one_year_el_change": 0.0,
+   "stage2_loans": 0,
+   "stage3_loans": 0
   },
   "multiplier": 0.6667,
-  "total_pnl": -52520872.16
+  "total_pnl": -59596863.75
  }
 }

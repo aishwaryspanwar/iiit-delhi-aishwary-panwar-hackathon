@@ -1,0 +1,13 @@
+contagion_version: contagion-v1
+note: "Partial in-scope weight for countries linked to a directly hit country (trade, energy dependence, proximity). Judgement, applied to country-scope events only."
+links:
+  RU: {UA: 1.0, BY: 1.0, KZ: 0.5, MD: 0.5, PL: 0.3, HU: 0.3, FI: 0.3, TR: 0.3, DE: 0.2}
+  UA: {MD: 0.5, PL: 0.3, RU: 0.3}
+  CN: {HK: 0.8, TW: 0.5, KR: 0.2}
+  TW: {CN: 0.3, KR: 0.3, JP: 0.2}
+  KP: {KR: 0.5, JP: 0.3}
+  IR: {IQ: 0.5, IL: 0.3, SA: 0.3, AE: 0.3, QA: 0.3, KW: 0.3}
+  IL: {PS: 1.0, LB: 0.5, EG: 0.2}
+  TR: {GR: 0.2}
+  IT: {GR: 0.3, ES: 0.2}
+  US: {}

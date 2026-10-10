@@ -32,6 +32,8 @@ def explanation_text(event: dict, signals_by_id: dict[str, dict], summary: dict,
         f"rates {summary['rates_bp']:+.0f}bp, IG spreads {summary['spread_bp']['IG']:+.0f}bp, HY spreads {summary['spread_bp']['HY']:+.0f}bp, "
         f"implied vol {summary['vol_pts']:+.1f} pts, in-scope add-on {summary['in_scope']['spread_bp']:+.0f}bp and {summary['in_scope']['rating_notches']} notch downgrade(s). "
         f"Portfolio value moves {format_musd(totals['pnl'])} ({totals['pnl_pct']:+.2%}). Largest losses: {loss_line}. "
-        f"Loan expected-loss change: {format_musd(loan_views['one_year_el_change'])} on a 1-year view, "
-        f"{format_musd(loan_views['lifetime_el_change'])} on a lifetime (IFRS 9 stage-2 style) view."
+        f"Loan provisions (IFRS 9 staging): {format_musd(loan_views['ifrs9_provision_change'])}, "
+        f"{loan_views['stage2_loans']} loan(s) moved to stage 2 and {loan_views['stage3_loans']} to stage 3; "
+        f"for comparison {format_musd(loan_views['one_year_el_change'])} on a 1-year view and "
+        f"{format_musd(loan_views['lifetime_el_change'])} if every loan were on a lifetime view."
     )
