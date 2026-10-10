@@ -10,7 +10,11 @@ from src.riskengine.models import RawDoc
 
 csv.field_size_limit(2**31 - 1)
 
-GDELT_SOURCE_PATH = DATA_DIR / "sources" / "w1" / "gdelt_headlines.csv"
+def gdelt_source_path(window: str) -> Path:
+    return DATA_DIR / "sources" / window / "gdelt_headlines.csv"
+
+
+GDELT_SOURCE_PATH = gdelt_source_path("w1")
 TITLE_PATTERN = re.compile(r"<PAGE_TITLE>(.*?)</PAGE_TITLE>", re.S)
 FIELDS = ["source_id", "published_at", "outlet", "url", "title"]
 

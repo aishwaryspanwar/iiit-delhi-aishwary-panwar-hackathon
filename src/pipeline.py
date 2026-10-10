@@ -3,7 +3,7 @@ from pathlib import Path
 
 from src.riskengine.build import run_engine
 from src.riskengine.config import PROCESSED_DIR
-from src.riskengine.ingest.gdelt import read_gdelt_documents
+from src.riskengine.ingest.gdelt import gdelt_source_path, read_gdelt_documents
 from src.riskengine.ingest.stub import read_stub_documents
 from src.riskengine.ingest.tweets import read_tweet_documents
 from src.riskengine.io import validate_records, write_json, write_jsonl
@@ -16,11 +16,20 @@ def read_w1_documents() -> list[RawDoc]:
     return read_gdelt_documents() + read_tweet_documents()
 
 
-DATASETS = {"stub": read_stub_documents, "w1": read_w1_documents}
+def read_n1_documents() -> list[RawDoc]:
+    return read_gdelt_documents(gdelt_source_path("n1"))
+
+
+DATASETS = {"stub": read_stub_documents, "w1": read_w1_documents, "n1": read_n1_documents}
+DATASET_LABELS = {"w1": "W1 · Feb–Mar 2022 (GDELT + tweets)", "n1": "N1 · Aug–Sep 2026, calm market (GDELT news only)", "stub": "Stub sample (hand-written)"}
 
 
 def output_dir(dataset: str) -> Path:
     return PROCESSED_DIR / dataset
+
+
+def available_datasets() -> list[str]:
+    return [name for name in DATASET_LABELS if (PROCESSED_DIR / name / "signals_v1.jsonl.gz").exists()]
 
 
 def load_sentiment_model(name: str):
