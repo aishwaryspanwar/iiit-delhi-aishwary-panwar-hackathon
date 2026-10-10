@@ -56,6 +56,36 @@ describe("React frontend", () => {
     expect(screen.getByText(fixtures.stressRun.run.explanation)).toBeTruthy();
   });
 
+  it("shows real-time alerts with detection times on the overview", async () => {
+    mockApi();
+    renderAt("#/overview");
+    expect(await screen.findByText("Real-time alerts")).toBeTruthy();
+    expect(await screen.findAllByText(/before an end-of-day batch/)).toBeTruthy();
+  });
+
+  it("shows credit losses, capital and the severity curve for a stress run", async () => {
+    mockApi();
+    renderAt("#/stress");
+    expect(await screen.findByText("Credit losses and capital")).toBeTruthy();
+    expect(screen.getByText("Severity curve")).toBeTruthy();
+    expect(screen.getByText("IFRS 9 provisions (headline)")).toBeTruthy();
+  });
+
+  it("renders the company view for an entity", async () => {
+    mockApi();
+    renderAt("#/entities");
+    expect(await screen.findByRole("heading", { level: 1, name: "Companies and countries" })).toBeTruthy();
+    expect(await screen.findByText(fixtures.entity.entity.name, { selector: "h2" })).toBeTruthy();
+  });
+
+  it("renders the evaluation page with baselines and uncertainty", async () => {
+    mockApi();
+    renderAt("#/evaluation");
+    expect(await screen.findByText("Classification and sentiment")).toBeTruthy();
+    expect(screen.getByText("Does impact track the market?")).toBeTruthy();
+    expect(screen.getByText("Trigger quality")).toBeTruthy();
+  });
+
   it("explains the problem when the API is unavailable", async () => {
     mockApiDown();
     renderAt("#/overview");

@@ -35,21 +35,28 @@ export function HighlightedText({ text, terms }: { text: string; terms: string[]
 }
 
 export function checkDetail(name: CheckName, event: ClusterEvent, settings: TriggerSettings, className: (c: string) => string): string {
+  const window = event.window;
   switch (name) {
     case "stress_class":
       return `${className(event.class)} ${settings.stress_classes.includes(event.class) ? "is" : "is not"} a stress-relevant class`;
     case "impact_above_threshold":
       return `Event impact ${score(event.impact)} against a threshold of ${settings.impact_threshold}`;
     case "confidence_ok":
-      return `Mean confidence ${event.confidence_mean.toFixed(2)} against a minimum of ${settings.min_confidence}`;
+      return `Mean confidence ${(window?.confidence_mean ?? event.confidence_mean).toFixed(2)} in the 24 h window against a minimum of ${settings.min_confidence}`;
     case "not_positive":
-      return `Mean sentiment ${signed(event.sentiment_mean)} against a maximum of ${signed(settings.max_sentiment)}`;
+      return `Mean sentiment ${signed(window?.sentiment_mean ?? event.sentiment_mean)} in the 24 h window against a maximum of ${signed(settings.max_sentiment)}`;
+    case "direction_ok":
+      return `Share of positive credit actions ${percent(window?.positive_share ?? 0)} against a maximum of ${percent(settings.max_positive_share)}`;
     case "corroborated":
-      return `${event.n_outlets} distinct outlets against a minimum of ${settings.min_news_outlets}`;
+      return `${window?.n_outlets ?? event.n_outlets} distinct outlets in the 24 h window against a minimum of ${settings.min_news_outlets}`;
+    case "enough_mentions":
+      return `${integer(window?.n_mentions_est ?? event.n_mentions)} estimated mentions (full feed) against a minimum of ${settings.min_mentions}`;
     case "baseline_ready":
       return event.warmup ? "Still inside the volume-baseline warm-up window" : "Volume baseline available";
     case "cooldown":
-      return `Same class fired within ${settings.cooldown_hours} h without a ${settings.rearm_impact_delta}-point impact increase`;
+      return `Same class and target fired within ${settings.cooldown_hours} h without a ${settings.rearm_impact_delta}-point impact increase`;
+    default:
+      return "";
   }
 }
 

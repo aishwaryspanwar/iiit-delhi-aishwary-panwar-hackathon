@@ -1,7 +1,7 @@
 import { useMemo, useState, type ReactNode } from "react";
 import { ArrowRight, ArrowUpDown, ChevronDown, ChevronUp } from "lucide-react";
 import { useApp } from "../state";
-import { basisPoints, day, integer, percent, score, signed, usdMillions } from "../lib/format";
+import { basisPoints, dateTime, day, integer, percent, score, signed, usdMillions } from "../lib/format";
 import { ASSET_TEXT, FACTOR_ORDER, FACTOR_TEXT, SCOPE_TEXT, impactBand } from "../lib/risk";
 import type { AppliedShocks, PositionResult, RunSummary, ScenarioShocks, StressDetail, Totals } from "../lib/types";
 import { BandBadge, ClassTag, cx } from "./ui";
@@ -48,6 +48,7 @@ export function CausalChain({ detail }: { detail: StressDetail }) {
       <ol className="grid grid-cols-1 gap-3 @lg:grid-cols-2 @3xl:grid-cols-3 @5xl:flex @5xl:flex-row @5xl:items-stretch @5xl:gap-1.5" aria-label="Causal chain from news event to portfolio impact">
         <ChainStep index={1} label="Event" title={<span className="line-clamp-2">“{lead?.text ?? "n/a"}”</span>}>
           {day(event.t_start)}, {integer(event.n_items)} items from {integer(event.n_outlets)} outlets
+          {run.detected_at && <>; detected {dateTime(run.detected_at)} UTC</>}
         </ChainStep>
         <Connector />
         <ChainStep index={2} label="Classification" title={className(event.class)}>
@@ -156,6 +157,71 @@ export function AssetTable({ detail }: { detail: StressDetail }) {
           ))}
         </tbody>
       </table>
+    </div>
+  );
+}
+
+const BOOK_TEXT: Record<string, string> = { banking: "Banking book (loans, IFRS 9 provisions)", fair_value: "Fair-value book (bonds, swaps, equities, options)" };
+
+export function CreditCapital({ detail }: { detail: StressDetail }) {
+  const { run } = detail;
+  const views = run.loan_loss_views;
+  const capital = run.capital;
+  const rows = [
+    { label: "IFRS 9 provisions (headline)", value: views.ifrs9_provision_change, note: `${views.stage2_loans} loan(s) to stage 2, ${views.stage3_loans} to stage 3` },
+    { label: "12-month expected loss only", value: views.one_year_el_change, note: "if no loan changed stage" },
+    { label: "Lifetime expected loss on every loan", value: views.lifetime_el_change, note: "upper bound" },
+    { label: "Fair value of loans", value: views.fair_value_change, note: "spread-duration view, not booked" },
+  ];
+  return (
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+      <div>
+        <h3 className="mb-3 text-[13.5px] font-semibold text-ink">P&L by book</h3>
+        <ul className="flex flex-col gap-2.5">
+          {run.by_book.map((book) => (
+            <li key={book.book} className="flex items-baseline justify-between gap-3 text-[13.5px]">
+              <span className="text-ink-2">{BOOK_TEXT[book.book] ?? book.book}</span>
+              <span className={cx("num shrink-0 font-semibold", book.pnl < 0 ? "text-loss" : "text-gain")}>{usdMillions(book.pnl, 1, true)}</span>
+            </li>
+          ))}
+        </ul>
+        <h3 className="mt-6 mb-3 text-[13.5px] font-semibold text-ink">Loan loss views</h3>
+        <ul className="flex flex-col gap-2.5">
+          {rows.map((row) => (
+            <li key={row.label} className="text-[13px]">
+              <div className="flex items-baseline justify-between gap-3">
+                <span className="text-ink-2">{row.label}</span>
+                <span className="num shrink-0 font-medium text-ink">{usdMillions(row.value, 1, true)}</span>
+              </div>
+              <div className="text-[12px] text-ink-3">{row.note}</div>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h3 className="mb-3 text-[13.5px] font-semibold text-ink">Capital (Basel III standardised approach)</h3>
+        <dl className="grid grid-cols-2 gap-4">
+          <div>
+            <dt className="caption">RWA before</dt>
+            <dd className="figure mt-1 text-[18px] text-ink">{usdMillions(capital.rwa_before, 0)}</dd>
+          </div>
+          <div>
+            <dt className="caption">RWA after</dt>
+            <dd className="figure mt-1 text-[18px] text-ink">{usdMillions(capital.rwa_after, 0)}</dd>
+          </div>
+          <div>
+            <dt className="caption">RWA change</dt>
+            <dd className="figure mt-1 text-[18px] text-high">{usdMillions(capital.rwa_change, 1, true)}</dd>
+          </div>
+          <div>
+            <dt className="caption">Extra capital at {percent(capital.capital_ratio, 0)}</dt>
+            <dd className="figure mt-1 text-[18px] text-high">{usdMillions(capital.capital_requirement_change, 1, true)}</dd>
+          </div>
+        </dl>
+        <p className="mt-4 text-[12.5px] leading-relaxed text-ink-3">
+          Downgrades raise risk weights on loans and bonds. Loans move to stage 2 (lifetime expected credit loss) after a fall of three notches or more, or from investment grade to high yield.
+        </p>
+      </div>
     </div>
   );
 }

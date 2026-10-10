@@ -36,6 +36,7 @@ export const SENTIMENT_TEXT: Record<SentimentLabel, string> = {
 
 export const SOURCE_TEXT: Record<string, string> = {
   gdelt_gkg: "GDELT news",
+  gdelt_live: "GDELT live feed",
   kaggle_tweets: "Stock tweets",
   stub_news: "Stub news",
   stub_tweets: "Stub tweets",
@@ -53,7 +54,7 @@ export const ASSET_TEXT: Record<AssetClass, string> = {
 export const FACTOR_TEXT: Record<Factor, string> = {
   rates: "Rates",
   spread: "Credit spread",
-  migration: "Rating migration",
+  migration: "Migration and provisions",
   equity: "Equity",
   vol: "Volatility",
   second_order: "Convexity",
@@ -74,7 +75,9 @@ export const CHECK_ORDER: CheckName[] = [
   "impact_above_threshold",
   "confidence_ok",
   "not_positive",
+  "direction_ok",
   "corroborated",
+  "enough_mentions",
   "baseline_ready",
   "cooldown",
 ];

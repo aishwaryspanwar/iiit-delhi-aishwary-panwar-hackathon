@@ -5,6 +5,8 @@ import {
   CartesianGrid,
   Cell,
   LabelList,
+  Line,
+  LineChart,
   ReferenceArea,
   ReferenceLine,
   ResponsiveContainer,
@@ -432,5 +434,41 @@ export function SentimentSplit({ counts }: { counts: { neg: number; neu: number;
         ))}
       </dl>
     </div>
+  );
+}
+
+export function SeverityCurve({ points, current, height = 220 }: { points: { impact: number; multiplier: number; pnl: number }[]; current: number; height?: number }) {
+  const { palette } = useApp();
+  const data = points.map((p) => ({ impact: p.impact, pnl: p.pnl / 1e6, multiplier: p.multiplier }));
+  return (
+    <figure className="m-0">
+      <figcaption className="sr-only">
+        Stress P&L for event impact from {points[0]?.impact} to {points[points.length - 1]?.impact}: {data.map((d) => `${d.impact}: ${d.pnl.toFixed(1)}m`).join(", ")}.
+      </figcaption>
+      <div style={{ height }} aria-hidden="true">
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart data={data} margin={{ top: 16, right: 16, bottom: 4, left: -6 }}>
+            <CartesianGrid stroke={palette.grid} vertical={false} />
+            <XAxis dataKey="impact" type="number" domain={[7, 10]} ticks={[7, 7.5, 8, 8.5, 9, 9.5, 10]} tick={tick(palette)} axisLine={false} tickLine={false} />
+            <YAxis tick={tick(palette)} axisLine={false} tickLine={false} tickFormatter={(v: number) => `${v.toFixed(0)}m`} />
+            <ReferenceLine x={current} stroke={palette.accent} strokeDasharray="4 4" />
+            <Tooltip
+              isAnimationActive={false}
+              content={({ active, payload }) => {
+                const row = active && payload?.length ? (payload[0].payload as (typeof data)[number]) : null;
+                if (!row) return null;
+                return (
+                  <TooltipCard>
+                    <div className="font-semibold">Impact {score(row.impact)} (multiplier ×{row.multiplier.toFixed(2)})</div>
+                    <div className="num text-ink-2">{usdMillions(row.pnl * 1e6, 1, true)}</div>
+                  </TooltipCard>
+                );
+              }}
+            />
+            <Line type="monotone" dataKey="pnl" stroke={palette.loss} strokeWidth={2.4} dot={{ r: 3.5, fill: palette.loss }} isAnimationActive={false} />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+    </figure>
   );
 }

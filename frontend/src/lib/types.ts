@@ -19,9 +19,12 @@ export type CheckName =
   | "impact_above_threshold"
   | "confidence_ok"
   | "not_positive"
+  | "direction_ok"
   | "corroborated"
+  | "enough_mentions"
   | "baseline_ready"
   | "cooldown";
+export type Direction = "negative" | "positive" | "neutral";
 
 export interface Entity {
   id: string;
@@ -38,7 +41,7 @@ export interface BuildInfo {
 }
 
 export interface Signal {
-  schema_version: "1.0";
+  schema_version: "1.1";
   signal_id: string;
   source: string;
   source_id: string;
@@ -55,7 +58,7 @@ export interface Signal {
   scope: Scope;
   scope_targets: string[];
   sentiment: { score: number; label: SentimentLabel; model: string };
-  event: { class: EventClass; confidence: number; matched_rules: string[]; runner_up: EventClass | null };
+  event: { class: EventClass; confidence: number; matched_rules: string[]; runner_up: EventClass | null; direction: Direction };
   impact: {
     score: number;
     components: { class_prior: number; sentiment_mag: number; entity_importance: number; cue_bonus: number };
@@ -65,8 +68,17 @@ export interface Signal {
   build: BuildInfo;
 }
 
+export interface WindowStats {
+  n_mentions_est: number;
+  n_outlets: number;
+  sentiment_mean: number;
+  confidence_mean: number;
+  positive_share: number;
+  baseline_mentions: number;
+}
+
 export interface ClusterEvent {
-  schema_version: "1.0";
+  schema_version: "1.1";
   cluster_id: string;
   class: EventClass;
   scope: Scope;
@@ -84,6 +96,9 @@ export interface ClusterEvent {
   warmup: boolean;
   impact_components: { severity: number; breadth: number; abnormal_volume: number };
   impact: number;
+  peak_at: string;
+  window: WindowStats;
+  detected_at: string | null;
   representative_signal_ids: string[];
 }
 
@@ -109,6 +124,8 @@ export interface TriggerSettings {
   cooldown_hours: number;
   rearm_impact_delta: number;
   min_news_outlets: number;
+  min_mentions: number;
+  max_positive_share: number;
 }
 
 export interface Decision {
@@ -116,6 +133,7 @@ export interface Decision {
   triggered: boolean;
   checks: Partial<Record<CheckName, boolean>>;
   failed: CheckName[];
+  detected_at?: string | null;
 }
 
 export interface Totals {
@@ -169,10 +187,11 @@ export interface DatasetSummary {
 }
 
 export interface ScenarioShocks {
+  source?: string;
   equity_market: number;
   sector_excess: Record<string, number>;
   rates_bp: number;
-  spread_bp: { IG: number; HY: number };
+  spread_bp: { IG: number; HY: number; SAFE?: number };
   vol_pts: number;
   in_scope: { spread_bp: number; rating_notches: number; equity_excess: number };
 }
@@ -253,6 +272,11 @@ export interface PositionResult extends Record<Factor, number> {
   rating_notches: number;
   ticker: string;
   in_scope: boolean;
+  contagion_weight: number;
+  spread_bucket: string;
+  book: "banking" | "fair_value";
+  stage_before: number;
+  stage_after: number;
   value_before: number;
   value_after: number;
   pnl: number;
@@ -274,7 +298,18 @@ export interface StressRun {
   totals: Totals;
   by_asset_class: AssetBreakdown[];
   by_factor: Record<Factor, number>;
-  loan_loss_views: { one_year_el_change: number; lifetime_el_change: number };
+  by_book: (FactorBreakdown & { book: "banking" | "fair_value" })[];
+  loan_loss_views: {
+    ifrs9_provision_change: number;
+    one_year_el_change: number;
+    lifetime_el_change: number;
+    fair_value_change: number;
+    stage2_loans: number;
+    stage3_loans: number;
+  };
+  capital: { rwa_before: number; rwa_after: number; rwa_change: number; capital_requirement_change: number; capital_ratio: number };
+  severity_curve: { impact: number; multiplier: number; pnl: number }[];
+  detected_at?: string;
   positions: PositionResult[];
   explanation: string;
 }
@@ -332,4 +367,123 @@ export interface ScoreResult {
   triggered: boolean;
   scenario_defined: boolean;
   run: StressRun | null;
+}
+
+export interface Alert {
+  schema_version: "1.0";
+  alert_id: string;
+  cluster_id: string;
+  class: EventClass;
+  scope: Scope;
+  scope_targets: string[];
+  scope_label: string;
+  detected_at: string;
+  first_headline_at: string;
+  day_end_at: string;
+  impact: number;
+  impact_components: { severity: number; breadth: number; abnormal_volume: number };
+  window: WindowStats;
+  checks: Partial<Record<CheckName, boolean>>;
+  representative_signal_ids: string[];
+  lead: LeadSignal | null;
+  pnl: number | null;
+  pnl_pct: number | null;
+}
+
+export interface EntityRow {
+  id: string;
+  name: string;
+  type: string | null;
+  signals: number;
+  mean_sentiment: number;
+  max_impact: number;
+}
+
+export interface EntityDetail {
+  entity: { id: string; name: string; type: string | null; ticker: string | null; sector: string | null; country: string | null };
+  signals: number;
+  timeline: { date: string; signals: number; mean_sentiment: number; max_impact: number; by_class: Partial<Record<EventClass, number>> }[];
+  events: EventRow[];
+  top_signals: Signal[];
+}
+
+export interface ClassReport {
+  n: number;
+  accuracy: number;
+  macro_f1: number;
+  majority_label: string;
+  majority_accuracy: number;
+  majority_macro_f1: number;
+  accuracy_ci95?: [number, number];
+  macro_f1_ci95?: [number, number];
+}
+
+export interface SplitReport {
+  n: number;
+  human_verified: number;
+  label_counts: { event_class: Record<string, number>; sentiment: Record<string, number> };
+  event_class: ClassReport;
+  event_class_naive_keywords: ClassReport;
+  sentiment_finbert: ClassReport;
+  sentiment_vader: ClassReport;
+  per_class: Record<string, { precision: number; recall: number; f1: number; support: number }>;
+}
+
+export interface Correlation {
+  n: number;
+  rho: number;
+  ci95: [number, number];
+}
+
+export interface DetectionQuality {
+  flags: number;
+  precision: number | null;
+  recall: number | null;
+}
+
+export interface Metrics {
+  engine_version: string;
+  config_hash: string;
+  splits: Record<string, { role: string; representative: SplitReport }>;
+  llm_vs_human_blind: { n: number; event_class_agreement?: number; event_class_kappa?: number; sentiment_agreement?: number; sentiment_kappa?: number };
+  impact_vs_market: Record<string, { abs_sp500: Correlation; vix_change: Correlation; abs_rate_change: Correlation }>;
+  trigger_quality: Record<string, {
+    trading_days: number;
+    stress_days: number;
+    base_rate: number | null;
+    engine_alerts: DetectionQuality;
+    impact_above_7_without_gates: DetectionQuality;
+    naive_headline_volume_spike: DetectionQuality;
+    naive_fire_every_day: DetectionQuality;
+  }>;
+  alert_lead_times: Record<string, { alerts: number; median_hours_before_end_of_day_batch: number | null; median_hours_after_first_headline: number | null; share_before_us_close: number | null }>;
+  definitions: Record<string, string>;
+}
+
+export interface WindowSummary {
+  dataset: string;
+  role: string;
+  window: { start: string; end: string };
+  signals: number;
+  entity_coverage: number;
+  clusters: number;
+  clusters_above_threshold: number;
+  stress_tests_triggered: number;
+  cluster_impact_max: number;
+  signal_class_share: Record<string, number>;
+  runs: { date: string; detected_at: string | null; class: EventClass; scope_targets: string[]; impact: number; pnl: number; pnl_pct: number }[];
+  market: { trading_days: number; sp500_annualised_volatility: number; sp500_worst_day: number; sp500_window_return: number };
+}
+
+export interface BacktestWindow {
+  triggers: { cluster_id: string; detected_at: string; trading_day: string; stressed_sleeve_pnl: number; realised_sleeve_pnl_1d: number | null; realised_sleeve_pnl_5d: number | null }[];
+  summary: Record<string, { triggers: number; coverage_realised_loss_within_stress: number | null; direction_hit_realised_negative: number | null; mean_realised_pnl: number | null; mean_stressed_pnl: number | null }>;
+  unconditional_all_days: Record<string, { days: number; share_negative: number | null; mean_pnl: number | null }>;
+}
+
+export interface Evaluation {
+  metrics: Metrics | null;
+  windows: Record<string, WindowSummary> | null;
+  backtest: { sleeve: { positions: number; value: number; proxies: string[] }; windows: Record<string, BacktestWindow>; definitions: Record<string, string> } | null;
+  benchmark: { dataset: string; deduplicated_items: number; items_per_second_vader_pipeline: number; finbert_items_per_second_cpu?: number; seconds: Record<string, number> } | null;
 }

@@ -1,4 +1,8 @@
 import type {
+  Alert,
+  EntityDetail,
+  EntityRow,
+  Evaluation,
   DatasetInfo,
   DatasetSummary,
   EventDetail,
@@ -114,6 +118,11 @@ export const api = {
   stressRun: (dataset: string, clusterId: string, signal?: AbortSignal) =>
     request<StressDetail>(datasetPath(dataset, `/stress/${encodeURIComponent(clusterId)}`), { signal }, hasKeys("run", "event")),
   portfolio: (signal?: AbortSignal) => request<Portfolio>("/portfolio", { signal }, hasKeys("positions")),
+  alerts: (dataset: string, signal?: AbortSignal) => request<Alert[]>(datasetPath(dataset, "/alerts"), { signal }, isArray),
+  entities: (dataset: string, signal?: AbortSignal) => request<EntityRow[]>(datasetPath(dataset, "/entities"), { signal }, isArray),
+  entity: (dataset: string, entityId: string, signal?: AbortSignal) =>
+    request<EntityDetail>(datasetPath(dataset, `/entities/${encodeURIComponent(entityId)}`), { signal }, hasKeys("entity", "timeline")),
+  evaluation: (signal?: AbortSignal) => request<Evaluation>("/evaluation", { signal }, hasKeys("metrics", "windows")),
   score: (body: ScoreRequest, signal?: AbortSignal) =>
     request<ScoreResult>(
       "/score",

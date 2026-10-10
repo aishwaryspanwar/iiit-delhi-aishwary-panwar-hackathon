@@ -11,10 +11,14 @@ import { Signals } from "./pages/Signals";
 import { Stress } from "./pages/Stress";
 import { Headline } from "./pages/Headline";
 import { System } from "./pages/System";
+import { Entities } from "./pages/Entities";
+import { Evaluation } from "./pages/Evaluation";
 
 const PAGE_COPY: Record<PageId, { title: string; subtitle: string; replay: boolean }> = {
   overview: { title: "Dashboard", subtitle: "What is happening, how risky it is, what caused it, and what it could do to the book", replay: true },
   signals: { title: "Signal feed", subtitle: "Every news item and post, scored for event class, sentiment and impact", replay: true },
+  entities: { title: "Companies and countries", subtitle: "Sentiment, impact and event clusters for a given company, country or sector", replay: false },
+  evaluation: { title: "Evaluation", subtitle: "Held-out accuracy, market validation, trigger quality and stress backtest, with uncertainty", replay: false },
   stress: { title: "Portfolio stress test", subtitle: "Module B: event-triggered stress of a synthetic wholesale-banking book", replay: false },
   headline: { title: "Try a headline", subtitle: "Score your own text with the live rule engine and preview its stress impact", replay: false },
   system: { title: "Methodology", subtitle: "Data provenance, pipeline, trigger rules and scenario library", replay: false },
@@ -38,7 +42,9 @@ function Workspace() {
         <main id="main" key={route.page} className="fade mx-auto w-full max-w-[1440px] flex-1 px-4 pb-10 md:px-8">
           {route.page === "overview" && <Overview />}
           {route.page === "signals" && <Signals />}
+          {route.page === "entities" && <Entities selected={route.param} />}
           {route.page === "stress" && <Stress selected={route.param} />}
+          {route.page === "evaluation" && <Evaluation />}
           {route.page === "headline" && <Headline />}
           {route.page === "system" && <System />}
         </main>

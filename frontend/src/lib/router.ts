@@ -1,8 +1,8 @@
 import { useSyncExternalStore } from "react";
 
-export type PageId = "overview" | "signals" | "stress" | "headline" | "system";
+export type PageId = "overview" | "signals" | "entities" | "stress" | "evaluation" | "headline" | "system";
 
-export const PAGES: PageId[] = ["overview", "signals", "stress", "headline", "system"];
+export const PAGES: PageId[] = ["overview", "signals", "entities", "stress", "evaluation", "headline", "system"];
 
 export interface Route {
   page: PageId;

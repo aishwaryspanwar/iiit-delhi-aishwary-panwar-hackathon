@@ -3,7 +3,7 @@ import { Activity, ArrowRight, ChevronsRight, ShieldAlert } from "lucide-react";
 import { useApp } from "../state";
 import { api } from "../lib/api";
 import { useAsync } from "../lib/useAsync";
-import { dayWithWeekday, integer, percent, score, shortDay, usdMillions } from "../lib/format";
+import { dateTime, dayWithWeekday, integer, percent, score, shortDay, usdMillions } from "../lib/format";
 import { BAND_LABELS, MODERATE_FROM, criticalFrom, impactBand, type RiskBand } from "../lib/risk";
 import { href } from "../lib/router";
 import type { EventClass, EventRow } from "../lib/types";
@@ -89,6 +89,9 @@ export function Overview() {
     return [...pool].sort((a, b) => b.t_start.localeCompare(a.t_start)).slice(0, 6);
   }, [visibleEvents]);
 
+  const alerts = useAsync((signal) => api.alerts(dataset, signal), [dataset]);
+  const visibleAlerts = useMemo(() => [...(alerts.data ?? [])].filter((a) => a.detected_at <= cutoffIso).reverse(), [alerts.data, cutoffIso]);
+
   const runDetail = useAsync(latestRun ? (signal) => api.stressRun(dataset, latestRun.cluster_id, signal) : null, [dataset, latestRun?.cluster_id]);
   const runReady = latestRun && runDetail.data && runDetail.data.run.cluster_id === latestRun.cluster_id ? runDetail.data : null;
 
@@ -153,6 +156,48 @@ export function Overview() {
         actions={<span className="num text-[13px] text-ink-3">{integer(visibleEvents.length)} clusters so far</span>}
       >
         <ImpactTimeline events={events} cutoffDay={replay.day} threshold={threshold} height={300} />
+      </Panel>
+
+      <Panel
+        className="col-span-12"
+        title="Real-time alerts"
+        description="Fired by the hourly as-of stream using only data available at that hour; lead time is measured against an end-of-day batch run"
+        bodyClassName="px-3 pt-2 pb-3"
+      >
+        {alerts.error && <ErrorState error={alerts.error} onRetry={alerts.reload} compact />}
+        {!alerts.error && visibleAlerts.length === 0 && (
+          <EmptyState title="No alert up to this date" body="Move the replay date forward, or pick another window." icon={<ShieldAlert size={18} />} />
+        )}
+        {visibleAlerts.length > 0 && (
+          <ul className="flex flex-col">
+            {visibleAlerts.map((alert) => {
+              const lead = (Date.parse(alert.day_end_at) + 1000 - Date.parse(alert.detected_at)) / 3_600_000;
+              return (
+                <li key={alert.alert_id}>
+                  <button
+                    type="button"
+                    onClick={() => openDetail({ kind: "event", id: alert.cluster_id })}
+                    className="flex w-full items-start gap-4 rounded-xl px-3 py-3 text-left transition-colors duration-150 hover:bg-surface-2"
+                  >
+                    <span className="min-w-0 flex-1">
+                      <span className="line-clamp-1 text-[14px] font-medium text-ink">{alert.lead?.text ?? alert.cluster_id}</span>
+                      <span className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12.5px] text-ink-3">
+                        <span className="num">detected {dateTime(alert.detected_at)}</span>
+                        <ClassTag label={className(alert.class)} />
+                        <span>{alert.scope_label}</span>
+                        <span className="num">{lead.toFixed(0)} h before an end-of-day batch</span>
+                      </span>
+                    </span>
+                    <span className="flex shrink-0 flex-col items-end gap-1">
+                      <span className="figure text-[17px] text-ink">{score(alert.impact)}</span>
+                      {alert.pnl !== null && <span className="num text-[12.5px] font-semibold text-loss">{usdMillions(alert.pnl)}</span>}
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        )}
       </Panel>
 
       <Panel

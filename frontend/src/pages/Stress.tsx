@@ -5,9 +5,9 @@ import { useAsync } from "../lib/useAsync";
 import { integer, usdMillions } from "../lib/format";
 import { CHECK_ORDER, DISCLAIMER } from "../lib/risk";
 import { navigate } from "../lib/router";
-import { AssetPnlChart, FactorWaterfall, HBarList } from "../components/charts";
+import { AssetPnlChart, FactorWaterfall, HBarList, SeverityCurve } from "../components/charts";
 import { TriggerChecks } from "../components/Detail";
-import { AssetTable, BeforeAfter, CausalChain, PositionsTable, RunPicker, ShockTable } from "../components/stress";
+import { AssetTable, BeforeAfter, CausalChain, CreditCapital, PositionsTable, RunPicker, ShockTable } from "../components/stress";
 import { EmptyState, ErrorState, LoadingBlock, Panel, Stat } from "../components/ui";
 
 export function Stress({ selected }: { selected: string | null }) {
@@ -101,9 +101,9 @@ export function Stress({ selected }: { selected: string | null }) {
                   <p className="mt-1 mb-6 text-[13px] text-ink-3">USD, synthetic wholesale book</p>
                   <BeforeAfter totals={current.run.totals} />
                   <p className="mt-6 max-w-[72ch] text-[13px] leading-relaxed text-ink-3">
-                    Loans are held at amortised cost, so their P&L is the change in one-year expected loss from rating migration (
-                    <span className="num text-ink-2">{usdMillions(current.run.loan_loss_views.one_year_el_change)}</span>). On a lifetime view (IFRS 9 stage-2 style
-                    sensitivity) the same downgrades cost <span className="num text-ink-2">{usdMillions(current.run.loan_loss_views.lifetime_el_change)}</span>.
+                    Loans are held at amortised cost, so their P&L is the change in IFRS 9 provisions (
+                    <span className="num text-ink-2">{usdMillions(current.run.loan_loss_views.ifrs9_provision_change)}</span>): 12-month expected loss, or lifetime expected
+                    loss for loans whose credit quality deteriorated significantly.
                   </p>
                 </div>
                 <div className="col-span-12 grid grid-cols-2 border-t border-line lg:col-span-4 lg:grid-cols-1 lg:border-t-0 lg:border-l">
@@ -133,6 +133,15 @@ export function Stress({ selected }: { selected: string | null }) {
               <Panel title="Value by asset class" description="Before and after the stress">
                 <AssetTable detail={current} />
               </Panel>
+
+              <div className="grid grid-cols-12 gap-5">
+                <Panel className="col-span-12 2xl:col-span-8" title="Credit losses and capital" description="IFRS 9 provisions, alternative loan views and risk-weighted assets">
+                  <CreditCapital detail={current} />
+                </Panel>
+                <Panel className="col-span-12 2xl:col-span-4" title="Severity curve" description="Same event and scope, impact from 7 to 10; dashed line is the impact at detection">
+                  <SeverityCurve points={current.run.severity_curve} current={current.run.impact} />
+                </Panel>
+              </div>
 
               <div className="grid grid-cols-12 gap-5">
                 <Panel className="col-span-12 lg:col-span-6" title="Shocks applied" description="Base scenario scaled by the severity multiplier">

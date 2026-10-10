@@ -7,7 +7,9 @@ import { cx } from "./ui";
 const NAV: { id: PageId; label: string }[] = [
   { id: "overview", label: "Overview" },
   { id: "signals", label: "Signal feed" },
+  { id: "entities", label: "Companies" },
   { id: "stress", label: "Stress test" },
+  { id: "evaluation", label: "Evaluation" },
   { id: "headline", label: "Try a headline" },
   { id: "system", label: "Methodology" },
 ];
