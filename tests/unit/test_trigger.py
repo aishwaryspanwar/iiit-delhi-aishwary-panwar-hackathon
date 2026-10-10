@@ -55,3 +55,10 @@ def test_cooldown_is_per_class_and_target():
     assert tracker.allows(cooldown_key("geopolitical", ["country:TW"]), START + timedelta(hours=1), 7.5)
     assert tracker.allows(cooldown_key("credit_event", ["country:RU"]), START + timedelta(hours=1), 7.5)
     assert not tracker.allows(cooldown_key("geopolitical", ["country:RU", "country:UA"]), START + timedelta(hours=1), 8.6)
+
+
+def test_fully_linked_countries_share_a_cooldown():
+    tracker = CooldownTracker(hours=72, rearm_delta=1.0)
+    tracker.fire(cooldown_key("geopolitical", ["country:RU"]), START, 8.0)
+    assert not tracker.allows(cooldown_key("geopolitical", ["country:UA"]), START + timedelta(hours=8), 8.1)
+    assert tracker.allows(cooldown_key("geopolitical", ["country:PL"]), START + timedelta(hours=8), 7.5)

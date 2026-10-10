@@ -16,10 +16,14 @@ SCOPE_BY_TYPE = {
 CASHTAG_PATTERN = re.compile(r"\$([A-Z]{1,5})\b")
 
 
+TOKEN_PATTERN = re.compile(r"\w+")
+
+
 @dataclass(frozen=True)
 class AliasMatcher:
     pattern: re.Pattern[str]
     entity_id: str
+    token: str
 
 
 @lru_cache(maxsize=1)
@@ -39,9 +43,19 @@ def alias_matchers() -> tuple[AliasMatcher, ...]:
         flags = 0 if row["case_sensitive"] == "true" else re.IGNORECASE
         for alias in filter(None, (a.strip() for a in row["aliases"].split("|"))):
             pattern = re.compile(rf"(?<![\w$]){re.escape(alias)}(?![\w])", flags)
-            pairs.append((len(alias), alias, AliasMatcher(pattern, entity_id)))
+            pairs.append((len(alias), alias, AliasMatcher(pattern, entity_id, first_token(alias))))
     pairs.sort(key=lambda item: (-item[0], item[1]))
     return tuple(matcher for _, _, matcher in pairs)
+
+
+def first_token(alias: str) -> str:
+    match = TOKEN_PATTERN.search(alias)
+    return match.group(0).lower() if match else ""
+
+
+def candidate_matchers(text: str) -> list[AliasMatcher]:
+    tokens = {t.lower() for t in TOKEN_PATTERN.findall(text)}
+    return [m for m in alias_matchers() if m.token in tokens]
 
 
 def to_entity(entity_id: str, matched: str) -> Entity:
@@ -70,7 +84,7 @@ def tag_entities(text: str) -> list[Entity]:
         if entity_id:
             taken.append(match.span())
             found.setdefault(entity_id, (match.start(), match.group(0)))
-    for matcher in alias_matchers():
+    for matcher in candidate_matchers(text):
         for match in matcher.pattern.finditer(text):
             if overlaps(match.span(), taken):
                 continue

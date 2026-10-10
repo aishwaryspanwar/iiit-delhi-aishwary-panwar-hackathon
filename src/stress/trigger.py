@@ -1,7 +1,9 @@
 from dataclasses import dataclass, field
 from datetime import datetime
 
-from src.stress.shocks import shock_config
+from src.stress.shocks import contagion_links, shock_config
+
+FULL_LINK = 1.0
 
 CHECK_LABELS = {
     "stress_class": "Event class is stress-relevant",
@@ -38,8 +40,16 @@ def condition_checks(state: dict, settings: dict) -> dict[str, bool]:
     }
 
 
+def cooldown_group(target: str) -> str:
+    if not target.startswith("country:"):
+        return target
+    country = target.split(":", 1)[1]
+    hubs = sorted(hub for hub, links in contagion_links().items() if links.get(country, 0.0) >= FULL_LINK)
+    return f"country:{hubs[0]}" if hubs else target
+
+
 def cooldown_key(event_class: str, targets: list[str]) -> tuple[str, str]:
-    return event_class, targets[0] if targets else "none"
+    return event_class, cooldown_group(targets[0]) if targets else "none"
 
 
 @dataclass

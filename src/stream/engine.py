@@ -178,7 +178,7 @@ def run_stream(signals: list[dict]) -> StreamResult:
             "scope": key[1],
             "scope_targets": targets,
             "detected_at": hour_time(hour + 1),
-            "first_headline_at": min(m["published_at"] for m in state["members"]),
+            "first_headline_at": min(m["published_at"] for m in state["members"] if m["published_at"][:10] == day),
             "day_end_at": f"{day}T23:59:59Z",
             "impact": state["impact"],
             "impact_components": state["impact_components"],
