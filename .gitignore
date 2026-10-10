@@ -10,3 +10,8 @@ data/raw/
 .idea/
 .vscode/
 .claude/
+frontend/node_modules/
+frontend/dist/
+.impeccable/
+PRODUCT.md
+DESIGN.md
