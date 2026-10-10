@@ -40,7 +40,7 @@ What actually separates days is **abnormal attention**. On W1 (Russia country cl
 | 28 Feb (SWIFT, rouble crash) | 107 | 61 | 0.86 | 0.97 | 0.27 | 10.0 | **7.4** |
 | 15 Mar (ongoing war) | 56 | 54 | 0.83 | 0.80 | 0.02 | 9.7 | **6.2** |
 
-## 3. Resulting distribution on W1 (3,679 clusters, 34,307 signals)
+## 3. Resulting distribution on W1 (3,678 clusters, 34,307 signals)
 - Cluster impact percentiles: p50 2.9 · p90 4.5 · p95 5.1 · p99 6.6; **17 clusters (0.5%) above 7**.
 - Item impact percentiles: p50 2.9 · p90 5.7 · p99 7.7.
 
