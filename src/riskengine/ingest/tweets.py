@@ -5,7 +5,11 @@ from pathlib import Path
 from src.riskengine.config import DATA_DIR
 from src.riskengine.models import RawDoc
 
-TWEETS_SOURCE_PATH = DATA_DIR / "sources" / "w1" / "tweets.csv"
+def tweets_source_path(window: str) -> Path:
+    return DATA_DIR / "sources" / window / "tweets.csv"
+
+
+TWEETS_SOURCE_PATH = tweets_source_path("w1")
 FIELDS = ["source_id", "published_at", "text"]
 
 

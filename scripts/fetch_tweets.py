@@ -5,7 +5,7 @@ from pathlib import Path
 import pandas as pd
 
 from src.riskengine.config import DATA_DIR, load_yaml
-from src.riskengine.ingest.tweets import FIELDS, TWEETS_SOURCE_PATH
+from src.riskengine.ingest.tweets import FIELDS, tweets_source_path
 from src.riskengine.normalize import clean_text
 
 
@@ -26,11 +26,15 @@ def main() -> None:
     settings = load_yaml("ingestion.yaml")
     parser = argparse.ArgumentParser()
     parser.add_argument("--raw", type=Path, default=DATA_DIR / "raw" / settings["tweets"]["raw_file"])
+    parser.add_argument("--window", default=settings["window"]["name"])
+    parser.add_argument("--start", default=settings["window"]["start"])
+    parser.add_argument("--end", default=settings["window"]["end"])
     args = parser.parse_args()
-    tweets = window_tweets(args.raw, settings["window"]["start"], settings["window"]["end"])
-    TWEETS_SOURCE_PATH.parent.mkdir(parents=True, exist_ok=True)
-    tweets.to_csv(TWEETS_SOURCE_PATH, index=False, lineterminator="\n", encoding="utf-8", quoting=csv.QUOTE_MINIMAL)
-    print(f"tweets={len(tweets)} -> {TWEETS_SOURCE_PATH}")
+    tweets = window_tweets(args.raw, args.start, args.end)
+    output = tweets_source_path(args.window)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    tweets.to_csv(output, index=False, lineterminator="\n", encoding="utf-8", quoting=csv.QUOTE_MINIMAL)
+    print(f"tweets={len(tweets)} -> {output}")
 
 
 if __name__ == "__main__":

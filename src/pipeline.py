@@ -5,23 +5,31 @@ from src.riskengine.build import run_engine
 from src.riskengine.config import PROCESSED_DIR
 from src.riskengine.ingest.gdelt import gdelt_source_path, read_gdelt_documents
 from src.riskengine.ingest.stub import read_stub_documents
-from src.riskengine.ingest.tweets import read_tweet_documents
+from src.riskengine.ingest.tweets import read_tweet_documents, tweets_source_path
 from src.riskengine.io import validate_records, write_json, write_jsonl
 from src.riskengine.models import RawDoc
 from src.stress.engine import run_all
 from src.stress.portfolio_gen import PORTFOLIO_PATH, generate_portfolio, load_portfolio, write_portfolio
 
 
-def read_w1_documents() -> list[RawDoc]:
-    return read_gdelt_documents() + read_tweet_documents()
+def read_window_documents(window: str) -> list[RawDoc]:
+    docs = read_gdelt_documents(gdelt_source_path(window))
+    tweets = tweets_source_path(window)
+    return docs + read_tweet_documents(tweets) if tweets.exists() else docs
 
 
-def read_n1_documents() -> list[RawDoc]:
-    return read_gdelt_documents(gdelt_source_path("n1"))
-
-
-DATASETS = {"stub": read_stub_documents, "w1": read_w1_documents, "n1": read_n1_documents}
-DATASET_LABELS = {"w1": "W1 · Feb–Mar 2022 (GDELT + tweets)", "n1": "N1 · Aug–Sep 2026, calm market (GDELT news only)", "stub": "Stub sample (hand-written)"}
+DATASETS = {
+    "stub": read_stub_documents,
+    "w1": lambda: read_window_documents("w1"),
+    "w3": lambda: read_window_documents("w3"),
+    "n1": lambda: read_window_documents("n1"),
+}
+DATASET_LABELS = {
+    "w1": "W1 · Feb–Mar 2022 (GDELT + tweets)",
+    "w3": "W3 · Sep 2022, Fed and gilt shock (GDELT + tweets)",
+    "n1": "N1 · Aug–Sep 2026, calm market (GDELT news only)",
+    "stub": "Stub sample (hand-written)",
+}
 
 
 def output_dir(dataset: str) -> Path:
