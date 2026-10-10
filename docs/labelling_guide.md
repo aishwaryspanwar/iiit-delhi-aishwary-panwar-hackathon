@@ -34,4 +34,6 @@ Perspective: **is this news good or bad for financial markets and for the credit
 Write anything ambiguous, e.g. "could be macro or geopolitical", "sarcasm", "not English".
 
 ## What happens next
-`scripts/evaluate.py` joins your labels with the model outputs through the key file and reports event-class macro-F1 (vs a majority-class baseline), sentiment accuracy for VADER-with-finance-lexicon vs FinBERT, and your self-agreement (Cohen's κ) from the 30 re-labelled items.
+**How these labels were actually produced:** both sheets were labelled by an automated LLM annotation pass using this guide verbatim, in two separate chat sessions, without human review. See `docs/evaluation.md`.
+
+`scripts/evaluate.py` joins your labels with the model outputs through the key file and reports event-class macro-F1 (vs a majority-class baseline), sentiment accuracy for VADER-with-finance-lexicon vs FinBERT, and the repeat-labelling agreement (Cohen's κ) on the 30 re-labelled items.

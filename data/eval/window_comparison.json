@@ -1,0 +1,159 @@
+{
+ "n1": {
+  "cluster_impact_max": 7.1,
+  "cluster_impact_p50": 2.8,
+  "cluster_impact_p90": 4.4,
+  "cluster_impact_p99": 6.11,
+  "clusters": 1988,
+  "clusters_above_threshold": 2,
+  "dataset": "n1",
+  "failed_checks": {
+   "baseline_ready": 182,
+   "confidence_ok": 1318,
+   "corroborated": 1093,
+   "impact_above_threshold": 1986,
+   "not_positive": 552,
+   "stress_class": 1357
+  },
+  "market": {
+   "sp500_annualised_volatility": 0.0822,
+   "sp500_mean_abs_daily_return": 0.00432,
+   "sp500_window_return": -0.00064,
+   "sp500_worst_day": -0.00867,
+   "trading_days": 22
+  },
+  "runs": [
+   {
+    "class": "geopolitical",
+    "date": "2026-09-03",
+    "impact": 7.1,
+    "pnl": -56488150.88,
+    "pnl_pct": -0.014649
+   }
+  ],
+  "signal_class_share": {
+   "commodity_energy": 0.0282,
+   "credit_event": 0.0017,
+   "earnings_corporate": 0.0951,
+   "geopolitical": 0.0524,
+   "macroeconomic": 0.0267,
+   "merger_acquisition": 0.009,
+   "other": 0.7518,
+   "product_launch": 0.0238,
+   "regulatory": 0.0113
+  },
+  "signals": 14434,
+  "sources": {
+   "gdelt_gkg": 14434
+  },
+  "stress_tests_triggered": 1,
+  "window": {
+   "end": "2026-09-04",
+   "start": "2026-08-06"
+  }
+ },
+ "w1": {
+  "cluster_impact_max": 9.0,
+  "cluster_impact_p50": 2.9,
+  "cluster_impact_p90": 4.5,
+  "cluster_impact_p99": 6.6,
+  "clusters": 3678,
+  "clusters_above_threshold": 17,
+  "dataset": "w1",
+  "failed_checks": {
+   "baseline_ready": 251,
+   "confidence_ok": 2379,
+   "cooldown": 4,
+   "corroborated": 2214,
+   "impact_above_threshold": 3661,
+   "not_positive": 1128,
+   "stress_class": 2539
+  },
+  "market": {
+   "sp500_annualised_volatility": 0.2441,
+   "sp500_mean_abs_daily_return": 0.01316,
+   "sp500_window_return": -0.01461,
+   "sp500_worst_day": -0.02952,
+   "trading_days": 30
+  },
+  "runs": [
+   {
+    "class": "geopolitical",
+    "date": "2022-02-14",
+    "impact": 7.2,
+    "pnl": -71511133.42,
+    "pnl_pct": -0.018545
+   },
+   {
+    "class": "geopolitical",
+    "date": "2022-02-17",
+    "impact": 7.2,
+    "pnl": -71511133.42,
+    "pnl_pct": -0.018545
+   },
+   {
+    "class": "geopolitical",
+    "date": "2022-02-22",
+    "impact": 7.9,
+    "pnl": -85581458.02,
+    "pnl_pct": -0.022194
+   },
+   {
+    "class": "geopolitical",
+    "date": "2022-02-24",
+    "impact": 9.0,
+    "pnl": -115181161.12,
+    "pnl_pct": -0.02987
+   },
+   {
+    "class": "geopolitical",
+    "date": "2022-02-28",
+    "impact": 7.4,
+    "pnl": -75555061.58,
+    "pnl_pct": -0.019594
+   },
+   {
+    "class": "commodity_energy",
+    "date": "2022-03-07",
+    "impact": 7.3,
+    "pnl": -36096777.36,
+    "pnl_pct": -0.009361
+   },
+   {
+    "class": "credit_event",
+    "date": "2022-03-09",
+    "impact": 7.4,
+    "pnl": -51111597.95,
+    "pnl_pct": -0.013255
+   },
+   {
+    "class": "macroeconomic",
+    "date": "2022-03-16",
+    "impact": 8.1,
+    "pnl": -53797137.95,
+    "pnl_pct": -0.013951
+   }
+  ],
+  "signal_class_share": {
+   "commodity_energy": 0.0291,
+   "credit_event": 0.0021,
+   "earnings_corporate": 0.0698,
+   "geopolitical": 0.1039,
+   "macroeconomic": 0.023,
+   "merger_acquisition": 0.0097,
+   "other": 0.7364,
+   "product_launch": 0.0164,
+   "regulatory": 0.0096
+  },
+  "signals": 34307,
+  "sources": {
+   "gdelt_gkg": 27029,
+   "kaggle_tweets": 7278
+  },
+  "stress_tests_triggered": 8,
+  "window": {
+   "end": "2022-03-24",
+   "start": "2022-02-10"
+  }
+ }
+}
