@@ -114,3 +114,129 @@ country:HK,Hong Kong,country,,,HK,0.5,false,Hong Kong
 sector:shipping,Shipping,sector,,industrials,,0.4,false,shipping|shipowners|container rates|freight rates
 sector:insurance,Insurance,sector,,financials,,0.4,false,insurers|reinsurers|insurance sector
 index:MOEX,Moscow Exchange,index,,,RU,0.6,false,Moscow Exchange|MOEX|Moscow stock exchange|Russian stocks|Russian stock market
+company:ABBV,AbbVie,company,ABBV,healthcare,US,0.4,false,AbbVie
+company:ABT,Abbott Laboratories,company,ABT,healthcare,US,0.4,false,Abbott Laboratories|Abbott Labs
+company:ACN,Accenture,company,ACN,technology,US,0.4,false,Accenture
+company:ADBE,Adobe,company,ADBE,technology,US,0.5,false,Adobe
+company:AIG,AIG,company,AIG,financials,US,0.4,true,AIG|American International Group
+company:AMGN,Amgen,company,AMGN,healthcare,US,0.4,false,Amgen
+company:AMT,American Tower,company,AMT,real_estate,US,0.4,false,American Tower
+company:AVGO,Broadcom,company,AVGO,technology,US,0.5,false,Broadcom
+company:AXP,American Express,company,AXP,financials,US,0.5,false,American Express|Amex
+company:BK,BNY Mellon,company,BK,financials,US,0.5,false,BNY Mellon|Bank of New York Mellon
+company:BKNG,Booking Holdings,company,BKNG,consumer,US,0.4,false,Booking Holdings|Booking.com
+company:BLK,BlackRock,company,BLK,financials,US,0.6,false,BlackRock
+company:BMY,Bristol-Myers Squibb,company,BMY,healthcare,US,0.4,false,Bristol-Myers Squibb|Bristol Myers Squibb
+company:BRK,Berkshire Hathaway,company,BRK,financials,US,0.6,false,Berkshire Hathaway
+company:CAT,Caterpillar,company,CAT,industrials,US,0.5,false,Caterpillar
+company:CHTR,Charter Communications,company,CHTR,communication,US,0.4,false,Charter Communications
+company:CL,Colgate-Palmolive,company,CL,consumer,US,0.4,false,Colgate-Palmolive|Colgate
+company:CMCSA,Comcast,company,CMCSA,communication,US,0.5,false,Comcast
+company:COF,Capital One,company,COF,financials,US,0.5,false,Capital One
+company:COP,ConocoPhillips,company,COP,energy,US,0.5,false,ConocoPhillips
+company:CSCO,Cisco,company,CSCO,technology,US,0.5,false,Cisco
+company:CVS,CVS Health,company,CVS,healthcare,US,0.4,true,CVS Health|CVS
+company:DE,Deere,company,DE,industrials,US,0.4,true,Deere|John Deere
+company:DHR,Danaher,company,DHR,healthcare,US,0.4,false,Danaher
+company:DOW,Dow Inc,company,DOW,materials,US,0.4,true,Dow Inc|Dow Chemical
+company:DUK,Duke Energy,company,DUK,utilities,US,0.4,false,Duke Energy
+company:EMR,Emerson Electric,company,EMR,industrials,US,0.4,false,Emerson Electric
+company:FDX,FedEx,company,FDX,industrials,US,0.5,false,FedEx
+company:GD,General Dynamics,company,GD,industrials,US,0.5,false,General Dynamics
+company:GE,General Electric,company,GE,industrials,US,0.5,false,General Electric|GE Aerospace
+company:GILD,Gilead Sciences,company,GILD,healthcare,US,0.4,false,Gilead Sciences|Gilead
+company:GM,General Motors,company,GM,consumer,US,0.5,false,General Motors
+company:HD,Home Depot,company,HD,consumer,US,0.5,false,Home Depot
+company:HON,Honeywell,company,HON,industrials,US,0.5,false,Honeywell
+company:IBM,IBM,company,IBM,technology,US,0.5,true,IBM
+company:INTU,Intuit,company,INTU,technology,US,0.4,false,Intuit
+company:JNJ,Johnson & Johnson,company,JNJ,healthcare,US,0.6,false,Johnson & Johnson|J&J
+company:KHC,Kraft Heinz,company,KHC,consumer,US,0.4,false,Kraft Heinz
+company:LIN,Linde,company,LIN,materials,US,0.4,true,Linde
+company:LLY,Eli Lilly,company,LLY,healthcare,US,0.6,false,Eli Lilly|Lilly
+company:LMT,Lockheed Martin,company,LMT,industrials,US,0.6,false,Lockheed Martin|Lockheed
+company:LOW,Lowe's,company,LOW,consumer,US,0.4,false,Lowe's
+company:MA,Mastercard,company,MA,financials,US,0.6,false,Mastercard
+company:MCD,McDonald's,company,MCD,consumer,US,0.5,false,McDonald's
+company:MDLZ,Mondelez,company,MDLZ,consumer,US,0.4,false,Mondelez
+company:MDT,Medtronic,company,MDT,healthcare,US,0.4,false,Medtronic
+company:MET,MetLife,company,MET,financials,US,0.4,false,MetLife
+company:MMM,3M,company,MMM,industrials,US,0.5,true,3M
+company:MO,Altria,company,MO,consumer,US,0.4,false,Altria
+company:MRK,Merck,company,MRK,healthcare,US,0.5,false,Merck
+company:NEE,NextEra Energy,company,NEE,utilities,US,0.4,false,NextEra Energy|NextEra
+company:NKE,Nike,company,NKE,consumer,US,0.5,false,Nike
+company:ORCL,Oracle,company,ORCL,technology,US,0.5,true,Oracle
+company:PEP,PepsiCo,company,PEP,consumer,US,0.5,false,PepsiCo|Pepsi
+company:PFE,Pfizer,company,PFE,healthcare,US,0.6,false,Pfizer
+company:PM,Philip Morris,company,PM,consumer,US,0.4,false,Philip Morris
+company:QCOM,Qualcomm,company,QCOM,technology,US,0.5,false,Qualcomm
+company:RTX,RTX,company,RTX,industrials,US,0.6,true,RTX|Raytheon
+company:SBUX,Starbucks,company,SBUX,consumer,US,0.4,false,Starbucks
+company:SCHW,Charles Schwab,company,SCHW,financials,US,0.5,false,Charles Schwab|Schwab
+company:SO,Southern Company,company,SO,utilities,US,0.4,false,Southern Company
+company:SPG,Simon Property,company,SPG,real_estate,US,0.4,false,Simon Property
+company:T,AT&T,company,T,communication,US,0.5,false,AT&T
+company:TGT,Target,company,TGT,consumer,US,0.4,true,Target Corp
+company:TMO,Thermo Fisher,company,TMO,healthcare,US,0.4,false,Thermo Fisher
+company:TMUS,T-Mobile,company,TMUS,communication,US,0.4,false,T-Mobile
+company:TXN,Texas Instruments,company,TXN,technology,US,0.4,false,Texas Instruments
+company:UNH,UnitedHealth,company,UNH,healthcare,US,0.6,false,UnitedHealth
+company:UNP,Union Pacific,company,UNP,industrials,US,0.4,false,Union Pacific
+company:UPS,UPS,company,UPS,industrials,US,0.5,true,UPS|United Parcel Service
+company:USB,U.S. Bancorp,company,USB,financials,US,0.4,false,U.S. Bancorp|US Bancorp
+company:V,Visa,company,V,financials,US,0.6,true,Visa Inc
+company:WBA,Walgreens,company,WBA,consumer,US,0.4,false,Walgreens
+company:WFC,Wells Fargo,company,WFC,financials,US,0.6,false,Wells Fargo
+company:WMT,Walmart,company,WMT,consumer,US,0.6,false,Walmart
+company:SVB,SVB Financial,company,SIVB,financials,US,0.5,false,SVB Financial|Silicon Valley Bank
+company:ACA,Credit Agricole,company,,financials,FR,0.4,false,Credit Agricole
+company:SAN,Santander,company,SAN,financials,ES,0.5,false,Santander
+company:ING,ING,company,ING,financials,NL,0.5,true,ING Groep|ING
+company:LLOY,Lloyds Banking Group,company,LLOY,financials,GB,0.5,false,Lloyds Banking Group|Lloyds Bank
+company:NWG,NatWest,company,NWG,financials,GB,0.4,false,NatWest
+company:BAE,BAE Systems,company,,industrials,GB,0.5,false,BAE Systems
+company:RHM,Rheinmetall,company,RHM,industrials,DE,0.5,false,Rheinmetall
+company:AIR,Airbus,company,AIR,industrials,FR,0.5,false,Airbus
+company:SIE,Siemens,company,SIE,industrials,DE,0.5,false,Siemens
+company:ENI,Eni,company,ENI,energy,IT,0.4,true,Eni
+company:RIO,Rio Tinto,company,RIO,materials,GB,0.5,false,Rio Tinto
+company:BHP,BHP,company,BHP,materials,AU,0.5,true,BHP
+company:GLEN,Glencore,company,GLEN,materials,CH,0.5,false,Glencore
+company:RELIANCE,Reliance Industries,company,RELIANCE,energy,IN,0.5,false,Reliance Industries
+company:HDFCBANK,HDFC Bank,company,HDFCBANK,financials,IN,0.5,false,HDFC Bank
+company:SBIN,State Bank of India,company,SBIN,financials,IN,0.5,false,State Bank of India|SBI
+company:ADANI,Adani Group,company,,industrials,IN,0.5,false,Adani Group|Adani Enterprises|Adani Ports|Adani
+company:TATA,Tata Group,company,,industrials,IN,0.4,false,Tata Motors|Tata Steel|Tata Group|Tata Consultancy|TCS
+company:EVERGRANDE,Evergrande,company,,real_estate,CN,0.6,false,Evergrande|China Evergrande
+company:COUNTRYGARDEN,Country Garden,company,,real_estate,CN,0.5,false,Country Garden
+country:AR,Argentina,country,,,AR,0.4,false,Argentina|Argentine
+country:ZA,South Africa,country,,,ZA,0.4,false,South Africa|South African
+country:ID,Indonesia,country,,,ID,0.4,false,Indonesia|Indonesian
+country:NL,Netherlands,country,,,NL,0.4,false,Netherlands|Dutch
+country:ES,Spain,country,,,ES,0.4,false,Spain|Spanish
+country:GR,Greece,country,,,GR,0.4,false,Greece|Greek
+country:EG,Egypt,country,,,EG,0.4,false,Egypt|Egyptian
+country:NG,Nigeria,country,,,NG,0.3,false,Nigeria|Nigerian
+country:AE,United Arab Emirates,country,,,AE,0.4,false,United Arab Emirates|UAE|Dubai|Abu Dhabi
+country:QA,Qatar,country,,,QA,0.4,false,Qatar|Qatari
+country:KW,Kuwait,country,,,KW,0.4,false,Kuwait|Kuwaiti
+country:VE,Venezuela,country,,,VE,0.4,false,Venezuela|Venezuelan
+country:PK,Pakistan,country,,,PK,0.4,false,Pakistan|Pakistani
+country:LK,Sri Lanka,country,,,LK,0.4,false,Sri Lanka|Sri Lankan
+country:VN,Vietnam,country,,,VN,0.3,false,Vietnam|Vietnamese
+country:SY,Syria,country,,,SY,0.4,false,Syria|Syrian
+country:YE,Yemen,country,,,YE,0.4,false,Yemen|Yemeni
+country:PS,Palestinian territories,country,,,PS,0.5,false,Gaza|West Bank|Palestinian
+country:LB,Lebanon,country,,,LB,0.4,false,Lebanon|Lebanese
+country:IQ,Iraq,country,,,IQ,0.4,false,Iraq|Iraqi
+central_bank:BOJ,Bank of Japan,central_bank,,,JP,0.8,false,Bank of Japan|BOJ
+central_bank:PBOC,People's Bank of China,central_bank,,,CN,0.8,false,People's Bank of China|PBOC
+central_bank:SNB,Swiss National Bank,central_bank,,,CH,0.6,false,Swiss National Bank|SNB
+central_bank:RBA,Reserve Bank of Australia,central_bank,,,AU,0.5,false,Reserve Bank of Australia|RBA
+central_bank:BOC,Bank of Canada,central_bank,,,CA,0.5,false,Bank of Canada
+sector:healthcare,Healthcare,sector,,healthcare,,0.4,false,healthcare stocks|pharma stocks|drugmakers|biotech stocks
+sector:defence,Defence,sector,,industrials,,0.5,false,defence stocks|defense stocks|defence contractors|defense contractors|arms makers
+sector:banks,Banks,sector,,financials,,0.6,false,bank stocks|banking sector|lenders|regional banks
+sector:autos,Autos,sector,,consumer,,0.4,false,automakers|carmakers|auto stocks|auto sector
+sector:semis,Semiconductors,sector,,technology,,0.5,false,chipmakers|chip stocks|semiconductor stocks|semiconductors

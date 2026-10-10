@@ -11,6 +11,9 @@ TAG_PATTERN = re.compile(r"<[^>]{0,200}>")
 CONTROL_PATTERN = re.compile(r"[\u0000-\u0008\u000b-\u001f\u007f�]")
 WHITESPACE_PATTERN = re.compile(r"\s+")
 HASH_STRIP_PATTERN = re.compile(r"[^a-z0-9]+")
+TRAILING_SECTION_PATTERN = re.compile(r"\s+[|–—-]\s+[^|–—-]{2,40}$")
+MIN_HEAD_WORDS = 5
+BYLINE_PATTERN = re.compile(r"\s+By (Reuters|Investing\.com|Bloomberg|Benzinga|AFP|AP|Zacks|The Motley Fool|Motley Fool|IANS|PTI)\s*$")
 
 
 @lru_cache(maxsize=1)
@@ -33,4 +36,8 @@ def clean_text(text: str) -> str:
 
 
 def hash_key(text: str) -> str:
-    return HASH_STRIP_PATTERN.sub(" ", text.lower()).strip()
+    value = BYLINE_PATTERN.sub("", text)
+    section = TRAILING_SECTION_PATTERN.search(value)
+    if section and len(value[:section.start()].split()) >= MIN_HEAD_WORDS:
+        value = value[:section.start()]
+    return HASH_STRIP_PATTERN.sub(" ", value.lower()).strip()
