@@ -5,7 +5,7 @@ from src.app.views.stress import musd
 
 from src.riskengine.build import score_single_text
 from src.riskengine.events import class_display_name
-from src.riskengine.sentiment.vader import VaderSentiment
+from src.riskengine.sentiment.loader import load_live_model
 from src.stress.engine import run_stress
 from src.stress.portfolio_gen import load_portfolio
 from src.stress.shocks import shock_config
@@ -14,8 +14,8 @@ from src.stress.whatif import EXAMPLES, MAX_LENGTH, OUTLET_RANGE, VOLUME_OPTIONS
 
 
 @st.cache_resource(show_spinner=False)
-def sentiment_model() -> VaderSentiment:
-    return VaderSentiment()
+def sentiment_model():
+    return load_live_model()
 
 
 @st.cache_data(show_spinner=False)
@@ -40,7 +40,7 @@ def render_signal(signal: dict) -> None:
 
 def render() -> None:
     st.subheader("Try a headline")
-    st.caption("Runs the same rule engine live (VADER + finance lexicon sentiment; no model download, no network). The precomputed feed may use a different sentiment model — see evaluation.")
+    st.caption(f"Runs the same rule engine live, offline. Sentiment model: {sentiment_model().name} (FinBERT when installed, otherwise VADER with the finance lexicon).")
     example = st.selectbox("Start from an example, or type your own below", ["(type your own)"] + EXAMPLES)
     default_text = "" if example == "(type your own)" else example
     text = st.text_area("Headline or post", value=default_text, max_chars=MAX_LENGTH, height=80)

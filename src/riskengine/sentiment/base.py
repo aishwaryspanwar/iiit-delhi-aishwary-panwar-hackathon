@@ -1,14 +1,17 @@
 from typing import Protocol
 
+from src.riskengine.config import load_yaml
 from src.riskengine.models import SentimentResult
 
-NEUTRAL_BAND = 0.05
+
+def neutral_band(model: str) -> float:
+    return float(load_yaml("normalization.yaml")["sentiment_neutral_band"][model])
 
 
-def label_for(score: float) -> str:
-    if score > NEUTRAL_BAND:
+def label_for(score: float, band: float) -> str:
+    if score > band:
         return "pos"
-    if score < -NEUTRAL_BAND:
+    if score < -band:
         return "neg"
     return "neu"
 
