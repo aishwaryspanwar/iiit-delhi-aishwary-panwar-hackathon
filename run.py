@@ -16,6 +16,7 @@ REQUIREMENTS = ROOT / "requirements.txt"
 STAMP = VENV / ".requirements.sha256"
 FRONTEND = ROOT / "frontend"
 DIST_INDEX = FRONTEND / "dist" / "index.html"
+DIST_STAMP = FRONTEND / "dist" / ".source.sha256"
 FRONTEND_INPUTS = ("src", "public", "index.html", "package.json", "package-lock.json", "vite.config.ts", "tsconfig.json")
 STARTUP_SECONDS = 240
 MIN_PYTHON = (3, 13)
@@ -56,20 +57,28 @@ def ensure_venv() -> Path:
     return python
 
 
-def latest_mtime(paths: list[Path]) -> float:
-    latest = 0.0
+def source_files(paths: list[Path]) -> list[Path]:
+    files = []
     for path in paths:
         if path.is_file():
-            latest = max(latest, path.stat().st_mtime)
+            files.append(path)
         elif path.is_dir():
-            latest = max([latest] + [p.stat().st_mtime for p in path.rglob("*") if p.is_file()])
-    return latest
+            files.extend(p for p in path.rglob("*") if p.is_file())
+    return sorted(files)
+
+
+def frontend_hash() -> str:
+    digest = hashlib.sha256()
+    for path in source_files([FRONTEND / name for name in FRONTEND_INPUTS]):
+        digest.update(path.relative_to(FRONTEND).as_posix().encode("utf-8"))
+        digest.update(path.read_bytes().replace(b"\r\n", b"\n"))
+    return digest.hexdigest()
 
 
 def frontend_stale() -> bool:
-    if not DIST_INDEX.exists():
+    if not DIST_INDEX.exists() or not DIST_STAMP.exists():
         return True
-    return latest_mtime([FRONTEND / name for name in FRONTEND_INPUTS]) > DIST_INDEX.stat().st_mtime
+    return DIST_STAMP.read_text(encoding="utf-8").strip() != frontend_hash()
 
 
 def ensure_frontend(force: bool) -> None:
@@ -86,6 +95,7 @@ def ensure_frontend(force: bool) -> None:
         subprocess.run([npm, "ci", "--no-audit", "--no-fund"], cwd=FRONTEND, check=True)
     say("building the frontend")
     subprocess.run([npm, "run", "build"], cwd=FRONTEND, check=True)
+    DIST_STAMP.write_text(frontend_hash() + "\n", encoding="utf-8")
 
 
 def port_in_use(host: str, port: int) -> bool:

@@ -11,18 +11,22 @@ def make_frontend(tmp_path):
     return frontend
 
 
-def test_frontend_is_rebuilt_only_when_missing_or_older_than_its_sources(tmp_path, monkeypatch):
+def test_frontend_is_rebuilt_only_when_missing_or_its_sources_change(tmp_path, monkeypatch):
     frontend = make_frontend(tmp_path)
     index = frontend / "dist" / "index.html"
     monkeypatch.setattr(run, "FRONTEND", frontend)
     monkeypatch.setattr(run, "DIST_INDEX", index)
+    monkeypatch.setattr(run, "DIST_STAMP", frontend / "dist" / ".source.sha256")
     assert run.frontend_stale()
     index.write_text("<html></html>", encoding="utf-8")
     source = frontend / "src" / "main.tsx"
-    os.utime(source, (1_000_000, 1_000_000))
-    os.utime(index, (2_000_000, 2_000_000))
-    assert not run.frontend_stale()
+    source.write_bytes(b"export {};\n")
+    run.DIST_STAMP.write_text(run.frontend_hash(), encoding="utf-8")
     os.utime(source, (3_000_000, 3_000_000))
+    assert not run.frontend_stale()
+    source.write_bytes(b"export {};\r\n")
+    assert not run.frontend_stale()
+    source.write_text("export const changed = 1;", encoding="utf-8")
     assert run.frontend_stale()
 
 
