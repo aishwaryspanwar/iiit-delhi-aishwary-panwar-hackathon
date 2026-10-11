@@ -9,7 +9,7 @@ All numbers come from scripts and are pinned by tests:
 
 `tests/unit/test_evaluate.py` fails if any committed file drifts from the code and data, or if the configuration hash differs from the one recorded in the metrics.
 
-Sections 1 to 3 describe the frozen engine 0.2.0 (git tag `eval-freeze`), whose W3 and N1 results are the clean out-of-sample evidence. Section 4 describes the post-freeze engine 0.3.0 that the app ships, and how its numbers differ. [results.md](results.md) shows the current (0.3.0) tables. Times are India Standard Time (IST).
+Sections 1 to 3 describe the frozen engine 0.2.0 (git tag `eval-freeze`), whose W3 and N1 results are the clean out-of-sample evidence. Section 4 describes the post-freeze engines 0.3.0 and 0.3.1 (shipped), and how their numbers differ. [results.md](results.md) shows the current (0.3.1) tables. Times are India Standard Time (IST).
 
 ## 1. Protocol
 
@@ -19,7 +19,8 @@ Sections 1 to 3 describe the frozen engine 0.2.0 (git tag `eval-freeze`), whose 
 | W3, 10 - 30 Sep 2022 (US CPI shock, Fed 75 bp, UK gilt crisis) | **Untouched test, shock window** | GDELT + tweets |
 | N1, 6 Aug - 4 Sep 2026 (calmest recent stretch by VIX) | **Untouched test, calm window** | GDELT only |
 
-- **The freeze.** The configuration was committed and tagged `eval-freeze` (config hash `4536f7568ed1`) before W3 and N1 were scored for the first time. No rule, weight or threshold was changed afterwards.
+- **The freeze.** The configuration was committed and tagged `eval-freeze` (config hash `4536f7568ed1`) before W3 and N1 were scored for the first time. No rule, weight or threshold of the 0.2.0 engine was changed afterwards.
+- **Checking the freeze.** `python -m scripts.verify_freeze` checks the tag out into a temporary git worktree, classifies the test labels with the rules exactly as they stood there, and prints the macro-F1. It reproduces the 0.2.0 numbers below (W1 test 0.57, W3 test 0.40) and lists the config files that changed since the tag; `git diff eval-freeze -- config/` shows every post-freeze change line by line.
 - **Label sets.**
   - W1 development: 200 items, used for tuning, with LLM annotation only.
   - W1 test: 150 items (100 representative plus 50 oversampled rare classes). Headline numbers use the 100 representative items.
@@ -27,10 +28,10 @@ Sections 1 to 3 describe the frozen engine 0.2.0 (git tag `eval-freeze`), whose 
 - **How the test labels were made.**
   - An automated LLM annotation pass, following [labelling_guide.md](labelling_guide.md).
   - The W3 pass ran in an isolated session that read only the guide and the sheet.
-  - A person then checks the test labels in two stages:
+  - A human check is prepared in two stages, and `scripts.evaluate` uses a human label wherever one exists:
     - **Stage A:** 50 items labelled blind, to measure how often the LLM annotator agrees with a person.
     - **Stage B:** the rest confirmed or corrected.
-  - The tables show how many items were human-verified at the time of the last run.
+  - The tables show how many items were human-verified at the time of the last run. At the time of writing that number is zero: every test score is against the LLM labels.
 - **Text-based scoring.** The evaluation re-scores each labelled text through the current engine, so it never depends on pipeline internals such as de-duplication.
 
 ## 2. Pre-registered claims and what happened
@@ -105,7 +106,15 @@ Each rule carries a direction, so "India lifts ban on Chinese apps" reads as pos
 - In W1, 0.3.0 alerts on 22 Feb at impact 8.2. The invasion-day cluster peaks at 8.9, below the re-arm margin of 9.2, so the 72-hour cooldown suppresses it and the next alert fires on 25 Feb.
 - We did not tune further: adjusting rules after reading test errors would make the test sets meaningless.
 
-## 5. Limitations
+## 5. Regression fix (engine 0.3.1)
+
+A set of 35 well-known headlines from 2008-2024, all outside W1, W3 and N1 ([canary_headlines.csv](../data/eval/canary_headlines.csv)), exposed gaps that a jury would hit in the live demo: "Fitch downgrades Evergrande to restricted default" and "Silicon Valley Bank collapses after a run on deposits" were both read as Other, and "Taylor Swift" matched the SWIFT sanctions rule. Engine 0.3.1 adds one rule (CRD-008: bank failures, seizures, rescues and deposit runs, with exclusions such as West Bank and food banks), restricted and partial defaults, missed coupon, loan and IMF payments, and arrears.
+
+- All 35 headlines are pinned by `tests/unit/test_rules.py`, together with a test that none of them falls inside an evaluation window.
+- W1 development accuracy is unchanged (169 of 200), and so are every alert and every stress result in all three windows. W3 test macro-F1 is 0.35 either way.
+- The set was used to write the rules, so it is a regression test, not an accuracy estimate.
+
+## 6. Limitations
 
 - **Labels:** until human verification completes, the test labels are a single LLM annotator. The blind Stage A sample measures how often it agrees with a person.
 - **Sample size:** 100-120 test items per window give wide intervals, and several classes have fewer than ten examples.

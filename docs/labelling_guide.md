@@ -34,7 +34,7 @@ Perspective: **is this news good or bad for financial markets and for the credit
 Write anything ambiguous, e.g. "could be macro or geopolitical", "sarcasm", "not English".
 
 ## Human verification of the test sets
-The test labels (W1 test, 150 items; W3 test, 120 items) are checked by a person in two stages. Use the same class and sentiment definitions as above.
+The test labels (W1 test, 150 items; W3 test, 120 items) are to be checked by a person in two stages. Use the same class and sentiment definitions as above. Progress is reported in the "Human-verified" column of [results.md](results.md); until a row is verified, its LLM label is used.
 
 1. **Stage A (blind), `data/eval/human_verify_stage_a.csv`, 50 items.** A seeded random 25 items from each test set, with no other label shown. Fill `event_class` and `sentiment` from scratch. These answers measure how often the LLM annotator agrees with a person, with no anchoring.
 2. **Stage B (confirm or correct), `data/eval/human_verify_stage_b.csv`, the remaining items.** The LLM label is shown in `llm_event_class` and `llm_sentiment` and pre-filled in `event_class` and `sentiment`. Change the pre-filled columns where you disagree and add a short note. Put `y` in `reviewed` for every row you have checked, including rows you leave unchanged; rows without `y` are not counted as human-verified.

@@ -13,7 +13,7 @@ This page lists every modelling choice that is a judgement rather than a measure
 
 - **W1 (Feb-Mar 2022) is the development window.** Rules, lexicon, sentiment bands, impact weights, trigger thresholds and the portfolio were set while looking at W1 and the W1 development sample.
 - **W3 (Sep 2022) and N1 (Aug-Sep 2026) are untouched tests.** The configuration was frozen (git tag `eval-freeze`) before either window was scored, and the frozen config hash is stored in `data/eval/metrics.json`.
-- **Labels.** Development labels come from an automated LLM annotation pass. Test labels were first annotated the same way and then checked by a person: 50 items blind (to measure the annotator's agreement with a person), the rest confirmed or corrected. The W3 annotation pass ran in an isolated session that never saw model output or code.
+- **Labels.** Development labels come from an automated LLM annotation pass. Test labels were annotated the same way. A human check is prepared in two stages (50 items blind, to measure the annotator's agreement with a person, then the rest confirmed or corrected) but is not yet complete, so the reported test scores are against the LLM labels. The W3 annotation pass ran in an isolated session that never saw model output or code.
 
 ## 3. Impact score
 
