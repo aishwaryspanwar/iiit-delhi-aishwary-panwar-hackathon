@@ -17,147 +17,33 @@ News moves markets hours before a risk system sees a number. **Ripple** reads ne
 ## Contents
 
 1. [Project overview](#1-project-overview)
-2. [A tour of the app](#2-a-tour-of-the-app)
+2. [Setup & installation](#2-setup--installation)
 3. [Architecture & tech stack](#3-architecture--tech-stack)
-4. [Dataset used](#4-dataset-used)
-5. [Setup & installation](#5-setup--installation)
-6. [Key results & domain impact](#6-key-results--domain-impact)
+4. [A tour of the app](#4-a-tour-of-the-app)
+5. [Key results & domain impact](#5-key-results--domain-impact)
+6. [Dataset used](#6-dataset-used)
 7. [Limitations](#7-limitations)
 8. [Repository layout](#8-repository-layout)
 
 ## 1. Project overview
 
-### The problem
+**The problem.** The brief asks for an NLP engine that turns unstructured text from at least two sources into structured signals (sentiment, event class and a 1 to 10 impact score), exposes them through a file or an API, and drives at least one downstream module.
 
-The brief asks for an NLP engine that turns unstructured text from at least two sources into structured signals (sentiment, event class and a 1 to 10 impact score), exposes them through a file or an API, and drives at least one downstream module.
+**What Ripple does.**
 
-### What Ripple does
+- **Scores the news.** Each GDELT headline and stock tweet gets an event class (one of nine), a FinBERT sentiment score, and a 1 to 10 impact score from a transparent rubric.
+- **Raises alerts.** Related items are grouped into events and re-scored every hour using only data available at that hour. An event that passes eight checks raises an alert.
+- **Stress-tests the portfolio (Module B).** Each alert stresses a synthetic bank book with historically calibrated shocks. Ripple shows the value before and after, IFRS 9 provisions, capital, and P&L that adds up exactly to the total.
+- **Runs on replays or live.** Saved news windows replay day by day, or the engine follows the live GDELT feed every 15 minutes.
 
-1. **Reads the news.** It ingests GDELT news headlines and stock tweets, removes duplicates and recognises 241 companies, countries, sectors and central banks.
-2. **Scores every item.** Each headline or post gets an event class (one of nine, such as geopolitical, credit event or macroeconomic), a sentiment score from FinBERT, and an impact score from 1 to 10 built from a transparent rubric.
-3. **Watches events form, hour by hour.** Related items are grouped into events. Every hour, each event's impact is recomputed on a rolling 24-hour window using only data available at that hour, so there is no look-ahead. The first hour an event passes eight checks, Ripple raises an **alert**.
-4. **Stress-tests the portfolio (Module B).** Each alert stresses a synthetic wholesale-banking book with scenarios calibrated on historical episodes. Ripple reports portfolio value before and after, IFRS 9 provisions, risk-weighted assets, a severity curve, and P&L attribution that adds up exactly to the total.
-5. **Runs live too.** The same engine can poll the live GDELT feed every 15 minutes and stress-test the book on each live alert.
+**Why it is credible.**
 
-### Approach
+- Every number traces back to a rule, weight or file in `config/`.
+- Rules were tuned on one window and frozen (git tag `eval-freeze`) before two untouched windows were scored.
+- Results come with confidence intervals and baselines.
+- No LLM is in the scoring path, and everything runs offline on a laptop CPU.
 
-- **Everything is traceable.** Every number links back to a rule, a weight or a data file, all kept in `config/`, so a risk team can audit, challenge and re-run it.
-- **Validated like a risk model.** Rules and thresholds were tuned on one window (W1). The configuration was then frozen (git tag `eval-freeze`), and only after that were two untouched windows scored: W3, a September 2022 rates shock, and N1, a calm 2026 month.
-- **Honest reporting.** Results come with confidence intervals and naive baselines, and claims that failed are listed alongside the ones that held. The shipped engine (0.3.0) widened the rule vocabulary after the freeze for the live demo, so it is reported separately from the frozen 0.2.0 results.
-- **No LLM in the scoring path.** Everything runs offline on a laptop CPU.
-
-## 2. A tour of the app
-
-Ripple has one web interface with four pages. It works in dark and light themes (toggle in the top-right corner) and adapts to desktop screens from 1024 px up to 2560 px and wider.
-
-**First visit.** A short guided walkthrough explains the app in six steps, and you can skip it at any point. To replay it later, click the **?** button in the header.
-
-**Header controls.**
-
-- **Offline / Live:** switch between replaying a saved news window and following the live feed.
-- **Dataset menu:** choose a replay window (W1, W3, N1 or stub).
-- **Replay bar** (Overview and Signal feed): press play to watch the window unfold day by day. Every chart follows the replay date, and red diamonds mark days when a stress test fired.
-
-### Overview
-
-The big picture: where the news is, how risky things are, and what the latest stress test did to the book.
-
-- A world map of the countries in the news, with bubble size for coverage and colour for sentiment, next to a risk gauge for the last 72 hours.
-- An event timeline drawn as a dot matrix: each column lights up to the impact of the riskiest event in that period, and dots above the dashed line crossed the stress-test trigger.
-- Real-time alerts, showing how many hours earlier each one fired than an end-of-day run would have.
-- The latest high-impact events, a breakdown of what the news is about, the latest stress test, and the market mood.
-
-<!-- SCREENSHOT: docs/screenshots/overview.png -->
-> 📸 **Screenshot placeholder:** Overview page, saved as `docs/screenshots/overview.png`.
-
-### Signal feed
-
-Every news item and post with its event class, sentiment and impact, which is the engine's structured output. Search and filter by class, source, sentiment and impact. Click any row to open a panel showing exactly how it was scored: the rules that matched, the impact components and their weights, the entities found, and the record's provenance.
-
-<!-- SCREENSHOT: docs/screenshots/signal-feed.png -->
-> 📸 **Screenshot placeholder:** Signal feed with the detail panel open, saved as `docs/screenshots/signal-feed.png`.
-
-### Stress test
-
-Module B. Pick any triggered event to see:
-
-- the causal chain: event → classification → impact → scenario → shock → portfolio;
-- portfolio value before and after the stress;
-- P&L by asset class and by risk factor;
-- credit losses and capital, and the severity curve;
-- the shocks applied and the trigger checks;
-- every position revalued.
-
-<!-- SCREENSHOT: docs/screenshots/stress-test.png -->
-> 📸 **Screenshot placeholder:** Stress test page, saved as `docs/screenshots/stress-test.png`.
-
-### Try a headline
-
-Type any headline and Ripple scores it live with the same engine. It then shows whether the story would trigger a stress test. Move the sliders for how many outlets report it and how unusual the volume is, and run a preview of the stress test on the portfolio.
-
-<!-- SCREENSHOT: docs/screenshots/try-a-headline.png -->
-> 📸 **Screenshot placeholder:** Try a headline with a scored result, saved as `docs/screenshots/try-a-headline.png`.
-
-<!-- SCREENSHOT: docs/screenshots/light-theme.png -->
-> 📸 **Screenshot placeholder (optional):** any page in the light theme, saved as `docs/screenshots/light-theme.png`.
-
-## 3. Architecture & tech stack
-
-![Architecture](docs/architecture.png)
-
-| Stage | How it works |
-|---|---|
-| Clean and de-duplicate | Strip HTML, links and handles; hash de-duplication that ignores trailing outlet and section tags, keeping duplicate counts and outlets |
-| Entities and scope | 241 entities and cashtags decide whether an event is single-name, sector, country or macro |
-| Event class | 46 weighted rules over 9 classes, with exclusions (sport, crime, consumer debt, telecom tariff plans) and **direction** (a rating upgrade, a lifted ban or a truce is not a stress event) |
-| Sentiment | FinBERT (`ProsusAI/finbert`, pinned revision, CPU), neutral band chosen on the development sample; VADER with a finance lexicon as the live fallback |
-| Item impact | `1 + 9 × (0.35·class prior + 0.25·sentiment magnitude + 0.20·entity importance + 0.20·severity cues)`, components stored |
-| As-of event impact | Every hour, on a rolling 24 h window per (class, scope, target): `1 + 9 × (0.5·severity + 0.2·breadth + 0.3·abnormal volume)`. The baseline is the same hour on the previous 7 days, quiet days counted as zero, with no look-ahead ([details](docs/impact_calibration.md)) |
-| Alert | Stress class, impact > 7, confidence ≥ 0.6, sentiment ≤ +0.1, not an upgrade, ≥ 2 outlets, ≥ 20 estimated mentions, past warm-up, and a 72 h cooldown per target group |
-| Stress scenarios | Market shocks = 2× the worst week of historical analogues (Crimea 2014, taper tantrum 2013, US downgrade 2011, Libya 2011 and others) scaled by impact; targeted add-ons and contagion to linked countries; AAA/AA sovereigns are safe havens |
-| Valuation | Bonds: rate and spread duration plus convexity. Loans: IFRS 9 staging (stage 2 → lifetime ECL). Swaps: DV01. Equities: estimated beta. Options: delta, gamma, vega. Capital: Basel III standardised RWA |
-
-**Design choices.**
-
-- **Precompute plus a thin runtime.** `python -m src.pipeline` writes versioned, schema-validated files (signals, events, alerts, stress results). The API only reads them. Builds are deterministic, and tests check that the committed outputs are current.
-- **Live mode.** `python -m scripts.live_gdelt` backfills the last 7 days of GDELT hourly files, so the volume baseline and the 3-day warm-up are ready. It then adds every 15-minute file, re-runs the engine and Module B, and writes the `live` dataset. The API reloads it when the files change, and the web app refreshes every minute.
-- **One interface.** A React app served by a standard-library JSON API that calls the same Python code. It never re-implements scoring or valuation.
-
-**Tech stack.**
-
-| Layer | Tools |
-|---|---|
-| Engine and API | Python 3.13, pandas, numpy, PyYAML, jsonschema, vaderSentiment; standard-library HTTP server |
-| Web app | React 19, TypeScript, Vite, Tailwind CSS, Recharts, d3-geo |
-| Build only | PyTorch and transformers (FinBERT), yfinance, matplotlib |
-| Tests | pytest (engine, stress, API), Vitest and Testing Library (web app) |
-
-## 4. Dataset used
-
-All data is public or synthetic, and nothing is downloaded at runtime except in live mode. Full provenance and licences: [data/SOURCES.md](data/SOURCES.md).
-
-| Window | Role | News (GDELT GKG 2.1) | Tweets (Kaggle, CC0) |
-|---|---|---|---|
-| W1, 10 Feb - 24 Mar 2022 (Russia-Ukraine war) | Development and calibration | 27,784 headlines | 8,916 |
-| W3, 10 - 30 Sep 2022 (US CPI, Fed 75 bp, UK gilt crisis) | Untouched test, shock | 12,773 | 3,113 |
-| N1, 6 Aug - 4 Sep 2026 (calmest recent month) | Untouched test, calm | 14,981 | none (dataset ends 2022) |
-
-Other data:
-
-- **Derived market returns.** Only derived series from yfinance are committed. Raw prices are never redistributed, and none of it is used in scoring.
-- **Synthetic portfolio.** 44 positions worth $3,646.9m: loans, bonds, swaps, equities and options. Credit obligors are synthetic; equities and options use real tickers.
-- **Evaluation labels.** 200 development items plus 270 test items. Labels come from an automated LLM annotation pass, and the test labels are checked by a person.
-
-**Assumptions.**
-
-- GDELT timestamps are crawl times.
-- The hourly sample is one GKG file in four, and counts are scaled accordingly.
-- Tweets are replayed, not live.
-- The portfolio deliberately tilts to CEE and emerging markets so regional shocks show. Because that choice was made knowing W1, the same book runs unchanged on W3 and N1.
-
-Every judgement is listed in [docs/assumptions.md](docs/assumptions.md).
-
-## 5. Setup & installation
+## 2. Setup & installation
 
 ### Requirements
 
@@ -257,7 +143,93 @@ cd frontend && npm test                       # web app tests
 | "Live" is greyed out in the header | No live data yet: start it with `python run.py --live` and wait for the first poll |
 | Startup takes about a minute | Expected on the first request: the API loads the datasets and the sentiment model |
 
-## 6. Key results & domain impact
+## 3. Architecture & tech stack
+
+![Architecture](docs/architecture.png)
+
+| Stage | How it works |
+|---|---|
+| Clean and de-duplicate | Strip HTML, links and handles; hash de-duplication that ignores trailing outlet and section tags, keeping duplicate counts and outlets |
+| Entities and scope | 241 entities and cashtags decide whether an event is single-name, sector, country or macro |
+| Event class | 46 weighted rules over 9 classes, with exclusions (sport, crime, consumer debt, telecom tariff plans) and **direction** (a rating upgrade, a lifted ban or a truce is not a stress event) |
+| Sentiment | FinBERT (`ProsusAI/finbert`, pinned revision, CPU), neutral band chosen on the development sample; VADER with a finance lexicon as the live fallback |
+| Item impact | `1 + 9 × (0.35·class prior + 0.25·sentiment magnitude + 0.20·entity importance + 0.20·severity cues)`, components stored |
+| As-of event impact | Every hour, on a rolling 24 h window per (class, scope, target): `1 + 9 × (0.5·severity + 0.2·breadth + 0.3·abnormal volume)`. The baseline is the same hour on the previous 7 days, quiet days counted as zero, with no look-ahead ([details](docs/impact_calibration.md)) |
+| Alert | Stress class, impact > 7, confidence ≥ 0.6, sentiment ≤ +0.1, not an upgrade, ≥ 2 outlets, ≥ 20 estimated mentions, past warm-up, and a 72 h cooldown per target group |
+| Stress scenarios | Market shocks = 2× the worst week of historical analogues (Crimea 2014, taper tantrum 2013, US downgrade 2011, Libya 2011 and others) scaled by impact; targeted add-ons and contagion to linked countries; AAA/AA sovereigns are safe havens |
+| Valuation | Bonds: rate and spread duration plus convexity. Loans: IFRS 9 staging (stage 2 → lifetime ECL). Swaps: DV01. Equities: estimated beta. Options: delta, gamma, vega. Capital: Basel III standardised RWA |
+
+**Design choices.**
+
+- **Precompute plus a thin runtime.** `python -m src.pipeline` writes versioned, schema-validated files (signals, events, alerts, stress results). The API only reads them. Builds are deterministic, and tests check that the committed outputs are current.
+- **Live mode.** `python -m scripts.live_gdelt` backfills the last 7 days of GDELT hourly files, so the volume baseline and the 3-day warm-up are ready. It then adds every 15-minute file, re-runs the engine and Module B, and writes the `live` dataset. The API reloads it when the files change, and the web app refreshes every minute.
+- **One interface.** A React app served by a standard-library JSON API that calls the same Python code. It never re-implements scoring or valuation.
+
+**Tech stack.**
+
+| Layer | Tools |
+|---|---|
+| Engine and API | Python 3.13, pandas, numpy, PyYAML, jsonschema, vaderSentiment; standard-library HTTP server |
+| Web app | React 19, TypeScript, Vite, Tailwind CSS, Recharts, d3-geo |
+| Build only | PyTorch and transformers (FinBERT), yfinance, matplotlib |
+| Tests | pytest (engine, stress, API), Vitest and Testing Library (web app) |
+
+## 4. A tour of the app
+
+Ripple has one web interface with four pages. It works in dark and light themes (toggle in the top-right corner) and adapts to desktop screens from 1024 px up to 2560 px and wider.
+
+**First visit.** A short guided walkthrough explains the app in six steps, and you can skip it at any point. To replay it later, click the **?** button in the header.
+
+**Header controls.**
+
+- **Offline / Live:** switch between replaying a saved news window and following the live feed.
+- **Dataset menu:** choose a replay window (W1, W3, N1 or stub).
+- **Replay bar** (Overview and Signal feed): press play to watch the window unfold day by day. Every chart follows the replay date, and red diamonds mark days when a stress test fired.
+
+### Overview
+
+The big picture: where the news is, how risky things are, and what the latest stress test did to the book.
+
+- A world map of the countries in the news, with bubble size for coverage and colour for sentiment, next to a risk gauge for the last 72 hours.
+- An event timeline drawn as a dot matrix: each column lights up to the impact of the riskiest event in that period, and dots above the dashed line crossed the stress-test trigger.
+- Real-time alerts, showing how many hours earlier each one fired than an end-of-day run would have.
+- The latest high-impact events, a breakdown of what the news is about, the latest stress test, and the market mood.
+
+<!-- SCREENSHOT: docs/screenshots/overview.png -->
+> 📸 **Screenshot placeholder:** Overview page, saved as `docs/screenshots/overview.png`.
+
+### Signal feed
+
+Every news item and post with its event class, sentiment and impact, which is the engine's structured output. Search and filter by class, source, sentiment and impact. Click any row to open a panel showing exactly how it was scored: the rules that matched, the impact components and their weights, the entities found, and the record's provenance.
+
+<!-- SCREENSHOT: docs/screenshots/signal-feed.png -->
+> 📸 **Screenshot placeholder:** Signal feed with the detail panel open, saved as `docs/screenshots/signal-feed.png`.
+
+### Stress test
+
+Module B. Pick any triggered event to see:
+
+- the causal chain: event → classification → impact → scenario → shock → portfolio;
+- portfolio value before and after the stress;
+- P&L by asset class and by risk factor;
+- credit losses and capital, and the severity curve;
+- the shocks applied and the trigger checks;
+- every position revalued.
+
+<!-- SCREENSHOT: docs/screenshots/stress-test.png -->
+> 📸 **Screenshot placeholder:** Stress test page, saved as `docs/screenshots/stress-test.png`.
+
+### Try a headline
+
+Type any headline and Ripple scores it live with the same engine. It then shows whether the story would trigger a stress test. Move the sliders for how many outlets report it and how unusual the volume is, and run a preview of the stress test on the portfolio.
+
+<!-- SCREENSHOT: docs/screenshots/try-a-headline.png -->
+> 📸 **Screenshot placeholder:** Try a headline with a scored result, saved as `docs/screenshots/try-a-headline.png`.
+
+<!-- SCREENSHOT: docs/screenshots/light-theme.png -->
+> 📸 **Screenshot placeholder (optional):** any page in the light theme, saved as `docs/screenshots/light-theme.png`.
+
+## 5. Key results & domain impact
 
 Full tables, with 95% confidence intervals: [docs/results.md](docs/results.md). Method and limitations: [docs/evaluation.md](docs/evaluation.md). Times are India Standard Time (IST).
 
@@ -313,6 +285,31 @@ A risk team sees within hours which headline moved which number:
 - the IFRS 9 stage moves and the capital cost.
 
 Each piece can be audited, challenged and re-run from configuration. Ripple is a triage layer that decides when to run scenario analysis, not a market forecaster, and the evaluation shows where that line is.
+
+## 6. Dataset used
+
+All data is public or synthetic, and nothing is downloaded at runtime except in live mode. Full provenance and licences: [data/SOURCES.md](data/SOURCES.md).
+
+| Window | Role | News (GDELT GKG 2.1) | Tweets (Kaggle, CC0) |
+|---|---|---|---|
+| W1, 10 Feb - 24 Mar 2022 (Russia-Ukraine war) | Development and calibration | 27,784 headlines | 8,916 |
+| W3, 10 - 30 Sep 2022 (US CPI, Fed 75 bp, UK gilt crisis) | Untouched test, shock | 12,773 | 3,113 |
+| N1, 6 Aug - 4 Sep 2026 (calmest recent month) | Untouched test, calm | 14,981 | none (dataset ends 2022) |
+
+Other data:
+
+- **Derived market returns.** Only derived series from yfinance are committed. Raw prices are never redistributed, and none of it is used in scoring.
+- **Synthetic portfolio.** 44 positions worth $3,646.9m: loans, bonds, swaps, equities and options. Credit obligors are synthetic; equities and options use real tickers.
+- **Evaluation labels.** 200 development items plus 270 test items. Labels come from an automated LLM annotation pass, and the test labels are checked by a person.
+
+**Assumptions.**
+
+- GDELT timestamps are crawl times.
+- The hourly sample is one GKG file in four, and counts are scaled accordingly.
+- Tweets are replayed, not live.
+- The portfolio deliberately tilts to CEE and emerging markets so regional shocks show. Because that choice was made knowing W1, the same book runs unchanged on W3 and N1.
+
+Every judgement is listed in [docs/assumptions.md](docs/assumptions.md).
 
 ## 7. Limitations
 
