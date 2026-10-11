@@ -29180,6 +29180,27 @@
   {
    "checks": {
     "baseline_ready": true,
+    "confidence_ok": false,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-22|credit_event|macro|central_bank:RBI",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
     "confidence_ok": true,
     "corroborated": false,
     "direction_ok": true,
@@ -40514,6 +40535,27 @@
    "checks": {
     "baseline_ready": true,
     "confidence_ok": true,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": false,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-27|credit_event|single_name|company:F",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "not_positive",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": true,
     "corroborated": true,
     "direction_ok": true,
     "enough_mentions": false,
@@ -40906,28 +40948,6 @@
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
-    "not_positive",
-    "corroborated",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": false,
-    "stress_class": true
-   },
-   "cluster_id": "2022-09-27|geopolitical|country|country:FR",
-   "detected_at": null,
-   "failed": [
-    "impact_above_threshold",
-    "confidence_ok",
     "not_positive",
     "corroborated",
     "enough_mentions"
@@ -43266,7 +43286,7 @@
   {
    "checks": {
     "baseline_ready": true,
-    "confidence_ok": true,
+    "confidence_ok": false,
     "corroborated": false,
     "direction_ok": true,
     "enough_mentions": false,
@@ -43278,6 +43298,7 @@
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
+    "confidence_ok",
     "corroborated",
     "enough_mentions"
    ],

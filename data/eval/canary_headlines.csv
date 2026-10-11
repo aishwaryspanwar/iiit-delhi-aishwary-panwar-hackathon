@@ -1,0 +1,36 @@
+canary_id,event_date,text,expected_class,expected_direction
+C01,2021-12-09,Fitch downgrades Evergrande to restricted default,credit_event,negative
+C02,2023-03-10,Silicon Valley Bank collapses after a run on deposits,credit_event,negative
+C03,2023-03-10,Regulators shut down Silicon Valley Bank and take control of its deposits,credit_event,negative
+C04,2023-03-12,Signature Bank fails as regional banking turmoil spreads,credit_event,negative
+C05,2023-03-19,UBS agrees emergency rescue of Credit Suisse,credit_event,negative
+C06,2023-05-01,First Republic Bank seized by regulators and sold to JPMorgan,credit_event,negative
+C07,2023-08-01,Fitch cuts US credit rating to AA+,credit_event,negative
+C08,2008-09-15,Lehman Brothers files for bankruptcy,credit_event,negative
+C09,2022-05-19,Sri Lanka defaults on its foreign debt for the first time,credit_event,negative
+C10,2023-12-05,Moody's places China's credit rating on negative outlook,credit_event,negative
+C11,2023-08-10,Country Garden misses bond coupon payments,credit_event,negative
+C12,2021-03-29,Archegos collapse triggers margin calls at global banks,credit_event,negative
+C13,2015-07-01,Greece misses IMF payment and becomes first developed country in arrears,credit_event,negative
+C14,2023-10-07,Hamas launches surprise attack on Israel,geopolitical,neutral
+C15,2024-04-14,Iran fires missiles and drones at Israel,geopolitical,neutral
+C16,2023-12-18,Houthi attacks force shipping lines to avoid the Red Sea,geopolitical,neutral
+C17,2023-07-26,Military coup in Niger topples the president,geopolitical,negative
+C18,2022-06-15,Fed raises rates by 75 basis points to fight record inflation,macroeconomic,neutral
+C19,2022-07-13,US inflation hits 40-year high of 9.1%,macroeconomic,neutral
+C20,2022-07-21,ECB raises interest rates for the first time in 11 years,macroeconomic,neutral
+C21,2024-03-19,Bank of Japan ends negative interest rates,macroeconomic,neutral
+C22,2023-11-10,UK economy contracts unexpectedly,macroeconomic,negative
+C23,2023-04-02,OPEC+ announces surprise oil output cut,commodity_energy,neutral
+C24,2020-04-20,Oil prices crash below zero for the first time,commodity_energy,neutral
+C25,2018-07-18,EU fines Google 4.3 billion euros over Android,regulatory,negative
+C26,2022-12-08,FTC sues to block Microsoft's Activision deal,regulatory,negative
+C27,2023-10-17,US tightens export curbs on advanced chips to China,regulatory,negative
+C28,2022-01-18,Microsoft to acquire Activision Blizzard for $68.7 billion,merger_acquisition,neutral
+C29,2022-05-26,Broadcom agrees to buy VMware in $61 billion deal,merger_acquisition,neutral
+C30,2022-04-20,Netflix shares plunge after losing subscribers,earnings_corporate,neutral
+C31,2023-05-24,Nvidia revenue beats estimates on AI demand,earnings_corporate,positive
+C32,2023-06-05,Apple unveils the Vision Pro headset,product_launch,neutral
+C33,2022-11-30,OpenAI launches ChatGPT,product_launch,neutral
+C34,2023-01-22,Manchester United beat Arsenal in the Premier League,other,neutral
+C35,2023-06-30,Taylor Swift adds new dates to her concert tour,other,neutral

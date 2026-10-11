@@ -8543,7 +8543,7 @@
   {
    "checks": {
     "baseline_ready": true,
-    "confidence_ok": false,
+    "confidence_ok": true,
     "corroborated": false,
     "direction_ok": true,
     "enough_mentions": false,
@@ -8555,7 +8555,6 @@
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
-    "confidence_ok",
     "corroborated",
     "enough_mentions"
    ],
@@ -31956,6 +31955,27 @@
   {
    "checks": {
     "baseline_ready": true,
+    "confidence_ok": true,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": false,
+    "stress_class": true
+   },
+   "cluster_id": "2026-08-25|credit_event|country|country:ES",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "not_positive",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
     "confidence_ok": false,
     "corroborated": false,
     "direction_ok": true,
@@ -32867,29 +32887,6 @@
     "stress_class": false
    },
    "cluster_id": "2026-08-25|other|country|country:DE",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "not_positive",
-    "corroborated",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": false,
-    "stress_class": false
-   },
-   "cluster_id": "2026-08-25|other|country|country:ES",
    "detected_at": null,
    "failed": [
     "stress_class",

@@ -1,8 +1,8 @@
 {
  "dataset": "w1",
  "deduplicated_items": 34298,
- "finbert_items_per_second_cpu": 21.9,
- "items_per_second_vader_pipeline": 1894.6,
+ "finbert_items_per_second_cpu": 22.5,
+ "items_per_second_vader_pipeline": 1847.2,
  "machine": {
   "processor": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
   "python": "3.13.5",
@@ -10,10 +10,10 @@
  },
  "raw_items": 36700,
  "seconds": {
-  "clean_and_dedup": 1.02,
-  "load": 0.17,
-  "rules_entities_impact": 13.82,
-  "sentiment_vader": 1.65,
-  "stream_clusters_alerts": 1.62
+  "clean_and_dedup": 1.04,
+  "load": 0.22,
+  "rules_entities_impact": 14.29,
+  "sentiment_vader": 1.58,
+  "stream_clusters_alerts": 1.66
  }
 }

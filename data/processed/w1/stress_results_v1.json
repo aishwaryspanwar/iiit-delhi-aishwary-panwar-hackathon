@@ -30352,6 +30352,27 @@
   {
    "checks": {
     "baseline_ready": true,
+    "confidence_ok": false,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-02-24|credit_event|macro|central_bank:CBR",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
     "confidence_ok": true,
     "corroborated": false,
     "direction_ok": true,
@@ -31099,7 +31120,7 @@
   {
    "checks": {
     "baseline_ready": true,
-    "confidence_ok": true,
+    "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
     "enough_mentions": false,
@@ -31111,6 +31132,7 @@
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
+    "confidence_ok",
     "enough_mentions"
    ],
    "triggered": false
@@ -34803,6 +34825,26 @@
   {
    "checks": {
     "baseline_ready": true,
+    "confidence_ok": true,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-02-26|credit_event|none|none",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
     "confidence_ok": false,
     "corroborated": false,
     "direction_ok": false,
@@ -37294,7 +37336,7 @@
   {
    "checks": {
     "baseline_ready": true,
-    "confidence_ok": true,
+    "confidence_ok": false,
     "corroborated": false,
     "direction_ok": true,
     "enough_mentions": false,
@@ -37306,6 +37348,7 @@
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
+    "confidence_ok",
     "corroborated",
     "enough_mentions"
    ],
@@ -38162,7 +38205,7 @@
    "checks": {
     "baseline_ready": true,
     "confidence_ok": true,
-    "corroborated": true,
+    "corroborated": false,
     "direction_ok": true,
     "enough_mentions": false,
     "impact_above_threshold": false,
@@ -38173,6 +38216,7 @@
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
+    "corroborated",
     "enough_mentions"
    ],
    "triggered": false
@@ -61083,6 +61127,27 @@
   {
    "checks": {
     "baseline_ready": true,
+    "confidence_ok": false,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-03-10|credit_event|country|country:UA",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
     "confidence_ok": true,
     "corroborated": true,
     "direction_ok": true,
@@ -61955,7 +62020,7 @@
     "direction_ok": true,
     "enough_mentions": false,
     "impact_above_threshold": false,
-    "not_positive": true,
+    "not_positive": false,
     "stress_class": true
    },
    "cluster_id": "2022-03-10|macroeconomic|country|country:UA",
@@ -61963,6 +62028,7 @@
    "failed": [
     "impact_above_threshold",
     "confidence_ok",
+    "not_positive",
     "corroborated",
     "enough_mentions"
    ],

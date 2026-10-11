@@ -1,6 +1,8 @@
+import csv
+
 import pytest
 
-from src.riskengine.config import load_yaml
+from src.riskengine.config import DATA_DIR, load_yaml
 from src.riskengine.events import classify
 
 POSITIVE_EXAMPLES = {
@@ -50,6 +52,7 @@ POSITIVE_EXAMPLES = {
     "CRD-007": "Evergrande misses bond payment, liquidity crisis deepens",
     "MAC-007": "Rupee devaluation sparks currency crisis fears",
     "MAC-008": "RBI cuts interest rates as inflation cools",
+    "CRD-008": "Silicon Valley Bank collapses after a run on deposits",
 }
 
 DIRECTION_EXAMPLES = [
@@ -182,3 +185,27 @@ def test_everyday_uses_of_policy_words_are_not_stress_events(text):
 @pytest.mark.parametrize("text", NOT_POSITIVE)
 def test_relief_words_in_a_hostile_or_negated_context_are_not_positive(text):
     assert classify(text).direction != "positive"
+
+
+def canary_rows() -> list[dict]:
+    with (DATA_DIR / "eval" / "canary_headlines.csv").open(encoding="utf-8", newline="") as handle:
+        return list(csv.DictReader(handle))
+
+
+@pytest.mark.parametrize("row", canary_rows(), ids=lambda row: row["canary_id"])
+def test_well_known_headlines_are_classified(row):
+    result = classify(row["text"])
+    assert result.event_class == row["expected_class"]
+    if row["expected_direction"] != "neutral":
+        assert result.direction == row["expected_direction"]
+
+
+def test_canary_headlines_fall_outside_evaluation_windows():
+    windows = [("2022-02-10", "2022-03-24"), ("2022-09-10", "2022-09-30"), ("2026-08-06", "2026-09-04")]
+    for row in canary_rows():
+        assert not any(start <= row["event_date"] <= end for start, end in windows), row["canary_id"]
+
+
+def test_bank_words_in_unrelated_contexts_are_not_credit_events():
+    for text in ["Israel seizes land in the West Bank", "Food banks struggle as prices rise", "Bank of England fails to calm markets"]:
+        assert classify(text).event_class != "credit_event"

@@ -211,13 +211,13 @@
    "share_before_us_close": 1.0
   }
  },
- "config_hash": "fdc1a7c313f4",
+ "config_hash": "2f7bbb11c1e3",
  "definitions": {
   "hit": "a flag counts as a hit if its trading day or the next one is a stress day; a stress day counts as covered if it or the previous trading day is flagged",
   "stress_day": "|S&P 500 return| > 1.5% or VIX change > 10% on the day",
   "trading_day": "alerts after 21:00 UTC map to the next trading day"
  },
- "engine_version": "0.3.0",
+ "engine_version": "0.3.1",
  "impact_vs_market": {
   "n1": {
    "abs_rate_change": {
@@ -1141,10 +1141,10 @@
       "commodity_energy": 3,
       "credit_event": 1,
       "earnings_corporate": 3,
-      "geopolitical": 1,
+      "geopolitical": 0,
       "macroeconomic": 0,
       "merger_acquisition": 1,
-      "other": 51,
+      "other": 52,
       "product_launch": 1,
       "regulatory": 0
      },
@@ -1172,15 +1172,15 @@
      }
     },
     "event_class": {
-     "accuracy": 0.55,
+     "accuracy": 0.5583,
      "accuracy_ci95": [
-      0.4583,
-      0.6333
+      0.475,
+      0.6417
      ],
-     "macro_f1": 0.3483,
+     "macro_f1": 0.355,
      "macro_f1_ci95": [
-      0.2308,
-      0.4793
+      0.2352,
+      0.4854
      ],
      "majority_accuracy": 0.5083,
      "majority_label": "other",
@@ -1243,8 +1243,8 @@
       "support": 22
      },
      "geopolitical": {
-      "f1": 0.6154,
-      "precision": 0.6667,
+      "f1": 0.6667,
+      "precision": 0.8,
       "recall": 0.5714,
       "support": 7
      },
@@ -1261,9 +1261,9 @@
       "support": 2
      },
      "other": {
-      "f1": 0.6939,
-      "precision": 0.593,
-      "recall": 0.8361,
+      "f1": 0.7027,
+      "precision": 0.5977,
+      "recall": 0.8525,
       "support": 61
      },
      "product_launch": {

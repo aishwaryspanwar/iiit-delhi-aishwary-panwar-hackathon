@@ -53,6 +53,7 @@ rules:
     class: geopolitical
     weight: 1.0
     patterns: ['\bswift\b', '\bexport controls?\b', '\basset freezes?\b', '\bfrozen reserves\b', '\b(seiz(e|es|ed|ure|ures)|oligarchs?)\b']
+    exclude_patterns: ['\btaylor swift\b', '\bseized by regulators\b']
   - id: GEO-006
     class: geopolitical
     weight: 1.5
@@ -92,7 +93,7 @@ rules:
     class: credit_event
     weight: 2.5
     direction: negative
-    patterns: ['\b(debt|bond|sovereign|technical|selective|payment) default\b', '\bdefault(s|ed|ing)? on\b', '\bdefault risk\b', '\b(avert(s|ed)?|avoid(s|ed)?|risk of|edge of|brink of|nears?|imminent|may|could|likely to|in|towards?|into) (a )?default\b', '\bdefault (is |looks )?(imminent|looms|likely)\b', '\bmissed (a )?(coupon|payment|interest payment)\b']
+    patterns: ['\b(debt|bond|sovereign|technical|selective|restricted|partial|payment) default\b', '\bmiss(es|ed|ing)? (\S+ ){0,3}(coupon|bond|loan|debt|interest|imf) payments?\b', '\bin arrears\b', '\bdefault(s|ed|ing)? on\b', '\bdefault risk\b', '\b(avert(s|ed)?|avoid(s|ed)?|risk of|edge of|brink of|nears?|imminent|may|could|likely to|in|towards?|into) (a )?default\b', '\bdefault (is |looks )?(imminent|looms|likely)\b', '\bmissed (a )?(coupon|payment|interest payment)\b']
     exclude_patterns: ['\b(student loans?|credit cards?|mortgages?|car loans?|auto loans?|personal loans?|tenants?|rent payments?)\b']
   - id: CRD-002
     class: credit_event
@@ -249,3 +250,9 @@ rules:
     weight: 2.5
     direction: negative
     patterns: ['\b(blocks?|blocked|rejects?|rejected|vetoes|vetoed|bars|barred|halts?|halted) (\S+ ){0,3}(deal|merger|acquisition|takeover|buyout|bid|listing|ipo)\b']
+  - id: CRD-008
+    class: credit_event
+    weight: 2.5
+    direction: negative
+    patterns: ['\b(banks?|lenders?|banking)\b.{0,40}\b(collaps(e|es|ed|ing)|fail(s|ed|ing|ure|ures)?(?! to)|seized|shut down|bail-?outs?|rescued|turmoil)\b', '\b(collapse|failure|seizure|rescue|bail-?out) of\b.{0,40}\b(bank|lender)\b', '\b(shut(s)? down|shutters?|shuttered)\b.{0,30}\b(bank|lender)\b', '\bemergency (rescue|takeover|loans?|funding|liquidity)\b', '\b(runs? on deposits|deposit (runs?|flight|outflows?)|depositors? (flee|fled|pull|pulled))\b']
+    exclude_patterns: ['\b(west|food|blood|river|piggy|sperm|data|world|power|memory) banks?\b']
