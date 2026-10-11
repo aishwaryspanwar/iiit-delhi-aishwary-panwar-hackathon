@@ -1,3 +1,4 @@
+import gzip
 import hashlib
 
 import pytest
@@ -11,7 +12,8 @@ from src.stress.valuation import FACTORS
 
 
 def digest(path) -> str:
-    return hashlib.sha1(path.read_bytes()).hexdigest()
+    payload = gzip.decompress(path.read_bytes()) if path.suffix == ".gz" else path.read_bytes()
+    return hashlib.sha1(payload).hexdigest()
 
 
 @pytest.fixture(scope="module")

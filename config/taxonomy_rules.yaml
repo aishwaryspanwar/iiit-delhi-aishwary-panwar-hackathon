@@ -26,6 +26,10 @@ scope_precedence:
   commodity_energy: [sector, country, single_name, macro]
   credit_event: [single_name, country, sector, macro]
 actor_countries: [country:US, country:EU, country:GB]
+entity_alias_blocklist:
+  - '\b(Lake|Colin) Powell\b'
+  - '\bPowell River\b'
+  - '\bFed (up|Ex)\b'
 primary_target_only_classes: [credit_event]
 confidence_saturation: 2.0
 context_excludes:
@@ -62,7 +66,7 @@ rules:
   - id: GEO-007
     class: geopolitical
     weight: 1.0
-    patterns: ['\b(russia|russian|ukraine|ukrainian|ukrainians|kyiv|kiev|putin|zelensk\w*|mariupol|kharkiv|donbas|taiwan strait|north korea|pyongyang|tehran|iranian|gaza|hamas|hezbollah|houthis?)\b']
+    patterns: ['\b(russia|russian|ukraine|ukrainian|ukrainians|kyiv|kiev|putin|zelensk\w*|mariupol|kharkiv|donbas|taiwan strait|north korea|pyongyang|tehran|iranian|gaza|hamas|hezbollah|houthis?|iran|israel|israeli|idf)\b']
     exclude_patterns: ['\b(start-?up|raises \$|funding round)\b']
   - id: MAC-001
     class: macroeconomic
@@ -211,7 +215,7 @@ rules:
     class: earnings_corporate
     weight: 1.5
     direction: negative
-    patterns: ['\b(miss(es|ed)?|falls? short of|fell short of) (\w+ )?(estimates|expectations|forecasts|consensus)\b', '\b(profit warning|warns on profits?|loss widens|swings? to (a )?loss|revenue (falls?|drops?|declines?|slumps?))\b', '\b(cuts?|lowers?|lowered|slashe[sd]|withdraws?|withdrew|suspends?|suspended) (its |full-year |annual )?(guidance|forecast|outlook|dividend)\b', '\b(job cuts|cuts? [\d,]+ jobs|lay(s|ing)? off|laid off|redundancies)\b', '\b(data breach|hack(ed|ers?)|cyber-?attack|ransomware|outage|fraud|scandal|whistleblower|accounting irregularities|short seller)\b', '\b(halts?|halted|stops?|stopped|shuts?|shut) (\w+ )?(production|output|deliveries|operations|plant|factory)\b', '\b(ceo|cfo|chairman|founder) (resigns?|quits?|ousted|fired|steps down|arrested|charged)\b']
+    patterns: ['\b(miss(es|ed)?|falls? short of|fell short of) (\w+ )?(estimates|expectations|forecasts|consensus)\b', '\b(profit warning|warns on profits?|loss widens|swings? to (a )?loss|revenue (falls?|drops?|declines?|slumps?))\b', '\b(cuts?|lowers?|lowered|slashe[sd]|withdraws?|withdrew|suspends?|suspended) (its |full-year |annual )?(guidance|forecast|outlook|dividend)\b', '\b(job cuts|cuts? [\d,]+ jobs|lay(s|ing)? off|laid off|redundancies)\b', '\b(data breach|hack(ed|ers?)|cyber-?attack|ransomware|outage|fraud|scandal|whistleblower|accounting irregularities|short seller)\b', '\b(halts?|halted|stops?|stopped|shuts?|shut) (\w+ )?(production|output|deliveries|operations|plant|factory)\b', '\b(ceo|cfo|chairman|founder) (resigns?|quits?|ousted|fired|steps down|arrested|charged)\b', '\b(grounds?|grounded|grounding) (\S+ ){0,3}(jets?|planes?|aircraft|fleets?|flights)\b', '\b(jets?|planes?|aircraft|fleets?|max)\b.{0,10}\bgrounded\b', '\b(plane|air|jet|train) crash(es)?\b']
   - id: GEO-008
     class: geopolitical
     weight: 1.5
@@ -232,7 +236,7 @@ rules:
     class: credit_event
     weight: 2.0
     direction: negative
-    patterns: ['\b(bail-?outs?|bank run|run on the bank|liquidity (crisis|crunch|squeeze)|margin calls?|debt crisis|write-?downs?|loan losses|bad loans|non-performing (loans|assets)|missed (bond|loan|coupon) payments?|debt (moratorium|standstill)|creditor haircuts?)\b']
+    patterns: ['\b(bail-?outs?|bank run|run on the bank|liquidity (crisis|crunch|squeeze|fears|concerns|worries|problems|stress|shortfall|woes)|solvency (fears|concerns|worries)|capital shortfall|margin calls?|debt crisis|write-?downs?|loan losses|bad loans|non-performing (loans|assets)|missed (bond|loan|coupon) payments?|debt (moratorium|standstill)|creditor haircuts?)\b']
     exclude_patterns: ['\b(student loans?|credit cards?|mortgages?|car loans?|auto loans?|personal loans?)\b']
   - id: MAC-007
     class: macroeconomic
@@ -256,3 +260,20 @@ rules:
     direction: negative
     patterns: ['\b(banks?|lenders?|banking)\b.{0,40}\b(collaps(e|es|ed|ing)|fail(s|ed|ing|ure|ures)?(?! to)|seized|shut down|bail-?outs?|rescued|turmoil)\b', '\b(collapse|failure|seizure|rescue|bail-?out) of\b.{0,40}\b(bank|lender)\b', '\b(shut(s)? down|shutters?|shuttered)\b.{0,30}\b(bank|lender)\b', '\bemergency (rescue|takeover|loans?|funding|liquidity)\b', '\b(runs? on deposits|deposit (runs?|flight|outflows?)|depositors? (flee|fled|pull|pulled))\b']
     exclude_patterns: ['\b(west|food|blood|river|piggy|sperm|data|world|power|memory) banks?\b']
+  - id: GEO-010
+    class: geopolitical
+    weight: 2.0
+    direction: negative
+    patterns: ['\b(air|missile|drone|rocket|military|retaliatory|pre-?emptive|precision|artillery) strikes?\b', '\b(strik(e|es|ing)|struck|hits?|pounds?|pounded|shells?) (\S+ ){0,3}(nuclear|military|air|naval) (sites?|targets?|bases?|facilit\w+|installations?)\b', '\b(strik(e|es|ing)|struck) (\S+ ){0,2}(targets?|positions|bases?|capital|ships?|tankers?|vessels?)\b']
+    exclude_patterns: ['\b(workers?|unions?|employees|staff|labou?r|nurses|teachers|drivers|pilots|dockers|miners) (\S+ ){0,2}(strikes?|on strike|walk out)\b', '\b(go(es|ing)? on|went on|national|general|nationwide) strikes?\b', '\bstrike (action|ballot|price)\b', '\b(deal|balance|chord|gold|oil|lucky) (strikes?|struck)\b', '\bstrikes? (a )?deal\b']
+  - id: GEO-011
+    class: geopolitical
+    weight: 1.5
+    direction: negative
+    patterns: ['\b(state-?sponsored|state-?backed|nation-?state|russian|chinese|north korean|iranian) (hackers?|hacking|cyber-?attacks?|cyber ?espionage)\b', '\bcyber-?attacks? (on|against|targets?|hits?|cripples?|shuts? down) (\S+ ){0,3}(infrastructure|power grid|grid|pipelines?|ports?|government|ministr\w+|banks?|payment systems?|hospitals?|utilit\w+)\b']
+  - id: MAC-009
+    class: macroeconomic
+    weight: 2.0
+    direction: negative
+    patterns: ['\b((\d(\.\d)? ?magnitude|deadly|strong|major|powerful|massive) quake|quake (hits|strikes|kills|jolts|rocks))\b', '\b(earthquake|tsunami|hurricane|typhoon|cyclone|volcanic eruption|wildfires?|deadly floods?|severe flooding|natural disasters?)\b', '\b(declares?|declared|new|fresh|deadly|spreading) (\w+ )?(pandemic|epidemic|outbreak|public health emergency|health emergency)\b', '\b(pandemic|epidemic|outbreak) (declared|spreads|emergency)\b', '\b(imposes?|imposed|orders?|ordered|extends?|extended) (a )?(\w+ )?lockdowns?\b', '\b(national|nationwide|city-?wide|strict) lockdowns?\b']
+    exclude_patterns: ['\b(hurricane|cyclone|typhoon) (games?|studios?|engine)\b', '\bpost-?pandemic\b']

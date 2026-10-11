@@ -9,7 +9,7 @@ All numbers come from scripts and are pinned by tests:
 
 `tests/unit/test_evaluate.py` fails if any committed file drifts from the code and data, or if the configuration hash differs from the one recorded in the metrics.
 
-Sections 1 to 3 describe the frozen engine 0.2.0 (git tag `eval-freeze`), whose W3 and N1 results are the clean out-of-sample evidence. Section 4 describes the post-freeze engines 0.3.0 and 0.3.1 (shipped), and how their numbers differ. [results.md](results.md) shows the current (0.3.1) tables. Times are India Standard Time (IST).
+Sections 1 to 3 describe the frozen engine 0.2.0 (git tag `eval-freeze`), whose W3 and N1 results are the clean out-of-sample evidence. Sections 4 to 6 describe the post-freeze engines 0.3.0, 0.3.1 and 0.3.2 (shipped), and how their numbers differ. [results.md](results.md) shows the current (0.3.2) tables. Times are India Standard Time (IST).
 
 ## 1. Protocol
 
@@ -114,7 +114,30 @@ A set of 35 well-known headlines from 2008-2024, all outside W1, W3 and N1 ([can
 - W1 development accuracy is unchanged (169 of 200), and so are every alert and every stress result in all three windows. W3 test macro-F1 is 0.35 either way.
 - The set was used to write the rules, so it is a regression test, not an accuracy estimate.
 
-## 6. Limitations
+## 6. Vocabulary extension (engine 0.3.2)
+
+A review of the live demo found headlines a jury is likely to type that the rules missed: "Israel strikes Iran nuclear sites" and "WHO declares new pandemic emergency" were read as Other, "Credit Suisse shares plunge on liquidity fears" as an earnings story, and "Boeing 737 Max grounded after crash" as Other. Engine 0.3.2 adds:
+
+- GEO-010: air, missile and drone strikes and strikes on military or nuclear sites, excluding labour strikes and "strikes a deal";
+- GEO-011: state-backed cyberattacks and cyberattacks on infrastructure;
+- MAC-009: earthquakes, storms, wildfires, floods, pandemics and lockdowns, mapped to the macroeconomic class so that no new class, scenario or schema change is needed;
+- liquidity and solvency fears in CRD-007, aircraft groundings and crashes in ERN-007, Iran and Israel in GEO-007, and matching severity cue words.
+
+Nine headlines from outside every window were added to the canary set (44 in total), with a test that unrelated uses of the new words stay out. As with 0.3.1, the rules were written from the demo misses and general knowledge, not from any test label.
+
+| Measure | 0.3.1 | 0.3.2 |
+|---|---|---|
+| W1 development accuracy | 169 of 200 | 169 of 200 |
+| Event class macro-F1, W1 / W3 test | 0.59 / 0.35 | 0.59 / 0.35 |
+| W3 alerts: flags, precision, recall | 6, 83%, 100% | 6, 83%, 100% |
+| W1 alerts: flags, precision, recall | 12, 75%, 67% | 12, 75%, 58% |
+| N1 alerts (calm, all false alarms) | 8 alerts, 7 days | 6 alerts, 5 days |
+
+The added cue words and conflict-region names regroup some clusters, so detection times move by an hour or two and W3 gains one Iran alert on 22 Sep. On W1 the shifted timings leave one more stress day uncovered, which lowers recall from 67% to 58%.
+
+**Do the eight checks add anything?** Against a plain "impact above 7" rule they do not improve precision: on W3 the plain rule scores 89% on 9 days against 83% on 6, and on W1 it has better recall (83% against 58%). The checks mainly reduce how often a stress test runs (W1: 12 flagged days instead of 20; N1: 5 false-alarm days instead of 7). With 6 flagged days on W3, 83% against a 67% base rate is not statistically significant (one-sided binomial p ≈ 0.35).
+
+## 7. Limitations
 
 - **Labels:** until human verification completes, the test labels are a single LLM annotator. The blind Stage A sample measures how often it agrees with a person.
 - **Sample size:** 100-120 test items per window give wide intervals, and several classes have fewer than ten examples.

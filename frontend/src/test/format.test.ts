@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { dateTime, day, percent, safeHttpUrl, signed, time, usdMillions } from "../lib/format";
-import { impactBand } from "../lib/risk";
+import { assetChange, impactBand } from "../lib/risk";
 import { parseHash } from "../lib/router";
 
 describe("formatting", () => {
@@ -39,5 +39,12 @@ describe("formatting", () => {
       param: "2022-02-24|geopolitical|country|country:RU",
     });
     expect(parseHash("#/nowhere")).toEqual({ page: "overview", param: null });
+  });
+
+  it("hides percentage changes that have no meaningful base", () => {
+    expect(assetChange({ asset_class: "equity", value_before: 400, pnl: -8 })).toBeCloseTo(-0.02);
+    expect(assetChange({ asset_class: "irs", value_before: 0.9, pnl: -0.5 })).toBeNull();
+    expect(assetChange({ asset_class: "option", value_before: 1, pnl: 2 })).toBeNull();
+    expect(assetChange({ asset_class: "bond", value_before: 0, pnl: 0 })).toBeNull();
   });
 });

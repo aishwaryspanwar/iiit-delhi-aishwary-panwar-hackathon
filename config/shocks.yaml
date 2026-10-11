@@ -13,6 +13,13 @@ trigger:
 severity:
   floor_multiplier: 0.5
   max_rating_notches: 3
+  curve_points: [7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0]
+valuation:
+  sicr_notches: 3
+  stage3_from_rating: CCC
+  investment_grade_floor: BBB-
+  capital_ratio: 0.08
+  loan_discount_yield: 0.04
 safe_haven:
   sectors: [sovereign]
   max_notch_index: 3

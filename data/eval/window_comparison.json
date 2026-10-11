@@ -1,23 +1,23 @@
 {
  "n1": {
   "cluster_impact_max": 8.2,
-  "cluster_impact_p50": 3.2,
+  "cluster_impact_p50": 3.3,
   "cluster_impact_p90": 5.3,
-  "cluster_impact_p99": 6.8,
-  "clusters": 2472,
-  "clusters_above_threshold": 19,
+  "cluster_impact_p99": 6.87,
+  "clusters": 2433,
+  "clusters_above_threshold": 17,
   "dataset": "n1",
   "entity_coverage": 0.3811,
   "failed_checks": {
-   "baseline_ready": 219,
-   "confidence_ok": 1569,
+   "baseline_ready": 215,
+   "confidence_ok": 1508,
    "cooldown": 1,
-   "corroborated": 1262,
-   "direction_ok": 54,
-   "enough_mentions": 1911,
-   "impact_above_threshold": 2453,
-   "not_positive": 819,
-   "stress_class": 1611
+   "corroborated": 1252,
+   "direction_ok": 48,
+   "enough_mentions": 1868,
+   "impact_above_threshold": 2416,
+   "not_positive": 803,
+   "stress_class": 1550
   },
   "market": {
    "sp500_annualised_volatility": 0.0822,
@@ -41,11 +41,12 @@
     "class": "macroeconomic",
     "date": "2026-08-12",
     "detected_at": "2026-08-12T16:00:00Z",
-    "impact": 7.2,
-    "pnl": -47872381.09,
-    "pnl_pct": -0.013127,
+    "impact": 7.5,
+    "pnl": -52278602.71,
+    "pnl_pct": -0.014335,
     "scope_targets": [
-     "country:US"
+     "country:US",
+     "country:EU"
     ]
    },
    {
@@ -58,30 +59,6 @@
     "scope_targets": [
      "country:RU",
      "country:UA"
-    ]
-   },
-   {
-    "class": "geopolitical",
-    "date": "2026-08-20",
-    "detected_at": "2026-08-20T04:00:00Z",
-    "impact": 7.3,
-    "pnl": -6911734.27,
-    "pnl_pct": -0.001895,
-    "scope_targets": [
-     "country:IR",
-     "country:IL"
-    ]
-   },
-   {
-    "class": "geopolitical",
-    "date": "2026-08-25",
-    "detected_at": "2026-08-25T05:00:00Z",
-    "impact": 7.3,
-    "pnl": -6911734.27,
-    "pnl_pct": -0.001895,
-    "scope_targets": [
-     "country:IR",
-     "commodity:oil"
     ]
    },
    {
@@ -123,21 +100,21 @@
    }
   ],
   "signal_class_share": {
-   "commodity_energy": 0.036,
+   "commodity_energy": 0.0353,
    "credit_event": 0.0015,
-   "earnings_corporate": 0.1098,
-   "geopolitical": 0.0606,
-   "macroeconomic": 0.0396,
+   "earnings_corporate": 0.1096,
+   "geopolitical": 0.071,
+   "macroeconomic": 0.0437,
    "merger_acquisition": 0.0089,
-   "other": 0.6791,
+   "other": 0.6655,
    "product_launch": 0.0231,
-   "regulatory": 0.0415
+   "regulatory": 0.0414
   },
   "signals": 14429,
   "sources": {
    "gdelt_gkg": 14429
   },
-  "stress_tests_triggered": 8,
+  "stress_tests_triggered": 6,
   "window": {
    "end": "2026-09-04",
    "start": "2026-08-06"
@@ -148,20 +125,20 @@
   "cluster_impact_p50": 3.1,
   "cluster_impact_p90": 5.1,
   "cluster_impact_p99": 7.3,
-  "clusters": 4450,
-  "clusters_above_threshold": 63,
+  "clusters": 4442,
+  "clusters_above_threshold": 64,
   "dataset": "w1",
-  "entity_coverage": 0.4766,
+  "entity_coverage": 0.4765,
   "failed_checks": {
-   "baseline_ready": 303,
-   "confidence_ok": 2726,
-   "cooldown": 20,
-   "corroborated": 2721,
-   "direction_ok": 94,
-   "enough_mentions": 3586,
-   "impact_above_threshold": 4387,
-   "not_positive": 1439,
-   "stress_class": 2930
+   "baseline_ready": 304,
+   "confidence_ok": 2711,
+   "cooldown": 21,
+   "corroborated": 2700,
+   "direction_ok": 90,
+   "enough_mentions": 3574,
+   "impact_above_threshold": 4378,
+   "not_positive": 1434,
+   "stress_class": 2888
   },
   "market": {
    "sp500_annualised_volatility": 0.2441,
@@ -186,10 +163,10 @@
    {
     "class": "geopolitical",
     "date": "2022-02-17",
-    "detected_at": "2022-02-17T23:00:00Z",
-    "impact": 7.3,
-    "pnl": -21157976.65,
-    "pnl_pct": -0.005802,
+    "detected_at": "2022-02-17T22:00:00Z",
+    "impact": 7.1,
+    "pnl": -20201568.98,
+    "pnl_pct": -0.005539,
     "scope_targets": [
      "country:RU",
      "country:UA"
@@ -210,7 +187,7 @@
    {
     "class": "geopolitical",
     "date": "2022-02-22",
-    "detected_at": "2022-02-22T15:00:00Z",
+    "detected_at": "2022-02-22T16:00:00Z",
     "impact": 8.2,
     "pnl": -25439356.27,
     "pnl_pct": -0.006976,
@@ -222,10 +199,10 @@
    {
     "class": "geopolitical",
     "date": "2022-02-25",
-    "detected_at": "2022-02-25T15:00:00Z",
-    "impact": 8.7,
-    "pnl": -72744287.8,
-    "pnl_pct": -0.019947,
+    "detected_at": "2022-02-25T16:00:00Z",
+    "impact": 8.6,
+    "pnl": -72278234.85,
+    "pnl_pct": -0.019819,
     "scope_targets": [
      "country:RU",
      "country:UA"
@@ -246,10 +223,10 @@
    {
     "class": "commodity_energy",
     "date": "2022-03-07",
-    "detected_at": "2022-03-07T16:00:00Z",
-    "impact": 7.1,
-    "pnl": -5681596.76,
-    "pnl_pct": -0.001558,
+    "detected_at": "2022-03-07T21:00:00Z",
+    "impact": 7.2,
+    "pnl": -5860748.6,
+    "pnl_pct": -0.001607,
     "scope_targets": [
      "commodity:oil",
      "country:RU"
@@ -281,9 +258,9 @@
     "class": "macroeconomic",
     "date": "2022-03-10",
     "detected_at": "2022-03-10T20:00:00Z",
-    "impact": 7.7,
-    "pnl": -55214117.85,
-    "pnl_pct": -0.01514,
+    "impact": 7.8,
+    "pnl": -56670750.15,
+    "pnl_pct": -0.015539,
     "scope_targets": [
      "country:US"
     ]
@@ -318,10 +295,10 @@
    {
     "class": "macroeconomic",
     "date": "2022-03-16",
-    "detected_at": "2022-03-16T11:00:00Z",
-    "impact": 8.3,
-    "pnl": -63965535.48,
-    "pnl_pct": -0.01754,
+    "detected_at": "2022-03-16T07:00:00Z",
+    "impact": 8.2,
+    "pnl": -62507964.48,
+    "pnl_pct": -0.01714,
     "scope_targets": [
      "central_bank:FED",
      "commodity:oil"
@@ -345,11 +322,11 @@
   "signal_class_share": {
    "commodity_energy": 0.031,
    "credit_event": 0.0021,
-   "earnings_corporate": 0.0844,
-   "geopolitical": 0.1718,
-   "macroeconomic": 0.0319,
+   "earnings_corporate": 0.0848,
+   "geopolitical": 0.174,
+   "macroeconomic": 0.0333,
    "merger_acquisition": 0.0093,
-   "other": 0.6265,
+   "other": 0.6226,
    "product_launch": 0.0162,
    "regulatory": 0.0268
   },
@@ -367,22 +344,22 @@
  "w3": {
   "cluster_impact_max": 8.6,
   "cluster_impact_p50": 3.1,
-  "cluster_impact_p90": 5.2,
-  "cluster_impact_p99": 6.9,
-  "clusters": 2467,
-  "clusters_above_threshold": 19,
+  "cluster_impact_p90": 5.28,
+  "cluster_impact_p99": 7.0,
+  "clusters": 2463,
+  "clusters_above_threshold": 23,
   "dataset": "w3",
   "entity_coverage": 0.4666,
   "failed_checks": {
    "baseline_ready": 248,
-   "confidence_ok": 1567,
-   "cooldown": 4,
-   "corroborated": 1440,
-   "direction_ok": 62,
-   "enough_mentions": 1988,
-   "impact_above_threshold": 2448,
-   "not_positive": 679,
-   "stress_class": 1671
+   "confidence_ok": 1538,
+   "cooldown": 5,
+   "corroborated": 1442,
+   "direction_ok": 53,
+   "enough_mentions": 1978,
+   "impact_above_threshold": 2440,
+   "not_positive": 681,
+   "stress_class": 1622
   },
   "market": {
    "sp500_annualised_volatility": 0.2383,
@@ -408,10 +385,10 @@
    {
     "class": "macroeconomic",
     "date": "2022-09-13",
-    "detected_at": "2022-09-13T21:00:00Z",
-    "impact": 7.2,
-    "pnl": -47872381.09,
-    "pnl_pct": -0.013127,
+    "detected_at": "2022-09-13T20:00:00Z",
+    "impact": 7.1,
+    "pnl": -46406403.55,
+    "pnl_pct": -0.012725,
     "scope_targets": []
    },
    {
@@ -472,6 +449,17 @@
     ]
    },
    {
+    "class": "geopolitical",
+    "date": "2022-09-22",
+    "detected_at": "2022-09-22T11:00:00Z",
+    "impact": 7.3,
+    "pnl": -6911734.27,
+    "pnl_pct": -0.001895,
+    "scope_targets": [
+     "country:IR"
+    ]
+   },
+   {
     "class": "macroeconomic",
     "date": "2022-09-27",
     "detected_at": "2022-09-27T10:00:00Z",
@@ -496,22 +484,22 @@
    }
   ],
   "signal_class_share": {
-   "commodity_energy": 0.0277,
+   "commodity_energy": 0.027,
    "credit_event": 0.0029,
-   "earnings_corporate": 0.0578,
-   "geopolitical": 0.0656,
-   "macroeconomic": 0.0696,
+   "earnings_corporate": 0.0576,
+   "geopolitical": 0.0707,
+   "macroeconomic": 0.0817,
    "merger_acquisition": 0.0092,
-   "other": 0.7224,
-   "product_launch": 0.0172,
-   "regulatory": 0.0276
+   "other": 0.7063,
+   "product_launch": 0.0171,
+   "regulatory": 0.0274
   },
   "signals": 14943,
   "sources": {
    "gdelt_gkg": 12446,
    "kaggle_tweets": 2497
   },
-  "stress_tests_triggered": 9,
+  "stress_tests_triggered": 10,
   "window": {
    "end": "2022-09-30",
    "start": "2022-09-10"

@@ -31,18 +31,18 @@
   "n1": {
    "summary": {
     "1d": {
-     "coverage_realised_loss_within_stress": 0.875,
-     "direction_hit_realised_negative": 0.75,
-     "mean_realised_pnl": -1944466.07,
-     "mean_stressed_pnl": -27580575.96,
-     "triggers": 8
+     "coverage_realised_loss_within_stress": 1.0,
+     "direction_hit_realised_negative": 0.8333,
+     "mean_realised_pnl": -1752877.49,
+     "mean_stressed_pnl": -34926859.02,
+     "triggers": 6
     },
     "5d": {
      "coverage_realised_loss_within_stress": 1.0,
-     "direction_hit_realised_negative": 0.625,
-     "mean_realised_pnl": -2363021.93,
-     "mean_stressed_pnl": -27580575.96,
-     "triggers": 8
+     "direction_hit_realised_negative": 0.6667,
+     "mean_realised_pnl": -3078605.28,
+     "mean_stressed_pnl": -34926859.02,
+     "triggers": 6
     }
    },
    "triggers": [
@@ -59,7 +59,7 @@
      "detected_at": "2026-08-12T16:00:00Z",
      "realised_sleeve_pnl_1d": -3030721.05,
      "realised_sleeve_pnl_5d": -4818037.99,
-     "stressed_sleeve_pnl": -44385939.45,
+     "stressed_sleeve_pnl": -48524509.92,
      "trading_day": "2026-08-12"
     },
     {
@@ -69,22 +69,6 @@
      "realised_sleeve_pnl_5d": 2519400.61,
      "stressed_sleeve_pnl": -9126266.56,
      "trading_day": "2026-08-18"
-    },
-    {
-     "cluster_id": "2026-08-20|geopolitical|country|country:IR",
-     "detected_at": "2026-08-20T04:00:00Z",
-     "realised_sleeve_pnl_1d": -10037245.14,
-     "realised_sleeve_pnl_5d": -4598274.74,
-     "stressed_sleeve_pnl": -7611012.02,
-     "trading_day": "2026-08-20"
-    },
-    {
-     "cluster_id": "2026-08-25|geopolitical|country|country:IR",
-     "detected_at": "2026-08-25T05:00:00Z",
-     "realised_sleeve_pnl_1d": 4998781.55,
-     "realised_sleeve_pnl_5d": 4165730.94,
-     "stressed_sleeve_pnl": -7611012.02,
-     "trading_day": "2026-08-25"
     },
     {
      "cluster_id": "2026-08-27|macroeconomic|macro|central_bank:FED",
@@ -127,17 +111,17 @@
   "w1": {
    "summary": {
     "1d": {
-     "coverage_realised_loss_within_stress": 0.8571,
+     "coverage_realised_loss_within_stress": 0.9286,
      "direction_hit_realised_negative": 0.5714,
-     "mean_realised_pnl": -120260.1,
-     "mean_stressed_pnl": -22822908.43,
+     "mean_realised_pnl": 1062869.89,
+     "mean_stressed_pnl": -22782030.67,
      "triggers": 14
     },
     "5d": {
      "coverage_realised_loss_within_stress": 0.9286,
      "direction_hit_realised_negative": 0.5714,
-     "mean_realised_pnl": 6014706.75,
-     "mean_stressed_pnl": -22822908.43,
+     "mean_realised_pnl": 6524946.77,
+     "mean_stressed_pnl": -22782030.67,
      "triggers": 14
     }
    },
@@ -152,10 +136,10 @@
     },
     {
      "cluster_id": "2022-02-17|geopolitical|country|country:RU",
-     "detected_at": "2022-02-17T23:00:00Z",
+     "detected_at": "2022-02-17T22:00:00Z",
      "realised_sleeve_pnl_1d": -396310.44,
      "realised_sleeve_pnl_5d": -3681281.76,
-     "stressed_sleeve_pnl": -9126266.56,
+     "stressed_sleeve_pnl": -8577160.37,
      "trading_day": "2022-02-18"
     },
     {
@@ -168,7 +152,7 @@
     },
     {
      "cluster_id": "2022-02-22|geopolitical|country|country:RU",
-     "detected_at": "2022-02-22T15:00:00Z",
+     "detected_at": "2022-02-22T16:00:00Z",
      "realised_sleeve_pnl_1d": -10043819.68,
      "realised_sleeve_pnl_5d": 8902765.35,
      "stressed_sleeve_pnl": -11594208.51,
@@ -176,10 +160,10 @@
     },
     {
      "cluster_id": "2022-02-25|geopolitical|country|country:RU",
-     "detected_at": "2022-02-25T15:00:00Z",
+     "detected_at": "2022-02-25T16:00:00Z",
      "realised_sleeve_pnl_1d": 11098054.9,
      "realised_sleeve_pnl_5d": 13479899.08,
-     "stressed_sleeve_pnl": -12960844.78,
+     "stressed_sleeve_pnl": -12688723.78,
      "trading_day": "2022-02-25"
     },
     {
@@ -192,11 +176,11 @@
     },
     {
      "cluster_id": "2022-03-07|commodity_energy|sector|commodity:oil",
-     "detected_at": "2022-03-07T16:00:00Z",
-     "realised_sleeve_pnl_1d": -23313967.34,
-     "realised_sleeve_pnl_5d": -37440699.62,
-     "stressed_sleeve_pnl": -7989797.02,
-     "trading_day": "2022-03-07"
+     "detected_at": "2022-03-07T21:00:00Z",
+     "realised_sleeve_pnl_1d": -6750147.58,
+     "realised_sleeve_pnl_5d": -30297339.24,
+     "stressed_sleeve_pnl": -8244819.15,
+     "trading_day": "2022-03-08"
     },
     {
      "cluster_id": "2022-03-09|credit_event|country|country:RU",
@@ -219,7 +203,7 @@
      "detected_at": "2022-03-10T20:00:00Z",
      "realised_sleeve_pnl_1d": -9897226.54,
      "realised_sleeve_pnl_5d": -3468021.52,
-     "stressed_sleeve_pnl": -51286890.51,
+     "stressed_sleeve_pnl": -52659159.34,
      "trading_day": "2022-03-10"
     },
     {
@@ -240,10 +224,10 @@
     },
     {
      "cluster_id": "2022-03-16|macroeconomic|macro|central_bank:FED",
-     "detected_at": "2022-03-16T11:00:00Z",
+     "detected_at": "2022-03-16T07:00:00Z",
      "realised_sleeve_pnl_1d": 16626549.28,
      "realised_sleeve_pnl_5d": 38221720.61,
-     "stressed_sleeve_pnl": -59547029.79,
+     "stressed_sleeve_pnl": -58168677.45,
      "trading_day": "2022-03-16"
     },
     {
@@ -271,18 +255,18 @@
   "w3": {
    "summary": {
     "1d": {
-     "coverage_realised_loss_within_stress": 0.8889,
-     "direction_hit_realised_negative": 0.6667,
-     "mean_realised_pnl": -6845117.28,
-     "mean_stressed_pnl": -39303852.67,
-     "triggers": 9
+     "coverage_realised_loss_within_stress": 0.8,
+     "direction_hit_realised_negative": 0.8,
+     "mean_realised_pnl": -11267126.51,
+     "mean_stressed_pnl": -35997081.37,
+     "triggers": 10
     },
     "5d": {
-     "coverage_realised_loss_within_stress": 0.7778,
+     "coverage_realised_loss_within_stress": 0.7,
      "direction_hit_realised_negative": 1.0,
-     "mean_realised_pnl": -24073189.81,
-     "mean_stressed_pnl": -39303852.67,
-     "triggers": 9
+     "mean_realised_pnl": -26257486.75,
+     "mean_stressed_pnl": -35997081.37,
+     "triggers": 10
     }
    },
    "triggers": [
@@ -296,11 +280,11 @@
     },
     {
      "cluster_id": "2022-09-13|macroeconomic|none|none",
-     "detected_at": "2022-09-13T21:00:00Z",
-     "realised_sleeve_pnl_1d": 7385672.95,
-     "realised_sleeve_pnl_5d": -13036032.27,
-     "stressed_sleeve_pnl": -44385939.45,
-     "trading_day": "2022-09-14"
+     "detected_at": "2022-09-13T20:00:00Z",
+     "realised_sleeve_pnl_1d": -28808984.26,
+     "realised_sleeve_pnl_5d": -26873962.75,
+     "stressed_sleeve_pnl": -43011067.06,
+     "trading_day": "2022-09-13"
     },
     {
      "cluster_id": "2022-09-14|macroeconomic|country|country:US",
@@ -340,6 +324,14 @@
      "realised_sleeve_pnl_1d": -14870552.31,
      "realised_sleeve_pnl_5d": -32078228.76,
      "stressed_sleeve_pnl": -59547029.79,
+     "trading_day": "2022-09-22"
+    },
+    {
+     "cluster_id": "2022-09-22|geopolitical|country|country:IR",
+     "detected_at": "2022-09-22T11:00:00Z",
+     "realised_sleeve_pnl_1d": -14870552.31,
+     "realised_sleeve_pnl_5d": -32078228.76,
+     "stressed_sleeve_pnl": -7611012.02,
      "trading_day": "2022-09-22"
     },
     {

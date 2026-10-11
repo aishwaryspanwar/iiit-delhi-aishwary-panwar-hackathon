@@ -1,7 +1,7 @@
 {
  "alert_lead_times": {
   "n1": {
-   "alerts": 8,
+   "alerts": 6,
    "alerts_detail": [
     {
      "alert_id": "2026-08-10|regulatory|none|none@2026-08-10T19:00:00Z",
@@ -22,18 +22,6 @@
      "hours_before_end_of_day_batch": 12.0
     },
     {
-     "alert_id": "2026-08-20|geopolitical|country|country:IR@2026-08-20T04:00:00Z",
-     "before_us_close": true,
-     "hours_after_first_headline": 4.0,
-     "hours_before_end_of_day_batch": 20.0
-    },
-    {
-     "alert_id": "2026-08-25|geopolitical|country|country:IR@2026-08-25T05:00:00Z",
-     "before_us_close": true,
-     "hours_after_first_headline": 1.0,
-     "hours_before_end_of_day_batch": 19.0
-    },
-    {
      "alert_id": "2026-08-27|macroeconomic|macro|central_bank:FED@2026-08-27T12:00:00Z",
      "before_us_close": true,
      "hours_after_first_headline": 9.0,
@@ -52,9 +40,9 @@
      "hours_before_end_of_day_batch": 2.0
     }
    ],
-   "median_hours_after_first_headline": 9.5,
-   "median_hours_before_end_of_day_batch": 10.0,
-   "share_before_us_close": 0.75
+   "median_hours_after_first_headline": 13.0,
+   "median_hours_before_end_of_day_batch": 6.5,
+   "share_before_us_close": 0.6667
   },
   "w1": {
    "alerts": 14,
@@ -66,10 +54,10 @@
      "hours_before_end_of_day_batch": 16.0
     },
     {
-     "alert_id": "2022-02-17|geopolitical|country|country:RU@2022-02-17T23:00:00Z",
+     "alert_id": "2022-02-17|geopolitical|country|country:RU@2022-02-17T22:00:00Z",
      "before_us_close": false,
-     "hours_after_first_headline": 23.0,
-     "hours_before_end_of_day_batch": 1.0
+     "hours_after_first_headline": 22.0,
+     "hours_before_end_of_day_batch": 2.0
     },
     {
      "alert_id": "2022-02-21|geopolitical|country|country:RU@2022-02-21T23:00:00Z",
@@ -78,16 +66,16 @@
      "hours_before_end_of_day_batch": 1.0
     },
     {
-     "alert_id": "2022-02-22|geopolitical|country|country:RU@2022-02-22T15:00:00Z",
+     "alert_id": "2022-02-22|geopolitical|country|country:RU@2022-02-22T16:00:00Z",
      "before_us_close": true,
-     "hours_after_first_headline": 15.0,
-     "hours_before_end_of_day_batch": 9.0
+     "hours_after_first_headline": 16.0,
+     "hours_before_end_of_day_batch": 8.0
     },
     {
-     "alert_id": "2022-02-25|geopolitical|country|country:RU@2022-02-25T15:00:00Z",
+     "alert_id": "2022-02-25|geopolitical|country|country:RU@2022-02-25T16:00:00Z",
      "before_us_close": true,
-     "hours_after_first_headline": 15.0,
-     "hours_before_end_of_day_batch": 9.0
+     "hours_after_first_headline": 16.0,
+     "hours_before_end_of_day_batch": 8.0
     },
     {
      "alert_id": "2022-02-28|geopolitical|country|country:RU@2022-02-28T19:00:00Z",
@@ -96,10 +84,10 @@
      "hours_before_end_of_day_batch": 5.0
     },
     {
-     "alert_id": "2022-03-07|commodity_energy|sector|commodity:oil@2022-03-07T16:00:00Z",
+     "alert_id": "2022-03-07|commodity_energy|sector|commodity:oil@2022-03-07T21:00:00Z",
      "before_us_close": true,
-     "hours_after_first_headline": 16.0,
-     "hours_before_end_of_day_batch": 8.0
+     "hours_after_first_headline": 21.0,
+     "hours_before_end_of_day_batch": 3.0
     },
     {
      "alert_id": "2022-03-09|credit_event|country|country:RU@2022-03-09T08:00:00Z",
@@ -132,10 +120,10 @@
      "hours_before_end_of_day_batch": 12.0
     },
     {
-     "alert_id": "2022-03-16|macroeconomic|macro|central_bank:FED@2022-03-16T11:00:00Z",
+     "alert_id": "2022-03-16|macroeconomic|macro|central_bank:FED@2022-03-16T07:00:00Z",
      "before_us_close": true,
-     "hours_after_first_headline": 11.0,
-     "hours_before_end_of_day_batch": 13.0
+     "hours_after_first_headline": 7.0,
+     "hours_before_end_of_day_batch": 17.0
     },
     {
      "alert_id": "2022-03-19|geopolitical|country|country:CN@2022-03-19T05:00:00Z",
@@ -145,11 +133,11 @@
     }
    ],
    "median_hours_after_first_headline": 13.0,
-   "median_hours_before_end_of_day_batch": 10.0,
+   "median_hours_before_end_of_day_batch": 9.5,
    "share_before_us_close": 0.8571
   },
   "w3": {
-   "alerts": 9,
+   "alerts": 10,
    "alerts_detail": [
     {
      "alert_id": "2022-09-13|macroeconomic|country|country:US@2022-09-13T05:00:00Z",
@@ -158,10 +146,10 @@
      "hours_before_end_of_day_batch": 19.0
     },
     {
-     "alert_id": "2022-09-13|macroeconomic|none|none@2022-09-13T21:00:00Z",
+     "alert_id": "2022-09-13|macroeconomic|none|none@2022-09-13T20:00:00Z",
      "before_us_close": true,
-     "hours_after_first_headline": 20.0,
-     "hours_before_end_of_day_batch": 3.0
+     "hours_after_first_headline": 19.0,
+     "hours_before_end_of_day_batch": 4.0
     },
     {
      "alert_id": "2022-09-14|macroeconomic|country|country:US@2022-09-14T01:00:00Z",
@@ -194,6 +182,12 @@
      "hours_before_end_of_day_batch": 23.0
     },
     {
+     "alert_id": "2022-09-22|geopolitical|country|country:IR@2022-09-22T11:00:00Z",
+     "before_us_close": true,
+     "hours_after_first_headline": 10.0,
+     "hours_before_end_of_day_batch": 13.0
+    },
+    {
      "alert_id": "2022-09-27|macroeconomic|macro|central_bank:BOE@2022-09-27T10:00:00Z",
      "before_us_close": true,
      "hours_after_first_headline": 10.0,
@@ -206,121 +200,121 @@
      "hours_before_end_of_day_batch": 4.0
     }
    ],
-   "median_hours_after_first_headline": 7.8,
-   "median_hours_before_end_of_day_batch": 16.0,
+   "median_hours_after_first_headline": 8.9,
+   "median_hours_before_end_of_day_batch": 15.0,
    "share_before_us_close": 1.0
   }
  },
- "config_hash": "2f7bbb11c1e3",
+ "config_hash": "3ae660d3a528",
  "definitions": {
   "hit": "a flag counts as a hit if its trading day or the next one is a stress day; a stress day counts as covered if it or the previous trading day is flagged",
   "stress_day": "|S&P 500 return| > 1.5% or VIX change > 10% on the day",
   "trading_day": "alerts after 21:00 UTC map to the next trading day"
  },
- "engine_version": "0.3.1",
+ "engine_version": "0.3.2",
  "impact_vs_market": {
   "n1": {
    "abs_rate_change": {
     "ci95": [
-     -0.4807,
-     0.3991
+     -0.5932,
+     0.4417
     ],
     "n": 20,
-    "rho": -0.0329
+    "rho": -0.0667
    },
    "abs_sp500": {
     "ci95": [
-     -0.4214,
-     0.5567
+     -0.5003,
+     0.5765
     ],
     "n": 20,
-    "rho": 0.0688
+    "rho": 0.0445
    },
    "vix_change": {
     "ci95": [
-     -0.41,
-     0.4665
+     -0.3478,
+     0.4914
     ],
     "n": 20,
-    "rho": 0.0272
+    "rho": 0.1142
    }
   },
   "pooled": {
    "abs_rate_change": {
     "ci95": [
-     -0.3108,
-     0.1939
+     -0.3414,
+     0.177
     ],
     "n": 62,
-    "rho": -0.0749
+    "rho": -0.103
    },
    "abs_sp500": {
     "ci95": [
-     0.209,
-     0.5942
+     0.2021,
+     0.6002
     ],
     "n": 62,
-    "rho": 0.4177
+    "rho": 0.4176
    },
    "vix_change": {
     "ci95": [
-     -0.3205,
-     0.1649
+     -0.2974,
+     0.1842
     ],
     "n": 62,
-    "rho": -0.0917
+    "rho": -0.0664
    }
   },
   "w1": {
    "abs_rate_change": {
     "ci95": [
-     -0.7041,
-     -0.0147
+     -0.7045,
+     -0.0111
     ],
     "n": 28,
-    "rho": -0.4167
+    "rho": -0.416
    },
    "abs_sp500": {
     "ci95": [
-     -0.0435,
-     0.5883
+     -0.0473,
+     0.5862
     ],
     "n": 28,
-    "rho": 0.2995
+    "rho": 0.296
    },
    "vix_change": {
     "ci95": [
-     -0.4567,
-     0.232
+     -0.4627,
+     0.2246
     ],
     "n": 28,
-    "rho": -0.1213
+    "rho": -0.1299
    }
   },
   "w3": {
    "abs_rate_change": {
     "ci95": [
-     -0.5801,
-     0.5783
+     -0.6518,
+     0.4961
     ],
     "n": 14,
-    "rho": -0.0121
+    "rho": -0.096
    },
    "abs_sp500": {
     "ci95": [
-     -0.3636,
-     0.8137
+     -0.3002,
+     0.8474
     ],
     "n": 14,
-    "rho": 0.2313
+    "rho": 0.3087
    },
    "vix_change": {
     "ci95": [
-     -0.6735,
-     0.5369
+     -0.6736,
+     0.5749
     ],
     "n": 14,
-    "rho": -0.1189
+    "rho": -0.0838
    }
   }
  },
@@ -375,10 +369,10 @@
       "commodity_energy": 0,
       "credit_event": 0,
       "earnings_corporate": 0,
-      "geopolitical": 29,
+      "geopolitical": 30,
       "macroeconomic": 0,
       "merger_acquisition": 0,
-      "other": 1,
+      "other": 0,
       "product_launch": 0,
       "regulatory": 0
      },
@@ -409,9 +403,9 @@
       "credit_event": 0,
       "earnings_corporate": 2,
       "geopolitical": 2,
-      "macroeconomic": 0,
+      "macroeconomic": 1,
       "merger_acquisition": 0,
-      "other": 92,
+      "other": 91,
       "product_launch": 1,
       "regulatory": 1
      },
@@ -444,10 +438,10 @@
       0.795,
       0.895
      ],
-     "macro_f1": 0.8203,
+     "macro_f1": 0.8184,
      "macro_f1_ci95": [
-      0.7232,
-      0.8749
+      0.7195,
+      0.8726
      ],
      "majority_accuracy": 0.495,
      "majority_label": "other",
@@ -510,14 +504,14 @@
       "support": 30
      },
      "geopolitical": {
-      "f1": 0.8923,
-      "precision": 0.8286,
-      "recall": 0.9667,
+      "f1": 0.9091,
+      "precision": 0.8333,
+      "recall": 1.0,
       "support": 30
      },
      "macroeconomic": {
-      "f1": 0.8333,
-      "precision": 1.0,
+      "f1": 0.8,
+      "precision": 0.9091,
       "recall": 0.7143,
       "support": 14
      },
@@ -528,9 +522,9 @@
       "support": 2
      },
      "other": {
-      "f1": 0.8846,
-      "precision": 0.844,
-      "recall": 0.9293,
+      "f1": 0.8835,
+      "precision": 0.8505,
+      "recall": 0.9192,
       "support": 99
      },
      "product_launch": {
@@ -1319,12 +1313,12 @@
   "n1": {
    "base_rate": 0.0,
    "engine_alerts": {
-    "flags": 7,
+    "flags": 5,
     "precision": 0.0,
     "recall": null
    },
    "impact_above_7_without_gates": {
-    "flags": 9,
+    "flags": 7,
     "precision": 0.0,
     "recall": null
    },
@@ -1346,7 +1340,7 @@
    "engine_alerts": {
     "flags": 12,
     "precision": 0.75,
-    "recall": 0.6667
+    "recall": 0.5833
    },
    "impact_above_7_without_gates": {
     "flags": 20,
@@ -1374,8 +1368,8 @@
     "recall": 1.0
    },
    "impact_above_7_without_gates": {
-    "flags": 7,
-    "precision": 0.8571,
+    "flags": 9,
+    "precision": 0.8889,
     "recall": 1.0
    },
    "naive_fire_every_day": {

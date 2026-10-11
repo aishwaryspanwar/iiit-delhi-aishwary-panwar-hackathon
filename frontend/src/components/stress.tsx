@@ -2,7 +2,7 @@ import { useMemo, useState, type ReactNode } from "react";
 import { ArrowRight, ArrowUpDown, ChevronDown, ChevronUp } from "lucide-react";
 import { useApp } from "../state";
 import { basisPoints, dateTime, day, integer, percent, score, signed, usdMillions } from "../lib/format";
-import { ASSET_TEXT, FACTOR_ORDER, FACTOR_TEXT, SCOPE_TEXT, impactBand } from "../lib/risk";
+import { ASSET_TEXT, FACTOR_ORDER, FACTOR_TEXT, SCOPE_TEXT, assetChange, impactBand } from "../lib/risk";
 import type { AppliedShocks, PositionResult, RunSummary, ScenarioShocks, StressDetail, Totals } from "../lib/types";
 import { BandBadge, ClassTag, cx } from "./ui";
 
@@ -60,12 +60,13 @@ export function CausalChain({ detail }: { detail: StressDetail }) {
           label="Impact"
           title={
             <span className="flex flex-wrap items-center gap-2">
-              <span className="figure text-[18px]">{score(event.impact)}</span>
-              <BandBadge band={impactBand(event.impact, threshold)} />
+              <span className="figure text-[18px]">{score(run.impact)}</span>
+              <BandBadge band={impactBand(run.impact, threshold)} />
             </span>
           }
         >
-          Above the trigger threshold of {threshold}; every check passed
+          At detection, above the trigger threshold of {threshold}; every check passed
+          {event.impact > run.impact && <>. Peaked at <span className="num">{score(event.impact)}</span> later that day</>}
         </ChainStep>
         <Connector />
         <ChainStep index={4} label="Scenario" title={`${className(run.class)}, ${SCOPE_TEXT[run.scope].toLowerCase()} scope`}>
@@ -122,6 +123,10 @@ export function BeforeAfter({ totals, size = "lg" }: { totals: Totals; size?: "l
 
 const TH = "caption py-3 pr-4 text-left font-normal";
 
+function percentOrNa(value: number | null) {
+  return value === null ? "n/a" : percent(value);
+}
+
 export function AssetTable({ detail }: { detail: StressDetail }) {
   const rows = [...detail.run.by_asset_class].sort((a, b) => a.pnl - b.pnl);
   const maxLoss = Math.max(...rows.map((r) => Math.abs(r.pnl)), 1);
@@ -152,7 +157,7 @@ export function AssetTable({ detail }: { detail: StressDetail }) {
                   <span className={cx("num w-20 text-right font-normal", row.pnl < 0 ? "text-loss" : "text-gain")}>{usdMillions(row.pnl, 1, true)}</span>
                 </div>
               </td>
-              <td className="num py-3.5 text-right text-ink-3">{row.value_before ? percent(row.pnl / Math.abs(row.value_before)) : "n/a"}</td>
+              <td className="num py-3.5 text-right text-ink-3">{percentOrNa(assetChange(row))}</td>
             </tr>
           ))}
         </tbody>

@@ -20,6 +20,7 @@ cue_patterns:
   - '\b(biggest|largest|highest|lowest|worst|first) (since|in|ever)\b'
   - '\b(record|unprecedented|sweeping|severe|full-scale|junk|imminent)\b'
   - '\b(bans?|banned|blacklist(s|ed)?|halt(s|ed)?|suspend(s|ed)?|seize[sd]?|nationali[sz]\w+|expropriat\w+|coup|crisis|shock|meltdown|turmoil|panic|plummet(s|ed)?|tumble[sd]?|slump(s|ed)?|sank|collapse[sd]?|fraud|scandal)\b'
+  - '\b(earthquake|tsunami|hurricane|typhoon|pandemic|outbreak|lockdowns?|cyber-?attacks?|ransomware|grounded|airstrikes?|air strikes?|missile strikes?|liquidity (fears|crisis|crunch))\b'
 cue_full_at: 2
 cluster:
   weights:

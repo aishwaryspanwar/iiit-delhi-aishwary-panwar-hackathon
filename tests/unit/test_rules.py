@@ -53,6 +53,9 @@ POSITIVE_EXAMPLES = {
     "MAC-007": "Rupee devaluation sparks currency crisis fears",
     "MAC-008": "RBI cuts interest rates as inflation cools",
     "CRD-008": "Silicon Valley Bank collapses after a run on deposits",
+    "GEO-010": "Israel launches air strikes on military targets",
+    "GEO-011": "State-sponsored hackers hit the power grid",
+    "MAC-009": "Deadly earthquake hits the coast",
 }
 
 DIRECTION_EXAMPLES = [
@@ -209,3 +212,8 @@ def test_canary_headlines_fall_outside_evaluation_windows():
 def test_bank_words_in_unrelated_contexts_are_not_credit_events():
     for text in ["Israel seizes land in the West Bank", "Food banks struggle as prices rise", "Bank of England fails to calm markets"]:
         assert classify(text).event_class != "credit_event"
+
+
+def test_strike_and_disaster_words_in_unrelated_contexts_are_not_stress_events():
+    for text in ["Auto workers go on strike at Ford plants", "Nurses strike over pay in London", "Apple strikes a deal with Goldman Sachs", "Quake Champions game update released", "Retail sales recover to post-pandemic highs"]:
+        assert classify(text).event_class not in {"geopolitical", "macroeconomic", "credit_event"} or classify(text).direction != "negative", text

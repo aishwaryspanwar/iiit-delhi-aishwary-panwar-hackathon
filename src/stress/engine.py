@@ -5,7 +5,6 @@ from src.stress.shocks import position_shocks, scenario_summary, severity_multip
 from src.stress.valuation import FACTORS, capital_view, loan_fair_value_change, loan_lifetime_el_change, loan_one_year_el_change, revalue
 
 POSITION_FIELDS = ["position_id", "asset_class", "name", "sector", "country", "rating", "ticker"]
-SEVERITY_POINTS = [7.0, 7.5, 8.0, 8.5, 9.0, 9.5, 10.0]
 
 
 def rounded(value: float) -> float:
@@ -19,7 +18,7 @@ def grouped_totals(frame: pd.DataFrame, column: str) -> list[dict]:
 
 def severity_curve(portfolio: pd.DataFrame, event: dict) -> list[dict]:
     curve = []
-    for impact in SEVERITY_POINTS:
+    for impact in shock_config()["severity"]["curve_points"]:
         shocks = position_shocks(portfolio, event["class"], impact, event["scope"], event["scope_targets"])
         pnl = float(revalue(portfolio, shocks)["pnl"].sum())
         curve.append({"impact": impact, "multiplier": severity_multiplier(impact), "pnl": rounded(pnl)})

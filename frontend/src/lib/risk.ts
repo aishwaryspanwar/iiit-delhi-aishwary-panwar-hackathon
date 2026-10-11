@@ -43,6 +43,11 @@ export const SOURCE_TEXT: Record<string, string> = {
   user_input: "Your text",
 };
 
+export function assetChange(row: { asset_class: AssetClass; value_before: number; pnl: number }): number | null {
+  if (row.asset_class === "irs" || row.value_before === 0 || Math.abs(row.pnl) > Math.abs(row.value_before)) return null;
+  return row.pnl / Math.abs(row.value_before);
+}
+
 export const ASSET_TEXT: Record<AssetClass, string> = {
   loan: "Loans",
   bond: "Bonds",

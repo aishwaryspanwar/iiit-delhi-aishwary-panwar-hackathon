@@ -70,6 +70,19 @@ def positive_share(members: list[dict]) -> float:
     return sum(m["event"]["direction"] == "positive" for m in directional) / len(directional)
 
 
+@lru_cache(maxsize=1)
+def social_sources() -> frozenset[str]:
+    return frozenset(load_yaml("ingestion.yaml").get("social_sources", []))
+
+
+def off_message(member: dict) -> bool:
+    return member["event"].get("direction") == "positive" or member["sentiment"].get("label") == "pos"
+
+
+def representatives(members: list[dict], limit: int = 3) -> list[dict]:
+    return sorted(members, key=lambda m: (off_message(m), m.get("source") in social_sources(), -m["impact"]["score"], m["published_at"], m["signal_id"]))[:limit]
+
+
 class KeySeries:
     def __init__(self, key: Key, members: list[dict], start: int, end: int):
         self.key = key
@@ -184,7 +197,7 @@ def run_stream(signals: list[dict]) -> StreamResult:
             "impact_components": state["impact_components"],
             "window": window_summary(state),
             "checks": state["checks"],
-            "representative_signal_ids": [m["signal_id"] for m in sorted(state["members"], key=lambda m: (-m["impact"]["score"], m["published_at"], m["signal_id"]))[:3]],
+            "representative_signal_ids": [m["signal_id"] for m in representatives(state["members"])],
         }
         alerts.append(alert)
         alert_by_event[cluster_id] = alert
@@ -198,7 +211,7 @@ def run_stream(signals: list[dict]) -> StreamResult:
         failed = [name for name, passed in decisive["checks"].items() if not passed]
         if not alert and cluster_id in cooldown_blocked:
             failed.append("cooldown")
-        ranked = sorted(members, key=lambda m: (-m["impact"]["score"], m["published_at"], m["signal_id"]))
+        ranked = representatives(members)
         outlets = sorted({o for m in members for o in m["outlets"]})
         sources = sorted({s for m in members for s in m["sources"]})
         events.append({
@@ -223,7 +236,7 @@ def run_stream(signals: list[dict]) -> StreamResult:
             "peak_at": hour_time(peak["hour"] + 1),
             "window": window_summary(peak),
             "detected_at": alert["detected_at"] if alert else None,
-            "representative_signal_ids": [m["signal_id"] for m in ranked[:3]],
+            "representative_signal_ids": [m["signal_id"] for m in ranked],
         })
         decisions.append({
             "cluster_id": cluster_id,

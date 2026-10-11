@@ -15,7 +15,7 @@ import {
 } from "recharts";
 import { useApp } from "../state";
 import { integer, score, shortDay, signed, usdMillions, percent } from "../lib/format";
-import { ASSET_TEXT, FACTOR_ORDER, FACTOR_TEXT } from "../lib/risk";
+import { ASSET_TEXT, FACTOR_ORDER, FACTOR_TEXT, assetChange } from "../lib/risk";
 import type { AssetBreakdown, DaySummary, Factor } from "../lib/types";
 import type { ChartPalette } from "../lib/theme";
 import { cx } from "./ui";
@@ -90,7 +90,7 @@ export function AssetPnlChart({ rows, height = 250 }: { rows: AssetBreakdown[]; 
   const { palette } = useApp();
   const data = [...rows]
     .sort((a, b) => a.pnl - b.pnl)
-    .map((row) => ({ label: ASSET_TEXT[row.asset_class], pnl: row.pnl / 1e6, raw: row, pct: row.value_before ? row.pnl / Math.abs(row.value_before) : 0 }));
+    .map((row) => ({ label: ASSET_TEXT[row.asset_class], pnl: row.pnl / 1e6, raw: row, pct: assetChange(row) }));
   return (
     <figure className="m-0">
       <figcaption className="sr-only">Stress profit and loss by asset class in USD millions. Negative values are losses.</figcaption>
@@ -114,7 +114,7 @@ export function AssetPnlChart({ rows, height = 250 }: { rows: AssetBreakdown[]; 
                       {usdMillions(row.raw.value_before)} before, {usdMillions(row.raw.value_after)} after
                     </div>
                     <div className="num">
-                      P&L {usdMillions(row.raw.pnl, 2, true)} ({percent(row.pct)})
+                      P&L {usdMillions(row.raw.pnl, 2, true)}{row.pct !== null && <> ({percent(row.pct)})</>}
                     </div>
                   </TooltipCard>
                 );

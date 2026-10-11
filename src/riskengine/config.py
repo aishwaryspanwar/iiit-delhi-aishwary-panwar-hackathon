@@ -4,19 +4,19 @@ from pathlib import Path
 from typing import Any
 
 import pandas as pd
-import yaml
+from ruamel.yaml import YAML
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 CONFIG_DIR = REPO_ROOT / "config"
 DATA_DIR = REPO_ROOT / "data"
 PROCESSED_DIR = DATA_DIR / "processed"
-ENGINE_VERSION = "0.3.1"
+ENGINE_VERSION = "0.3.2"
 
 
 @lru_cache(maxsize=None)
 def load_yaml(name: str) -> dict[str, Any]:
     with (CONFIG_DIR / name).open(encoding="utf-8") as handle:
-        return yaml.safe_load(handle)
+        return YAML(typ="safe", pure=True).load(handle)
 
 
 @lru_cache(maxsize=None)

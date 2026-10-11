@@ -145,16 +145,18 @@ def main() -> None:
     reset = args.reset
     while True:
         started = time.monotonic()
+        wait = POLL_SECONDS
         try:
             print(datetime.now(timezone.utc).strftime("%H:%M:%SZ"), poll_once(model, reset, args.backfill_hours), flush=True)
-        except requests.RequestException as error:
-            print(f"poll failed: {error}", flush=True)
+            reset = False
+        except Exception as error:
+            print(f"poll failed, retrying in {MIN_SLEEP_SECONDS}s: {error}", flush=True)
             if args.once:
                 sys.exit(1)
-        reset = False
+            wait = MIN_SLEEP_SECONDS
         if args.once:
             return
-        time.sleep(max(MIN_SLEEP_SECONDS, POLL_SECONDS - (time.monotonic() - started)))
+        time.sleep(max(MIN_SLEEP_SECONDS, wait - (time.monotonic() - started)))
 
 
 if __name__ == "__main__":

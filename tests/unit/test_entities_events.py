@@ -94,3 +94,8 @@ def test_expanded_lexicon(text, expected, absent):
     assert expected in found
     if absent:
         assert absent not in found
+
+
+def test_blocklisted_phrases_do_not_match_aliases():
+    assert tag_entities("Lake Powell hits historic low, raising hydropower concerns") == []
+    assert [e.id for e in tag_entities("Powell says the Fed will act on inflation")] == ["central_bank:FED"]

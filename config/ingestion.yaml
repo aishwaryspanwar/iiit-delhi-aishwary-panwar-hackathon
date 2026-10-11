@@ -4,6 +4,7 @@ sampling_rate:
   stub_news: 0.25
   gdelt_live: 1.0
   default: 1.0
+social_sources: [kaggle_tweets]
 window:
   name: w1
   start: "2022-02-10"

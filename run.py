@@ -19,7 +19,7 @@ DIST_INDEX = FRONTEND / "dist" / "index.html"
 DIST_STAMP = FRONTEND / "dist" / ".source.sha256"
 FRONTEND_INPUTS = ("src", "public", "index.html", "package.json", "package-lock.json", "vite.config.ts", "tsconfig.json")
 STARTUP_SECONDS = 240
-MIN_PYTHON = (3, 13)
+MIN_PYTHON = (3, 11)
 
 
 def say(message: str) -> None:
@@ -144,10 +144,10 @@ def serve(args: argparse.Namespace) -> int:
             say("the API did not start; see the messages above")
             stop(processes)
             return 1
-        if args.live:
-            say("starting the live GDELT poller (first poll backfills 7 days, a few minutes)")
+        if not args.offline:
+            say("starting the live GDELT poller: the first poll backfills 7 days of news, so Live appears in the header after a few minutes")
             processes.append(subprocess.Popen([python, "-m", "scripts.live_gdelt"], cwd=ROOT))
-        say(f"ready: {url}   (Ctrl+C to stop)")
+        say(f"ready: {url}   offline replays (W1, W3, N1) are available now{'' if args.offline else '; live data follows'}   (Ctrl+C to stop)")
         if not args.no_browser:
             webbrowser.open(url)
         while api.poll() is None:
@@ -162,8 +162,8 @@ def serve(args: argparse.Namespace) -> int:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Set up and run the risk engine: API, React app and optional live feed.")
-    parser.add_argument("--live", action="store_true", help="also poll the live GDELT feed every 15 minutes (needs network)")
+    parser = argparse.ArgumentParser(description="Set up and run Ripple: the API, the web app, the offline replays and the live GDELT feed.")
+    parser.add_argument("--offline", action="store_true", help="replay the saved windows only; do not poll the live GDELT feed")
     parser.add_argument("--port", type=int, default=8000)
     parser.add_argument("--host", default="127.0.0.1")
     parser.add_argument("--rebuild", action="store_true", help="rebuild the frontend even if it looks current")

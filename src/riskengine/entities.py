@@ -48,6 +48,11 @@ def alias_matchers() -> tuple[AliasMatcher, ...]:
     return tuple(matcher for _, _, matcher in pairs)
 
 
+@lru_cache(maxsize=1)
+def blocked_patterns() -> tuple[re.Pattern[str], ...]:
+    return tuple(re.compile(p, re.IGNORECASE) for p in load_yaml("taxonomy_rules.yaml").get("entity_alias_blocklist", []))
+
+
 def first_token(alias: str) -> str:
     match = TOKEN_PATTERN.search(alias)
     return match.group(0).lower() if match else ""
@@ -77,7 +82,7 @@ def overlaps(span: tuple[int, int], taken: list[tuple[int, int]]) -> bool:
 
 
 def tag_entities(text: str) -> list[Entity]:
-    taken: list[tuple[int, int]] = []
+    taken: list[tuple[int, int]] = [match.span() for pattern in blocked_patterns() for match in pattern.finditer(text)]
     found: dict[str, tuple[int, str]] = {}
     for match in CASHTAG_PATTERN.finditer(text):
         entity_id = ticker_index().get(match.group(1))

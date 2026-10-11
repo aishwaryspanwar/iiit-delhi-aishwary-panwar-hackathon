@@ -34,3 +34,12 @@ C32,2023-06-05,Apple unveils the Vision Pro headset,product_launch,neutral
 C33,2022-11-30,OpenAI launches ChatGPT,product_launch,neutral
 C34,2023-01-22,Manchester United beat Arsenal in the Premier League,other,neutral
 C35,2023-06-30,Taylor Swift adds new dates to her concert tour,other,neutral
+C36,2024-10-26,Israel strikes military targets in Iran,geopolitical,negative
+C37,2023-03-15,Credit Suisse shares plunge on liquidity fears,credit_event,negative
+C38,2019-03-13,Boeing 737 Max grounded worldwide after second crash,earnings_corporate,negative
+C39,2023-02-06,"Powerful quake hits Turkey and Syria, thousands killed",macroeconomic,negative
+C40,2020-03-11,WHO declares coronavirus outbreak a pandemic,macroeconomic,negative
+C41,2021-05-08,Ransomware cyberattack shuts down Colonial Pipeline,geopolitical,negative
+C42,2022-03-28,China imposes citywide lockdown in Shanghai,macroeconomic,negative
+C43,2017-08-25,Hurricane Harvey slams Texas as refiners shut plants,macroeconomic,negative
+C44,2024-01-12,US and UK launch air strikes on Houthi targets in Yemen,geopolitical,negative

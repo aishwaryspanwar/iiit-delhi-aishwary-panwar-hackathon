@@ -1,6 +1,6 @@
 from datetime import datetime, timedelta, timezone
 
-from src.stream.engine import run_stream
+from src.stream.engine import representatives, run_stream
 
 START = datetime(2022, 2, 1, tzinfo=timezone.utc)
 
@@ -96,3 +96,19 @@ def test_events_and_decisions_align():
     event = next(e for e in result.events if e["cluster_id"] == triggered[0]["cluster_id"])
     assert event["detected_at"] == result.alerts[0]["detected_at"]
     assert event["impact"] >= result.alerts[0]["impact"]
+
+
+def test_representative_headlines_prefer_items_that_match_a_stress_alert():
+    def member(signal_id, impact, label, direction="neutral"):
+        return {"signal_id": signal_id, "published_at": "2022-03-16T10:00:00Z", "impact": {"score": impact}, "sentiment": {"label": label}, "event": {"direction": direction}}
+
+    members = [member("rally", 9.0, "pos"), member("upgrade", 8.5, "neu", "positive"), member("hike", 7.0, "neg"), member("fed", 6.0, "neu")]
+    assert [m["signal_id"] for m in representatives(members)] == ["hike", "fed", "rally"]
+
+
+def test_representative_headlines_prefer_news_over_social_posts():
+    def member(signal_id, impact, source):
+        return {"signal_id": signal_id, "source": source, "published_at": "2022-03-16T10:00:00Z", "impact": {"score": impact}, "sentiment": {"label": "neg"}, "event": {"direction": "neutral"}}
+
+    members = [member("tweet", 9.0, "kaggle_tweets"), member("news", 6.0, "gdelt_gkg")]
+    assert [m["signal_id"] for m in representatives(members)] == ["news", "tweet"]

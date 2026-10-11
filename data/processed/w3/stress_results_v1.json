@@ -337,6 +337,50 @@
   {
    "checks": {
     "baseline_ready": false,
+    "confidence_ok": false,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-10|geopolitical|country|country:DE",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
+    "corroborated",
+    "enough_mentions",
+    "baseline_ready"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": false,
+    "confidence_ok": false,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-10|geopolitical|country|country:IR",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
+    "corroborated",
+    "enough_mentions",
+    "baseline_ready"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": false,
     "confidence_ok": true,
     "corroborated": true,
     "direction_ok": true,
@@ -449,6 +493,27 @@
    "failed": [
     "impact_above_threshold",
     "confidence_ok",
+    "corroborated",
+    "enough_mentions",
+    "baseline_ready"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": false,
+    "confidence_ok": true,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-10|macroeconomic|country|country:ID",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
     "corroborated",
     "enough_mentions",
     "baseline_ready"
@@ -695,29 +760,6 @@
    "checks": {
     "baseline_ready": false,
     "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-10|other|country|country:DE",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "corroborated",
-    "enough_mentions",
-    "baseline_ready"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": false,
-    "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
     "enough_mentions": false,
@@ -784,29 +826,6 @@
    "checks": {
     "baseline_ready": false,
     "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-10|other|country|country:ID",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "corroborated",
-    "enough_mentions",
-    "baseline_ready"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": false,
-    "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
     "enough_mentions": false,
@@ -821,29 +840,6 @@
     "impact_above_threshold",
     "confidence_ok",
     "not_positive",
-    "enough_mentions",
-    "baseline_ready"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": false,
-    "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-10|other|country|country:IR",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "corroborated",
     "enough_mentions",
     "baseline_ready"
    ],
@@ -1547,29 +1543,6 @@
     "not_positive": false,
     "stress_class": true
    },
-   "cluster_id": "2022-09-11|commodity_energy|sector|sector:materials",
-   "detected_at": null,
-   "failed": [
-    "impact_above_threshold",
-    "confidence_ok",
-    "not_positive",
-    "corroborated",
-    "enough_mentions",
-    "baseline_ready"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": false,
-    "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": false,
-    "stress_class": true
-   },
    "cluster_id": "2022-09-11|commodity_energy|single_name|company:TSLA",
    "detected_at": null,
    "failed": [
@@ -1810,6 +1783,28 @@
   {
    "checks": {
     "baseline_ready": false,
+    "confidence_ok": false,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-11|geopolitical|country|country:PS",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
+    "corroborated",
+    "enough_mentions",
+    "baseline_ready"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": false,
     "confidence_ok": true,
     "corroborated": true,
     "direction_ok": true,
@@ -1932,6 +1927,27 @@
   {
    "checks": {
     "baseline_ready": false,
+    "confidence_ok": true,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-11|macroeconomic|country|country:ID",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "corroborated",
+    "enough_mentions",
+    "baseline_ready"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": false,
     "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
@@ -1986,6 +2002,28 @@
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
+    "baseline_ready"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": false,
+    "confidence_ok": true,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": false,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-11|macroeconomic|sector|sector:materials",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "not_positive",
+    "corroborated",
+    "enough_mentions",
     "baseline_ready"
    ],
    "triggered": false
@@ -2126,29 +2164,6 @@
    "checks": {
     "baseline_ready": false,
     "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-11|other|country|country:ID",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "corroborated",
-    "enough_mentions",
-    "baseline_ready"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": false,
-    "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
     "enough_mentions": true,
@@ -2269,29 +2284,6 @@
     "stress_class": false
    },
    "cluster_id": "2022-09-11|other|country|country:PK",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "corroborated",
-    "enough_mentions",
-    "baseline_ready"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": false,
-    "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-11|other|country|country:PS",
    "detected_at": null,
    "failed": [
     "stress_class",
@@ -3133,7 +3125,7 @@
    "checks": {
     "baseline_ready": false,
     "confidence_ok": false,
-    "corroborated": true,
+    "corroborated": false,
     "direction_ok": true,
     "enough_mentions": false,
     "impact_above_threshold": false,
@@ -3146,6 +3138,7 @@
     "impact_above_threshold",
     "confidence_ok",
     "not_positive",
+    "corroborated",
     "enough_mentions",
     "baseline_ready"
    ],
@@ -3575,6 +3568,28 @@
    "failed": [
     "stress_class",
     "impact_above_threshold",
+    "corroborated",
+    "enough_mentions",
+    "baseline_ready"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": false,
+    "confidence_ok": false,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-12|geopolitical|country|country:IR",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
     "corroborated",
     "enough_mentions",
     "baseline_ready"
@@ -4330,29 +4345,6 @@
     "impact_above_threshold",
     "confidence_ok",
     "not_positive",
-    "baseline_ready"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": false,
-    "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-12|other|country|country:IR",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "corroborated",
-    "enough_mentions",
     "baseline_ready"
    ],
    "triggered": false
@@ -5766,28 +5758,6 @@
     "direction_ok": true,
     "enough_mentions": false,
     "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-13|earnings_corporate|country|country:IL",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "corroborated",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
     "not_positive": false,
     "stress_class": false
    },
@@ -6275,6 +6245,48 @@
    "checks": {
     "baseline_ready": true,
     "confidence_ok": false,
+    "corroborated": true,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-13|geopolitical|country|country:IL",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": false,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": false,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-13|geopolitical|country|country:IR",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
+    "not_positive",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": false,
     "corroborated": false,
     "direction_ok": true,
     "enough_mentions": false,
@@ -6295,7 +6307,7 @@
   {
    "checks": {
     "baseline_ready": true,
-    "confidence_ok": false,
+    "confidence_ok": true,
     "corroborated": false,
     "direction_ok": true,
     "enough_mentions": false,
@@ -6307,7 +6319,6 @@
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
-    "confidence_ok",
     "corroborated",
     "enough_mentions"
    ],
@@ -6614,7 +6625,7 @@
     "stress_class": true
    },
    "cluster_id": "2022-09-13|macroeconomic|none|none",
-   "detected_at": "2022-09-13T21:00:00Z",
+   "detected_at": "2022-09-13T20:00:00Z",
    "failed": [],
    "triggered": true
   },
@@ -7058,29 +7069,6 @@
    "checks": {
     "baseline_ready": true,
     "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": false,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-13|other|country|country:IL",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "not_positive",
-    "corroborated",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
     "enough_mentions": true,
@@ -7094,29 +7082,6 @@
     "stress_class",
     "impact_above_threshold",
     "confidence_ok"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": false,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-13|other|country|country:IR",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "not_positive",
-    "corroborated",
-    "enough_mentions"
    ],
    "triggered": false
   },
@@ -7268,28 +7233,6 @@
     "impact_above_threshold",
     "confidence_ok",
     "not_positive",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-13|other|country|country:PS",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "corroborated",
     "enough_mentions"
    ],
    "triggered": false
@@ -8912,6 +8855,27 @@
     "not_positive": true,
     "stress_class": false
    },
+   "cluster_id": "2022-09-14|earnings_corporate|country|country:FR",
+   "detected_at": null,
+   "failed": [
+    "stress_class",
+    "impact_above_threshold",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": true,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": false
+   },
    "cluster_id": "2022-09-14|earnings_corporate|country|country:GB",
    "detected_at": null,
    "failed": [
@@ -9868,7 +9832,7 @@
     "baseline_ready": true,
     "confidence_ok": true,
     "corroborated": true,
-    "direction_ok": false,
+    "direction_ok": true,
     "enough_mentions": true,
     "impact_above_threshold": true,
     "not_positive": true,
@@ -9877,7 +9841,6 @@
    "cluster_id": "2022-09-14|macroeconomic|none|none",
    "detected_at": null,
    "failed": [
-    "direction_ok",
     "cooldown"
    ],
    "triggered": false
@@ -10345,28 +10308,6 @@
     "impact_above_threshold",
     "confidence_ok",
     "not_positive"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-14|other|country|country:IR",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "corroborated",
-    "enough_mentions"
    ],
    "triggered": false
   },
@@ -12096,28 +12037,6 @@
   {
    "checks": {
     "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-15|earnings_corporate|country|country:IR",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "corroborated",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
     "confidence_ok": true,
     "corroborated": false,
     "direction_ok": true,
@@ -12599,6 +12518,26 @@
     "impact_above_threshold",
     "confidence_ok",
     "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": false,
+    "corroborated": true,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-15|geopolitical|country|country:IR",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
     "enough_mentions"
    ],
    "triggered": false
@@ -13362,7 +13301,7 @@
     "direction_ok": true,
     "enough_mentions": true,
     "impact_above_threshold": false,
-    "not_positive": true,
+    "not_positive": false,
     "stress_class": false
    },
    "cluster_id": "2022-09-15|other|country|country:FR",
@@ -13370,7 +13309,8 @@
    "failed": [
     "stress_class",
     "impact_above_threshold",
-    "confidence_ok"
+    "confidence_ok",
+    "not_positive"
    ],
    "triggered": false
   },
@@ -13432,29 +13372,6 @@
     "stress_class",
     "impact_above_threshold",
     "confidence_ok",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": false,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-15|other|country|country:IL",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "not_positive",
-    "corroborated",
     "enough_mentions"
    ],
    "triggered": false
@@ -15406,6 +15323,26 @@
   {
    "checks": {
     "baseline_ready": true,
+    "confidence_ok": false,
+    "corroborated": true,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-16|geopolitical|country|country:IL",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
     "confidence_ok": true,
     "corroborated": true,
     "direction_ok": true,
@@ -15585,19 +15522,17 @@
    "checks": {
     "baseline_ready": true,
     "confidence_ok": true,
-    "corroborated": false,
+    "corroborated": true,
     "direction_ok": true,
     "enough_mentions": false,
     "impact_above_threshold": false,
-    "not_positive": false,
+    "not_positive": true,
     "stress_class": true
    },
    "cluster_id": "2022-09-16|macroeconomic|country|country:IT",
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
-    "not_positive",
-    "corroborated",
     "enough_mentions"
    ],
    "triggered": false
@@ -15823,7 +15758,7 @@
   {
    "checks": {
     "baseline_ready": true,
-    "confidence_ok": false,
+    "confidence_ok": true,
     "corroborated": true,
     "direction_ok": true,
     "enough_mentions": true,
@@ -15834,8 +15769,7 @@
    "cluster_id": "2022-09-16|macroeconomic|none|none",
    "detected_at": null,
    "failed": [
-    "impact_above_threshold",
-    "confidence_ok"
+    "impact_above_threshold"
    ],
    "triggered": false
   },
@@ -16334,27 +16268,6 @@
     "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-16|other|country|country:IL",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": true,
-    "direction_ok": true,
     "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": false,
@@ -16689,28 +16602,6 @@
     "stress_class",
     "impact_above_threshold",
     "confidence_ok",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-16|other|macro|central_bank:FED",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "corroborated",
     "enough_mentions"
    ],
    "triggered": false
@@ -17997,7 +17888,7 @@
    "checks": {
     "baseline_ready": true,
     "confidence_ok": true,
-    "corroborated": false,
+    "corroborated": true,
     "direction_ok": true,
     "enough_mentions": false,
     "impact_above_threshold": false,
@@ -18008,6 +17899,27 @@
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": false,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": false,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-17|geopolitical|country|country:IR",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
+    "not_positive",
     "corroborated",
     "enough_mentions"
    ],
@@ -18132,6 +18044,26 @@
   {
    "checks": {
     "baseline_ready": true,
+    "confidence_ok": true,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-17|macroeconomic|country|country:CN",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
     "confidence_ok": false,
     "corroborated": false,
     "direction_ok": true,
@@ -18188,6 +18120,25 @@
     "confidence_ok",
     "not_positive",
     "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": true,
+    "corroborated": true,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-17|macroeconomic|country|country:JP",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
     "enough_mentions"
    ],
    "triggered": false
@@ -18508,27 +18459,6 @@
     "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-17|other|country|country:IL",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": true,
-    "direction_ok": true,
     "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": false,
@@ -18541,50 +18471,6 @@
     "impact_above_threshold",
     "confidence_ok",
     "not_positive"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": false,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-17|other|country|country:IR",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "not_positive",
-    "corroborated",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": true,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-17|other|country|country:JP",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "enough_mentions"
    ],
    "triggered": false
   },
@@ -19899,6 +19785,45 @@
     "confidence_ok": true,
     "corroborated": true,
     "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-18|macroeconomic|country|country:JP",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": true,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-18|macroeconomic|country|country:TW",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": true,
+    "corroborated": true,
+    "direction_ok": true,
     "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": true,
@@ -20190,27 +20115,6 @@
    "checks": {
     "baseline_ready": true,
     "confidence_ok": false,
-    "corroborated": true,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-18|other|country|country:JP",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
     "corroborated": false,
     "direction_ok": true,
     "enough_mentions": false,
@@ -20319,11 +20223,11 @@
    "checks": {
     "baseline_ready": true,
     "confidence_ok": false,
-    "corroborated": true,
+    "corroborated": false,
     "direction_ok": true,
     "enough_mentions": false,
     "impact_above_threshold": false,
-    "not_positive": true,
+    "not_positive": false,
     "stress_class": false
    },
    "cluster_id": "2022-09-18|other|country|country:TW",
@@ -20332,6 +20236,8 @@
     "stress_class",
     "impact_above_threshold",
     "confidence_ok",
+    "not_positive",
+    "corroborated",
     "enough_mentions"
    ],
    "triggered": false
@@ -21404,9 +21310,53 @@
    "checks": {
     "baseline_ready": true,
     "confidence_ok": false,
-    "corroborated": true,
+    "corroborated": false,
     "direction_ok": true,
     "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": false,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-19|geopolitical|country|country:FR",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
+    "not_positive",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": false,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": false,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-19|geopolitical|country|country:IL",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
+    "not_positive",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": true,
+    "corroborated": true,
+    "direction_ok": true,
+    "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": true,
     "stress_class": true
@@ -21414,9 +21364,7 @@
    "cluster_id": "2022-09-19|geopolitical|country|country:IR",
    "detected_at": null,
    "failed": [
-    "impact_above_threshold",
-    "confidence_ok",
-    "enough_mentions"
+    "impact_above_threshold"
    ],
    "triggered": false
   },
@@ -21569,6 +21517,65 @@
    "failed": [
     "impact_above_threshold",
     "confidence_ok",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": true,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-19|macroeconomic|country|country:IT",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": true,
+    "corroborated": true,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-19|macroeconomic|country|country:JP",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": true,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-19|macroeconomic|country|country:MX",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
     "corroborated",
     "enough_mentions"
    ],
@@ -21979,7 +21986,7 @@
    "checks": {
     "baseline_ready": true,
     "confidence_ok": false,
-    "corroborated": true,
+    "corroborated": false,
     "direction_ok": true,
     "enough_mentions": false,
     "impact_above_threshold": false,
@@ -21992,6 +21999,7 @@
     "stress_class",
     "impact_above_threshold",
     "confidence_ok",
+    "corroborated",
     "enough_mentions"
    ],
    "triggered": false
@@ -22108,29 +22116,6 @@
    "checks": {
     "baseline_ready": true,
     "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": false,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-19|other|country|country:IL",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "not_positive",
-    "corroborated",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
     "enough_mentions": true,
@@ -22145,70 +22130,6 @@
     "impact_above_threshold",
     "confidence_ok",
     "not_positive"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": true,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-19|other|country|country:IR",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-19|other|country|country:IT",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "corroborated",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": true,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-19|other|country|country:JP",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "enough_mentions"
    ],
    "triggered": false
   },
@@ -24090,6 +24011,27 @@
     "direction_ok": true,
     "enough_mentions": false,
     "impact_above_threshold": false,
+    "not_positive": false,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-20|geopolitical|country|country:IL",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
+    "not_positive",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": true,
+    "corroborated": true,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
     "not_positive": true,
     "stress_class": true
    },
@@ -24097,7 +24039,6 @@
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
-    "confidence_ok",
     "enough_mentions"
    ],
    "triggered": false
@@ -24282,7 +24223,7 @@
    "checks": {
     "baseline_ready": true,
     "confidence_ok": true,
-    "corroborated": false,
+    "corroborated": true,
     "direction_ok": true,
     "enough_mentions": false,
     "impact_above_threshold": false,
@@ -24290,6 +24231,44 @@
     "stress_class": true
    },
    "cluster_id": "2022-09-20|macroeconomic|country|country:JP",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": true,
+    "corroborated": true,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-20|macroeconomic|country|country:MX",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": true,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-20|macroeconomic|country|country:US",
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
@@ -24322,7 +24301,7 @@
     "baseline_ready": true,
     "confidence_ok": true,
     "corroborated": true,
-    "direction_ok": false,
+    "direction_ok": true,
     "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": true,
@@ -24331,8 +24310,7 @@
    "cluster_id": "2022-09-20|macroeconomic|none|none",
    "detected_at": null,
    "failed": [
-    "impact_above_threshold",
-    "direction_ok"
+    "impact_above_threshold"
    ],
    "triggered": false
   },
@@ -24436,6 +24414,26 @@
    "failed": [
     "impact_above_threshold",
     "not_positive",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": true,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-20|macroeconomic|single_name|company:TSLA",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
     "corroborated",
     "enough_mentions"
    ],
@@ -24742,28 +24740,6 @@
     "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": false,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-20|other|country|country:IL",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "not_positive",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": true,
-    "direction_ok": true,
     "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": true,
@@ -24775,28 +24751,6 @@
     "stress_class",
     "impact_above_threshold",
     "confidence_ok"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-20|other|country|country:IR",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "corroborated",
-    "enough_mentions"
    ],
    "triggered": false
   },
@@ -24826,7 +24780,7 @@
    "checks": {
     "baseline_ready": true,
     "confidence_ok": false,
-    "corroborated": true,
+    "corroborated": false,
     "direction_ok": true,
     "enough_mentions": false,
     "impact_above_threshold": false,
@@ -24839,6 +24793,7 @@
     "stress_class",
     "impact_above_threshold",
     "confidence_ok",
+    "corroborated",
     "enough_mentions"
    ],
    "triggered": false
@@ -24872,7 +24827,7 @@
     "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
-    "enough_mentions": true,
+    "enough_mentions": false,
     "impact_above_threshold": false,
     "not_positive": true,
     "stress_class": false
@@ -24882,7 +24837,8 @@
    "failed": [
     "stress_class",
     "impact_above_threshold",
-    "confidence_ok"
+    "confidence_ok",
+    "enough_mentions"
    ],
    "triggered": false
   },
@@ -25951,7 +25907,7 @@
   {
    "checks": {
     "baseline_ready": true,
-    "confidence_ok": true,
+    "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
     "enough_mentions": false,
@@ -25963,6 +25919,7 @@
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
+    "confidence_ok",
     "enough_mentions"
    ],
    "triggered": false
@@ -26750,10 +26707,10 @@
   {
    "checks": {
     "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": false,
+    "confidence_ok": true,
+    "corroborated": true,
     "direction_ok": true,
-    "enough_mentions": false,
+    "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": true,
     "stress_class": true
@@ -26761,10 +26718,25 @@
    "cluster_id": "2022-09-21|geopolitical|country|country:IL",
    "detected_at": null,
    "failed": [
-    "impact_above_threshold",
-    "confidence_ok",
-    "corroborated",
-    "enough_mentions"
+    "impact_above_threshold"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": false,
+    "corroborated": true,
+    "direction_ok": true,
+    "enough_mentions": true,
+    "impact_above_threshold": true,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-21|geopolitical|country|country:IR",
+   "detected_at": null,
+   "failed": [
+    "confidence_ok"
    ],
    "triggered": false
   },
@@ -26791,6 +26763,27 @@
   {
    "checks": {
     "baseline_ready": true,
+    "confidence_ok": false,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-21|geopolitical|country|country:PS",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
     "confidence_ok": true,
     "corroborated": true,
     "direction_ok": true,
@@ -26808,11 +26801,33 @@
    "checks": {
     "baseline_ready": true,
     "confidence_ok": false,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": false,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-21|geopolitical|country|country:SA",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
+    "not_positive",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
     "enough_mentions": false,
     "impact_above_threshold": false,
-    "not_positive": true,
+    "not_positive": false,
     "stress_class": true
    },
    "cluster_id": "2022-09-21|geopolitical|country|country:TR",
@@ -26820,6 +26835,7 @@
    "failed": [
     "impact_above_threshold",
     "confidence_ok",
+    "not_positive",
     "enough_mentions"
    ],
    "triggered": false
@@ -26981,6 +26997,25 @@
   {
    "checks": {
     "baseline_ready": true,
+    "confidence_ok": true,
+    "corroborated": true,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-21|macroeconomic|country|country:MX",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
     "confidence_ok": false,
     "corroborated": false,
     "direction_ok": true,
@@ -27016,6 +27051,27 @@
    "failed": [
     "impact_above_threshold",
     "not_positive",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": false,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-21|macroeconomic|country|country:TR",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
     "corroborated",
     "enough_mentions"
    ],
@@ -27122,7 +27178,7 @@
     "baseline_ready": true,
     "confidence_ok": true,
     "corroborated": true,
-    "direction_ok": false,
+    "direction_ok": true,
     "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": true,
@@ -27131,8 +27187,7 @@
    "cluster_id": "2022-09-21|macroeconomic|none|none",
    "detected_at": null,
    "failed": [
-    "impact_above_threshold",
-    "direction_ok"
+    "impact_above_threshold"
    ],
    "triggered": false
   },
@@ -27521,53 +27576,12 @@
     "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-21|other|country|country:IL",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": true,
-    "direction_ok": true,
     "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": true,
     "stress_class": false
    },
    "cluster_id": "2022-09-21|other|country|country:IN",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": true,
-    "direction_ok": true,
-    "enough_mentions": true,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-21|other|country|country:IR",
    "detected_at": null,
    "failed": [
     "stress_class",
@@ -27624,9 +27638,9 @@
     "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
-    "enough_mentions": true,
+    "enough_mentions": false,
     "impact_above_threshold": false,
-    "not_positive": true,
+    "not_positive": false,
     "stress_class": false
    },
    "cluster_id": "2022-09-21|other|country|country:MX",
@@ -27634,7 +27648,9 @@
    "failed": [
     "stress_class",
     "impact_above_threshold",
-    "confidence_ok"
+    "confidence_ok",
+    "not_positive",
+    "enough_mentions"
    ],
    "triggered": false
   },
@@ -27698,28 +27714,6 @@
     "stress_class",
     "impact_above_threshold",
     "confidence_ok",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-21|other|country|country:PS",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "corroborated",
     "enough_mentions"
    ],
    "triggered": false
@@ -29690,6 +29684,26 @@
   {
    "checks": {
     "baseline_ready": true,
+    "confidence_ok": false,
+    "corroborated": true,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-22|geopolitical|country|country:IL",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
     "confidence_ok": true,
     "corroborated": false,
     "direction_ok": true,
@@ -29713,18 +29727,15 @@
     "confidence_ok": true,
     "corroborated": true,
     "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
+    "enough_mentions": true,
+    "impact_above_threshold": true,
     "not_positive": true,
     "stress_class": true
    },
    "cluster_id": "2022-09-22|geopolitical|country|country:IR",
-   "detected_at": null,
-   "failed": [
-    "impact_above_threshold",
-    "enough_mentions"
-   ],
-   "triggered": false
+   "detected_at": "2022-09-22T11:00:00Z",
+   "failed": [],
+   "triggered": true
   },
   {
    "checks": {
@@ -29995,6 +30006,26 @@
     "direction_ok": true,
     "enough_mentions": false,
     "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-22|macroeconomic|country|country:MX",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": true,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
     "not_positive": false,
     "stress_class": true
    },
@@ -30012,8 +30043,28 @@
    "checks": {
     "baseline_ready": true,
     "confidence_ok": true,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-22|macroeconomic|country|country:SY",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": true,
     "corroborated": true,
-    "direction_ok": false,
+    "direction_ok": true,
     "enough_mentions": false,
     "impact_above_threshold": false,
     "not_positive": true,
@@ -30023,7 +30074,6 @@
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
-    "direction_ok",
     "enough_mentions"
    ],
    "triggered": false
@@ -30655,53 +30705,12 @@
     "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-22|other|country|country:IL",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": true,
-    "direction_ok": true,
     "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": true,
     "stress_class": false
    },
    "cluster_id": "2022-09-22|other|country|country:IN",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": true,
-    "direction_ok": true,
-    "enough_mentions": true,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-22|other|country|country:IR",
    "detected_at": null,
    "failed": [
     "stress_class",
@@ -30756,7 +30765,7 @@
    "checks": {
     "baseline_ready": true,
     "confidence_ok": false,
-    "corroborated": true,
+    "corroborated": false,
     "direction_ok": true,
     "enough_mentions": false,
     "impact_above_threshold": false,
@@ -30769,6 +30778,7 @@
     "stress_class",
     "impact_above_threshold",
     "confidence_ok",
+    "corroborated",
     "enough_mentions"
    ],
    "triggered": false
@@ -30850,28 +30860,6 @@
     "stress_class": false
    },
    "cluster_id": "2022-09-22|other|country|country:RU",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "corroborated",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-22|other|country|country:SY",
    "detected_at": null,
    "failed": [
     "stress_class",
@@ -31821,7 +31809,7 @@
   {
    "checks": {
     "baseline_ready": true,
-    "confidence_ok": true,
+    "confidence_ok": false,
     "corroborated": false,
     "direction_ok": true,
     "enough_mentions": false,
@@ -31834,6 +31822,7 @@
    "failed": [
     "stress_class",
     "impact_above_threshold",
+    "confidence_ok",
     "not_positive",
     "corroborated",
     "enough_mentions"
@@ -32640,7 +32629,7 @@
   {
    "checks": {
     "baseline_ready": true,
-    "confidence_ok": true,
+    "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
     "enough_mentions": false,
@@ -32648,11 +32637,30 @@
     "not_positive": true,
     "stress_class": true
    },
-   "cluster_id": "2022-09-23|geopolitical|country|country:IR",
+   "cluster_id": "2022-09-23|geopolitical|country|country:IL",
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
+    "confidence_ok",
     "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": true,
+    "corroborated": true,
+    "direction_ok": true,
+    "enough_mentions": true,
+    "impact_above_threshold": true,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-23|geopolitical|country|country:IR",
+   "detected_at": null,
+   "failed": [
+    "cooldown"
    ],
    "triggered": false
   },
@@ -32774,10 +32782,10 @@
   {
    "checks": {
     "baseline_ready": true,
-    "confidence_ok": false,
+    "confidence_ok": true,
     "corroborated": true,
     "direction_ok": true,
-    "enough_mentions": false,
+    "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": true,
     "stress_class": true
@@ -32785,9 +32793,7 @@
    "cluster_id": "2022-09-23|macroeconomic|country|country:CA",
    "detected_at": null,
    "failed": [
-    "impact_above_threshold",
-    "confidence_ok",
-    "enough_mentions"
+    "impact_above_threshold"
    ],
    "triggered": false
   },
@@ -33283,53 +33289,12 @@
     "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-23|other|country|country:IL",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": true,
-    "direction_ok": true,
     "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": true,
     "stress_class": false
    },
    "cluster_id": "2022-09-23|other|country|country:IN",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": true,
-    "direction_ok": true,
-    "enough_mentions": true,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-23|other|country|country:IR",
    "detected_at": null,
    "failed": [
     "stress_class",
@@ -33706,9 +33671,9 @@
     "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
-    "enough_mentions": true,
+    "enough_mentions": false,
     "impact_above_threshold": false,
-    "not_positive": true,
+    "not_positive": false,
     "stress_class": false
    },
    "cluster_id": "2022-09-23|other|sector|sector:financials",
@@ -33716,7 +33681,9 @@
    "failed": [
     "stress_class",
     "impact_above_threshold",
-    "confidence_ok"
+    "confidence_ok",
+    "not_positive",
+    "enough_mentions"
    ],
    "triggered": false
   },
@@ -34480,14 +34447,13 @@
     "direction_ok": false,
     "enough_mentions": false,
     "impact_above_threshold": false,
-    "not_positive": false,
+    "not_positive": true,
     "stress_class": true
    },
    "cluster_id": "2022-09-23|regulatory|country|country:EU",
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
-    "not_positive",
     "direction_ok",
     "corroborated",
     "enough_mentions"
@@ -34540,7 +34506,7 @@
     "direction_ok": false,
     "enough_mentions": false,
     "impact_above_threshold": false,
-    "not_positive": true,
+    "not_positive": false,
     "stress_class": true
    },
    "cluster_id": "2022-09-23|regulatory|country|country:IR",
@@ -34548,6 +34514,7 @@
    "failed": [
     "impact_above_threshold",
     "confidence_ok",
+    "not_positive",
     "direction_ok",
     "enough_mentions"
    ],
@@ -34759,31 +34726,10 @@
     "not_positive": true,
     "stress_class": true
    },
-   "cluster_id": "2022-09-24|geopolitical|country|country:ID",
-   "detected_at": null,
-   "failed": [
-    "impact_above_threshold",
-    "corroborated",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": true
-   },
    "cluster_id": "2022-09-24|geopolitical|country|country:IL",
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
-    "confidence_ok",
     "corroborated",
     "enough_mentions"
    ],
@@ -34792,10 +34738,10 @@
   {
    "checks": {
     "baseline_ready": true,
-    "confidence_ok": false,
+    "confidence_ok": true,
     "corroborated": true,
     "direction_ok": true,
-    "enough_mentions": false,
+    "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": true,
     "stress_class": true
@@ -34803,9 +34749,7 @@
    "cluster_id": "2022-09-24|geopolitical|country|country:IR",
    "detected_at": null,
    "failed": [
-    "impact_above_threshold",
-    "confidence_ok",
-    "enough_mentions"
+    "impact_above_threshold"
    ],
    "triggered": false
   },
@@ -34881,6 +34825,65 @@
    "detected_at": null,
    "failed": [
     "impact_above_threshold"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": true,
+    "corroborated": true,
+    "direction_ok": true,
+    "enough_mentions": true,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-24|macroeconomic|country|country:CA",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": false,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-24|macroeconomic|country|country:ID",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": true,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-24|macroeconomic|country|country:JP",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "corroborated",
+    "enough_mentions"
    ],
    "triggered": false
   },
@@ -35074,7 +35077,7 @@
     "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
-    "enough_mentions": true,
+    "enough_mentions": false,
     "impact_above_threshold": false,
     "not_positive": true,
     "stress_class": false
@@ -35084,7 +35087,8 @@
    "failed": [
     "stress_class",
     "impact_above_threshold",
-    "confidence_ok"
+    "confidence_ok",
+    "enough_mentions"
    ],
    "triggered": false
   },
@@ -35258,27 +35262,6 @@
     "impact_above_threshold",
     "confidence_ok",
     "not_positive"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": true,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-24|other|country|country:IR",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "enough_mentions"
    ],
    "triggered": false
   },
@@ -35880,27 +35863,6 @@
   {
    "checks": {
     "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": true,
-    "direction_ok": false,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": true
-   },
-   "cluster_id": "2022-09-24|regulatory|country|country:IR",
-   "detected_at": null,
-   "failed": [
-    "impact_above_threshold",
-    "confidence_ok",
-    "direction_ok",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
     "confidence_ok": true,
     "corroborated": false,
     "direction_ok": true,
@@ -36266,14 +36228,13 @@
     "direction_ok": true,
     "enough_mentions": false,
     "impact_above_threshold": false,
-    "not_positive": false,
+    "not_positive": true,
     "stress_class": true
    },
    "cluster_id": "2022-09-25|geopolitical|country|country:CA",
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
-    "not_positive",
     "enough_mentions"
    ],
    "triggered": false
@@ -36322,10 +36283,10 @@
   {
    "checks": {
     "baseline_ready": true,
-    "confidence_ok": true,
-    "corroborated": false,
+    "confidence_ok": false,
+    "corroborated": true,
     "direction_ok": true,
-    "enough_mentions": false,
+    "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": true,
     "stress_class": true
@@ -36334,8 +36295,7 @@
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
-    "corroborated",
-    "enough_mentions"
+    "confidence_ok"
    ],
    "triggered": false
   },
@@ -36437,6 +36397,28 @@
   {
    "checks": {
     "baseline_ready": true,
+    "confidence_ok": false,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": false,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-25|macroeconomic|country|country:CA",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
+    "not_positive",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
     "confidence_ok": true,
     "corroborated": true,
     "direction_ok": true,
@@ -36474,10 +36456,10 @@
   {
    "checks": {
     "baseline_ready": true,
-    "confidence_ok": false,
+    "confidence_ok": true,
     "corroborated": true,
     "direction_ok": true,
-    "enough_mentions": false,
+    "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": true,
     "stress_class": true
@@ -36485,9 +36467,7 @@
    "cluster_id": "2022-09-25|macroeconomic|none|none",
    "detected_at": null,
    "failed": [
-    "impact_above_threshold",
-    "confidence_ok",
-    "enough_mentions"
+    "impact_above_threshold"
    ],
    "triggered": false
   },
@@ -36536,21 +36516,18 @@
   {
    "checks": {
     "baseline_ready": true,
-    "confidence_ok": false,
+    "confidence_ok": true,
     "corroborated": false,
     "direction_ok": true,
     "enough_mentions": false,
     "impact_above_threshold": false,
-    "not_positive": false,
-    "stress_class": false
+    "not_positive": true,
+    "stress_class": true
    },
-   "cluster_id": "2022-09-25|merger_acquisition|country|country:IR",
+   "cluster_id": "2022-09-25|macroeconomic|single_name|company:DIS",
    "detected_at": null,
    "failed": [
-    "stress_class",
     "impact_above_threshold",
-    "confidence_ok",
-    "not_positive",
     "corroborated",
     "enough_mentions"
    ],
@@ -36787,27 +36764,6 @@
     "impact_above_threshold",
     "confidence_ok",
     "not_positive"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": true,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-25|other|country|country:IR",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "enough_mentions"
    ],
    "triggered": false
   },
@@ -37170,28 +37126,6 @@
     "not_positive": true,
     "stress_class": false
    },
-   "cluster_id": "2022-09-25|other|single_name|company:DIS",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "corroborated",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
    "cluster_id": "2022-09-25|other|single_name|company:GOOG",
    "detected_at": null,
    "failed": [
@@ -37417,25 +37351,6 @@
     "stress_class",
     "impact_above_threshold",
     "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": true,
-    "corroborated": true,
-    "direction_ok": true,
-    "enough_mentions": true,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-25|product_launch|none|none",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold"
    ],
    "triggered": false
   },
@@ -37897,27 +37812,6 @@
     "not_positive": true,
     "stress_class": false
    },
-   "cluster_id": "2022-09-26|earnings_corporate|single_name|company:BP",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "corroborated",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": true,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
    "cluster_id": "2022-09-26|earnings_corporate|single_name|company:BRK",
    "detected_at": null,
    "failed": [
@@ -38164,10 +38058,10 @@
   {
    "checks": {
     "baseline_ready": true,
-    "confidence_ok": true,
-    "corroborated": false,
+    "confidence_ok": false,
+    "corroborated": true,
     "direction_ok": true,
-    "enough_mentions": false,
+    "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": true,
     "stress_class": true
@@ -38176,8 +38070,7 @@
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
-    "corroborated",
-    "enough_mentions"
+    "confidence_ok"
    ],
    "triggered": false
   },
@@ -38529,6 +38422,27 @@
    "checks": {
     "baseline_ready": true,
     "confidence_ok": false,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-26|macroeconomic|country|country:MX",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
     "enough_mentions": false,
@@ -38627,7 +38541,7 @@
     "baseline_ready": true,
     "confidence_ok": true,
     "corroborated": true,
-    "direction_ok": false,
+    "direction_ok": true,
     "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": true,
@@ -38636,8 +38550,7 @@
    "cluster_id": "2022-09-26|macroeconomic|none|none",
    "detected_at": null,
    "failed": [
-    "impact_above_threshold",
-    "direction_ok"
+    "impact_above_threshold"
    ],
    "triggered": false
   },
@@ -39063,26 +38976,6 @@
     "impact_above_threshold",
     "confidence_ok",
     "not_positive"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": true,
-    "direction_ok": true,
-    "enough_mentions": true,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-26|other|country|country:IR",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok"
    ],
    "triggered": false
   },
@@ -40641,28 +40534,6 @@
    "checks": {
     "baseline_ready": true,
     "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-27|earnings_corporate|country|country:RU",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "corroborated",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
     "enough_mentions": false,
@@ -40788,12 +40659,12 @@
   {
    "checks": {
     "baseline_ready": true,
-    "confidence_ok": true,
-    "corroborated": true,
+    "confidence_ok": false,
+    "corroborated": false,
     "direction_ok": true,
     "enough_mentions": false,
     "impact_above_threshold": false,
-    "not_positive": true,
+    "not_positive": false,
     "stress_class": false
    },
    "cluster_id": "2022-09-27|earnings_corporate|single_name|company:BP",
@@ -40801,6 +40672,9 @@
    "failed": [
     "stress_class",
     "impact_above_threshold",
+    "confidence_ok",
+    "not_positive",
+    "corroborated",
     "enough_mentions"
    ],
    "triggered": false
@@ -40979,6 +40853,25 @@
   {
    "checks": {
     "baseline_ready": true,
+    "confidence_ok": false,
+    "corroborated": true,
+    "direction_ok": true,
+    "enough_mentions": true,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-27|geopolitical|country|country:IR",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
     "confidence_ok": true,
     "corroborated": true,
     "direction_ok": true,
@@ -41043,26 +40936,6 @@
     "stress_class": true
    },
    "cluster_id": "2022-09-27|geopolitical|country|country:US",
-   "detected_at": null,
-   "failed": [
-    "impact_above_threshold",
-    "corroborated",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": true,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": true
-   },
-   "cluster_id": "2022-09-27|geopolitical|country|country:VN",
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
@@ -41238,20 +41111,39 @@
   {
    "checks": {
     "baseline_ready": true,
-    "confidence_ok": false,
+    "confidence_ok": true,
     "corroborated": true,
     "direction_ok": true,
     "enough_mentions": false,
     "impact_above_threshold": false,
-    "not_positive": false,
+    "not_positive": true,
     "stress_class": true
    },
    "cluster_id": "2022-09-27|macroeconomic|country|country:US",
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": false,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-27|macroeconomic|country|country:VN",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
     "confidence_ok",
-    "not_positive",
+    "corroborated",
     "enough_mentions"
    ],
    "triggered": false
@@ -41355,7 +41247,7 @@
     "baseline_ready": true,
     "confidence_ok": true,
     "corroborated": true,
-    "direction_ok": false,
+    "direction_ok": true,
     "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": true,
@@ -41364,8 +41256,47 @@
    "cluster_id": "2022-09-27|macroeconomic|none|none",
    "detected_at": null,
    "failed": [
+    "impact_above_threshold"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": false,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-27|macroeconomic|sector|commodity:gas",
+   "detected_at": null,
+   "failed": [
     "impact_above_threshold",
-    "direction_ok"
+    "confidence_ok",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": true,
+    "corroborated": true,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-27|macroeconomic|sector|commodity:oil",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "enough_mentions"
    ],
    "triggered": false
   },
@@ -41702,26 +41633,6 @@
     "impact_above_threshold",
     "confidence_ok",
     "not_positive"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": true,
-    "direction_ok": true,
-    "enough_mentions": true,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-27|other|country|country:IR",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok"
    ],
    "triggered": false
   },
@@ -43169,26 +43080,6 @@
    "checks": {
     "baseline_ready": true,
     "confidence_ok": true,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": true
-   },
-   "cluster_id": "2022-09-28|commodity_energy|country|country:US",
-   "detected_at": null,
-   "failed": [
-    "impact_above_threshold",
-    "corroborated",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": true,
     "corroborated": true,
     "direction_ok": true,
     "enough_mentions": true,
@@ -43757,6 +43648,27 @@
    "checks": {
     "baseline_ready": true,
     "confidence_ok": false,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-28|geopolitical|country|country:IL",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
     "enough_mentions": false,
@@ -43777,9 +43689,9 @@
    "checks": {
     "baseline_ready": true,
     "confidence_ok": true,
-    "corroborated": false,
+    "corroborated": true,
     "direction_ok": true,
-    "enough_mentions": false,
+    "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": true,
     "stress_class": true
@@ -43787,9 +43699,7 @@
    "cluster_id": "2022-09-28|geopolitical|country|country:IR",
    "detected_at": null,
    "failed": [
-    "impact_above_threshold",
-    "corroborated",
-    "enough_mentions"
+    "impact_above_threshold"
    ],
    "triggered": false
   },
@@ -44076,7 +43986,7 @@
     "confidence_ok": true,
     "corroborated": true,
     "direction_ok": true,
-    "enough_mentions": false,
+    "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": true,
     "stress_class": true
@@ -44084,8 +43994,7 @@
    "cluster_id": "2022-09-28|macroeconomic|country|country:US",
    "detected_at": null,
    "failed": [
-    "impact_above_threshold",
-    "enough_mentions"
+    "impact_above_threshold"
    ],
    "triggered": false
   },
@@ -44152,7 +44061,7 @@
     "baseline_ready": true,
     "confidence_ok": true,
     "corroborated": true,
-    "direction_ok": false,
+    "direction_ok": true,
     "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": true,
@@ -44161,8 +44070,7 @@
    "cluster_id": "2022-09-28|macroeconomic|macro|central_bank:FED",
    "detected_at": null,
    "failed": [
-    "impact_above_threshold",
-    "direction_ok"
+    "impact_above_threshold"
    ],
    "triggered": false
   },
@@ -44227,6 +44135,27 @@
   {
    "checks": {
     "baseline_ready": true,
+    "confidence_ok": false,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-28|macroeconomic|sector|commodity:oil",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
     "confidence_ok": true,
     "corroborated": false,
     "direction_ok": true,
@@ -44256,6 +44185,26 @@
     "stress_class": true
    },
    "cluster_id": "2022-09-28|macroeconomic|single_name|company:COST",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": true,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-28|macroeconomic|single_name|company:DIS",
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
@@ -44604,28 +44553,6 @@
    "checks": {
     "baseline_ready": true,
     "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-28|other|country|country:IL",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "corroborated",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
     "enough_mentions": true,
@@ -44661,27 +44588,6 @@
     "impact_above_threshold",
     "confidence_ok",
     "corroborated",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": true,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-28|other|country|country:IR",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
     "enough_mentions"
    ],
    "triggered": false
@@ -45172,27 +45078,6 @@
     "impact_above_threshold",
     "confidence_ok",
     "corroborated",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": true,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-28|other|single_name|company:DIS",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
     "enough_mentions"
    ],
    "triggered": false
@@ -46809,6 +46694,26 @@
     "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-29|geopolitical|country|country:IL",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "confidence_ok",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": false,
+    "corroborated": true,
+    "direction_ok": true,
     "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": true,
@@ -47146,7 +47051,7 @@
     "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
-    "enough_mentions": false,
+    "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": true,
     "stress_class": true
@@ -47155,8 +47060,7 @@
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
-    "confidence_ok",
-    "enough_mentions"
+    "confidence_ok"
    ],
    "triggered": false
   },
@@ -47236,6 +47140,26 @@
   {
    "checks": {
     "baseline_ready": true,
+    "confidence_ok": true,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-29|macroeconomic|macro|central_bank:SNB",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
     "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
@@ -47258,7 +47182,7 @@
     "baseline_ready": true,
     "confidence_ok": true,
     "corroborated": true,
-    "direction_ok": false,
+    "direction_ok": true,
     "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": true,
@@ -47267,8 +47191,7 @@
    "cluster_id": "2022-09-29|macroeconomic|none|none",
    "detected_at": null,
    "failed": [
-    "impact_above_threshold",
-    "direction_ok"
+    "impact_above_threshold"
    ],
    "triggered": false
   },
@@ -47288,6 +47211,26 @@
    "failed": [
     "impact_above_threshold",
     "confidence_ok",
+    "corroborated",
+    "enough_mentions"
+   ],
+   "triggered": false
+  },
+  {
+   "checks": {
+    "baseline_ready": true,
+    "confidence_ok": true,
+    "corroborated": false,
+    "direction_ok": true,
+    "enough_mentions": false,
+    "impact_above_threshold": false,
+    "not_positive": true,
+    "stress_class": true
+   },
+   "cluster_id": "2022-09-29|macroeconomic|single_name|company:BRK",
+   "detected_at": null,
+   "failed": [
+    "impact_above_threshold",
     "corroborated",
     "enough_mentions"
    ],
@@ -47317,7 +47260,7 @@
   {
    "checks": {
     "baseline_ready": true,
-    "confidence_ok": false,
+    "confidence_ok": true,
     "corroborated": false,
     "direction_ok": true,
     "enough_mentions": false,
@@ -47329,7 +47272,6 @@
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
-    "confidence_ok",
     "corroborated",
     "enough_mentions"
    ],
@@ -47655,27 +47597,6 @@
     "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-29|other|country|country:IL",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": true,
-    "direction_ok": true,
     "enough_mentions": true,
     "impact_above_threshold": false,
     "not_positive": true,
@@ -47687,27 +47608,6 @@
     "stress_class",
     "impact_above_threshold",
     "confidence_ok"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": true,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-29|other|country|country:IR",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "enough_mentions"
    ],
    "triggered": false
   },
@@ -48147,28 +48047,6 @@
    "checks": {
     "baseline_ready": true,
     "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-29|other|sector|sector:insurance",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "corroborated",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
     "corroborated": true,
     "direction_ok": true,
     "enough_mentions": false,
@@ -48372,28 +48250,6 @@
     "stress_class": false
    },
    "cluster_id": "2022-09-29|other|single_name|company:BLK",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "corroborated",
-    "enough_mentions"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": false,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-29|other|single_name|company:BRK",
    "detected_at": null,
    "failed": [
     "stress_class",
@@ -50084,11 +49940,11 @@
    "checks": {
     "baseline_ready": true,
     "confidence_ok": false,
-    "corroborated": false,
+    "corroborated": true,
     "direction_ok": true,
     "enough_mentions": false,
     "impact_above_threshold": false,
-    "not_positive": false,
+    "not_positive": true,
     "stress_class": true
    },
    "cluster_id": "2022-09-30|geopolitical|country|country:IR",
@@ -50096,8 +49952,6 @@
    "failed": [
     "impact_above_threshold",
     "confidence_ok",
-    "not_positive",
-    "corroborated",
     "enough_mentions"
    ],
    "triggered": false
@@ -50419,17 +50273,15 @@
     "confidence_ok": true,
     "corroborated": true,
     "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
+    "enough_mentions": true,
+    "impact_above_threshold": true,
     "not_positive": false,
     "stress_class": true
    },
    "cluster_id": "2022-09-30|macroeconomic|country|country:US",
    "detected_at": null,
    "failed": [
-    "impact_above_threshold",
-    "not_positive",
-    "enough_mentions"
+    "not_positive"
    ],
    "triggered": false
   },
@@ -50847,27 +50699,6 @@
     "stress_class",
     "impact_above_threshold",
     "confidence_ok"
-   ],
-   "triggered": false
-  },
-  {
-   "checks": {
-    "baseline_ready": true,
-    "confidence_ok": false,
-    "corroborated": true,
-    "direction_ok": true,
-    "enough_mentions": false,
-    "impact_above_threshold": false,
-    "not_positive": true,
-    "stress_class": false
-   },
-   "cluster_id": "2022-09-30|other|country|country:IR",
-   "detected_at": null,
-   "failed": [
-    "stress_class",
-    "impact_above_threshold",
-    "confidence_ok",
-    "enough_mentions"
    ],
    "triggered": false
   },
@@ -53561,23 +53392,23 @@
      "asset_class": "bond",
      "equity": 0.0,
      "migration": 0.0,
-     "pnl": -22069137.03,
-     "rates": -9582441.35,
-     "second_order": 398234.4,
-     "spread": -12884930.07,
-     "value_after": 1098007042.97,
+     "pnl": -21394202.18,
+     "rates": -9284169.22,
+     "second_order": 373828.6,
+     "spread": -12483861.56,
+     "value_after": 1098681977.82,
      "value_before": 1120076180.0,
      "vol": 0.0
     },
     {
      "asset_class": "equity",
-     "equity": -30401158.48,
+     "equity": -29454863.27,
      "migration": 0.0,
-     "pnl": -30401158.48,
+     "pnl": -29454863.27,
      "rates": 0.0,
      "second_order": 0.0,
      "spread": 0.0,
-     "value_after": 381398841.52,
+     "value_after": 382345136.73,
      "value_before": 411800000.0,
      "vol": 0.0
     },
@@ -53585,11 +53416,11 @@
      "asset_class": "irs",
      "equity": 0.0,
      "migration": 0.0,
-     "pnl": 1506252.89,
-     "rates": 1506252.89,
+     "pnl": 1459367.84,
+     "rates": 1459367.84,
      "second_order": 0.0,
      "spread": 0.0,
-     "value_after": 2357763.09,
+     "value_after": 2310878.04,
      "value_before": 851510.2,
      "vol": 0.0
     },
@@ -53607,15 +53438,15 @@
     },
     {
      "asset_class": "option",
-     "equity": 1421201.4,
+     "equity": 1376963.75,
      "migration": 0.0,
-     "pnl": 3091661.52,
+     "pnl": 2983294.06,
      "rates": 0.0,
-     "second_order": 402329.43,
+     "second_order": 377672.67,
      "spread": 0.0,
-     "value_after": 7178739.21,
+     "value_after": 7070371.75,
      "value_before": 4087077.69,
-     "vol": 1268130.68
+     "vol": 1228657.65
     }
    ],
    "by_book": [
@@ -53633,24 +53464,24 @@
     },
     {
      "book": "fair_value",
-     "equity": -28979957.07,
+     "equity": -28077899.53,
      "migration": 0.0,
-     "pnl": -47872381.09,
-     "rates": -8076188.46,
-     "second_order": 800563.83,
-     "spread": -12884930.07,
-     "value_after": 1488942386.8,
+     "pnl": -46406403.55,
+     "rates": -7824801.38,
+     "second_order": 751501.27,
+     "spread": -12483861.56,
+     "value_after": 1490408364.34,
      "value_before": 1536814767.89,
-     "vol": 1268130.68
+     "vol": 1228657.65
     }
    ],
    "by_factor": {
-    "equity": -28979957.07,
+    "equity": -28077899.53,
     "migration": 0.0,
-    "rates": -8076188.46,
-    "second_order": 800563.83,
-    "spread": -12884930.07,
-    "vol": 1268130.68
+    "rates": -7824801.38,
+    "second_order": 751501.27,
+    "spread": -12483861.56,
+    "vol": 1228657.65
    },
    "capital": {
     "capital_ratio": 0.08,
@@ -53661,12 +53492,12 @@
    },
    "class": "macroeconomic",
    "cluster_id": "2022-09-13|macroeconomic|none|none",
-   "detected_at": "2022-09-13T21:00:00Z",
-   "explanation": "Triggered by a Macroeconomic event with impact 7.2/10 (confidence 0.74, sentiment -0.31) built from 32 item(s) across 13 outlet(s). Matched rules: MAC-001, MAC-002, MAC-005, MAC-007. Lead item: \"Stock Market Today- 9/13: Stocks Slump On August Inflation Shock\" (thestreet.com, 2022-09-13). Scope: none -> no specific target. Shocks at severity multiplier 0.53: equities -6.1% x beta, rates +16bp, IG spreads +12bp, HY spreads +49bp, implied vol +7.2 pts, in-scope add-on +0bp and 0 notch downgrade(s). Portfolio value moves -47.9m (-1.31%). Largest losses: EQ001 Tesla -6.4m; EQ010 Ford -4.4m; EQ002 Apple -4.3m. Loan provisions (IFRS 9 staging): +0.0m, 0 loan(s) moved to stage 2 and 0 to stage 3; for comparison +0.0m on a 1-year view and +0.0m if every loan were on a lifetime view.",
-   "impact": 7.2,
+   "detected_at": "2022-09-13T20:00:00Z",
+   "explanation": "Triggered by a Macroeconomic event with impact 7.1/10 (confidence 0.76, sentiment -0.32) built from 35 item(s) across 16 outlet(s). Matched rules: MAC-002, MAC-005, MAC-007, MAC-009. Lead item: \"Stock Market Today- 9/13: Stocks Slump On August Inflation Shock\" (thestreet.com, 2022-09-13). Scope: none -> no specific target. Shocks at severity multiplier 0.52: equities -5.9% x beta, rates +16bp, IG spreads +11bp, HY spreads +48bp, implied vol +6.9 pts, in-scope add-on +0bp and 0 notch downgrade(s). Portfolio value moves -46.4m (-1.27%). Largest losses: EQ001 Tesla -6.2m; EQ010 Ford -4.3m; EQ002 Apple -4.2m. Loan provisions (IFRS 9 staging): +0.0m, 0 loan(s) moved to stage 2 and 0 to stage 3; for comparison +0.0m on a 1-year view and +0.0m if every loan were on a lifetime view.",
+   "impact": 7.1,
    "in_scope_positions": 0,
    "loan_loss_views": {
-    "fair_value_change": -17566231.06,
+    "fair_value_change": -17019447.94,
     "ifrs9_provision_change": 0.0,
     "lifetime_el_change": 0.0,
     "one_year_el_change": 0.0,
@@ -53680,27 +53511,27 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
+     "d_rate_bp": 15.5,
      "d_spread_bp": 0.0,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
      "migration": 0.0,
      "name": "Sovereign-US",
-     "pnl": -607123.71,
+     "pnl": -588281.57,
      "position_id": "BD001",
-     "rates": -608972.86,
+     "rates": -590017.4,
      "rating": "AA+",
      "rating_after": "AA+",
      "rating_notches": 0,
-     "second_order": 1849.15,
+     "second_order": 1735.82,
      "sector": "sovereign",
      "spread": 0.0,
      "spread_bucket": "SAFE",
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "",
-     "value_after": 136552556.29,
+     "value_after": 136571398.43,
      "value_before": 137159680.0,
      "vol": 0.0
     },
@@ -53710,27 +53541,27 @@
      "contagion_weight": 0.0,
      "country": "DE",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
+     "d_rate_bp": 15.5,
      "d_spread_bp": 0.0,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
      "migration": 0.0,
      "name": "Sovereign-DE",
-     "pnl": -1006498.91,
+     "pnl": -975413.37,
      "position_id": "BD002",
-     "rates": -1014579.55,
+     "rates": -982998.79,
      "rating": "AAA",
      "rating_after": "AAA",
      "rating_notches": 0,
-     "second_order": 8080.64,
+     "second_order": 7585.41,
      "sector": "sovereign",
      "spread": 0.0,
      "spread_bucket": "SAFE",
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "",
-     "value_after": 77178641.09,
+     "value_after": 77209726.63,
      "value_before": 78185140.0,
      "vol": 0.0
     },
@@ -53740,27 +53571,27 @@
      "contagion_weight": 0.0,
      "country": "IT",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
-     "d_spread_bp": 11.73,
+     "d_rate_bp": 15.5,
+     "d_spread_bp": 11.37,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
      "migration": 0.0,
      "name": "Sovereign-IT",
-     "pnl": -3273567.39,
+     "pnl": -3173053.22,
      "position_id": "BD003",
-     "rates": -1915033.93,
+     "rates": -1855424.77,
      "rating": "BBB",
      "rating_after": "BBB",
      "rating_notches": 0,
-     "second_order": 45824.75,
+     "second_order": 43016.38,
      "sector": "sovereign",
-     "spread": -1404358.21,
+     "spread": -1360644.83,
      "spread_bucket": "IG",
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "",
-     "value_after": 144302042.61,
+     "value_after": 144402556.78,
      "value_before": 147575610.0,
      "vol": 0.0
     },
@@ -53770,27 +53601,27 @@
      "contagion_weight": 0.0,
      "country": "RU",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
-     "d_spread_bp": 11.73,
+     "d_rate_bp": 15.5,
+     "d_spread_bp": 11.37,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
      "migration": 0.0,
      "name": "Sovereign-RU",
-     "pnl": -856160.51,
+     "pnl": -829680.7,
      "position_id": "BD004",
-     "rates": -497188.15,
+     "rates": -481712.21,
      "rating": "BBB-",
      "rating_after": "BBB-",
      "rating_notches": 0,
-     "second_order": 5632.29,
+     "second_order": 5287.12,
      "sector": "sovereign",
-     "spread": -364604.65,
+     "spread": -353255.62,
      "spread_bucket": "IG",
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "",
-     "value_after": 84755569.49,
+     "value_after": 84782049.3,
      "value_before": 85611730.0,
      "vol": 0.0
     },
@@ -53800,27 +53631,27 @@
      "contagion_weight": 0.0,
      "country": "TR",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
-     "d_spread_bp": 49.06,
+     "d_rate_bp": 15.5,
+     "d_spread_bp": 47.54,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
      "migration": 0.0,
      "name": "Sovereign-TR",
-     "pnl": -2948129.26,
+     "pnl": -2859851.1,
      "position_id": "BD005",
-     "rates": -753390.99,
+     "rates": -729940.23,
      "rating": "B+",
      "rating_after": "B+",
      "rating_notches": 0,
-     "second_order": 115660.77,
+     "second_order": 108572.5,
      "sector": "sovereign",
-     "spread": -2310399.04,
+     "spread": -2238483.37,
      "spread_bucket": "HY",
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "",
-     "value_after": 47227020.74,
+     "value_after": 47315298.9,
      "value_before": 50175150.0,
      "vol": 0.0
     },
@@ -53830,27 +53661,27 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
-     "d_spread_bp": 11.73,
+     "d_rate_bp": 15.5,
+     "d_spread_bp": 11.37,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
      "migration": 0.0,
      "name": "Obligor-ENR-US-02",
-     "pnl": -3349904.03,
+     "pnl": -3247045.96,
      "position_id": "BD006",
-     "rates": -1959690.79,
+     "rates": -1898691.6,
      "rating": "BBB+",
      "rating_after": "BBB+",
      "rating_notches": 0,
-     "second_order": 46893.34,
+     "second_order": 44019.48,
      "sector": "energy",
-     "spread": -1437106.58,
+     "spread": -1392373.84,
      "spread_bucket": "IG",
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "",
-     "value_after": 147667035.97,
+     "value_after": 147769894.04,
      "value_before": 151016940.0,
      "vol": 0.0
     },
@@ -53860,27 +53691,27 @@
      "contagion_weight": 0.0,
      "country": "GB",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
-     "d_spread_bp": 11.73,
+     "d_rate_bp": 15.5,
+     "d_spread_bp": 11.37,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
      "migration": 0.0,
      "name": "Obligor-ENR-GB-01",
-     "pnl": -1703952.94,
+     "pnl": -1651633.44,
      "position_id": "BD007",
-     "rates": -996810.91,
+     "rates": -965783.23,
      "rating": "A",
      "rating_after": "A",
      "rating_notches": 0,
-     "second_order": 23852.64,
+     "second_order": 22390.83,
      "sector": "energy",
-     "spread": -730994.67,
+     "spread": -708241.04,
      "spread_bucket": "IG",
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "",
-     "value_after": 75111907.06,
+     "value_after": 75164226.56,
      "value_before": 76815860.0,
      "vol": 0.0
     },
@@ -53890,27 +53721,27 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
-     "d_spread_bp": 11.73,
+     "d_rate_bp": 15.5,
+     "d_spread_bp": 11.37,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
      "migration": 0.0,
      "name": "Obligor-FIN-US-01",
-     "pnl": -214196.38,
+     "pnl": -207545.47,
      "position_id": "BD008",
-     "rates": -18436.18,
+     "rates": -17862.31,
      "rating": "A-",
      "rating_after": "A-",
      "rating_notches": 0,
-     "second_order": 542.79,
+     "second_order": 509.52,
      "sector": "financials",
-     "spread": -196302.99,
+     "spread": -190192.68,
      "spread_bucket": "IG",
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "",
-     "value_after": 45879123.62,
+     "value_after": 45885774.53,
      "value_before": 46093320.0,
      "vol": 0.0
     },
@@ -53920,27 +53751,27 @@
      "contagion_weight": 0.0,
      "country": "FR",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
-     "d_spread_bp": 11.73,
+     "d_rate_bp": 15.5,
+     "d_spread_bp": 11.37,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
      "migration": 0.0,
      "name": "Obligor-FIN-FR-01",
-     "pnl": -674704.97,
+     "pnl": -653838.02,
      "position_id": "BD009",
-     "rates": -23805.65,
+     "rates": -23064.65,
      "rating": "A",
      "rating_after": "A",
      "rating_notches": 0,
-     "second_order": 4461.39,
+     "second_order": 4187.98,
      "sector": "financials",
-     "spread": -655360.71,
+     "spread": -634961.34,
      "spread_bucket": "IG",
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "",
-     "value_after": 58843145.03,
+     "value_after": 58864011.98,
      "value_before": 59517850.0,
      "vol": 0.0
     },
@@ -53950,27 +53781,27 @@
      "contagion_weight": 0.0,
      "country": "FR",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
-     "d_spread_bp": 11.73,
+     "d_rate_bp": 15.5,
+     "d_spread_bp": 11.37,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
      "migration": 0.0,
      "name": "Obligor-UTL-FR-01",
-     "pnl": -1996873.52,
+     "pnl": -1935265.58,
      "position_id": "BD010",
-     "rates": -1162537.89,
+     "rates": -1126351.63,
      "rating": "BBB",
      "rating_after": "BBB",
      "rating_notches": 0,
-     "second_order": 18192.16,
+     "second_order": 17077.25,
      "sector": "utilities",
-     "spread": -852527.78,
+     "spread": -825991.2,
      "spread_bucket": "IG",
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "",
-     "value_after": 136617726.48,
+     "value_after": 136679334.42,
      "value_before": 138614600.0,
      "vol": 0.0
     },
@@ -53980,27 +53811,27 @@
      "contagion_weight": 0.0,
      "country": "PL",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
-     "d_spread_bp": 49.06,
+     "d_rate_bp": 15.5,
+     "d_spread_bp": 47.54,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
      "migration": 0.0,
      "name": "Obligor-MAT-PL-01",
-     "pnl": -2392031.81,
+     "pnl": -2319136.23,
      "position_id": "BD011",
-     "rates": -600933.05,
+     "rates": -582227.84,
      "rating": "BB",
      "rating_after": "BB",
      "rating_notches": 0,
-     "second_order": 51762.61,
+     "second_order": 48590.34,
      "sector": "materials",
-     "spread": -1842861.37,
+     "spread": -1785498.72,
      "spread_bucket": "HY",
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "",
-     "value_after": 69259908.19,
+     "value_after": 69332803.77,
      "value_before": 71651940.0,
      "vol": 0.0
     },
@@ -54010,27 +53841,27 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
-     "d_spread_bp": 49.06,
+     "d_rate_bp": 15.5,
+     "d_spread_bp": 47.54,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
      "migration": 0.0,
      "name": "Obligor-CON-US-01",
-     "pnl": -3045993.6,
+     "pnl": -2953457.51,
      "position_id": "BD012",
-     "rates": -31061.4,
+     "rates": -30094.56,
      "rating": "BB-",
      "rating_after": "BB-",
      "rating_notches": 0,
-     "second_order": 75481.88,
+     "second_order": 70855.97,
      "sector": "consumer",
-     "spread": -3090414.07,
+     "spread": -2994218.92,
      "spread_bucket": "HY",
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "",
-     "value_after": 74612366.4,
+     "value_after": 74704902.49,
      "value_before": 77658360.0,
      "vol": 0.0
     },
@@ -54040,14 +53871,14 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
+     "d_rate_bp": 15.5,
      "d_spread_bp": 0.0,
-     "equity": -6400890.59,
+     "equity": -6201650.41,
      "equity_return": -0.11,
      "in_scope": false,
      "migration": 0.0,
      "name": "Tesla",
-     "pnl": -6400890.59,
+     "pnl": -6201650.41,
      "position_id": "EQ001",
      "rates": 0.0,
      "rating": "",
@@ -54060,7 +53891,7 @@
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "TSLA",
-     "value_after": 50699109.41,
+     "value_after": 50898349.59,
      "value_before": 57100000.0,
      "vol": 0.0
     },
@@ -54070,14 +53901,14 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
+     "d_rate_bp": 15.5,
      "d_spread_bp": 0.0,
-     "equity": -4328388.13,
-     "equity_return": -0.09,
+     "equity": -4193658.62,
+     "equity_return": -0.08,
      "in_scope": false,
      "migration": 0.0,
      "name": "Apple",
-     "pnl": -4328388.13,
+     "pnl": -4193658.62,
      "position_id": "EQ002",
      "rates": 0.0,
      "rating": "",
@@ -54090,7 +53921,7 @@
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "AAPL",
-     "value_after": 45571611.87,
+     "value_after": 45706341.38,
      "value_before": 49900000.0,
      "vol": 0.0
     },
@@ -54100,14 +53931,14 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
+     "d_rate_bp": 15.5,
      "d_spread_bp": 0.0,
-     "equity": -3492555.04,
-     "equity_return": -0.08,
+     "equity": -3383842.47,
+     "equity_return": -0.07,
      "in_scope": false,
      "migration": 0.0,
      "name": "Microsoft",
-     "pnl": -3492555.04,
+     "pnl": -3383842.47,
      "position_id": "EQ003",
      "rates": 0.0,
      "rating": "",
@@ -54120,7 +53951,7 @@
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "MSFT",
-     "value_after": 41907444.96,
+     "value_after": 42016157.53,
      "value_before": 45400000.0,
      "vol": 0.0
     },
@@ -54130,14 +53961,14 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
+     "d_rate_bp": 15.5,
      "d_spread_bp": 0.0,
-     "equity": -2774695.9,
+     "equity": -2688328.1,
      "equity_return": -0.06,
      "in_scope": false,
      "migration": 0.0,
      "name": "Amazon",
-     "pnl": -2774695.9,
+     "pnl": -2688328.1,
      "position_id": "EQ004",
      "rates": 0.0,
      "rating": "",
@@ -54150,7 +53981,7 @@
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "AMZN",
-     "value_after": 43025304.1,
+     "value_after": 43111671.9,
      "value_before": 45800000.0,
      "vol": 0.0
     },
@@ -54160,14 +53991,14 @@
      "contagion_weight": 0.0,
      "country": "TW",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
+     "d_rate_bp": 15.5,
      "d_spread_bp": 0.0,
-     "equity": -2944111.98,
+     "equity": -2852470.77,
      "equity_return": -0.09,
      "in_scope": false,
      "migration": 0.0,
      "name": "TSMC",
-     "pnl": -2944111.98,
+     "pnl": -2852470.77,
      "position_id": "EQ005",
      "rates": 0.0,
      "rating": "",
@@ -54180,7 +54011,7 @@
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "TSM",
-     "value_after": 28755888.02,
+     "value_after": 28847529.23,
      "value_before": 31700000.0,
      "vol": 0.0
     },
@@ -54190,14 +54021,14 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
+     "d_rate_bp": 15.5,
      "d_spread_bp": 0.0,
-     "equity": -1321221.42,
+     "equity": -1280095.83,
      "equity_return": -0.08,
      "in_scope": false,
      "migration": 0.0,
      "name": "Meta Platforms",
-     "pnl": -1321221.42,
+     "pnl": -1280095.83,
      "position_id": "EQ006",
      "rates": 0.0,
      "rating": "",
@@ -54210,7 +54041,7 @@
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "META",
-     "value_after": 15378778.58,
+     "value_after": 15419904.17,
      "value_before": 16700000.0,
      "vol": 0.0
     },
@@ -54220,14 +54051,14 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
+     "d_rate_bp": 15.5,
      "d_spread_bp": 0.0,
-     "equity": -1190725.58,
+     "equity": -1153661.93,
      "equity_return": -0.03,
      "in_scope": false,
      "migration": 0.0,
      "name": "Coca-Cola",
-     "pnl": -1190725.58,
+     "pnl": -1153661.93,
      "position_id": "EQ007",
      "rates": 0.0,
      "rating": "",
@@ -54240,7 +54071,7 @@
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "KO",
-     "value_after": 37809274.42,
+     "value_after": 37846338.08,
      "value_before": 39000000.0,
      "vol": 0.0
     },
@@ -54250,14 +54081,14 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
+     "d_rate_bp": 15.5,
      "d_spread_bp": 0.0,
-     "equity": -2516184.06,
+     "equity": -2437862.94,
      "equity_return": -0.09,
      "in_scope": false,
      "migration": 0.0,
      "name": "Boeing",
-     "pnl": -2516184.06,
+     "pnl": -2437862.94,
      "position_id": "EQ008",
      "rates": 0.0,
      "rating": "",
@@ -54270,7 +54101,7 @@
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "BA",
-     "value_after": 24283815.94,
+     "value_after": 24362137.06,
      "value_before": 26800000.0,
      "vol": 0.0
     },
@@ -54280,14 +54111,14 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
+     "d_rate_bp": 15.5,
      "d_spread_bp": 0.0,
-     "equity": -1036935.19,
+     "equity": -1004658.56,
      "equity_return": -0.03,
      "in_scope": false,
      "migration": 0.0,
      "name": "Northrop Grumman",
-     "pnl": -1036935.19,
+     "pnl": -1004658.56,
      "position_id": "EQ009",
      "rates": 0.0,
      "rating": "",
@@ -54300,7 +54131,7 @@
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "NOC",
-     "value_after": 36463064.81,
+     "value_after": 36495341.44,
      "value_before": 37500000.0,
      "vol": 0.0
     },
@@ -54310,14 +54141,14 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
+     "d_rate_bp": 15.5,
      "d_spread_bp": 0.0,
-     "equity": -4395450.6,
+     "equity": -4258633.65,
      "equity_return": -0.07,
      "in_scope": false,
      "migration": 0.0,
      "name": "Ford",
-     "pnl": -4395450.6,
+     "pnl": -4258633.65,
      "position_id": "EQ010",
      "rates": 0.0,
      "rating": "",
@@ -54330,7 +54161,7 @@
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "F",
-     "value_after": 57504549.4,
+     "value_after": 57641366.35,
      "value_before": 61900000.0,
      "vol": 0.0
     },
@@ -54340,8 +54171,8 @@
      "contagion_weight": 0.0,
      "country": "RU",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
-     "d_spread_bp": 49.06,
+     "d_rate_bp": 15.5,
+     "d_spread_bp": 47.54,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
@@ -54370,8 +54201,8 @@
      "contagion_weight": 0.0,
      "country": "RU",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
-     "d_spread_bp": 11.73,
+     "d_rate_bp": 15.5,
+     "d_spread_bp": 11.37,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
@@ -54400,8 +54231,8 @@
      "contagion_weight": 0.0,
      "country": "DE",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
-     "d_spread_bp": 11.73,
+     "d_rate_bp": 15.5,
+     "d_spread_bp": 11.37,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
@@ -54430,8 +54261,8 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
-     "d_spread_bp": 11.73,
+     "d_rate_bp": 15.5,
+     "d_spread_bp": 11.37,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
@@ -54460,8 +54291,8 @@
      "contagion_weight": 0.0,
      "country": "DE",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
-     "d_spread_bp": 11.73,
+     "d_rate_bp": 15.5,
+     "d_spread_bp": 11.37,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
@@ -54490,8 +54321,8 @@
      "contagion_weight": 0.0,
      "country": "PL",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
-     "d_spread_bp": 11.73,
+     "d_rate_bp": 15.5,
+     "d_spread_bp": 11.37,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
@@ -54520,8 +54351,8 @@
      "contagion_weight": 0.0,
      "country": "UA",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
-     "d_spread_bp": 49.06,
+     "d_rate_bp": 15.5,
+     "d_spread_bp": 47.54,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
@@ -54550,8 +54381,8 @@
      "contagion_weight": 0.0,
      "country": "GB",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
-     "d_spread_bp": 11.73,
+     "d_rate_bp": 15.5,
+     "d_spread_bp": 11.37,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
@@ -54580,8 +54411,8 @@
      "contagion_weight": 0.0,
      "country": "IN",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
-     "d_spread_bp": 11.73,
+     "d_rate_bp": 15.5,
+     "d_spread_bp": 11.37,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
@@ -54610,8 +54441,8 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
-     "d_spread_bp": 49.06,
+     "d_rate_bp": 15.5,
+     "d_spread_bp": 47.54,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
@@ -54640,8 +54471,8 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
-     "d_spread_bp": 11.73,
+     "d_rate_bp": 15.5,
+     "d_spread_bp": 11.37,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
@@ -54670,8 +54501,8 @@
      "contagion_weight": 0.0,
      "country": "TR",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
-     "d_spread_bp": 49.06,
+     "d_rate_bp": 15.5,
+     "d_spread_bp": 47.54,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
@@ -54700,29 +54531,29 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
+     "d_rate_bp": 15.5,
      "d_spread_bp": 0.0,
-     "equity": 513173.75,
+     "equity": 497200.22,
      "equity_return": -0.11,
      "in_scope": false,
      "migration": 0.0,
      "name": "Long TSLA put 90% 0.25y",
-     "pnl": 811035.64,
+     "pnl": 782470.99,
      "position_id": "OP001",
      "rates": 0.0,
      "rating": "",
      "rating_after": "",
      "rating_notches": 0,
-     "second_order": 110073.17,
+     "second_order": 103327.33,
      "sector": "consumer",
      "spread": 0.0,
      "spread_bucket": "IG",
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "TSLA",
-     "value_after": 1848856.07,
+     "value_after": 1820291.42,
      "value_before": 1037820.43,
-     "vol": 187788.73
+     "vol": 181943.44
     },
     {
      "asset_class": "option",
@@ -54730,29 +54561,29 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
+     "d_rate_bp": 15.5,
      "d_spread_bp": 0.0,
-     "equity": 1232270.41,
-     "equity_return": -0.09,
+     "equity": 1193913.6,
+     "equity_return": -0.08,
      "in_scope": false,
      "migration": 0.0,
      "name": "Long AAPL put 95% 0.5y",
-     "pnl": 2249020.04,
+     "pnl": 2171049.1,
      "position_id": "OP002",
      "rates": 0.0,
      "rating": "",
      "rating_after": "",
      "rating_notches": 0,
-     "second_order": 264135.46,
+     "second_order": 247947.92,
      "sector": "technology",
      "spread": 0.0,
      "spread_bucket": "IG",
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "AAPL",
-     "value_after": 4555153.55,
+     "value_after": 4477182.61,
      "value_before": 2306133.51,
-     "vol": 752614.16
+     "vol": 729187.58
     },
     {
      "asset_class": "option",
@@ -54760,29 +54591,29 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
+     "d_rate_bp": 15.5,
      "d_spread_bp": 0.0,
-     "equity": -1041717.62,
-     "equity_return": -0.08,
+     "equity": -1009292.13,
+     "equity_return": -0.07,
      "in_scope": false,
      "migration": 0.0,
      "name": "Long MSFT call 105% 0.5y",
-     "pnl": -263903.5,
+     "pnl": -261043.19,
      "position_id": "OP003",
      "rates": 0.0,
      "rating": "",
      "rating_after": "",
      "rating_notches": 0,
-     "second_order": 177538.07,
+     "second_order": 166657.65,
      "sector": "technology",
      "spread": 0.0,
      "spread_bucket": "IG",
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "MSFT",
-     "value_after": 1542044.65,
+     "value_after": 1544904.96,
      "value_before": 1805948.15,
-     "vol": 600276.05
+     "vol": 581591.29
     },
     {
      "asset_class": "option",
@@ -54790,29 +54621,29 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
+     "d_rate_bp": 15.5,
      "d_spread_bp": 0.0,
-     "equity": 717474.86,
+     "equity": 695142.06,
      "equity_return": -0.09,
      "in_scope": false,
      "migration": 0.0,
      "name": "Short BA call 110% 0.25y",
-     "pnl": 295509.33,
+     "pnl": 290817.16,
      "position_id": "OP004",
      "rates": 0.0,
      "rating": "",
      "rating_after": "",
      "rating_notches": 0,
-     "second_order": -149417.28,
+     "second_order": -140260.24,
      "sector": "industrials",
      "spread": 0.0,
      "spread_bucket": "IG",
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "BA",
-     "value_after": -767315.07,
+     "value_after": -772007.24,
      "value_before": -1062824.4,
-     "vol": -272548.26
+     "vol": -264064.66
     },
     {
      "asset_class": "irs",
@@ -54820,16 +54651,16 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
+     "d_rate_bp": 15.5,
      "d_spread_bp": 0.0,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
      "migration": 0.0,
      "name": "USD IRS payer 7Y",
-     "pnl": 3406098.95,
+     "pnl": 3300077.49,
      "position_id": "SW001",
-     "rates": 3406098.95,
+     "rates": 3300077.49,
      "rating": "",
      "rating_after": "",
      "rating_notches": 0,
@@ -54840,7 +54671,7 @@
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "",
-     "value_after": 2554558.47,
+     "value_after": 2448537.01,
      "value_before": -851540.48,
      "vol": 0.0
     },
@@ -54850,16 +54681,16 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
+     "d_rate_bp": 15.5,
      "d_spread_bp": 0.0,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
      "migration": 0.0,
      "name": "USD IRS payer 3Y",
-     "pnl": 675750.08,
+     "pnl": 654716.05,
      "position_id": "SW002",
-     "rates": 675750.08,
+     "rates": 654716.05,
      "rating": "",
      "rating_after": "",
      "rating_notches": 0,
@@ -54870,7 +54701,7 @@
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "",
-     "value_after": 1025109.2,
+     "value_after": 1004075.17,
      "value_before": 349359.12,
      "vol": 0.0
     },
@@ -54880,16 +54711,16 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
+     "d_rate_bp": 15.5,
      "d_spread_bp": 0.0,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
      "migration": 0.0,
      "name": "USD IRS payer 6Y",
-     "pnl": 2931199.19,
+     "pnl": 2839959.91,
      "position_id": "SW003",
-     "rates": 2931199.19,
+     "rates": 2839959.91,
      "rating": "",
      "rating_after": "",
      "rating_notches": 0,
@@ -54900,7 +54731,7 @@
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "",
-     "value_after": 3716117.56,
+     "value_after": 3624878.28,
      "value_before": 784918.37,
      "vol": 0.0
     },
@@ -54910,16 +54741,16 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
+     "d_rate_bp": 15.5,
      "d_spread_bp": 0.0,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
      "migration": 0.0,
      "name": "USD IRS receiver 8Y",
-     "pnl": -3099002.78,
+     "pnl": -3002540.29,
      "position_id": "SW004",
-     "rates": -3099002.78,
+     "rates": -3002540.29,
      "rating": "",
      "rating_after": "",
      "rating_notches": 0,
@@ -54930,7 +54761,7 @@
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "",
-     "value_after": -2940788.04,
+     "value_after": -2844325.55,
      "value_before": 158214.74,
      "vol": 0.0
     },
@@ -54940,16 +54771,16 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
+     "d_rate_bp": 15.5,
      "d_spread_bp": 0.0,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
      "migration": 0.0,
      "name": "USD IRS receiver 4Y",
-     "pnl": -1114454.82,
+     "pnl": -1079765.25,
      "position_id": "SW005",
-     "rates": -1114454.82,
+     "rates": -1079765.25,
      "rating": "",
      "rating_after": "",
      "rating_notches": 0,
@@ -54960,7 +54791,7 @@
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "",
-     "value_after": -855922.59,
+     "value_after": -821233.02,
      "value_before": 258532.23,
      "vol": 0.0
     },
@@ -54970,16 +54801,16 @@
      "contagion_weight": 0.0,
      "country": "US",
      "d_migration_spread_bp": 0.0,
-     "d_rate_bp": 16.0,
+     "d_rate_bp": 15.5,
      "d_spread_bp": 0.0,
      "equity": 0.0,
      "equity_return": 0.0,
      "in_scope": false,
      "migration": 0.0,
      "name": "USD IRS receiver 3Y",
-     "pnl": -1293337.72,
+     "pnl": -1253080.07,
      "position_id": "SW006",
-     "rates": -1293337.72,
+     "rates": -1253080.07,
      "rating": "",
      "rating_after": "",
      "rating_notches": 0,
@@ -54990,7 +54821,7 @@
      "stage_after": 0,
      "stage_before": 0,
      "ticker": "",
-     "value_after": -1141311.5,
+     "value_after": -1101053.85,
      "value_before": 152026.22,
      "vol": 0.0
     }
@@ -55035,36 +54866,36 @@
     }
    ],
    "shocks_applied": {
-    "equity_market": -0.0613,
+    "equity_market": -0.0594,
     "in_scope": {
      "equity_excess": 0.0,
      "rating_notches": 0,
      "spread_bp": 0.0
     },
-    "multiplier": 0.5333,
-    "rates_bp": 16.0,
+    "multiplier": 0.5167,
+    "rates_bp": 15.5,
     "sector_excess": {
-     "consumer": 0.0032,
-     "energy": -0.0171,
-     "financials": 0.0091,
-     "industrials": -0.0037,
-     "materials": 0.0075,
-     "technology": -0.0064,
-     "utilities": 0.0181
+     "consumer": 0.0031,
+     "energy": -0.0165,
+     "financials": 0.0088,
+     "industrials": -0.0036,
+     "materials": 0.0072,
+     "technology": -0.0062,
+     "utilities": 0.0176
     },
     "source": "2x mean selected 5-day move of the 2013 taper tantrum and the Q4 2018 Fed sell-off (calibrated)",
     "spread_bp": {
-     "HY": 49.06,
-     "IG": 11.73,
+     "HY": 47.54,
+     "IG": 11.37,
      "SAFE": 0.0
     },
-    "vol_pts": 7.15
+    "vol_pts": 6.92
    },
    "t_start": "2022-09-13T01:00:00Z",
    "totals": {
-    "pnl": -47872381.09,
-    "pnl_pct": -0.013127,
-    "value_after": 3599042386.8,
+    "pnl": -46406403.55,
+    "pnl_pct": -0.012725,
+    "value_after": 3600508364.34,
     "value_before": 3646914767.89
    }
   },
@@ -58206,7 +58037,7 @@
    "class": "macroeconomic",
    "cluster_id": "2022-09-21|macroeconomic|macro|central_bank:FED",
    "detected_at": "2022-09-21T08:00:00Z",
-   "explanation": "Triggered by a Macroeconomic event with impact 7.1/10 (confidence 0.97, sentiment -0.10) built from 72 item(s) across 13 outlet(s). Matched rules: MAC-004, MAC-006. Lead item: \"Asian stocks tumble, yields rise as markets brace for aggressive Fed hike\" (thehindubusinessline.com, 2022-09-21). Scope: macro -> Federal Reserve. Shocks at severity multiplier 0.52: equities -5.9% x beta, rates +16bp, IG spreads +11bp, HY spreads +48bp, implied vol +6.9 pts, in-scope add-on +0bp and 0 notch downgrade(s). Portfolio value moves -46.4m (-1.27%). Largest losses: EQ001 Tesla -6.2m; EQ010 Ford -4.3m; EQ002 Apple -4.2m. Loan provisions (IFRS 9 staging): +0.0m, 0 loan(s) moved to stage 2 and 0 to stage 3; for comparison +0.0m on a 1-year view and +0.0m if every loan were on a lifetime view.",
+   "explanation": "Triggered by a Macroeconomic event with impact 7.1/10 (confidence 0.97, sentiment -0.10) built from 72 item(s) across 13 outlet(s). Matched rules: MAC-003, MAC-004, MAC-006. Lead item: \"Asian stocks tumble, yields rise as markets brace for aggressive Fed hike\" (thehindubusinessline.com, 2022-09-21). Scope: macro -> Federal Reserve. Shocks at severity multiplier 0.52: equities -5.9% x beta, rates +16bp, IG spreads +11bp, HY spreads +48bp, implied vol +6.9 pts, in-scope add-on +0bp and 0 notch downgrade(s). Portfolio value moves -46.4m (-1.27%). Largest losses: EQ001 Tesla -6.2m; EQ010 Ford -4.3m; EQ002 Apple -4.2m. Loan provisions (IFRS 9 staging): +0.0m, 0 loan(s) moved to stage 2 and 0 to stage 3; for comparison +0.0m on a 1-year view and +0.0m if every loan were on a lifetime view.",
    "impact": 7.1,
    "in_scope_positions": 0,
    "loan_loss_views": {
@@ -62651,6 +62482,1521 @@
      "asset_class": "bond",
      "equity": 0.0,
      "migration": 0.0,
+     "pnl": 672957.52,
+     "rates": 6588340.2,
+     "second_order": 37521.57,
+     "spread": -5952904.25,
+     "value_after": 1120749137.52,
+     "value_before": 1120076180.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "equity",
+     "equity": -7284780.8,
+     "migration": 0.0,
+     "pnl": -7284780.8,
+     "rates": 0.0,
+     "second_order": 0.0,
+     "spread": 0.0,
+     "value_after": 404515219.2,
+     "value_before": 411800000.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "irs",
+     "equity": 0.0,
+     "migration": 0.0,
+     "pnl": -1035613.59,
+     "rates": -1035613.59,
+     "second_order": 0.0,
+     "spread": 0.0,
+     "value_after": -184103.39,
+     "value_before": 851510.2,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "loan",
+     "equity": 0.0,
+     "migration": 0.0,
+     "pnl": 0.0,
+     "rates": 0.0,
+     "second_order": 0.0,
+     "spread": 0.0,
+     "value_after": 2110100000.0,
+     "value_before": 2110100000.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "option",
+     "equity": 329800.32,
+     "migration": 0.0,
+     "pnl": 735702.59,
+     "rates": 0.0,
+     "second_order": 15501.82,
+     "spread": 0.0,
+     "value_after": 4822780.28,
+     "value_before": 4087077.69,
+     "vol": 390400.45
+    }
+   ],
+   "by_book": [
+    {
+     "book": "banking",
+     "equity": 0.0,
+     "migration": 0.0,
+     "pnl": 0.0,
+     "rates": 0.0,
+     "second_order": 0.0,
+     "spread": 0.0,
+     "value_after": 2110100000.0,
+     "value_before": 2110100000.0,
+     "vol": 0.0
+    },
+    {
+     "book": "fair_value",
+     "equity": -6954980.48,
+     "migration": 0.0,
+     "pnl": -6911734.27,
+     "rates": 5552726.61,
+     "second_order": 53023.4,
+     "spread": -5952904.25,
+     "value_after": 1529903033.62,
+     "value_before": 1536814767.89,
+     "vol": 390400.45
+    }
+   ],
+   "by_factor": {
+    "equity": -6954980.48,
+    "migration": 0.0,
+    "rates": 5552726.61,
+    "second_order": 53023.4,
+    "spread": -5952904.25,
+    "vol": 390400.45
+   },
+   "capital": {
+    "capital_ratio": 0.08,
+    "capital_requirement_change": 0.0,
+    "rwa_after": 2327566290.0,
+    "rwa_before": 2327566290.0,
+    "rwa_change": 0.0
+   },
+   "class": "geopolitical",
+   "cluster_id": "2022-09-22|geopolitical|country|country:IR",
+   "detected_at": "2022-09-22T11:00:00Z",
+   "explanation": "Triggered by a Geopolitical event with impact 7.3/10 (confidence 0.64, sentiment -0.33) built from 11 item(s) across 8 outlet(s). Matched rules: GEO-007. Lead item: \"U.N. Live Updates: Iran's President Accuses U.S. of Militaristic Fixation\" (nytimes.com, 2022-09-21). Scope: country -> Iran. Shocks at severity multiplier 0.55: equities -1.3% x beta, rates -11bp, IG spreads +5bp, HY spreads +24bp, implied vol +2.2 pts, in-scope add-on +138bp and 1 notch downgrade(s). Portfolio value moves -6.9m (-0.19%). Largest losses: SW001 USD IRS payer 7Y -2.3m; SW003 USD IRS payer 6Y -2.0m; EQ001 Tesla -1.7m. Loan provisions (IFRS 9 staging): +0.0m, 0 loan(s) moved to stage 2 and 0 to stage 3; for comparison +0.0m on a 1-year view and +0.0m if every loan were on a lifetime view.",
+   "impact": 7.3,
+   "in_scope_positions": 0,
+   "loan_loss_views": {
+    "fair_value_change": -8301918.22,
+    "ifrs9_provision_change": 0.0,
+    "lifetime_el_change": 0.0,
+    "one_year_el_change": 0.0,
+    "stage2_loans": 0,
+    "stage3_loans": 0
+   },
+   "positions": [
+    {
+     "asset_class": "bond",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 0.0,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Sovereign-US",
+     "pnl": 419569.13,
+     "position_id": "BD001",
+     "rates": 418695.01,
+     "rating": "AA+",
+     "rating_after": "AA+",
+     "rating_notches": 0,
+     "second_order": 874.12,
+     "sector": "sovereign",
+     "spread": 0.0,
+     "spread_bucket": "SAFE",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "",
+     "value_after": 137579249.13,
+     "value_before": 137159680.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "bond",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "DE",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 0.0,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Sovereign-DE",
+     "pnl": 701386.88,
+     "position_id": "BD002",
+     "rates": 697567.04,
+     "rating": "AAA",
+     "rating_after": "AAA",
+     "rating_notches": 0,
+     "second_order": 3819.84,
+     "sector": "sovereign",
+     "spread": 0.0,
+     "spread_bucket": "SAFE",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "",
+     "value_after": 78886526.88,
+     "value_before": 78185140.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "bond",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "IT",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 4.95,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Sovereign-IT",
+     "pnl": 726348.49,
+     "position_id": "BD003",
+     "rates": 1316668.12,
+     "rating": "BBB",
+     "rating_after": "BBB",
+     "rating_notches": 0,
+     "second_order": 2181.03,
+     "sector": "sovereign",
+     "spread": -592500.65,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "",
+     "value_after": 148301958.49,
+     "value_before": 147575610.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "bond",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "RU",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 4.95,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Sovereign-RU",
+     "pnl": 188279.09,
+     "position_id": "BD004",
+     "rates": 341838.22,
+     "rating": "BBB-",
+     "rating_after": "BBB-",
+     "rating_notches": 0,
+     "second_order": 268.07,
+     "sector": "sovereign",
+     "spread": -153827.2,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "",
+     "value_after": 85800009.09,
+     "value_before": 85611730.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "bond",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "TR",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 24.2,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Sovereign-TR",
+     "pnl": -616825.71,
+     "position_id": "BD005",
+     "rates": 517988.68,
+     "rating": "B+",
+     "rating_after": "B+",
+     "rating_notches": 0,
+     "second_order": 4760.7,
+     "sector": "sovereign",
+     "spread": -1139575.1,
+     "spread_bucket": "HY",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "",
+     "value_after": 49558324.29,
+     "value_before": 50175150.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "bond",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 4.95,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Obligor-ENR-US-02",
+     "pnl": 743286.28,
+     "position_id": "BD006",
+     "rates": 1347371.63,
+     "rating": "BBB+",
+     "rating_after": "BBB+",
+     "rating_notches": 0,
+     "second_order": 2231.89,
+     "sector": "energy",
+     "spread": -606317.23,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "",
+     "value_after": 151760226.28,
+     "value_before": 151016940.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "bond",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "GB",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 4.95,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Obligor-ENR-GB-01",
+     "pnl": 378077.95,
+     "position_id": "BD007",
+     "rates": 685350.33,
+     "rating": "A",
+     "rating_after": "A",
+     "rating_notches": 0,
+     "second_order": 1135.27,
+     "sector": "energy",
+     "spread": -308407.65,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "",
+     "value_after": 77193937.95,
+     "value_before": 76815860.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "bond",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 4.95,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Obligor-FIN-US-01",
+     "pnl": -70048.22,
+     "position_id": "BD008",
+     "rates": 12675.66,
+     "rating": "A-",
+     "rating_after": "A-",
+     "rating_notches": 0,
+     "second_order": 96.62,
+     "sector": "financials",
+     "spread": -82820.5,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "",
+     "value_after": 46023271.78,
+     "value_before": 46093320.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "bond",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "FR",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 4.95,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Obligor-FIN-FR-01",
+     "pnl": -259336.04,
+     "position_id": "BD009",
+     "rates": 16367.41,
+     "rating": "A",
+     "rating_after": "A",
+     "rating_notches": 0,
+     "second_order": 794.13,
+     "sector": "financials",
+     "spread": -276497.58,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "",
+     "value_after": 59258513.96,
+     "value_before": 59517850.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "bond",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "FR",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 4.95,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Obligor-UTL-FR-01",
+     "pnl": 440477.97,
+     "position_id": "BD010",
+     "rates": 799294.75,
+     "rating": "BBB",
+     "rating_after": "BBB",
+     "rating_notches": 0,
+     "second_order": 865.85,
+     "sector": "utilities",
+     "spread": -359682.64,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "",
+     "value_after": 139055077.97,
+     "value_before": 138614600.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "bond",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "PL",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 24.2,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Obligor-MAT-PL-01",
+     "pnl": -493670.16,
+     "position_id": "BD011",
+     "rates": 413167.3,
+     "rating": "BB",
+     "rating_after": "BB",
+     "rating_notches": 0,
+     "second_order": 2130.6,
+     "sector": "materials",
+     "spread": -908968.06,
+     "spread_bucket": "HY",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "",
+     "value_after": 71158269.84,
+     "value_before": 71651940.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "bond",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 24.2,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Obligor-CON-US-01",
+     "pnl": -1484588.13,
+     "position_id": "BD012",
+     "rates": 21356.05,
+     "rating": "BB-",
+     "rating_after": "BB-",
+     "rating_notches": 0,
+     "second_order": 18363.46,
+     "sector": "consumer",
+     "spread": -1524307.64,
+     "spread_bucket": "HY",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "",
+     "value_after": 76173771.87,
+     "value_before": 77658360.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "equity",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 0.0,
+     "equity": -1668233.6,
+     "equity_return": -0.03,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Tesla",
+     "pnl": -1668233.6,
+     "position_id": "EQ001",
+     "rates": 0.0,
+     "rating": "",
+     "rating_after": "",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "consumer",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "TSLA",
+     "value_after": 55431766.4,
+     "value_before": 57100000.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "equity",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 0.0,
+     "equity": -807980.8,
+     "equity_return": -0.02,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Apple",
+     "pnl": -807980.8,
+     "position_id": "EQ002",
+     "rates": 0.0,
+     "rating": "",
+     "rating_after": "",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "technology",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "AAPL",
+     "value_after": 49092019.2,
+     "value_before": 49900000.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "equity",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 0.0,
+     "equity": -639232.0,
+     "equity_return": -0.01,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Microsoft",
+     "pnl": -639232.0,
+     "position_id": "EQ003",
+     "rates": 0.0,
+     "rating": "",
+     "rating_after": "",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "technology",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "MSFT",
+     "value_after": 44760768.0,
+     "value_before": 45400000.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "equity",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 0.0,
+     "equity": -830262.4,
+     "equity_return": -0.02,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Amazon",
+     "pnl": -830262.4,
+     "position_id": "EQ004",
+     "rates": 0.0,
+     "rating": "",
+     "rating_after": "",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "consumer",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "AMZN",
+     "value_after": 44969737.6,
+     "value_before": 45800000.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "equity",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "TW",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 0.0,
+     "equity": -555130.4,
+     "equity_return": -0.02,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "TSMC",
+     "pnl": -555130.4,
+     "position_id": "EQ005",
+     "rates": 0.0,
+     "rating": "",
+     "rating_after": "",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "technology",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "TSM",
+     "value_after": 31144869.6,
+     "value_before": 31700000.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "equity",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 0.0,
+     "equity": -284367.6,
+     "equity_return": -0.02,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Meta Platforms",
+     "pnl": -284367.6,
+     "position_id": "EQ006",
+     "rates": 0.0,
+     "rating": "",
+     "rating_after": "",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "communication",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "META",
+     "value_after": 16415632.4,
+     "value_before": 16700000.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "equity",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 0.0,
+     "equity": -454740.0,
+     "equity_return": -0.01,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Coca-Cola",
+     "pnl": -454740.0,
+     "position_id": "EQ007",
+     "rates": 0.0,
+     "rating": "",
+     "rating_after": "",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "consumer",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "KO",
+     "value_after": 38545260.0,
+     "value_before": 39000000.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "equity",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 0.0,
+     "equity": -549507.2,
+     "equity_return": -0.02,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Boeing",
+     "pnl": -549507.2,
+     "position_id": "EQ008",
+     "rates": 0.0,
+     "rating": "",
+     "rating_after": "",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "industrials",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "BA",
+     "value_after": 26250492.8,
+     "value_before": 26800000.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "equity",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 0.0,
+     "equity": -234300.0,
+     "equity_return": -0.01,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Northrop Grumman",
+     "pnl": -234300.0,
+     "position_id": "EQ009",
+     "rates": 0.0,
+     "rating": "",
+     "rating_after": "",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "industrials",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "NOC",
+     "value_after": 37265700.0,
+     "value_before": 37500000.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "equity",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 0.0,
+     "equity": -1261026.8,
+     "equity_return": -0.02,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Ford",
+     "pnl": -1261026.8,
+     "position_id": "EQ010",
+     "rates": 0.0,
+     "rating": "",
+     "rating_after": "",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "consumer",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "F",
+     "value_after": 60638973.2,
+     "value_before": 61900000.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "loan",
+     "book": "banking",
+     "contagion_weight": 0.0,
+     "country": "RU",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 24.2,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Obligor-ENR-RU-01",
+     "pnl": 0.0,
+     "position_id": "LN001",
+     "rates": 0.0,
+     "rating": "BB+",
+     "rating_after": "BB+",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "energy",
+     "spread": 0.0,
+     "spread_bucket": "HY",
+     "stage_after": 1,
+     "stage_before": 1,
+     "ticker": "",
+     "value_after": 214800000.0,
+     "value_before": 214800000.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "loan",
+     "book": "banking",
+     "contagion_weight": 0.0,
+     "country": "RU",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 4.95,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Obligor-FIN-RU-01",
+     "pnl": 0.0,
+     "position_id": "LN002",
+     "rates": 0.0,
+     "rating": "BBB-",
+     "rating_after": "BBB-",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "financials",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 1,
+     "stage_before": 1,
+     "ticker": "",
+     "value_after": 231700000.0,
+     "value_before": 231700000.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "loan",
+     "book": "banking",
+     "contagion_weight": 0.0,
+     "country": "DE",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 4.95,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Obligor-ENR-DE-01",
+     "pnl": 0.0,
+     "position_id": "LN003",
+     "rates": 0.0,
+     "rating": "A-",
+     "rating_after": "A-",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "energy",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 1,
+     "stage_before": 1,
+     "ticker": "",
+     "value_after": 199500000.0,
+     "value_before": 199500000.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "loan",
+     "book": "banking",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 4.95,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Obligor-ENR-US-01",
+     "pnl": 0.0,
+     "position_id": "LN004",
+     "rates": 0.0,
+     "rating": "BBB",
+     "rating_after": "BBB",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "energy",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 1,
+     "stage_before": 1,
+     "ticker": "",
+     "value_after": 255100000.0,
+     "value_before": 255100000.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "loan",
+     "book": "banking",
+     "contagion_weight": 0.0,
+     "country": "DE",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 4.95,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Obligor-UTL-DE-01",
+     "pnl": 0.0,
+     "position_id": "LN005",
+     "rates": 0.0,
+     "rating": "BBB+",
+     "rating_after": "BBB+",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "utilities",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 1,
+     "stage_before": 1,
+     "ticker": "",
+     "value_after": 212200000.0,
+     "value_before": 212200000.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "loan",
+     "book": "banking",
+     "contagion_weight": 0.0,
+     "country": "PL",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 4.95,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Obligor-IND-PL-01",
+     "pnl": 0.0,
+     "position_id": "LN006",
+     "rates": 0.0,
+     "rating": "BBB-",
+     "rating_after": "BBB-",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "industrials",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 1,
+     "stage_before": 1,
+     "ticker": "",
+     "value_after": 85600000.0,
+     "value_before": 85600000.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "loan",
+     "book": "banking",
+     "contagion_weight": 0.0,
+     "country": "UA",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 24.2,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Obligor-MAT-UA-01",
+     "pnl": 0.0,
+     "position_id": "LN007",
+     "rates": 0.0,
+     "rating": "B",
+     "rating_after": "B",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "materials",
+     "spread": 0.0,
+     "spread_bucket": "HY",
+     "stage_after": 1,
+     "stage_before": 1,
+     "ticker": "",
+     "value_after": 150100000.0,
+     "value_before": 150100000.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "loan",
+     "book": "banking",
+     "contagion_weight": 0.0,
+     "country": "GB",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 4.95,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Obligor-FIN-GB-01",
+     "pnl": 0.0,
+     "position_id": "LN008",
+     "rates": 0.0,
+     "rating": "A",
+     "rating_after": "A",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "financials",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 1,
+     "stage_before": 1,
+     "ticker": "",
+     "value_after": 245400000.0,
+     "value_before": 245400000.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "loan",
+     "book": "banking",
+     "contagion_weight": 0.0,
+     "country": "IN",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 4.95,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Obligor-CON-IN-01",
+     "pnl": 0.0,
+     "position_id": "LN009",
+     "rates": 0.0,
+     "rating": "BBB-",
+     "rating_after": "BBB-",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "consumer",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 1,
+     "stage_before": 1,
+     "ticker": "",
+     "value_after": 188800000.0,
+     "value_before": 188800000.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "loan",
+     "book": "banking",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 24.2,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Obligor-REA-US-01",
+     "pnl": 0.0,
+     "position_id": "LN010",
+     "rates": 0.0,
+     "rating": "BB",
+     "rating_after": "BB",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "real_estate",
+     "spread": 0.0,
+     "spread_bucket": "HY",
+     "stage_after": 1,
+     "stage_before": 1,
+     "ticker": "",
+     "value_after": 148700000.0,
+     "value_before": 148700000.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "loan",
+     "book": "banking",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 4.95,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Obligor-TEC-US-01",
+     "pnl": 0.0,
+     "position_id": "LN011",
+     "rates": 0.0,
+     "rating": "A+",
+     "rating_after": "A+",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "technology",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 1,
+     "stage_before": 1,
+     "ticker": "",
+     "value_after": 105400000.0,
+     "value_before": 105400000.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "loan",
+     "book": "banking",
+     "contagion_weight": 0.0,
+     "country": "TR",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 24.2,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Obligor-IND-TR-01",
+     "pnl": 0.0,
+     "position_id": "LN012",
+     "rates": 0.0,
+     "rating": "B+",
+     "rating_after": "B+",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "industrials",
+     "spread": 0.0,
+     "spread_bucket": "HY",
+     "stage_after": 1,
+     "stage_before": 1,
+     "ticker": "",
+     "value_after": 72800000.0,
+     "value_before": 72800000.0,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "option",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 0.0,
+     "equity": 133746.03,
+     "equity_return": -0.03,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Long TSLA put 90% 0.25y",
+     "pnl": 199034.51,
+     "position_id": "OP001",
+     "rates": 0.0,
+     "rating": "",
+     "rating_after": "",
+     "rating_notches": 0,
+     "second_order": 7476.78,
+     "sector": "consumer",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "TSLA",
+     "value_after": 1236854.94,
+     "value_before": 1037820.43,
+     "vol": 57811.71
+    },
+    {
+     "asset_class": "option",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 0.0,
+     "equity": 230028.09,
+     "equity_return": -0.02,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Long AAPL put 95% 0.5y",
+     "pnl": 470928.16,
+     "position_id": "OP002",
+     "rates": 0.0,
+     "rating": "",
+     "rating_after": "",
+     "rating_notches": 0,
+     "second_order": 9204.0,
+     "sector": "technology",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "AAPL",
+     "value_after": 2777061.67,
+     "value_before": 2306133.51,
+     "vol": 231696.08
+    },
+    {
+     "asset_class": "option",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 0.0,
+     "equity": -190662.49,
+     "equity_return": -0.01,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Long MSFT call 105% 0.5y",
+     "pnl": 82.86,
+     "position_id": "OP003",
+     "rates": 0.0,
+     "rating": "",
+     "rating_after": "",
+     "rating_notches": 0,
+     "second_order": 5947.33,
+     "sector": "technology",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "MSFT",
+     "value_after": 1806031.01,
+     "value_before": 1805948.15,
+     "vol": 184798.02
+    },
+    {
+     "asset_class": "option",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 0.0,
+     "equity": 156688.7,
+     "equity_return": -0.02,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "Short BA call 110% 0.25y",
+     "pnl": 65657.06,
+     "position_id": "OP004",
+     "rates": 0.0,
+     "rating": "",
+     "rating_after": "",
+     "rating_notches": 0,
+     "second_order": -7126.28,
+     "sector": "industrials",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "BA",
+     "value_after": -997167.34,
+     "value_before": -1062824.4,
+     "vol": -83905.36
+    },
+    {
+     "asset_class": "irs",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 0.0,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "USD IRS payer 7Y",
+     "pnl": -2341839.39,
+     "position_id": "SW001",
+     "rates": -2341839.39,
+     "rating": "",
+     "rating_after": "",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "rates",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "",
+     "value_after": -3193379.87,
+     "value_before": -851540.48,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "irs",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 0.0,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "USD IRS payer 3Y",
+     "pnl": -464607.22,
+     "position_id": "SW002",
+     "rates": -464607.22,
+     "rating": "",
+     "rating_after": "",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "rates",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "",
+     "value_after": -115248.1,
+     "value_before": 349359.12,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "irs",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 0.0,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "USD IRS payer 6Y",
+     "pnl": -2015325.4,
+     "position_id": "SW003",
+     "rates": -2015325.4,
+     "rating": "",
+     "rating_after": "",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "rates",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "",
+     "value_after": -1230407.03,
+     "value_before": 784918.37,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "irs",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 0.0,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "USD IRS receiver 8Y",
+     "pnl": 2130697.58,
+     "position_id": "SW004",
+     "rates": 2130697.58,
+     "rating": "",
+     "rating_after": "",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "rates",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "",
+     "value_after": 2288912.32,
+     "value_before": 158214.74,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "irs",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 0.0,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "USD IRS receiver 4Y",
+     "pnl": 766235.58,
+     "position_id": "SW005",
+     "rates": 766235.58,
+     "rating": "",
+     "rating_after": "",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "rates",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "",
+     "value_after": 1024767.81,
+     "value_before": 258532.23,
+     "vol": 0.0
+    },
+    {
+     "asset_class": "irs",
+     "book": "fair_value",
+     "contagion_weight": 0.0,
+     "country": "US",
+     "d_migration_spread_bp": 0.0,
+     "d_rate_bp": -11.0,
+     "d_spread_bp": 0.0,
+     "equity": 0.0,
+     "equity_return": 0.0,
+     "in_scope": false,
+     "migration": 0.0,
+     "name": "USD IRS receiver 3Y",
+     "pnl": 889225.26,
+     "position_id": "SW006",
+     "rates": 889225.26,
+     "rating": "",
+     "rating_after": "",
+     "rating_notches": 0,
+     "second_order": 0.0,
+     "sector": "rates",
+     "spread": 0.0,
+     "spread_bucket": "IG",
+     "stage_after": 0,
+     "stage_before": 0,
+     "ticker": "",
+     "value_after": 1041251.48,
+     "value_before": 152026.22,
+     "vol": 0.0
+    }
+   ],
+   "scope": "country",
+   "scope_targets": [
+    "country:IR"
+   ],
+   "severity_curve": [
+    {
+     "impact": 7.0,
+     "multiplier": 0.5,
+     "pnl": -6287776.89
+    },
+    {
+     "impact": 7.5,
+     "multiplier": 0.5833,
+     "pnl": -7326803.67
+    },
+    {
+     "impact": 8.0,
+     "multiplier": 0.6667,
+     "pnl": -8364640.85
+    },
+    {
+     "impact": 8.5,
+     "multiplier": 0.75,
+     "pnl": -9398799.6
+    },
+    {
+     "impact": 9.0,
+     "multiplier": 0.8333,
+     "pnl": -10430525.8
+    },
+    {
+     "impact": 9.5,
+     "multiplier": 0.9167,
+     "pnl": -11461053.63
+    },
+    {
+     "impact": 10.0,
+     "multiplier": 1.0,
+     "pnl": -12487911.81
+    }
+   ],
+   "shocks_applied": {
+    "equity_market": -0.0132,
+    "in_scope": {
+     "equity_excess": -0.0825,
+     "rating_notches": 1,
+     "spread_bp": 137.5
+    },
+    "multiplier": 0.55,
+    "rates_bp": -11.0,
+    "sector_excess": {
+     "consumer": -0.0044,
+     "energy": -0.0022,
+     "financials": -0.005,
+     "industrials": -0.0011,
+     "materials": -0.005,
+     "technology": 0.0011,
+     "utilities": 0.0248
+    },
+    "source": "2x mean worst 5-day move of Crimea 2014, North Korea Aug 2017, Soleimani Jan 2020 (calibrated); in-scope add-ons are judgement",
+    "spread_bp": {
+     "HY": 24.2,
+     "IG": 4.95,
+     "SAFE": 0.0
+    },
+    "vol_pts": 2.2
+   },
+   "t_start": "2022-09-22T01:00:00Z",
+   "totals": {
+    "pnl": -6911734.27,
+    "pnl_pct": -0.001895,
+    "value_after": 3640003033.62,
+    "value_before": 3646914767.89
+   }
+  },
+  {
+   "by_asset_class": [
+    {
+     "asset_class": "bond",
+     "equity": 0.0,
+     "migration": 0.0,
      "pnl": -21394202.18,
      "rates": -9284169.22,
      "second_order": 373828.6,
@@ -64267,7 +65613,7 @@
    "class": "commodity_energy",
    "cluster_id": "2022-09-29|commodity_energy|sector|commodity:gas",
    "detected_at": "2022-09-29T20:00:00Z",
-   "explanation": "Triggered by a Commodity/Energy event with impact 7.1/10 (confidence 0.65, sentiment -0.17) built from 6 item(s) across 6 outlet(s). Matched rules: COM-001. Lead item: \"EIA data show a bigger-than-expected weekly climb in U.S. natural-gas supplies\" (marketwatch.com, 2022-09-29). Scope: sector -> Natural Gas. Shocks at severity multiplier 0.52: equities -1.1% x beta, rates -14bp, IG spreads +0bp, HY spreads +27bp, implied vol +3.8 pts, in-scope add-on +0bp and 0 notch downgrade(s). Portfolio value moves -5.7m (-0.16%). Largest losses: SW001 USD IRS payer 7Y -3.1m; SW003 USD IRS payer 6Y -2.7m; EQ001 Tesla -1.9m. Loan provisions (IFRS 9 staging): +0.0m, 0 loan(s) moved to stage 2 and 0 to stage 3; for comparison +0.0m on a 1-year view and +0.0m if every loan were on a lifetime view.",
+   "explanation": "Triggered by a Commodity/Energy event with impact 7.1/10 (confidence 0.65, sentiment -0.17) built from 6 item(s) across 6 outlet(s). Matched rules: COM-001. Lead item: \"Nord Stream leak: West shores up pipeline security, blaming Russia 'sabotage'\" (bbc.co.uk, 2022-09-28). Scope: sector -> Natural Gas. Shocks at severity multiplier 0.52: equities -1.1% x beta, rates -14bp, IG spreads +0bp, HY spreads +27bp, implied vol +3.8 pts, in-scope add-on +0bp and 0 notch downgrade(s). Portfolio value moves -5.7m (-0.16%). Largest losses: SW001 USD IRS payer 7Y -3.1m; SW003 USD IRS payer 6Y -2.7m; EQ001 Tesla -1.9m. Loan provisions (IFRS 9 staging): +0.0m, 0 loan(s) moved to stage 2 and 0 to stage 3; for comparison +0.0m on a 1-year view and +0.0m if every loan were on a lifetime view.",
    "impact": 7.1,
    "in_scope_positions": 1,
    "loan_loss_views": {

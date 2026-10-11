@@ -1,14 +1,11 @@
 import numpy as np
 import pandas as pd
 
-from src.stress.shocks import rating_table
+from src.stress.shocks import rating_table, shock_config
 
 FACTORS = ["rates", "spread", "migration", "equity", "vol", "second_order"]
 BP = 1e-4
 BANKING_BOOK = {"loan"}
-SICR_NOTCHES = 3
-DEFAULT_NOTCH = 16
-CAPITAL_RATIO = 0.08
 
 
 def lifetime_pd(one_year_pd: np.ndarray, years: np.ndarray) -> np.ndarray:
@@ -17,10 +14,13 @@ def lifetime_pd(one_year_pd: np.ndarray, years: np.ndarray) -> np.ndarray:
 
 def ifrs9_stages(portfolio: pd.DataFrame, shocks: pd.DataFrame) -> tuple[np.ndarray, np.ndarray]:
     table = rating_table()
+    settings = shock_config()["valuation"]
+    floor = table.loc[settings["investment_grade_floor"], "notch_index"]
+    impaired = table.loc[settings["stage3_from_rating"], "notch_index"]
     before = portfolio["rating"].map(table["notch_index"]).fillna(-1).to_numpy()
     after = shocks["rating_after"].map(table["notch_index"]).fillna(-1).to_numpy()
-    crossed = (before <= table.loc["BBB-", "notch_index"]) & (after > table.loc["BBB-", "notch_index"])
-    stage_after = np.where(after >= DEFAULT_NOTCH, 3, np.where((after - before >= SICR_NOTCHES) | crossed, 2, 1))
+    crossed = (before <= floor) & (after > floor)
+    stage_after = np.where(after >= impaired, 3, np.where((after - before >= settings["sicr_notches"]) | crossed, 2, 1))
     return np.ones(len(portfolio), dtype=int), stage_after
 
 
@@ -109,7 +109,8 @@ def loan_one_year_el_change(portfolio: pd.DataFrame, shocks: pd.DataFrame) -> fl
     return float(-np.sum(np.where(is_loan, exposure * (shocks["pd_after"].to_numpy() - shocks["pd_before"].to_numpy()), 0.0)))
 
 
-def loan_fair_value_change(portfolio: pd.DataFrame, shocks: pd.DataFrame, annual_yield: float = 0.04) -> float:
+def loan_fair_value_change(portfolio: pd.DataFrame, shocks: pd.DataFrame) -> float:
+    annual_yield = shock_config()["valuation"]["loan_discount_yield"]
     is_loan = (portfolio["asset_class"] == "loan").to_numpy()
     years = np.maximum(portfolio["maturity_years"].to_numpy(), 1.0)
     duration = (1.0 - (1.0 + annual_yield) ** -years) / annual_yield
@@ -130,10 +131,11 @@ def capital_view(portfolio: pd.DataFrame, shocks: pd.DataFrame) -> dict:
     exposure = np.where(portfolio["asset_class"] == "loan", portfolio["ead_usd"], portfolio["market_value_usd"]).astype(float)
     before = np.where(credit, exposure * risk_weights(portfolio, portfolio["rating"]), 0.0)
     after = np.where(credit, exposure * risk_weights(portfolio, shocks["rating_after"]), 0.0)
+    capital_ratio = shock_config()["valuation"]["capital_ratio"]
     return {
         "rwa_before": float(before.sum()),
         "rwa_after": float(after.sum()),
         "rwa_change": float(after.sum() - before.sum()),
-        "capital_requirement_change": float(CAPITAL_RATIO * (after.sum() - before.sum())),
-        "capital_ratio": CAPITAL_RATIO,
+        "capital_requirement_change": float(capital_ratio * (after.sum() - before.sum())),
+        "capital_ratio": capital_ratio,
     }
