@@ -3,7 +3,7 @@
 **Candidate Name:** Aishwary S Panwar\
 **College Email ID:** aishwary23055@iiitd.ac.in\
 **College / Campus:** IIIT Delhi\
-**Demo Video Link:** _to be added_\
+**Demo Video Link:** [https://youtu.be/uK4cBY0dWk8](https://youtu.be/uK4cBY0dWk8) (YouTube, unlisted)\
 **Slide Deck Link (if hosted externally):** not hosted externally; the deck is [docs/presentation.pdf](docs/presentation.pdf)
 
 ![Ripple dashboard: world map of the news and the 72-hour risk gauge during the Russia-Ukraine window](docs/screenshots/overview-dark.jpg)
