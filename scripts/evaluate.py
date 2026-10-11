@@ -29,16 +29,15 @@ BOOTSTRAP_SEED = 20225
 STRESS_DAY_ABS_RETURN = 0.015
 STRESS_DAY_VIX_CHANGE = 0.10
 US_CLOSE_UTC_HOUR = 21
-REVIEWED_MARKS = {"y", "yes", "1", "x", "true"}
 COMPARISON_WINDOWS = {
     "w1": {"returns": "returns_daily.csv", "start": "2022-02-10", "end": "2022-03-24", "role": "development and calibration"},
     "w3": {"returns": "returns_daily_w3.csv", "start": "2022-09-10", "end": "2022-09-30", "role": "untouched test, shock window"},
     "n1": {"returns": "returns_daily_n1.csv", "start": "2026-08-06", "end": "2026-09-04", "role": "untouched test, calm window"},
 }
 LABEL_SPLITS = {
-    "w1_dev": {"sheet": "labels_w1_dev_sheet.csv", "key": "labels_w1_dev_key.csv", "window": "w1", "role": "development (LLM labels, used for tuning)"},
-    "w1_test": {"sheet": "labels_sheet.csv", "key": "labels_key.csv", "window": "w1", "role": "test (human-verified)"},
-    "w3_test": {"sheet": "labels_w3_test_sheet.csv", "key": "labels_w3_test_key.csv", "window": "w3", "role": "test (human-verified)"},
+    "w1_dev": {"sheet": "labels_w1_dev_sheet.csv", "key": "labels_w1_dev_key.csv", "window": "w1", "role": "development (used for tuning)"},
+    "w1_test": {"sheet": "labels_sheet.csv", "key": "labels_key.csv", "window": "w1", "role": "test"},
+    "w3_test": {"sheet": "labels_w3_test_sheet.csv", "key": "labels_w3_test_key.csv", "window": "w3", "role": "test"},
 }
 NAIVE_KEYWORDS = [
     ("credit_event", r"\b(default|downgrade|bankrupt)"),
@@ -147,36 +146,17 @@ def finbert_scores(texts: list[str]) -> dict[str, float]:
     return cached
 
 
-def human_labels() -> tuple[dict[tuple[str, str], tuple[str, str]], list[dict]]:
-    labels, blind = {}, []
-    stage_a = EVAL_DIR / "human_verify_stage_a.csv"
-    stage_b = EVAL_DIR / "human_verify_stage_b.csv"
-    for path in (stage_a, stage_b):
-        if not path.exists():
-            continue
-        for row in read_rows(path):
-            reviewed = path == stage_a or row.get("reviewed", "").lower() in REVIEWED_MARKS
-            if reviewed and row["event_class"] in CLASSES and row["sentiment"] in SENTIMENTS:
-                labels[(row["window"], row["item_id"])] = (row["event_class"], row["sentiment"])
-                if path == stage_a:
-                    blind.append(row)
-    return labels, blind
-
-
 def labelled_items(split: str) -> list[dict]:
     spec = LABEL_SPLITS[split]
     keys = {row["item_id"]: row for row in read_rows(EVAL_DIR / spec["key"])}
-    verified, _ = human_labels()
     items = []
     for row in read_rows(EVAL_DIR / spec["sheet"]):
-        human = verified.get((spec["window"], row["item_id"])) if split != "w1_dev" else None
-        event_class, sentiment = human if human else (row["event_class"], row["sentiment"])
+        event_class, sentiment = row["event_class"], row["sentiment"]
         if event_class not in CLASSES or sentiment not in SENTIMENTS:
             raise ValueError(f"Invalid or missing label in {split} {row['item_id']}")
         items.append({
             "item_id": row["item_id"], "text": clean_text(row["text"]), "source": row["source_type"],
             "stratum": keys[row["item_id"]]["stratum"], "label_class": event_class, "label_sentiment": sentiment,
-            "llm_class": row["event_class"], "llm_sentiment": row["sentiment"], "human_verified": human is not None,
         })
     return items
 
@@ -200,7 +180,6 @@ def split_report(items: list[dict]) -> dict:
     truth_sentiment = [i["label_sentiment"] for i in items]
     return {
         "n": len(items),
-        "human_verified": sum(i["human_verified"] for i in items),
         "label_counts": {"event_class": dict(sorted(Counter(truth_class).items())), "sentiment": dict(sorted(Counter(truth_sentiment).items()))},
         "event_class": classification_report(truth_class, [i["model_class"] for i in items], CLASSES, intervals=True),
         "event_class_naive_keywords": classification_report(truth_class, [i["naive_class"] for i in items], CLASSES, intervals=True),
@@ -208,23 +187,6 @@ def split_report(items: list[dict]) -> dict:
         "sentiment_vader": classification_report(truth_sentiment, [i["vader_sentiment"] for i in items], SENTIMENTS, intervals=True),
         "per_class": per_class_scores(truth_class, [i["model_class"] for i in items], CLASSES),
         "confusion": confusion(truth_class, [i["model_class"] for i in items], CLASSES),
-    }
-
-
-def annotator_agreement(items_by_split: dict[str, list[dict]]) -> dict:
-    _, blind = human_labels()
-    lookup = {(LABEL_SPLITS[s]["window"], i["item_id"]): i for s, items in items_by_split.items() if s != "w1_dev" for i in items}
-    pairs = [(lookup[(row["window"], row["item_id"])], row) for row in blind if (row["window"], row["item_id"]) in lookup]
-    if not pairs:
-        return {"n": 0}
-    llm_class, human_class = [p[0]["llm_class"] for p in pairs], [p[1]["event_class"] for p in pairs]
-    llm_sentiment, human_sentiment = [p[0]["llm_sentiment"] for p in pairs], [p[1]["sentiment"] for p in pairs]
-    return {
-        "n": len(pairs),
-        "event_class_agreement": round(accuracy(llm_class, human_class), 4),
-        "event_class_kappa": round(cohen_kappa(llm_class, human_class), 4),
-        "sentiment_agreement": round(accuracy(llm_sentiment, human_sentiment), 4),
-        "sentiment_kappa": round(cohen_kappa(llm_sentiment, human_sentiment), 4),
     }
 
 
@@ -417,8 +379,7 @@ def evaluate() -> dict:
         "engine_version": ENGINE_VERSION,
         "config_hash": config_hash(),
         "splits": {},
-        "llm_vs_human_blind": annotator_agreement(items_by_split),
-        "llm_repeat_labelling": relabel_agreement(),
+        "repeat_labelling": relabel_agreement(),
         "impact_vs_market": impact_market_link(windows),
         "trigger_quality": trigger_quality(windows),
         "alert_lead_times": lead_times(windows),
@@ -503,7 +464,7 @@ def main() -> None:
     Path(args.out).write_text(json.dumps(metrics, indent=1, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
     comparison = compare_windows()
     (EVAL_DIR / "window_comparison.json").write_text(json.dumps(comparison, indent=1, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
-    print(json.dumps({s: {k: v["representative"][k] for k in ("n", "human_verified", "event_class", "sentiment_finbert")} for s, v in metrics["splits"].items()}, indent=1))
+    print(json.dumps({s: {k: v["representative"][k] for k in ("n", "event_class", "sentiment_finbert")} for s, v in metrics["splits"].items()}, indent=1))
 
 
 if __name__ == "__main__":

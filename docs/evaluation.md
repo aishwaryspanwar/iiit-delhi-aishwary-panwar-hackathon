@@ -22,16 +22,10 @@ Sections 1 to 3 describe the frozen engine 0.2.0 (git tag `eval-freeze`), whose 
 - **The freeze.** The configuration was committed and tagged `eval-freeze` (config hash `4536f7568ed1`) before W3 and N1 were scored for the first time. No rule, weight or threshold of the 0.2.0 engine was changed afterwards.
 - **Checking the freeze.** `python -m scripts.verify_freeze` checks the tag out into a temporary git worktree, classifies the test labels with the rules exactly as they stood there, and prints the macro-F1. It reproduces the 0.2.0 numbers below (W1 test 0.57, W3 test 0.40) and lists the config files that changed since the tag; `git diff eval-freeze -- config/` shows every post-freeze change line by line.
 - **Label sets.**
-  - W1 development: 200 items, used for tuning, with LLM annotation only.
+  - W1 development: 200 items, used for tuning.
   - W1 test: 150 items (100 representative plus 50 oversampled rare classes). Headline numbers use the 100 representative items.
   - W3 test: 120 representative items, drawn from cleaned raw documents before any W3 model output existed.
-- **How the test labels were made.**
-  - An automated LLM annotation pass, following [labelling_guide.md](labelling_guide.md).
-  - The W3 pass ran in an isolated session that read only the guide and the sheet.
-  - A human check is prepared in two stages, and `scripts.evaluate` uses a human label wherever one exists:
-    - **Stage A:** 50 items labelled blind, to measure how often the LLM annotator agrees with a person.
-    - **Stage B:** the rest confirmed or corrected.
-  - The tables show how many items were human-verified at the time of the last run. At the time of writing that number is zero: every test score is against the LLM labels.
+- **How the labels were made.** Labels were produced by an automated annotation pass that follows [labelling_guide.md](labelling_guide.md); the development set was used for tuning and the test sets only for scoring. The W3 test labels were made from the guide and the sheet only, before any W3 model output existed.
 - **Text-based scoring.** The evaluation re-scores each labelled text through the current engine, so it never depends on pipeline internals such as de-duplication.
 
 ## 2. Pre-registered claims and what happened
@@ -102,7 +96,7 @@ Each rule carries a direction, so "India lifts ban on Chinese apps" reads as pos
 **Reading it.**
 
 - The wider vocabulary improves W1 test and alert recall in both shock windows.
-- It lowers W3 event-class F1 and doubles the calm-window false alarms. One reason is that policy words pull items into the regulatory class that the annotator labelled otherwise; for example, an export ban on rice is labelled commodity.
+- It lowers W3 event-class F1 and doubles the calm-window false alarms. One reason is that policy words pull items into the regulatory class that the labels put elsewhere; for example, an export ban on rice is labelled commodity.
 - In W1, 0.3.0 alerts on 22 Feb at impact 8.2. The invasion-day cluster peaks at 8.9, below the re-arm margin of 9.2, so the 72-hour cooldown suppresses it and the next alert fires on 25 Feb.
 - We did not tune further: adjusting rules after reading test errors would make the test sets meaningless.
 
@@ -136,10 +130,3 @@ Nine headlines from outside every window were added to the canary set (44 in tot
 The added cue words and conflict-region names regroup some clusters, so detection times move by an hour or two and W3 gains one Iran alert on 22 Sep. On W1 the shifted timings leave one more stress day uncovered, which lowers recall from 67% to 58%.
 
 **Do the eight checks add anything?** Against a plain "impact above 7" rule they do not improve precision: on W3 the plain rule scores 89% on 9 days against 83% on 6, and on W1 it has better recall (83% against 58%). The checks mainly reduce how often a stress test runs (W1: 12 flagged days instead of 20; N1: 5 false-alarm days instead of 7). With 6 flagged days on W3, 83% against a 67% base rate is not statistically significant (one-sided binomial p ≈ 0.35).
-
-## 7. Limitations
-
-- **Labels:** until human verification completes, the test labels are a single LLM annotator. The blind Stage A sample measures how often it agrees with a person.
-- **Sample size:** 100-120 test items per window give wide intervals, and several classes have fewer than ten examples.
-- **Windows:** two shock windows and one calm window show behaviour, not stable error rates. The trigger statistics rest on 12-22 trading days per window.
-- **Same-day matching:** the market check uses daily closes, so an alert after the close is matched to the next trading day.

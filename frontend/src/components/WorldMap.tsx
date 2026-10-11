@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState, type KeyboardEvent, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent } from "react";
 import { geoGraticule10, geoNaturalEarth1, geoPath } from "d3-geo";
 import { feature } from "topojson-client";
 import type { GeometryCollection, Topology } from "topojson-specification";
@@ -21,6 +21,8 @@ const WIDTH = 960;
 const HEIGHT = 480;
 const MAX_ZOOM = 8;
 const ZOOM_STEP = 1.6;
+const DEFAULT_ZOOM = 1.2;
+const WHEEL_SENSITIVITY = 0.0015;
 const DRAG_THRESHOLD = 3;
 const LABELLED = 8;
 const SENTIMENT_BAND = 0.1;
@@ -88,6 +90,8 @@ function zoomAround(view: View, factor: number, cx = WIDTH / 2, cy = HEIGHT / 2)
   return clampView({ k, x: cx - ((cx - view.x) * k) / view.k, y: cy - ((cy - view.y) * k) / view.k });
 }
 
+const DEFAULT_VIEW: View = zoomAround({ k: 1, x: 0, y: 0 }, DEFAULT_ZOOM);
+
 function sentimentTone(value: number): "loss" | "gain" | "neutral" {
   if (value <= -SENTIMENT_BAND) return "loss";
   if (value >= SENTIMENT_BAND) return "gain";
@@ -104,7 +108,7 @@ export function WorldMap({ posture, stats }: { posture: MapPosture; stats: MapSt
   const [tab, setTab] = useState<SideTab>("posture");
   const [selected, setSelected] = useState<string | null>(null);
   const [hover, setHover] = useState<{ code: string; left: number; top: number } | null>(null);
-  const [view, setView] = useState<View>({ k: 1, x: 0, y: 0 });
+  const [view, setView] = useState<View>(DEFAULT_VIEW);
   const frame = useRef<HTMLDivElement>(null);
   const drag = useRef<{ x: number; y: number; start: View; moved: boolean } | null>(null);
 
@@ -191,6 +195,37 @@ export function WorldMap({ posture, stats }: { posture: MapPosture; stats: MapSt
     if (!box || drag.current?.moved) return;
     setHover({ code, left: clientX - box.left, top: clientY - box.top });
   };
+
+  useEffect(() => {
+    const element = frame.current;
+    if (!element) return;
+    let armed = false;
+    const arm = (event: PointerEvent) => {
+      if (event.movementX || event.movementY) armed = true;
+    };
+    const disarm = () => {
+      armed = false;
+    };
+    const onWheel = (event: WheelEvent) => {
+      const box = element.getBoundingClientRect();
+      if (!armed || !box.width) return;
+      event.preventDefault();
+      const scale = WIDTH / box.width;
+      const factor = Math.exp(-event.deltaY * WHEEL_SENSITIVITY);
+      setHover(null);
+      setView((current) => zoomAround(current, factor, (event.clientX - box.left) * scale, (event.clientY - box.top) * scale));
+    };
+    window.addEventListener("scroll", disarm, { passive: true });
+    element.addEventListener("pointermove", arm);
+    element.addEventListener("pointerleave", disarm);
+    element.addEventListener("wheel", onWheel, { passive: false });
+    return () => {
+      window.removeEventListener("scroll", disarm);
+      element.removeEventListener("pointermove", arm);
+      element.removeEventListener("pointerleave", disarm);
+      element.removeEventListener("wheel", onWheel);
+    };
+  }, []);
 
   const onDoubleClick = (event: ReactMouseEvent<SVGSVGElement>) => {
     const point = toViewBox(event.clientX, event.clientY);
@@ -322,7 +357,7 @@ export function WorldMap({ posture, stats }: { posture: MapPosture; stats: MapSt
               <button type="button" className="btn icon-btn" aria-label="Zoom out" title="Zoom out" onClick={() => setView((v) => zoomAround(v, 1 / ZOOM_STEP))}>
                 <Minus size={15} aria-hidden="true" />
               </button>
-              <button type="button" className="btn icon-btn" aria-label="Reset view" title="Reset view" onClick={() => setView({ k: 1, x: 0, y: 0 })}>
+              <button type="button" className="btn icon-btn" aria-label="Reset view" title="Reset view" onClick={() => setView(DEFAULT_VIEW)}>
                 <RotateCcw size={15} aria-hidden="true" />
               </button>
             </div>

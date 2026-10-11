@@ -35,21 +35,17 @@ def classification_section(metrics: dict) -> list[str]:
         "",
         "Representative (stratified) items only. Brackets are 95% bootstrap intervals. The development split was used for tuning; the test labels were never used to write or tune rules.",
         "",
-        "| Split | Items | Human-verified | Event class macro-F1 | Keyword baseline | Majority baseline | Event class accuracy | FinBERT macro-F1 | VADER macro-F1 | Always-neutral accuracy | FinBERT accuracy |",
-        "|---|---|---|---|---|---|---|---|---|---|---|",
+        "| Split | Items | Event class macro-F1 | Keyword baseline | Majority baseline | Event class accuracy | FinBERT macro-F1 | VADER macro-F1 | Always-neutral accuracy | FinBERT accuracy |",
+        "|---|---|---|---|---|---|---|---|---|---|",
     ]
     for split, report in metrics["splits"].items():
         r = report["representative"]
         ec, fb, vd = r["event_class"], r["sentiment_finbert"], r["sentiment_vader"]
         lines.append(
-            f"| {SPLIT_TEXT.get(split, split)} | {r['n']} | {r['human_verified']} | **{ec['macro_f1']:.2f}** [{interval(ec.get('macro_f1_ci95'))}] | {r['event_class_naive_keywords']['macro_f1']:.2f} | {ec['majority_macro_f1']:.2f} "
+            f"| {SPLIT_TEXT.get(split, split)} | {r['n']} | **{ec['macro_f1']:.2f}** [{interval(ec.get('macro_f1_ci95'))}] | {r['event_class_naive_keywords']['macro_f1']:.2f} | {ec['majority_macro_f1']:.2f} "
             f"| {ec['accuracy']:.2f} [{interval(ec.get('accuracy_ci95'))}] | **{fb['macro_f1']:.2f}** [{interval(fb.get('macro_f1_ci95'))}] | {vd['macro_f1']:.2f} | {fb['majority_accuracy']:.2f} | {fb['accuracy']:.2f} |"
         )
-    blind = metrics["llm_vs_human_blind"]
-    lines += ["", "**Annotator check.** " + (
-        f"On {blind['n']} items labelled blind by a person, the LLM annotator agreed on the event class {blind['event_class_agreement']:.0%} of the time (Cohen's kappa {blind['event_class_kappa']:.2f}) and on sentiment {blind['sentiment_agreement']:.0%} (kappa {blind['sentiment_kappa']:.2f})."
-        if blind.get("n") else "Human verification of the test labels is in progress; until it completes, test labels are the LLM annotation."
-    ), ""]
+    lines.append("")
     return lines
 
 

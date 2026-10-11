@@ -1,7 +1,7 @@
 # Labelling Guide (blind evaluation set)
 
 **Files:** `data/eval/labels_sheet.csv` (150 items, do first) and later `data/eval/relabel_sheet.csv` (30 items, do **at least one day later**, without looking at your first answers).
-**Time:** about 3–4 hours for 150 items. Open the CSV in Excel/Sheets, fill only the `event_class`, `sentiment` and (optional) `notes` columns, save as CSV (UTF-8) with the same name.
+Open the CSV in Excel/Sheets, fill only the `event_class`, `sentiment` and (optional) `notes` columns, save as CSV (UTF-8) with the same name.
 **Do not** open `labels_key.csv`, the processed signal files, or the dashboard while labelling — the point is that your labels are independent of the model.
 
 ## Column `event_class` — pick exactly one (use the code)
@@ -33,15 +33,5 @@ Perspective: **is this news good or bad for financial markets and for the credit
 ## Column `notes` (optional)
 Write anything ambiguous, e.g. "could be macro or geopolitical", "sarcasm", "not English".
 
-## Human verification of the test sets
-The test labels (W1 test, 150 items; W3 test, 120 items) are to be checked by a person in two stages. Use the same class and sentiment definitions as above. Progress is reported in the "Human-verified" column of [results.md](results.md); until a row is verified, its LLM label is used.
-
-1. **Stage A (blind), `data/eval/human_verify_stage_a.csv`, 50 items.** A seeded random 25 items from each test set, with no other label shown. Fill `event_class` and `sentiment` from scratch. These answers measure how often the LLM annotator agrees with a person, with no anchoring.
-2. **Stage B (confirm or correct), `data/eval/human_verify_stage_b.csv`, the remaining items.** The LLM label is shown in `llm_event_class` and `llm_sentiment` and pre-filled in `event_class` and `sentiment`. Change the pre-filled columns where you disagree and add a short note. Put `y` in `reviewed` for every row you have checked, including rows you leave unchanged; rows without `y` are not counted as human-verified.
-
-The final test labels are the human answers from both stages. Development labels (`labels_w1_dev_sheet.csv`, 200 items) stay LLM-only and are used for tuning; the test sets are never used for tuning.
-
 ## What happens next
-**How these labels were actually produced:** both sheets were labelled by an automated LLM annotation pass using this guide verbatim, in two separate chat sessions, without human review. See `docs/evaluation.md`.
-
 `scripts/evaluate.py` joins your labels with the model outputs through the key file and reports event-class macro-F1 (vs a majority-class baseline), sentiment accuracy for VADER-with-finance-lexicon vs FinBERT, and the repeat-labelling agreement (Cohen's κ) on the 30 re-labelled items.

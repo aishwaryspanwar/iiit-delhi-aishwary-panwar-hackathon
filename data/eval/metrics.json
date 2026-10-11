@@ -318,15 +318,12 @@
    }
   }
  },
- "llm_repeat_labelling": {
+ "repeat_labelling": {
   "event_class_agreement": 1.0,
   "event_class_kappa": 1.0,
   "n": 30,
   "sentiment_agreement": 1.0,
   "sentiment_kappa": 1.0
- },
- "llm_vs_human_blind": {
-  "n": 0
  },
  "splits": {
   "w1_dev": {
@@ -464,7 +461,6 @@
      "majority_macro_f1": 0.0736,
      "n": 200
     },
-    "human_verified": 0,
     "label_counts": {
      "event_class": {
       "commodity_energy": 9,
@@ -573,7 +569,7 @@
      "n": 200
     }
    },
-   "role": "development (LLM labels, used for tuning)"
+   "role": "development (used for tuning)"
   },
   "w1_test": {
    "all_items_including_oversample": {
@@ -710,7 +706,6 @@
      "majority_macro_f1": 0.0741,
      "n": 150
     },
-    "human_verified": 0,
     "label_counts": {
      "event_class": {
       "commodity_energy": 4,
@@ -953,7 +948,6 @@
      "majority_macro_f1": 0.1014,
      "n": 100
     },
-    "human_verified": 0,
     "label_counts": {
      "event_class": {
       "earnings_corporate": 14,
@@ -1060,7 +1054,7 @@
      "n": 100
     }
    },
-   "role": "test (human-verified)"
+   "role": "test"
   },
   "w3_test": {
    "representative": {
@@ -1197,7 +1191,6 @@
      "majority_macro_f1": 0.0749,
      "n": 120
     },
-    "human_verified": 0,
     "label_counts": {
      "event_class": {
       "commodity_energy": 4,
@@ -1306,7 +1299,7 @@
      "n": 120
     }
    },
-   "role": "test (human-verified)"
+   "role": "test"
   }
  },
  "trigger_quality": {

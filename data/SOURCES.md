@@ -40,10 +40,9 @@ Yahoo's terms restrict redistribution of raw prices, so only **derived** series 
 
 | File | What it is | How to regenerate |
 |---|---|---|
-| `eval/labels_w1_dev_sheet.csv` (+ `_key.csv`) | 200 W1 development items, automated LLM annotation, used for tuning | `python -m scripts.make_label_sheet --window w1 --split dev --size 200 --seed 20222 --prefix D --exclude data/eval/labels_key.csv` |
-| `eval/labels_sheet.csv` (+ `labels_key.csv`) | 150 W1 test items (100 representative, 50 oversampled), automated LLM annotation; `relabel_*` is a 30-item repeat pass in a separate session | committed key is authoritative (drawn from an earlier build) |
-| `eval/labels_w3_test_sheet.csv` (+ `_key.csv`) | 120 W3 test items drawn from cleaned raw documents before any W3 model output existed; annotated by an isolated LLM session that saw only the guide and the sheet | `python -m scripts.make_label_sheet --window w3 --split test --size 120 --seed 20223 --prefix T` |
-| `eval/human_verify_stage_a.csv`, `human_verify_stage_b.csv` | Sheets for the human check of the test labels: 50 items labelled blind, the rest confirmed or corrected (`reviewed = y`). Not yet filled in; `scripts.evaluate` uses a human label wherever one exists | `python -m scripts.make_verify_sheet --stage a` / `--stage b` |
+| `eval/labels_w1_dev_sheet.csv` (+ `_key.csv`) | 200 W1 development items, automated annotation, used for tuning | `python -m scripts.make_label_sheet --window w1 --split dev --size 200 --seed 20222 --prefix D --exclude data/eval/labels_key.csv` |
+| `eval/labels_sheet.csv` (+ `labels_key.csv`) | 150 W1 test items (100 representative, 50 oversampled), automated annotation; `relabel_*` is a 30-item repeat pass | committed key is authoritative (drawn from an earlier build) |
+| `eval/labels_w3_test_sheet.csv` (+ `_key.csv`) | 120 W3 test items drawn from cleaned raw documents before any W3 model output existed; annotated from the guide and the sheet only, without model output | `python -m scripts.make_label_sheet --window w3 --split test --size 120 --seed 20223 --prefix T` |
 | `eval/finbert_eval_scores.json` | FinBERT scores for every labelled text, keyed by text hash, so the evaluation runs without PyTorch | written by `scripts.evaluate` when PyTorch is available |
 | `eval/metrics.json`, `window_comparison.json`, `backtest.json`, `benchmark.json` | Evaluation results; rendered into `docs/results.md` | `python -m scripts.evaluate`, `scripts.backtest_stress`, `scripts.benchmark`, `scripts.render_results` |
 

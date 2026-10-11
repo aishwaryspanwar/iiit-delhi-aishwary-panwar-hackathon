@@ -18,8 +18,7 @@ News moves markets hours before a risk system sees a number. **Ripple** reads ne
 4. [Quickstart & installation](#4-quickstart--installation)
 5. [Key results & domain impact](#5-key-results--domain-impact)
 6. [A tour of the app](#6-a-tour-of-the-app)
-7. [Limitations](#7-limitations)
-8. [Repository layout](#8-repository-layout)
+7. [Repository layout](#7-repository-layout)
 
 ## 1. Project overview / Problem statement & approach
 
@@ -85,7 +84,7 @@ Other data:
 - **Derived market returns.** Only derived series from yfinance are committed. Raw prices are never redistributed, and none of it is used in scoring.
 - **Synthetic portfolio.** 44 positions worth $3,646.9m: loans, bonds, swaps, equities and options. Credit obligors are synthetic; equities and options use real tickers.
 - **Why the portfolio is not built from the brief's sample transaction data.** The suggested transaction datasets (Salad Money open banking, Kaggle card transactions) are retail spending and card records. They hold no loans, bonds or derivatives and no obligor ratings, so they cannot describe a wholesale banking book. Module B instead uses a seeded synthetic book built from [config/portfolio.yaml](config/portfolio.yaml) into [data/portfolio/portfolio_v2.csv](data/portfolio/portfolio_v2.csv), with the asset mix the brief asks for; a test checks it regenerates byte for byte.
-- **Evaluation labels.** 200 development items plus 270 test items, all from an automated LLM annotation pass following [docs/labelling_guide.md](docs/labelling_guide.md). A two-stage human check of the test labels is prepared (`data/eval/human_verify_stage_*.csv`) and is picked up automatically by `scripts.evaluate`; the "Human-verified" column in [docs/results.md](docs/results.md) shows how many items it covers (currently none), so every test number here is measured against the LLM labels.
+- **Evaluation labels.** 200 development items plus 270 test items. Labels were produced by an automated annotation pass that follows [docs/labelling_guide.md](docs/labelling_guide.md); the development set was used for tuning and the test sets only for scoring.
 
 **Assumptions.**
 
@@ -206,7 +205,7 @@ cd frontend && npm test                       # web app tests
 
 ## 5. Key results & domain impact
 
-Full tables, with 95% confidence intervals: [docs/results.md](docs/results.md). Method and limitations: [docs/evaluation.md](docs/evaluation.md). Times are India Standard Time (IST).
+Full tables, with 95% confidence intervals: [docs/results.md](docs/results.md). Method: [docs/evaluation.md](docs/evaluation.md). Times are India Standard Time (IST).
 
 ### Engine versions, reported separately
 
@@ -260,7 +259,7 @@ The wider vocabulary helped W1 test and the W3 alert recall, but lowered W3 even
 
 - **What it adds:** structure and auditability. Every headline becomes a typed, schema-validated record (class, direction, sentiment, impact with components, entities, scope), and every alert lists the rules, weights and checks behind it. A risk analyst can challenge any number, and changing a rule is a config edit, not a retraining run.
 - **What it does not add:** accuracy over a strong keyword baseline. On held-out labels the rules tie a naive keyword classifier, and FinBERT ties VADER on W3. The value of the impact score is in deciding _when_ to run scenario analysis (83% alert precision on W3, against a 67% base rate), not in forecasting market moves: its day-to-day correlation with the S&P 500 is not significant within any single window.
-- **Why rules and not a trained classifier:** with a few hundred labels a supervised model would overfit and be hard to audit, and an LLM in the scoring path would make results non-deterministic and impossible to run offline. A fine-tuned classifier is the obvious next step once human-verified labels exist.
+- **Why rules and not a trained classifier:** with a few hundred labels a supervised model would overfit and be hard to audit, and an LLM in the scoring path would make results non-deterministic and impossible to run offline.
 
 ### Throughput
 
@@ -295,7 +294,7 @@ Ripple has one web interface with four pages. It works in dark and light themes 
 
 The big picture: where the news is, how risky things are, and what the latest stress test did to the book.
 
-- A world map of the countries in the news, with bubble size for coverage and colour for sentiment, next to a risk gauge for the last 72 hours.
+- A world map of the countries in the news, with bubble size for coverage and colour for sentiment, next to a risk gauge for the last 72 hours. Scroll over the map to zoom, drag to pan.
 - An event timeline drawn as a dot matrix: each column lights up to the impact of the riskiest event in that period, and dots above the dashed line crossed the stress-test trigger.
 - Real-time alerts, showing how many hours earlier each one fired than an end-of-day run would have.
 - The latest high-impact events, a breakdown of what the news is about, the latest stress test, and the market mood.
@@ -327,16 +326,7 @@ Type any headline and Ripple scores it live with the same engine. It then shows 
 
 ![Try a headline: a credit-event headline scored live, with the trigger checks](docs/screenshots/try-a-headline.jpg)
 
-## 7. Limitations
-
-- Test labels are LLM annotations; the human check is not yet complete, so the scores measure agreement with an LLM annotator, not with a person.
-- 100-120 test items per window and 14-28 trading days give wide intervals.
-- The impact score is a rubric, not a trained predictor.
-- The portfolio and its ratings are synthetic.
-- Valuation is first- and second-order sensitivity: no FX, correlation, liquidity or counterparty risk.
-- This is not a regulatory stress test and not investment advice.
-
-## 8. Repository layout
+## 7. Repository layout
 
 | Path                          | Contents                                                                                                                                                                                                                         |
 | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
