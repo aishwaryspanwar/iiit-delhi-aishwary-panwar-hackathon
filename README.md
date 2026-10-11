@@ -2,11 +2,11 @@
 
 **S&P Global & Crisil Campus Hackathon 2026**
 
-**Candidate Name:** Aishwary S Panwar
-**College Email ID:** aishwary23055@iiitd.ac.in
-**College / Campus:** IIIT Delhi
-**Demo Video Link:** _to be added_
-**Slide Deck Link (if hosted externally):** not hosted externally; the deck will be committed as `docs/presentation.pdf`
+**Candidate Name:** Aishwary S Panwar\
+**College Email ID:** aishwary23055@iiitd.ac.in\
+**College / Campus:** IIIT Delhi\
+**Demo Video Link:** _to be added_\
+**Slide Deck:** you can find it in `docs/presentation.pdf`
 
 ![Ripple dashboard: world map of the news and the 72-hour risk gauge during the Russia-Ukraine window](docs/screenshots/overview-dark.jpg)
 
@@ -45,12 +45,12 @@ News moves markets hours before a risk system sees a number. **Ripple** reads ne
 
 ### Requirements
 
-| Requirement | Version | Notes |
-|---|---|---|
-| Python | 3.13 or later | [python.org/downloads](https://www.python.org/downloads/) |
-| Node.js | 20.19+ or 22.12+ | **Optional.** The built web app is committed in `frontend/dist`; Node is needed only if you change the frontend |
-| Git | any recent version | to clone the repository |
-| OS | Windows 11, macOS or Linux | developed and tested on Windows 11 |
+| Requirement | Version                    | Notes                                                                                                           |
+| ----------- | -------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Python      | 3.13 or later              | [python.org/downloads](https://www.python.org/downloads/)                                                       |
+| Node.js     | 20.19+ or 22.12+           | **Optional.** The built web app is committed in `frontend/dist`; Node is needed only if you change the frontend |
+| Git         | any recent version         | to clone the repository                                                                                         |
+| OS          | Windows 11, macOS or Linux | developed and tested on Windows 11                                                                              |
 
 No GPU and no API keys are needed. An internet connection is needed only for the first install and for live mode.
 
@@ -72,12 +72,12 @@ On Windows, if `python` points to an older version, use `py -3.13 run.py`.
 4. with `--live`, also starts the live GDELT poller;
 5. stops everything when you press Ctrl+C.
 
-| Option | What it does |
-|---|---|
-| `--live` | Also poll the live GDELT feed every 15 minutes (needs internet) |
-| `--port 8100` | Use another port if 8000 is busy |
-| `--no-browser` | Do not open a browser tab |
-| `--rebuild` | Rebuild the web app even if it looks current |
+| Option         | What it does                                                    |
+| -------------- | --------------------------------------------------------------- |
+| `--live`       | Also poll the live GDELT feed every 15 minutes (needs internet) |
+| `--port 8100`  | Use another port if 8000 is busy                                |
+| `--no-browser` | Do not open a browser tab                                       |
+| `--rebuild`    | Rebuild the web app even if it looks current                    |
 
 ### Live feed
 
@@ -131,30 +131,30 @@ cd frontend && npm test                       # web app tests
 
 ### Troubleshooting
 
-| Problem | Fix |
-|---|---|
-| `Python 3.13 or later is required` | Install Python 3.13 and run `py -3.13 run.py` (Windows) or `python3.13 run.py` |
-| `Node.js 20.19+ is required` | Only shown if `frontend/dist` was deleted or the frontend was edited: install Node.js 20.19+ or 22.12+, then run `python run.py` again |
-| Port 8000 already in use | `python run.py --port 8100` |
-| The page loads but looks out of date | `python run.py --rebuild`, then refresh the browser |
-| "Live" is greyed out in the header | No live data yet: start it with `python run.py --live` and wait for the first poll |
-| Startup takes about a minute | Expected on the first request: the API loads the datasets and the sentiment model |
+| Problem                              | Fix                                                                                                                                    |
+| ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `Python 3.13 or later is required`   | Install Python 3.13 and run `py -3.13 run.py` (Windows) or `python3.13 run.py`                                                         |
+| `Node.js 20.19+ is required`         | Only shown if `frontend/dist` was deleted or the frontend was edited: install Node.js 20.19+ or 22.12+, then run `python run.py` again |
+| Port 8000 already in use             | `python run.py --port 8100`                                                                                                            |
+| The page loads but looks out of date | `python run.py --rebuild`, then refresh the browser                                                                                    |
+| "Live" is greyed out in the header   | No live data yet: start it with `python run.py --live` and wait for the first poll                                                     |
+| Startup takes about a minute         | Expected on the first request: the API loads the datasets and the sentiment model                                                      |
 
 ## 3. Architecture & tech stack
 
 ![Architecture](docs/architecture.png)
 
-| Stage | How it works |
-|---|---|
-| Clean and de-duplicate | Strip HTML, links and handles; hash de-duplication that ignores trailing outlet and section tags, keeping duplicate counts and outlets |
-| Entities and scope | 241 entities and cashtags decide whether an event is single-name, sector, country or macro |
-| Event class | 46 weighted rules over 9 classes, with exclusions (sport, crime, consumer debt, telecom tariff plans) and **direction** (a rating upgrade, a lifted ban or a truce is not a stress event) |
-| Sentiment | FinBERT (`ProsusAI/finbert`, pinned revision, CPU), neutral band chosen on the development sample; VADER with a finance lexicon as the live fallback |
-| Item impact | `1 + 9 × (0.35·class prior + 0.25·sentiment magnitude + 0.20·entity importance + 0.20·severity cues)`, components stored |
-| As-of event impact | Every hour, on a rolling 24 h window per (class, scope, target): `1 + 9 × (0.5·severity + 0.2·breadth + 0.3·abnormal volume)`. The baseline is the same hour on the previous 7 days, quiet days counted as zero, with no look-ahead ([details](docs/impact_calibration.md)) |
-| Alert | Stress class, impact > 7, confidence ≥ 0.6, sentiment ≤ +0.1, not an upgrade, ≥ 2 outlets, ≥ 20 estimated mentions, past warm-up, and a 72 h cooldown per target group |
-| Stress scenarios | Market shocks = 2× the worst week of historical analogues (Crimea 2014, taper tantrum 2013, US downgrade 2011, Libya 2011 and others) scaled by impact; targeted add-ons and contagion to linked countries; AAA/AA sovereigns are safe havens |
-| Valuation | Bonds: rate and spread duration plus convexity. Loans: IFRS 9 staging (stage 2 → lifetime ECL). Swaps: DV01. Equities: estimated beta. Options: delta, gamma, vega. Capital: Basel III standardised RWA |
+| Stage                  | How it works                                                                                                                                                                                                                                                                |
+| ---------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Clean and de-duplicate | Strip HTML, links and handles; hash de-duplication that ignores trailing outlet and section tags, keeping duplicate counts and outlets                                                                                                                                      |
+| Entities and scope     | 241 entities and cashtags decide whether an event is single-name, sector, country or macro                                                                                                                                                                                  |
+| Event class            | 46 weighted rules over 9 classes, with exclusions (sport, crime, consumer debt, telecom tariff plans) and **direction** (a rating upgrade, a lifted ban or a truce is not a stress event)                                                                                   |
+| Sentiment              | FinBERT (`ProsusAI/finbert`, pinned revision, CPU), neutral band chosen on the development sample; VADER with a finance lexicon as the live fallback                                                                                                                        |
+| Item impact            | `1 + 9 × (0.35·class prior + 0.25·sentiment magnitude + 0.20·entity importance + 0.20·severity cues)`, components stored                                                                                                                                                    |
+| As-of event impact     | Every hour, on a rolling 24 h window per (class, scope, target): `1 + 9 × (0.5·severity + 0.2·breadth + 0.3·abnormal volume)`. The baseline is the same hour on the previous 7 days, quiet days counted as zero, with no look-ahead ([details](docs/impact_calibration.md)) |
+| Alert                  | Stress class, impact > 7, confidence ≥ 0.6, sentiment ≤ +0.1, not an upgrade, ≥ 2 outlets, ≥ 20 estimated mentions, past warm-up, and a 72 h cooldown per target group                                                                                                      |
+| Stress scenarios       | Market shocks = 2× the worst week of historical analogues (Crimea 2014, taper tantrum 2013, US downgrade 2011, Libya 2011 and others) scaled by impact; targeted add-ons and contagion to linked countries; AAA/AA sovereigns are safe havens                               |
+| Valuation              | Bonds: rate and spread duration plus convexity. Loans: IFRS 9 staging (stage 2 → lifetime ECL). Swaps: DV01. Equities: estimated beta. Options: delta, gamma, vega. Capital: Basel III standardised RWA                                                                     |
 
 **Design choices.**
 
@@ -164,12 +164,12 @@ cd frontend && npm test                       # web app tests
 
 **Tech stack.**
 
-| Layer | Tools |
-|---|---|
+| Layer          | Tools                                                                                        |
+| -------------- | -------------------------------------------------------------------------------------------- |
 | Engine and API | Python 3.13, pandas, numpy, PyYAML, jsonschema, vaderSentiment; standard-library HTTP server |
-| Web app | React 19, TypeScript, Vite, Tailwind CSS, Recharts, d3-geo |
-| Build only | PyTorch and transformers (FinBERT), yfinance, matplotlib |
-| Tests | pytest (engine, stress, API), Vitest and Testing Library (web app) |
+| Web app        | React 19, TypeScript, Vite, Tailwind CSS, Recharts, d3-geo                                   |
+| Build only     | PyTorch and transformers (FinBERT), yfinance, matplotlib                                     |
+| Tests          | pytest (engine, stress, API), Vitest and Testing Library (web app)                           |
 
 ## 4. A tour of the app
 
@@ -253,15 +253,16 @@ There were no market-stress days, yet 0.3.1 fired 8 alerts (0.2.0 fired 4) on US
 - Geopolitical market shocks are mild, because historical analogues show broad markets rarely fall far on geopolitics. The loss sits in the targeted exposures.
 
 ![Causal chain of the 14 Feb 2022 alert: a Ukraine-invasion-fears cluster detected at impact 7.2 becomes a geopolitical scenario scaled ×0.53, costing $10.8m (−0.29%) through the one in-scope Ukrainian position plus broad market moves](docs/screenshots/stress-chain.jpg)
+
 - In the backtest, the realised 1-day loss on the liquid sleeve stayed within the stressed loss after 86% (W1) and 89% (W3) of triggers.
 
 ### NLP quality on held-out labels
 
-| Model | W1 test | W3 test | Majority baseline | Keyword baseline |
-|---|---|---|---|---|
-| Event class, macro-F1 (0.3.1) | **0.59** [0.44-0.72] | **0.35** [0.24-0.49] | 0.10 / 0.07 | 0.58 / 0.36 |
-| Event class, macro-F1 (0.2.0, frozen) | 0.57 [0.43-0.69] | 0.40 [0.28-0.54] | 0.10 / 0.07 | 0.58 / 0.36 |
-| Sentiment (FinBERT), macro-F1 | **0.57** [0.43-0.68] | **0.44** [0.34-0.54] | 0.27 / 0.25 | VADER 0.46 / 0.48 |
+| Model                                 | W1 test              | W3 test              | Majority baseline | Keyword baseline  |
+| ------------------------------------- | -------------------- | -------------------- | ----------------- | ----------------- |
+| Event class, macro-F1 (0.3.1)         | **0.59** [0.44-0.72] | **0.35** [0.24-0.49] | 0.10 / 0.07       | 0.58 / 0.36       |
+| Event class, macro-F1 (0.2.0, frozen) | 0.57 [0.43-0.69]     | 0.40 [0.28-0.54]     | 0.10 / 0.07       | 0.58 / 0.36       |
+| Sentiment (FinBERT), macro-F1         | **0.57** [0.43-0.68] | **0.44** [0.34-0.54] | 0.27 / 0.25       | VADER 0.46 / 0.48 |
 
 Both models clearly beat the majority baseline. Claims written down before scoring, and what happened:
 
@@ -273,7 +274,7 @@ The wider vocabulary helped W1 test and the W3 alert recall, but lowered W3 even
 ### What the NLP does and does not add
 
 - **What it adds:** structure and auditability. Every headline becomes a typed, schema-validated record (class, direction, sentiment, impact with components, entities, scope), and every alert lists the rules, weights and checks behind it. A risk analyst can challenge any number, and changing a rule is a config edit, not a retraining run.
-- **What it does not add:** accuracy over a strong keyword baseline. On held-out labels the rules tie a naive keyword classifier, and FinBERT ties VADER on W3. The value of the impact score is in deciding *when* to run scenario analysis (83% alert precision on W3, against a 67% base rate), not in forecasting market moves: its day-to-day correlation with the S&P 500 is not significant within any single window.
+- **What it does not add:** accuracy over a strong keyword baseline. On held-out labels the rules tie a naive keyword classifier, and FinBERT ties VADER on W3. The value of the impact score is in deciding _when_ to run scenario analysis (83% alert precision on W3, against a 67% base rate), not in forecasting market moves: its day-to-day correlation with the S&P 500 is not significant within any single window.
 - **Why rules and not a trained classifier:** with a few hundred labels a supervised model would overfit and be hard to audit, and an LLM in the scoring path would make results non-deterministic and impossible to run offline. A fine-tuned classifier is the obvious next step once human-verified labels exist.
 
 ### Throughput
@@ -295,11 +296,11 @@ Each piece can be audited, challenged and re-run from configuration. Ripple is a
 
 All data is public or synthetic, and nothing is downloaded at runtime except in live mode. Full provenance and licences: [data/SOURCES.md](data/SOURCES.md).
 
-| Window | Role | News (GDELT GKG 2.1) | Tweets (Kaggle, CC0) |
-|---|---|---|---|
-| W1, 10 Feb - 24 Mar 2022 (Russia-Ukraine war) | Development and calibration | 27,784 headlines | 8,916 |
-| W3, 10 - 30 Sep 2022 (US CPI, Fed 75 bp, UK gilt crisis) | Untouched test, shock | 12,773 | 3,113 |
-| N1, 6 Aug - 4 Sep 2026 (calmest recent month) | Untouched test, calm | 14,981 | none (dataset ends 2022) |
+| Window                                                   | Role                        | News (GDELT GKG 2.1) | Tweets (Kaggle, CC0)     |
+| -------------------------------------------------------- | --------------------------- | -------------------- | ------------------------ |
+| W1, 10 Feb - 24 Mar 2022 (Russia-Ukraine war)            | Development and calibration | 27,784 headlines     | 8,916                    |
+| W3, 10 - 30 Sep 2022 (US CPI, Fed 75 bp, UK gilt crisis) | Untouched test, shock       | 12,773               | 3,113                    |
+| N1, 6 Aug - 4 Sep 2026 (calmest recent month)            | Untouched test, calm        | 14,981               | none (dataset ends 2022) |
 
 Other data:
 
@@ -327,17 +328,17 @@ Every judgement is listed in [docs/assumptions.md](docs/assumptions.md).
 
 ## 8. Repository layout
 
-| Path | Contents |
-|---|---|
-| `run.py` | One-command setup and launch |
-| `src/riskengine/` | Cleaning, de-duplication, entities, rules, sentiment, impact, schemas |
-| `src/stream/` | As-of streaming engine: rolling windows, baselines, alerts |
-| `src/stress/` | Portfolio, calibrated shocks, contagion, valuation, IFRS 9, capital, explanations |
-| `src/pipeline.py`, `src/api/` | Batch pipeline and the read-only JSON API |
-| `frontend/` | The Ripple web app (React); `frontend/dist` is the committed production build |
-| `scripts/` | Data fetching, live GDELT poller, labelling, calibration, evaluation, backtest, benchmark, freeze check, diagram |
-| `config/` | Every rule, weight, threshold, scenario and the portfolio recipe (no magic numbers in code) |
-| `data/` | All inputs and outputs, with provenance in [data/SOURCES.md](data/SOURCES.md) |
-| `docs/` | [results](docs/results.md), [evaluation](docs/evaluation.md), [impact calibration](docs/impact_calibration.md), [assumptions](docs/assumptions.md), [labelling guide](docs/labelling_guide.md), [data spike](docs/data_spike.md) |
-| `docs/screenshots/` | App screenshots used in this README |
-| `tests/` | Engine, stress, stream, API and launcher tests |
+| Path                          | Contents                                                                                                                                                                                                                         |
+| ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `run.py`                      | One-command setup and launch                                                                                                                                                                                                     |
+| `src/riskengine/`             | Cleaning, de-duplication, entities, rules, sentiment, impact, schemas                                                                                                                                                            |
+| `src/stream/`                 | As-of streaming engine: rolling windows, baselines, alerts                                                                                                                                                                       |
+| `src/stress/`                 | Portfolio, calibrated shocks, contagion, valuation, IFRS 9, capital, explanations                                                                                                                                                |
+| `src/pipeline.py`, `src/api/` | Batch pipeline and the read-only JSON API                                                                                                                                                                                        |
+| `frontend/`                   | The Ripple web app (React); `frontend/dist` is the committed production build                                                                                                                                                    |
+| `scripts/`                    | Data fetching, live GDELT poller, labelling, calibration, evaluation, backtest, benchmark, freeze check, diagram                                                                                                                 |
+| `config/`                     | Every rule, weight, threshold, scenario and the portfolio recipe (no magic numbers in code)                                                                                                                                      |
+| `data/`                       | All inputs and outputs, with provenance in [data/SOURCES.md](data/SOURCES.md)                                                                                                                                                    |
+| `docs/`                       | [results](docs/results.md), [evaluation](docs/evaluation.md), [impact calibration](docs/impact_calibration.md), [assumptions](docs/assumptions.md), [labelling guide](docs/labelling_guide.md), [data spike](docs/data_spike.md) |
+| `docs/screenshots/`           | App screenshots used in this README                                                                                                                                                                                              |
+| `tests/`                      | Engine, stress, stream, API and launcher tests                                                                                                                                                                                   |
