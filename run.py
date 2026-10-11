@@ -23,6 +23,7 @@ FRONTEND_INPUTS = ("src", "public", "index.html", "package.json", "package-lock.
 STARTUP_SECONDS = 240
 MIN_PYTHON = (3, 11)
 PREFERRED_MINORS = (13, 12, 14, 11, 15)
+POLLER_RESTART_SECONDS = 30
 
 
 def say(message: str) -> None:
@@ -174,6 +175,10 @@ def stop(processes: list[subprocess.Popen]) -> None:
             process.kill()
 
 
+def start_poller(python: str) -> subprocess.Popen:
+    return subprocess.Popen([python, "-u", "-m", "scripts.live_gdelt"], cwd=ROOT)
+
+
 def serve(args: argparse.Namespace) -> int:
     url = f"http://{args.host}:{args.port}"
     if port_in_use(args.host, args.port):
@@ -189,13 +194,25 @@ def serve(args: argparse.Namespace) -> int:
             say("the API did not start; see the messages above")
             stop(processes)
             return 1
+        poller = None
         if not args.offline:
             say("starting the live GDELT poller: the first poll backfills 7 days of news, so Live appears in the header after a few minutes")
-            processes.append(subprocess.Popen([python, "-m", "scripts.live_gdelt"], cwd=ROOT))
+            poller = start_poller(python)
+            processes.append(poller)
         say(f"ready: {url}   offline replays (W1, W3, N1) are available now{'' if args.offline else '; live data follows'}   (Ctrl+C to stop)")
         if not args.no_browser:
             webbrowser.open(url)
+        restart_at = None
         while api.poll() is None:
+            if poller is not None and poller.poll() is not None:
+                if restart_at is None:
+                    say(f"the live poller stopped (exit code {poller.returncode}); restarting in {POLLER_RESTART_SECONDS}s")
+                    restart_at = time.monotonic() + POLLER_RESTART_SECONDS
+                elif time.monotonic() >= restart_at:
+                    processes.remove(poller)
+                    poller = start_poller(python)
+                    processes.append(poller)
+                    restart_at = None
             time.sleep(1)
         say("the API stopped")
         return api.returncode or 0
