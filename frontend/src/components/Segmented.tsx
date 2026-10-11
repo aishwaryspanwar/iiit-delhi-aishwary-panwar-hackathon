@@ -16,6 +16,7 @@ export function Segmented<T extends string>({
   idPrefix,
   variant = "tabs",
   size = "md",
+  bare = false,
 }: {
   options: SegmentOption<T>[];
   value: T;
@@ -24,6 +25,7 @@ export function Segmented<T extends string>({
   idPrefix: string;
   variant?: "tabs" | "radio";
   size?: "sm" | "md";
+  bare?: boolean;
 }) {
   const tabs = variant === "tabs";
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -45,7 +47,7 @@ export function Segmented<T extends string>({
     refs.current[target]?.focus();
   };
   return (
-    <div role={tabs ? "tablist" : "radiogroup"} aria-label={label} className="flex rounded-full border border-[var(--glass-border)] bg-surface-2 p-1">
+    <div role={tabs ? "tablist" : "radiogroup"} aria-label={label} className={cx("flex rounded-full", !bare && "border border-[var(--glass-border)] bg-surface-2 p-1")}>
       {options.map((option, index) => {
         const selected = option.id === value;
         return (
@@ -68,8 +70,10 @@ export function Segmented<T extends string>({
             className={cx(
               "rounded-full transition-colors duration-150",
               tabs ? "min-w-0 flex-1 truncate" : "shrink-0 whitespace-nowrap",
-              size === "sm" ? "h-[30px] px-3.5 text-[13px]" : "h-8 px-3 text-[13.5px]",
-              selected ? "bg-accent font-semibold text-on-accent shadow-[0_8px_20px_-12px_var(--accent-glow)]" : "text-ink-2 hover:text-ink",
+              size === "sm" ? "h-8 px-3.5 text-[13px]" : "h-8 px-3 text-[13.5px]",
+              selected && !bare && "bg-accent font-semibold text-on-accent shadow-[0_8px_20px_-12px_var(--accent-glow)]",
+              selected && bare && "bg-surface-3 font-semibold text-ink",
+              !selected && "text-ink-2 hover:text-ink",
               option.disabled && "cursor-not-allowed opacity-45 hover:text-ink-2",
             )}
           >

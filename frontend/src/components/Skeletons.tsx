@@ -93,23 +93,21 @@ function NavSkeleton({ page }: { page: PageId }) {
   ];
   return (
     <header className="sticky top-0 z-30 px-3 pt-3 md:px-6 3xl:px-8" aria-hidden="true">
-      <div className="glass-nav page-width mx-auto flex flex-wrap items-center gap-x-4 gap-y-3 rounded-[28px] px-3 py-2.5 md:px-4">
-        <div className="flex shrink-0 items-center gap-2.5 pr-2">
-          <BrandMark size={32} />
-          <span className="font-display text-[19px] leading-none font-semibold tracking-[-0.01em] text-ink">Ripple</span>
+      <div className="glass-nav page-width mx-auto flex flex-wrap items-center gap-2 rounded-[28px] p-2 xl:grid xl:grid-cols-[1fr_auto_1fr]">
+        <div className="flex h-10 shrink-0 items-center gap-2.5 justify-self-start pr-3 pl-2">
+          <BrandMark size={28} />
+          <span className="font-display text-[18px] leading-none font-semibold tracking-[-0.01em] text-ink">Ripple</span>
         </div>
-        <div className="order-3 -mx-1 flex w-full justify-center px-1 xl:order-none xl:mx-auto xl:w-auto">
-          <div className="flex gap-1 rounded-full bg-surface-2 p-1">
+        <div className="order-3 flex w-full justify-center xl:order-none xl:w-auto">
+          <div className="flex h-10 items-center gap-0.5 rounded-full bg-surface-2 p-1">
             {tabs.map((tab) => (
-              <div key={tab.id} className={cx("h-9 rounded-full", tab.width, tab.id === page ? "bg-surface-3" : "")} />
+              <div key={tab.id} className={cx("h-8 rounded-full", tab.width, tab.id === page ? "bg-surface-3" : "")} />
             ))}
           </div>
         </div>
-        <div className="ml-auto flex items-center gap-2 xl:ml-0">
-          <Bone className="h-[38px] w-[132px] rounded-full" />
-          <Bone className="h-10 w-[240px] rounded-full 2xl:w-[300px]" />
-          <Bone className="h-10 w-10 rounded-full" />
-          <Bone className="h-10 w-10 rounded-full" />
+        <div className="ml-auto flex items-center gap-2 justify-self-end xl:ml-0">
+          <Bone className="h-10 w-[372px] rounded-full 2xl:w-[432px]" />
+          <Bone className="h-10 w-[76px] rounded-full" />
         </div>
       </div>
     </header>
