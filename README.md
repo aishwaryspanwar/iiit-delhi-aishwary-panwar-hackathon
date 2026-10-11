@@ -183,6 +183,8 @@ Ripple has one web interface with four pages. It works in dark and light themes 
 - **Dataset menu:** choose a replay window (W1, W3, N1 or stub).
 - **Replay bar** (Overview and Signal feed): press play to watch the window unfold day by day. Every chart follows the replay date, and red diamonds mark days when a stress test fired.
 
+![Header and replay bar: page tabs, Offline / Live switch, dataset menu, and the W1 replay with its 14 stress-test days marked](docs/screenshots/header-replay.jpg)
+
 ### Overview
 
 The big picture: where the news is, how risky things are, and what the latest stress test did to the book.
@@ -219,8 +221,6 @@ Type any headline and Ripple scores it live with the same engine. It then shows 
 
 ![Try a headline: a credit-event headline scored live, with the trigger checks](docs/screenshots/try-a-headline.jpg)
 
-![Overview in the light theme, W3 window](docs/screenshots/light-theme.jpg)
-
 ## 5. Key results & domain impact
 
 Full tables, with 95% confidence intervals: [docs/results.md](docs/results.md). Method and limitations: [docs/evaluation.md](docs/evaluation.md). Times are India Standard Time (IST).
@@ -240,6 +240,8 @@ No test label was used to write the post-freeze rules, but they were written aft
 - It flagged Fed coverage at 13:30 IST on 21 Sep, before the 75 bp decision at 23:30 IST, and again after it. It also flagged the gilt-market stress and Bank of England statements on 27 Sep, the day before the Bank's emergency gilt purchases on 28 Sep.
 - Alerts arrive a median of 16 hours before an end-of-day batch run would see the same event, and all of them before the US close.
 
+![W3 replayed to 30 Sep 2022 in the light theme: the replay bar marks the six alert days, and the 72-hour risk gauge reads High](docs/screenshots/light-theme.jpg)
+
 ### Calm window (N1)
 
 There were no market-stress days, yet 0.3.1 fired 8 alerts (0.2.0 fired 4) on US macro, Iran-Israel and tariff news. These are false alarms in market terms: the engine measures how severe and abnormal the news is, not how markets will react. The wider policy vocabulary makes the engine more sensitive, and the calm window shows the cost.
@@ -249,6 +251,8 @@ There were no market-stress days, yet 0.3.1 fired 8 alerts (0.2.0 fired 4) on US
 - The calibrated scenarios cost the book −0.2% to −2.3% per alert.
 - Credit events are the most severe. Fitch's Russia downgrade cost −$83.0m (−2.28%), mostly through bond spread widening (−$58.2m) and equity falls (−$42.9m), partly offset by lower rates. IFRS 9 provisions moved only −$3.4m, as one loan went to stage 2.
 - Geopolitical market shocks are mild, because historical analogues show broad markets rarely fall far on geopolitics. The loss sits in the targeted exposures.
+
+![Causal chain of the 14 Feb 2022 alert: a Ukraine-invasion-fears cluster detected at impact 7.2 becomes a geopolitical scenario scaled ×0.53, costing $10.8m (−0.29%) through the one in-scope Ukrainian position plus broad market moves](docs/screenshots/stress-chain.jpg)
 - In the backtest, the realised 1-day loss on the liquid sleeve stayed within the stressed loss after 86% (W1) and 89% (W3) of triggers.
 
 ### NLP quality on held-out labels
