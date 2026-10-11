@@ -108,8 +108,10 @@ Run the API and the Vite dev server in two terminals:
 
 ```bash
 python -m src.api               # terminal 1, repository root
-cd frontend && npm run dev      # terminal 2, http://127.0.0.1:5173 (proxies /api to port 8000)
+cd frontend && npm ci && npm run dev   # terminal 2, http://127.0.0.1:5173 (proxies /api to port 8000)
 ```
+
+After changing the frontend, `python run.py` rebuilds `frontend/dist` and stamps it with the new source hash; commit both.
 
 API routes, design notes and frontend scripts are in [frontend/README.md](frontend/README.md).
 
