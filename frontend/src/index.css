@@ -1,20 +1,7 @@
 @import "tailwindcss";
 
-@font-face {
-  font-family: "Risk Signs";
-  src: local("Segoe UI"), local("SegoeUI"), local("Helvetica Neue"), local("Arial");
-  unicode-range: U+002B, U+00D7, U+2212, U+2211, U+2192, U+2264, U+2265;
-}
-
-@font-face {
-  font-family: "Open Sauce Sans";
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: url("./assets/fonts/open-sauce-sans-latin-400-normal.woff") format("woff");
-}
-
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+@custom-variant short (@media (max-height: 800px));
 
 :root,
 :root[data-theme="dark"] {
@@ -66,6 +53,7 @@
   --shadow-panel: 0 24px 48px -30px rgba(0, 0, 0, 0.75), inset 0 1px 0 var(--glass-highlight);
   --shadow-hover: 0 18px 40px -22px rgba(0, 0, 0, 0.9);
   --shadow-pop: 0 30px 70px -28px rgba(0, 0, 0, 0.95), 0 2px 8px rgba(0, 0, 0, 0.35);
+  --scrim: rgba(2, 7, 6, 0.66);
 }
 
 :root[data-theme="light"] {
@@ -117,11 +105,37 @@
   --shadow-panel: 0 20px 44px -30px rgba(14, 40, 32, 0.38), inset 0 1px 0 var(--glass-highlight);
   --shadow-hover: 0 16px 32px -18px rgba(14, 40, 32, 0.32);
   --shadow-pop: 0 30px 60px -26px rgba(14, 40, 32, 0.4), 0 2px 8px rgba(14, 40, 32, 0.08);
+  --scrim: rgba(13, 26, 22, 0.42);
+}
+
+:root {
+  --page-max: 1440px;
+}
+
+@media (min-width: 1800px) {
+  :root {
+    --page-max: 1680px;
+  }
+}
+
+@media (min-width: 2200px) {
+  :root {
+    --page-max: 2000px;
+  }
+}
+
+@theme {
+  --breakpoint-3xl: 112.5rem;
+  --breakpoint-4xl: 137.5rem;
+}
+
+@utility page-width {
+  max-width: var(--page-max);
 }
 
 @theme inline {
-  --font-sans: "Risk Signs", "Open Sauce Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Risk Signs", "Peace Sans", "Open Sauce Sans", ui-sans-serif, sans-serif;
+  --font-sans: "Google Sans Flex", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Google Sans Flex", ui-sans-serif, system-ui, sans-serif;
   --color-bg: var(--bg);
   --color-surface: var(--surface-flat);
   --color-surface-2: var(--surface-2);
@@ -163,6 +177,11 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  b,
+  strong {
+    font-weight: 600;
+  }
+
   body {
     min-height: 100vh;
     margin: 0;
@@ -195,6 +214,11 @@
   #root {
     position: relative;
     z-index: 1;
+  }
+
+  [data-tour] {
+    scroll-margin-top: 104px;
+    scroll-margin-bottom: 24px;
   }
 
   h1,
@@ -274,14 +298,14 @@
   .figure {
     font-variant-numeric: tabular-nums lining-nums;
     font-family: var(--font-display);
-    font-weight: 400;
-    letter-spacing: 0;
+    font-weight: 600;
+    letter-spacing: -0.01em;
     line-height: 1.05;
   }
 
   .caption {
     font-size: 12.5px;
-    font-weight: 500;
+    font-weight: 400;
     color: var(--ink-3);
   }
 

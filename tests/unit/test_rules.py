@@ -39,7 +39,43 @@ POSITIVE_EXAMPLES = {
     "ERN-002": "Retailer announces buyback and new CEO",
     "ERN-003": "Bank raises price target on Apple shares",
     "PRD-001": "Apple unveils new iPhone at spring event",
+    "REG-005": "PM Modi bans Tesla in India",
+    "REG-006": "FDA approves Eli Lilly's Alzheimer's drug",
+    "REG-007": "China blocks Intel's acquisition of Tower Semiconductor",
+    "ERN-006": "Microsoft beats estimates as cloud revenue surges",
+    "ERN-007": "Nvidia misses revenue expectations, shares tumble",
+    "GEO-008": "Military coup in Niger as soldiers seize power",
+    "GEO-009": "Ukraine and Russia agree to a ceasefire",
+    "COM-004": "Drought and crop failure push up wheat prices",
+    "CRD-007": "Evergrande misses bond payment, liquidity crisis deepens",
+    "MAC-007": "Rupee devaluation sparks currency crisis fears",
+    "MAC-008": "RBI cuts interest rates as inflation cools",
 }
+
+DIRECTION_EXAMPLES = [
+    ("PM Modi bans Tesla in India", "regulatory", "negative"),
+    ("India lifts ban on Chinese apps", "regulatory", "positive"),
+    ("SEBI fines Adani group firm over disclosure lapses", "regulatory", "negative"),
+    ("US slaps 25% tariffs on Chinese electric vehicles", "regulatory", "negative"),
+    ("Tesla recalls 2 million vehicles over autopilot defect", "regulatory", "negative"),
+    ("Apple shares soar after record quarterly profit", "earnings_corporate", "positive"),
+    ("Tata Motors cuts full-year guidance as JLR sales slump", "earnings_corporate", "negative"),
+    ("Byju's CEO resigns amid accounting irregularities", "earnings_corporate", "negative"),
+    ("Israel and Hamas agree to a truce", "geopolitical", "positive"),
+    ("Credit Suisse rescue: UBS agrees bailout as bank run fears spread", "credit_event", "negative"),
+]
+
+NOT_POSITIVE = [
+    "India calls for immediate de-escalation after Russian attack on Ukraine",
+    "Ceasefire talks collapse as shelling resumes in Kyiv",
+    "Fed rules out rate cuts this year",
+]
+
+NOT_POLICY = [
+    "Reliance Jio announces new tariff plans",
+    "Two-match ban for Kohli after on-field clash",
+    "Riot Platforms shares rise with bitcoin",
+]
 
 CREDIT_PHRASINGS = [
     "Russia's Credit Rating Cut to 'Junk' by Moody's, Fitch Due to Sanctions",
@@ -130,3 +166,19 @@ def test_sports_context_overrides_rules():
     result = classify("TSM are your world champions after a tense grand final attack")
     assert result.event_class == "other"
     assert result.matched_rules == ("CTX-EXCLUDE",)
+
+
+@pytest.mark.parametrize("text,event_class,direction", DIRECTION_EXAMPLES)
+def test_policy_and_corporate_events_carry_direction(text, event_class, direction):
+    result = classify(text)
+    assert (result.event_class, result.direction) == (event_class, direction)
+
+
+@pytest.mark.parametrize("text", NOT_POLICY)
+def test_everyday_uses_of_policy_words_are_not_stress_events(text):
+    assert classify(text).event_class not in ("regulatory", "geopolitical")
+
+
+@pytest.mark.parametrize("text", NOT_POSITIVE)
+def test_relief_words_in_a_hostile_or_negated_context_are_not_positive(text):
+    assert classify(text).direction != "positive"

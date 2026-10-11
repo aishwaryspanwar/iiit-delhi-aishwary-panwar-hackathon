@@ -26,7 +26,7 @@ outlet_suffixes:
   - Nasdaq
   - Benzinga
   - Al Jazeera
-sentiment_lexicon_version: fin-lexicon-v1
+sentiment_lexicon_version: fin-lexicon-v2
 sentiment_lexicon:
   invasion: -3.0
   invade: -3.0
@@ -80,6 +80,92 @@ sentiment_lexicon:
   funds: 0.0
   credit: 0.0
   growth: 0.5
+  ban: -2.0
+  bans: -2.0
+  banned: -2.0
+  banning: -2.0
+  blacklist: -2.0
+  blacklisted: -2.0
+  prohibits: -1.5
+  prohibited: -1.5
+  tariff: -1.0
+  tariffs: -1.0
+  embargo: -2.0
+  crackdown: -2.0
+  probe: -1.0
+  fined: -2.0
+  penalty: -1.5
+  lawsuit: -1.5
+  recall: -1.5
+  recalls: -1.5
+  layoffs: -2.0
+  fraud: -3.0
+  scandal: -2.5
+  breach: -2.0
+  hacked: -2.0
+  outage: -1.5
+  halt: -1.5
+  halts: -1.5
+  halted: -1.5
+  suspends: -1.5
+  suspended: -1.5
+  shutdown: -1.5
+  crisis: -2.5
+  coup: -3.0
+  collapse: -3.0
+  collapses: -3.0
+  collapsed: -3.0
+  crash: -3.0
+  crashes: -3.0
+  plummets: -2.5
+  plummeted: -2.5
+  sinks: -2.0
+  sank: -2.0
+  slashes: -1.5
+  misses: -1.5
+  warning: -1.5
+  loss: -1.5
+  losses: -1.5
+  weak: -1.0
+  bearish: -2.0
+  nationalise: -2.0
+  nationalize: -2.0
+  expropriation: -2.5
+  seized: -2.0
+  riots: -2.5
+  terror: -3.0
+  bailout: -2.0
+  writedown: -2.0
+  write-down: -2.0
+  devaluation: -2.0
+  downturn: -2.0
+  approval: 1.5
+  approves: 1.5
+  approved: 1.5
+  wins: 1.5
+  secures: 1.5
+  surge: 1.5
+  surges: 1.5
+  soars: 2.0
+  jumps: 1.5
+  outperforms: 1.5
+  profit: 1.0
+  profits: 1.0
+  expansion: 1.0
+  expands: 1.0
+  partnership: 1.0
+  truce: 1.5
+  subsidy: 1.0
+  subsidies: 1.0
+  incentives: 1.0
+  stimulus: 1.0
+  recovery: 1.5
+  recovers: 1.5
+  strong: 1.0
+  upbeat: 1.5
+  bullish: 2.0
+  boosts: 1.5
+  upgrades: 2.0
 sentiment_neutral_band:
   vader: 0.3
   finbert: 0.6

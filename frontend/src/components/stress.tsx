@@ -19,7 +19,7 @@ function ChainStep({ index, label, title, children, tone = "default" }: { index:
           >
             {index}
           </span>
-          <span className="text-[12.5px] font-medium text-ink-3">{label}</span>
+          <span className="text-[12.5px] font-normal text-ink-3">{label}</span>
         </div>
         <div className="min-w-0 text-[14px] leading-snug font-semibold text-ink">{title}</div>
         {children && <div className="min-w-0 text-[12.5px] leading-snug text-ink-3">{children}</div>}
@@ -48,7 +48,7 @@ export function CausalChain({ detail }: { detail: StressDetail }) {
       <ol className="grid grid-cols-1 gap-3 @lg:grid-cols-2 @3xl:grid-cols-3 @5xl:flex @5xl:flex-row @5xl:items-stretch @5xl:gap-1.5" aria-label="Causal chain from news event to portfolio impact">
         <ChainStep index={1} label="Event" title={<span className="line-clamp-2">“{lead?.text ?? "n/a"}”</span>}>
           {day(event.t_start)}, {integer(event.n_items)} items from {integer(event.n_outlets)} outlets
-          {run.detected_at && <>; detected {dateTime(run.detected_at)} UTC</>}
+          {run.detected_at && <>; detected {dateTime(run.detected_at)}</>}
         </ChainStep>
         <Connector />
         <ChainStep index={2} label="Classification" title={className(event.class)}>
@@ -113,14 +113,14 @@ export function BeforeAfter({ totals, size = "lg" }: { totals: Totals; size?: "l
         <div className="min-w-0">
           <dt className="caption mb-2">Change</dt>
           <dd className={cx("figure whitespace-nowrap", big, changeTone)}>{usdMillions(totals.pnl, 1, true)}</dd>
-          <dd className={cx("num mt-1 text-[13px] font-medium", changeTone)}>{percent(totals.pnl_pct)} of portfolio value</dd>
+          <dd className={cx("num mt-1 text-[13px] font-normal", changeTone)}>{percent(totals.pnl_pct)} of portfolio value</dd>
         </div>
       </dl>
     </div>
   );
 }
 
-const TH = "caption py-3 pr-4 text-left font-medium";
+const TH = "caption py-3 pr-4 text-left font-normal";
 
 export function AssetTable({ detail }: { detail: StressDetail }) {
   const rows = [...detail.run.by_asset_class].sort((a, b) => a.pnl - b.pnl);
@@ -141,7 +141,7 @@ export function AssetTable({ detail }: { detail: StressDetail }) {
         <tbody>
           {rows.map((row) => (
             <tr key={row.asset_class} className="border-b border-line last:border-b-0">
-              <th scope="row" className="py-3.5 pr-4 text-left font-medium text-ink">{ASSET_TEXT[row.asset_class]}</th>
+              <th scope="row" className="py-3.5 pr-4 text-left font-normal text-ink">{ASSET_TEXT[row.asset_class]}</th>
               <td className="num py-3.5 pr-4 text-right text-ink-2">{usdMillions(row.value_before)}</td>
               <td className="num py-3.5 pr-4 text-right text-ink-2">{usdMillions(row.value_after)}</td>
               <td className="py-3.5 pr-4">
@@ -149,7 +149,7 @@ export function AssetTable({ detail }: { detail: StressDetail }) {
                   <div className="hidden h-[5px] w-24 justify-end rounded-full bg-surface-3 sm:flex" aria-hidden="true">
                     <div className={cx("h-full rounded-full", row.pnl < 0 ? "bg-loss" : "bg-gain")} style={{ width: `${(Math.abs(row.pnl) / maxLoss) * 100}%` }} />
                   </div>
-                  <span className={cx("num w-20 text-right font-medium", row.pnl < 0 ? "text-loss" : "text-gain")}>{usdMillions(row.pnl, 1, true)}</span>
+                  <span className={cx("num w-20 text-right font-normal", row.pnl < 0 ? "text-loss" : "text-gain")}>{usdMillions(row.pnl, 1, true)}</span>
                 </div>
               </td>
               <td className="num py-3.5 text-right text-ink-3">{row.value_before ? percent(row.pnl / Math.abs(row.value_before)) : "n/a"}</td>
@@ -191,7 +191,7 @@ export function CreditCapital({ detail }: { detail: StressDetail }) {
             <li key={row.label} className="text-[13px]">
               <div className="flex items-baseline justify-between gap-3">
                 <span className="text-ink-2">{row.label}</span>
-                <span className="num shrink-0 font-medium text-ink">{usdMillions(row.value, 1, true)}</span>
+                <span className="num shrink-0 font-normal text-ink">{usdMillions(row.value, 1, true)}</span>
               </div>
               <div className="text-[12px] text-ink-3">{row.note}</div>
             </li>
@@ -218,9 +218,7 @@ export function CreditCapital({ detail }: { detail: StressDetail }) {
             <dd className="figure mt-1 text-[18px] text-high">{usdMillions(capital.capital_requirement_change, 1, true)}</dd>
           </div>
         </dl>
-        <p className="mt-4 text-[12.5px] leading-relaxed text-ink-3">
-          Downgrades raise risk weights on loans and bonds. Loans move to stage 2 (lifetime expected credit loss) after a fall of three notches or more, or from investment grade to high yield.
-        </p>
+        <p className="mt-4 text-[12.5px] text-ink-3">Downgrades raise risk weights, so they need more capital.</p>
       </div>
     </div>
   );
@@ -289,7 +287,7 @@ function SortHeader({ label, column, sort, onSort, align = "left" }: { label: st
     <th scope="col" aria-sort={ariaSort} className={cx("py-3 pr-4", align === "right" && "text-right")}>
       <button
         type="button"
-        className={cx("inline-flex items-center gap-1.5 rounded-md text-[12.5px] font-medium transition-colors hover:text-ink", active ? "text-ink" : "text-ink-3")}
+        className={cx("inline-flex items-center gap-1.5 rounded-md text-[12.5px] font-normal transition-colors hover:text-ink", active ? "text-ink" : "text-ink-3")}
         onClick={() => onSort(column)}
       >
         {label} {icon}
@@ -364,7 +362,7 @@ export function PositionsTable({ positions }: { positions: PositionResult[] }) {
                       <span className={cx("h-2 w-2 shrink-0 rounded-full", p.in_scope ? "bg-high" : "bg-transparent")} title={p.in_scope ? "In scope of the event" : undefined} />
                       {p.in_scope && <span className="sr-only">In scope.</span>}
                       <span className="num text-ink-3">{p.position_id}</span>
-                      <span className="truncate font-medium text-ink">{p.name}</span>
+                      <span className="truncate font-normal text-ink">{p.name}</span>
                     </div>
                   </td>
                   <td className="py-3 pr-4 text-ink-2">{ASSET_TEXT[p.asset_class]}</td>
@@ -373,12 +371,12 @@ export function PositionsTable({ positions }: { positions: PositionResult[] }) {
                   </td>
                   <td className="num py-3 pr-4 whitespace-nowrap text-ink-2">
                     {p.rating || "—"}
-                    {p.rating_after && p.rating_after !== p.rating && <span className="font-medium text-high"> → {p.rating_after}</span>}
+                    {p.rating_after && p.rating_after !== p.rating && <span className="font-normal text-high"> → {p.rating_after}</span>}
                   </td>
                   <td className="num py-3 pr-4 text-right text-ink-2">{usdMillions(p.value_before)}</td>
                   <td className="num py-3 pr-4 text-right text-ink-3">{rateSpreadText(p)}</td>
                   <td className="py-3 pr-4 text-right whitespace-nowrap" title={top && top.v < 0 ? `Largest driver: ${FACTOR_TEXT[top.f]}` : undefined}>
-                    <span className={cx("num font-medium", pnlTone(p.pnl))}>{usdMillions(p.pnl, 2, true)}</span>
+                    <span className={cx("num font-normal", pnlTone(p.pnl))}>{usdMillions(p.pnl, 2, true)}</span>
                   </td>
                 </tr>
               );
@@ -388,7 +386,7 @@ export function PositionsTable({ positions }: { positions: PositionResult[] }) {
       </div>
       <p className="mt-4 flex items-center gap-2 text-[12.5px] text-ink-3">
         <span className="h-2 w-2 shrink-0 rounded-full bg-high" aria-hidden="true" />
-        In scope of the event by country, sector or name. Rate and spread moves are in basis points; equities show the applied return.
+        Directly exposed to the event
       </p>
     </div>
   );

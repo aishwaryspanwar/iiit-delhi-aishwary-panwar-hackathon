@@ -9,6 +9,8 @@ All numbers come from scripts and are pinned by tests:
 
 `tests/unit/test_evaluate.py` fails if any committed file drifts from the code and data, or if the configuration hash differs from the one recorded in the metrics.
 
+Sections 1 to 3 describe the frozen engine 0.2.0 (git tag `eval-freeze`), whose W3 and N1 results are the clean out-of-sample evidence. Section 4 describes the post-freeze engine 0.3.0 that the app ships, and how its numbers differ. [results.md](results.md) shows the current (0.3.0) tables. Times are India Standard Time (IST).
+
 ## 1. Protocol
 
 | Window | Role | Sources |
@@ -64,7 +66,7 @@ Every number below is in [results.md](results.md).
   - Impact does not track VIX changes or rate moves.
 - **Triggers.**
   - In both shock windows, engine alerts are more precise than firing every day: W1 82% against a 67% base, and W3 80% against 67%, with recall 58% and 83%.
-  - In W3 the alerts caught the US CPI shock (detected 05:00 UTC on 13 Sep, the day the S&P 500 fell 4.3%), the Fed decision on 21 Sep and the Bank of England's gilt intervention on 27 Sep.
+  - In W3 the alerts caught the US CPI shock (detected 10:30 IST on 13 Sep, before the CPI release at 18:00 IST and the S&P 500's −4.3% day), coverage ahead of the Fed decision on 21 Sep, and the gilt-market stress on 27 Sep, the day before the Bank of England's emergency gilt purchases (28 Sep).
   - **The calm window exposes false alarms.** N1 had no stress day at all, but the engine fired 4 alerts on US macro and Iran-Israel coverage. The engine measures how severe and abnormal the news is, not how markets will react.
 - **Lead time.** Alerts fire a median of 9.5 hours (W1) and 12 hours (W3) before an end-of-day batch run would, and 83-100% of them before the US close.
 - **Stress backtest.**
@@ -72,7 +74,38 @@ Every number below is in [results.md](results.md).
   - Realised moves were negative after 50-62% of triggers over one day, against 57-73% of all days in the same windows.
   - Our scenarios are bounds, not forecasts: on the invasion day the market rallied.
 
-## 4. Limitations
+## 4. Post-freeze vocabulary extension (engine 0.3.0)
+
+**What changed.** To make the live "Try a headline" demo robust, 11 rules were added after the freeze (46 in total), together with severity cue words, 86 finance words in the VADER lexicon, and leader and capital aliases for India, the US, China and the UK. The new rules cover:
+
+- policy actions: bans, tariffs, licence revocations, blocked deals, nationalisation, recalls, fines;
+- relief actions: lifted bans, approvals, subsidies;
+- corporate events: beats and misses, guidance changes, job cuts, fraud, production halts;
+- coups and unrest, truces;
+- supply shocks and credit stress: bail-outs, bank runs, missed payments;
+- macro shocks and rate cuts.
+
+Each rule carries a direction, so "India lifts ban on Chinese apps" reads as positive and "PM Modi bans Tesla in India" as a negative regulatory event targeting Tesla.
+
+**Why it is reported separately.** The rules were written from general knowledge, without using any test label, but after W3 and N1 had been scored. For 0.3.0 those windows are therefore not untouched tests, and the frozen 0.2.0 numbers remain the clean estimate.
+
+| Measure | 0.2.0 (frozen) | 0.3.0 (shipped) |
+|---|---|---|
+| Event class macro-F1, W1 test | 0.57 [0.43-0.69] | 0.59 [0.44-0.72] |
+| Event class macro-F1, W3 test | 0.40 [0.28-0.54] | 0.35 [0.23-0.48] |
+| VADER macro-F1, W1 / W3 test | 0.46 / 0.46 | 0.46 / 0.48 |
+| W3 alerts: flags, precision, recall | 5, 80%, 83% | 6, 83%, 100% |
+| W1 alerts: flags, precision, recall | 11, 82%, 58% | 12, 75%, 67% |
+| N1 alerts (calm, all false alarms) | 4 | 8 |
+
+**Reading it.**
+
+- The wider vocabulary improves W1 test and alert recall in both shock windows.
+- It lowers W3 event-class F1 and doubles the calm-window false alarms. One reason is that policy words pull items into the regulatory class that the annotator labelled otherwise; for example, an export ban on rice is labelled commodity.
+- In W1, 0.3.0 alerts on 22 Feb at impact 8.2. The invasion-day cluster peaks at 8.9, below the re-arm margin of 9.2, so the 72-hour cooldown suppresses it and the next alert fires on 25 Feb.
+- We did not tune further: adjusting rules after reading test errors would make the test sets meaningless.
+
+## 5. Limitations
 
 - **Labels:** until human verification completes, the test labels are a single LLM annotator. The blind Stage A sample measures how often it agrees with a person.
 - **Sample size:** 100-120 test items per window give wide intervals, and several classes have fewer than ten examples.

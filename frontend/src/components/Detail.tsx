@@ -139,7 +139,7 @@ function Fact({ label, value }: { label: string; value: ReactNode }) {
   );
 }
 
-export function SignalExplain({ signal }: { signal: Signal }) {
+export function SignalExplain({ signal, provenance = true }: { signal: Signal; provenance?: boolean }) {
   const { meta, summary, className, entityName } = useApp();
   const threshold = summary.trigger_settings.impact_threshold;
   const url = safeHttpUrl(signal.url);
@@ -152,11 +152,11 @@ export function SignalExplain({ signal }: { signal: Signal }) {
           <span className="num">{dateTime(signal.published_at)}</span>
           {signal.duplicate_count > 1 && <span className="num">{signal.duplicate_count} duplicates merged</span>}
         </div>
-        <p className="text-[19px] leading-snug font-medium text-ink">
+        <p className="text-[19px] leading-snug font-normal text-ink">
           <HighlightedText text={signal.text ?? "(no text)"} terms={signal.entities.map((e) => e.matched)} />
         </p>
         {url && (
-          <a href={url} target="_blank" rel="noopener noreferrer nofollow" className="mt-3 inline-flex items-center gap-1.5 text-[13px] font-medium text-teal-ink hover:underline">
+          <a href={url} target="_blank" rel="noopener noreferrer nofollow" className="mt-3 inline-flex items-center gap-1.5 text-[13px] font-normal text-teal-ink hover:underline">
             Read the original article <ExternalLink size={13} aria-hidden="true" />
           </a>
         )}
@@ -197,7 +197,7 @@ export function SignalExplain({ signal }: { signal: Signal }) {
           <ul className="flex flex-wrap gap-2">
             {signal.entities.map((entity) => (
               <li key={entity.id} className="flex items-center gap-2 rounded-full bg-surface-2 px-3.5 py-1.5 text-[13px]">
-                <span className="font-medium text-ink">{entity.name}</span>
+                <span className="font-normal text-ink">{entity.name}</span>
                 <span className="text-ink-3">{entity.type.replace("_", " ")}</span>
                 {entity.ticker && <span className="num text-teal-ink">${entity.ticker}</span>}
               </li>
@@ -213,19 +213,21 @@ export function SignalExplain({ signal }: { signal: Signal }) {
         )}
       </section>
 
-      <section>
-        <SectionTitle>Provenance</SectionTitle>
-        <dl className="well divide-y divide-line px-4 py-1">
-          <KeyValue label="Signal ID" mono>{signal.signal_id}</KeyValue>
-          <KeyValue label="Source record" mono>{signal.source_id}</KeyValue>
-          <KeyValue label="Text hash" mono>{signal.text_hash.slice(0, 16)}…</KeyValue>
-          <KeyValue label="Sentiment model" mono>{signal.sentiment.model}</KeyValue>
-          <KeyValue label="Sentiment label">{SENTIMENT_TEXT[signal.sentiment.label]}</KeyValue>
-          <KeyValue label="Build and config" mono>
-            {signal.build.build_id}, {signal.build.config_hash}
-          </KeyValue>
-        </dl>
-      </section>
+      {provenance && (
+        <section>
+          <SectionTitle>Provenance</SectionTitle>
+          <dl className="well divide-y divide-line px-4 py-1">
+            <KeyValue label="Signal ID" mono>{signal.signal_id}</KeyValue>
+            <KeyValue label="Source record" mono>{signal.source_id}</KeyValue>
+            <KeyValue label="Text hash" mono>{signal.text_hash.slice(0, 16)}…</KeyValue>
+            <KeyValue label="Sentiment model" mono>{signal.sentiment.model}</KeyValue>
+            <KeyValue label="Sentiment label">{SENTIMENT_TEXT[signal.sentiment.label]}</KeyValue>
+            <KeyValue label="Build and config" mono>
+              {signal.build.build_id}, {signal.build.config_hash}
+            </KeyValue>
+          </dl>
+        </section>
+      )}
     </div>
   );
 }
@@ -245,7 +247,7 @@ export function ClusterExplain({ detail, compact = false }: { detail: EventDetai
           <span className="num ml-1 text-[13px] text-ink-3">{dateTime(event.t_start)}</span>
         </div>
         {!compact && event.lead?.text && (
-          <p className="mt-4 text-[19px] leading-snug font-medium text-ink">
+          <p className="mt-4 text-[19px] leading-snug font-normal text-ink">
             “{event.lead.text}”
           </p>
         )}
@@ -278,13 +280,13 @@ export function ClusterExplain({ detail, compact = false }: { detail: EventDetai
       {run && (
         <a href={href("stress", run.cluster_id)} className="group flex items-center justify-between gap-4 rounded-2xl bg-loss/10 px-5 py-4 transition-shadow duration-200 hover:shadow-hover">
           <span>
-            <span className="block text-[13px] font-medium text-loss">Stress test triggered</span>
+            <span className="block text-[13px] font-normal text-loss">Stress test triggered</span>
             <span className="figure mt-1 block text-[24px] text-loss">
               {usdMillions(run.totals.pnl)}
-              <span className="num ml-2 text-[13px] font-medium">{percent(run.totals.pnl_pct)} of portfolio</span>
+              <span className="num ml-2 text-[13px] font-normal">{percent(run.totals.pnl_pct)} of portfolio</span>
             </span>
           </span>
-          <span className="flex items-center gap-1.5 text-[13.5px] font-medium text-ink-2 group-hover:text-ink">
+          <span className="flex items-center gap-1.5 text-[13.5px] font-normal text-ink-2 group-hover:text-ink">
             Open stress test <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true" />
           </span>
         </a>
@@ -355,7 +357,7 @@ export function DetailDrawer() {
       <aside role="dialog" aria-modal="true" aria-labelledby="detail-title" className="overlay slide-in relative m-3 flex h-[calc(100%-1.5rem)] w-full max-w-[720px] flex-col rounded-3xl">
         <header className="flex items-center justify-between gap-4 px-8 pt-7 pb-5">
           <div>
-            <h2 id="detail-title" className="font-display text-[20px] text-ink">
+            <h2 id="detail-title" className="font-display font-semibold text-[20px] text-ink">
               {title}
             </h2>
             <p className="mt-0.5 text-[13px] text-ink-3">How the engine reached every number below</p>

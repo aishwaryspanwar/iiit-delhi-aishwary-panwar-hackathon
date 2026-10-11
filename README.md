@@ -1,4 +1,6 @@
-# Event-Driven Risk Engine & Portfolio Stress Testing - S&P Global & Crisil Campus Hackathon
+# Ripple: Event-Driven Risk Signals & Portfolio Stress Testing
+
+**S&P Global & Crisil Campus Hackathon 2026**
 
 **Candidate Name:** Aishwary S Panwar
 **College Email ID:** aishwary23055@iiitd.ac.in
@@ -6,18 +8,100 @@
 **Demo Video Link:** _to be added_
 **Slide Deck Link (if hosted externally):** not hosted externally; the deck will be committed as `docs/presentation.pdf`
 
-## 1. Project Overview / Problem Statement & Approach
+<!-- SCREENSHOT: hero image of the Overview page. Save as docs/screenshots/overview-dark.png and uncomment the next line. -->
+<!-- ![Ripple dashboard](docs/screenshots/overview-dark.png) -->
+> 📸 **Screenshot placeholder:** Ripple dashboard (Overview page, dark theme), saved as `docs/screenshots/overview-dark.png`.
 
-**Problem.** News and social posts move markets hours before a risk system sees a number. The brief asks for an NLP engine that turns unstructured text from at least two sources into structured signals (sentiment, event class, 1-10 impact), exposed through a file or API, and at least one downstream module.
+News moves markets hours before a risk system sees a number. **Ripple** reads news headlines and social posts as they arrive, turns each one into a structured risk signal, and when an event looks serious enough, stress-tests a bank portfolio to show what it could cost. The name comes from the idea at its core: a single headline sends ripples through a portfolio.
 
-**What this project does.**
-1. **Risk engine.** Reads GDELT news headlines and stock tweets, de-duplicates them, tags 241 companies, countries, sectors and central banks, classifies each item into one of nine event classes, scores sentiment with FinBERT, and scores impact with a transparent rubric.
-2. **As-of stream.** Every hour it recomputes each event's impact on a rolling 24-hour window using only data available at that hour, and fires an **alert** the first hour an event passes eight checks. This is how the system would run on a live feed (an optional live GDELT mode is included).
-3. **Module B, event-triggered stress test.** Each alert stresses a synthetic wholesale-banking book with scenarios **calibrated on historical analogue episodes**. It reports value before and after, IFRS 9 provisions, risk-weighted assets, a severity curve and P&L attribution that sums exactly to the total.
+## Contents
 
-**Approach.** Every number is traceable to a rule, a weight or a data file, and the model is validated the way a risk team would demand. Rules and thresholds were tuned on one window (W1), the configuration was frozen (git tag `eval-freeze`), and only then were two untouched windows scored: W3, a September 2022 rates shock, and N1, a calm 2026 month. Results are reported with confidence intervals, naive baselines and the claims that failed. No LLM is in the scoring path, and everything runs offline on a CPU.
+1. [Project overview](#1-project-overview)
+2. [A tour of the app](#2-a-tour-of-the-app)
+3. [Architecture & tech stack](#3-architecture--tech-stack)
+4. [Dataset used](#4-dataset-used)
+5. [Setup & installation](#5-setup--installation)
+6. [Key results & domain impact](#6-key-results--domain-impact)
+7. [Limitations](#7-limitations)
+8. [Repository layout](#8-repository-layout)
 
-## 2. Architecture & Tech Stack
+## 1. Project overview
+
+### The problem
+
+The brief asks for an NLP engine that turns unstructured text from at least two sources into structured signals (sentiment, event class and a 1 to 10 impact score), exposes them through a file or an API, and drives at least one downstream module.
+
+### What Ripple does
+
+1. **Reads the news.** It ingests GDELT news headlines and stock tweets, removes duplicates and recognises 241 companies, countries, sectors and central banks.
+2. **Scores every item.** Each headline or post gets an event class (one of nine, such as geopolitical, credit event or macroeconomic), a sentiment score from FinBERT, and an impact score from 1 to 10 built from a transparent rubric.
+3. **Watches events form, hour by hour.** Related items are grouped into events. Every hour, each event's impact is recomputed on a rolling 24-hour window using only data available at that hour, so there is no look-ahead. The first hour an event passes eight checks, Ripple raises an **alert**.
+4. **Stress-tests the portfolio (Module B).** Each alert stresses a synthetic wholesale-banking book with scenarios calibrated on historical episodes. Ripple reports portfolio value before and after, IFRS 9 provisions, risk-weighted assets, a severity curve, and P&L attribution that adds up exactly to the total.
+5. **Runs live too.** The same engine can poll the live GDELT feed every 15 minutes and stress-test the book on each live alert.
+
+### Approach
+
+- **Everything is traceable.** Every number links back to a rule, a weight or a data file, all kept in `config/`, so a risk team can audit, challenge and re-run it.
+- **Validated like a risk model.** Rules and thresholds were tuned on one window (W1). The configuration was then frozen (git tag `eval-freeze`), and only after that were two untouched windows scored: W3, a September 2022 rates shock, and N1, a calm 2026 month.
+- **Honest reporting.** Results come with confidence intervals and naive baselines, and claims that failed are listed alongside the ones that held. The shipped engine (0.3.0) widened the rule vocabulary after the freeze for the live demo, so it is reported separately from the frozen 0.2.0 results.
+- **No LLM in the scoring path.** Everything runs offline on a laptop CPU.
+
+## 2. A tour of the app
+
+Ripple has one web interface with four pages. It works in dark and light themes (toggle in the top-right corner) and adapts to desktop screens from 1024 px up to 2560 px and wider.
+
+**First visit.** A short guided walkthrough explains the app in six steps, and you can skip it at any point. To replay it later, click the **?** button in the header.
+
+**Header controls.**
+
+- **Offline / Live:** switch between replaying a saved news window and following the live feed.
+- **Dataset menu:** choose a replay window (W1, W3, N1 or stub).
+- **Replay bar** (Overview and Signal feed): press play to watch the window unfold day by day. Every chart follows the replay date, and red diamonds mark days when a stress test fired.
+
+### Overview
+
+The big picture: where the news is, how risky things are, and what the latest stress test did to the book.
+
+- A world map of the countries in the news, with bubble size for coverage and colour for sentiment, next to a risk gauge for the last 72 hours.
+- An event timeline drawn as a dot matrix: each column lights up to the impact of the riskiest event in that period, and dots above the dashed line crossed the stress-test trigger.
+- Real-time alerts, showing how many hours earlier each one fired than an end-of-day run would have.
+- The latest high-impact events, a breakdown of what the news is about, the latest stress test, and the market mood.
+
+<!-- SCREENSHOT: docs/screenshots/overview.png -->
+> 📸 **Screenshot placeholder:** Overview page, saved as `docs/screenshots/overview.png`.
+
+### Signal feed
+
+Every news item and post with its event class, sentiment and impact, which is the engine's structured output. Search and filter by class, source, sentiment and impact. Click any row to open a panel showing exactly how it was scored: the rules that matched, the impact components and their weights, the entities found, and the record's provenance.
+
+<!-- SCREENSHOT: docs/screenshots/signal-feed.png -->
+> 📸 **Screenshot placeholder:** Signal feed with the detail panel open, saved as `docs/screenshots/signal-feed.png`.
+
+### Stress test
+
+Module B. Pick any triggered event to see:
+
+- the causal chain: event → classification → impact → scenario → shock → portfolio;
+- portfolio value before and after the stress;
+- P&L by asset class and by risk factor;
+- credit losses and capital, and the severity curve;
+- the shocks applied and the trigger checks;
+- every position revalued.
+
+<!-- SCREENSHOT: docs/screenshots/stress-test.png -->
+> 📸 **Screenshot placeholder:** Stress test page, saved as `docs/screenshots/stress-test.png`.
+
+### Try a headline
+
+Type any headline and Ripple scores it live with the same engine. It then shows whether the story would trigger a stress test. Move the sliders for how many outlets report it and how unusual the volume is, and run a preview of the stress test on the portfolio.
+
+<!-- SCREENSHOT: docs/screenshots/try-a-headline.png -->
+> 📸 **Screenshot placeholder:** Try a headline with a scored result, saved as `docs/screenshots/try-a-headline.png`.
+
+<!-- SCREENSHOT: docs/screenshots/light-theme.png -->
+> 📸 **Screenshot placeholder (optional):** any page in the light theme, saved as `docs/screenshots/light-theme.png`.
+
+## 3. Architecture & tech stack
 
 ![Architecture](docs/architecture.png)
 
@@ -25,7 +109,7 @@
 |---|---|
 | Clean and de-duplicate | Strip HTML, links and handles; hash de-duplication that ignores trailing outlet and section tags, keeping duplicate counts and outlets |
 | Entities and scope | 241 entities and cashtags decide whether an event is single-name, sector, country or macro |
-| Event class | 35 weighted rules over 9 classes, with exclusions (sport, crime, consumer debt) and credit **direction** (a rating upgrade is not a stress event) |
+| Event class | 46 weighted rules over 9 classes, with exclusions (sport, crime, consumer debt, telecom tariff plans) and **direction** (a rating upgrade, a lifted ban or a truce is not a stress event) |
 | Sentiment | FinBERT (`ProsusAI/finbert`, pinned revision, CPU), neutral band chosen on the development sample; VADER with a finance lexicon as the live fallback |
 | Item impact | `1 + 9 × (0.35·class prior + 0.25·sentiment magnitude + 0.20·entity importance + 0.20·severity cues)`, components stored |
 | As-of event impact | Every hour, on a rolling 24 h window per (class, scope, target): `1 + 9 × (0.5·severity + 0.2·breadth + 0.3·abnormal volume)`. The baseline is the same hour on the previous 7 days, quiet days counted as zero, with no look-ahead ([details](docs/impact_calibration.md)) |
@@ -33,27 +117,24 @@
 | Stress scenarios | Market shocks = 2× the worst week of historical analogues (Crimea 2014, taper tantrum 2013, US downgrade 2011, Libya 2011 and others) scaled by impact; targeted add-ons and contagion to linked countries; AAA/AA sovereigns are safe havens |
 | Valuation | Bonds: rate and spread duration plus convexity. Loans: IFRS 9 staging (stage 2 → lifetime ECL). Swaps: DV01. Equities: estimated beta. Options: delta, gamma, vega. Capital: Basel III standardised RWA |
 
-- **Precompute plus a thin runtime.** `python -m src.pipeline` writes versioned, schema-validated files (signals, events, alerts, stress results). The frontends and the API only read them. Builds are deterministic and tests check that committed outputs are current.
-- **Two frontends, one engine.** Streamlit is the reference UI and the Quickstart. React is the polished UI, served by a standard-library JSON API that calls the same Python code.
-- **Stack.**
-  - Runtime: Python 3.13, pandas, numpy, PyYAML, jsonschema, vaderSentiment, Streamlit, Plotly.
-  - Frontend: React 19, TypeScript, Vite, Tailwind CSS, Recharts.
-  - Build only: PyTorch and transformers (FinBERT), yfinance, matplotlib.
+**Design choices.**
 
-| Path | Contents |
+- **Precompute plus a thin runtime.** `python -m src.pipeline` writes versioned, schema-validated files (signals, events, alerts, stress results). The API only reads them. Builds are deterministic, and tests check that the committed outputs are current.
+- **Live mode.** `python -m scripts.live_gdelt` backfills the last 7 days of GDELT hourly files, so the volume baseline and the 3-day warm-up are ready. It then adds every 15-minute file, re-runs the engine and Module B, and writes the `live` dataset. The API reloads it when the files change, and the web app refreshes every minute.
+- **One interface.** A React app served by a standard-library JSON API that calls the same Python code. It never re-implements scoring or valuation.
+
+**Tech stack.**
+
+| Layer | Tools |
 |---|---|
-| `src/riskengine/` | Cleaning, de-duplication, entities, rules, sentiment, impact, schemas |
-| `src/stream/` | As-of streaming engine: rolling windows, baselines, alerts |
-| `src/stress/` | Portfolio, calibrated shocks, contagion, valuation, IFRS 9, capital, explanations |
-| `src/api/`, `frontend/`, `src/app/` | JSON API, React app, Streamlit app |
-| `scripts/` | Data fetching, labelling, calibration, evaluation, backtest, benchmark, live mode, diagram |
-| `config/` | Every rule, weight, threshold, scenario and the portfolio recipe (no magic numbers in code) |
-| `data/` | All inputs and outputs, with provenance in [data/SOURCES.md](data/SOURCES.md) |
-| `docs/` | [results](docs/results.md), [evaluation](docs/evaluation.md), [impact calibration](docs/impact_calibration.md), [assumptions](docs/assumptions.md), [labelling guide](docs/labelling_guide.md) |
+| Engine and API | Python 3.13, pandas, numpy, PyYAML, jsonschema, vaderSentiment; standard-library HTTP server |
+| Web app | React 19, TypeScript, Vite, Tailwind CSS, Recharts, d3-geo |
+| Build only | PyTorch and transformers (FinBERT), yfinance, matplotlib |
+| Tests | pytest (engine, stress, API), Vitest and Testing Library (web app) |
 
-## 3. Dataset Used
+## 4. Dataset used
 
-All data is public or synthetic; nothing is downloaded at runtime. Full provenance and licences: [data/SOURCES.md](data/SOURCES.md).
+All data is public or synthetic, and nothing is downloaded at runtime except in live mode. Full provenance and licences: [data/SOURCES.md](data/SOURCES.md).
 
 | Window | Role | News (GDELT GKG 2.1) | Tweets (Kaggle, CC0) |
 |---|---|---|---|
@@ -63,7 +144,7 @@ All data is public or synthetic; nothing is downloaded at runtime. Full provenan
 
 Other data:
 
-- **Derived market returns.** Only derived series from yfinance are committed: raw prices are never redistributed, and none of it is used in scoring.
+- **Derived market returns.** Only derived series from yfinance are committed. Raw prices are never redistributed, and none of it is used in scoring.
 - **Synthetic portfolio.** 44 positions worth $3,646.9m: loans, bonds, swaps, equities and options. Credit obligors are synthetic; equities and options use real tickers.
 - **Evaluation labels.** 200 development items plus 270 test items. Labels come from an automated LLM annotation pass, and the test labels are checked by a person.
 
@@ -76,96 +157,164 @@ Other data:
 
 Every judgement is listed in [docs/assumptions.md](docs/assumptions.md).
 
-## 4. Quickstart & Installation
+## 5. Setup & installation
 
-Runtime: Python 3.13 on Windows 11 (also runs on macOS and Linux). CPU only, no network, no API keys. React needs Node.js 20.19 or later.
+### Requirements
+
+| Requirement | Version | Notes |
+|---|---|---|
+| Python | 3.13 or later | [python.org/downloads](https://www.python.org/downloads/) |
+| Node.js | 20.19+ or 22.12+ | [nodejs.org](https://nodejs.org/); needed once, to build the web app |
+| Git | any recent version | to clone the repository |
+| OS | Windows 11, macOS or Linux | developed and tested on Windows 11 |
+
+No GPU and no API keys are needed. An internet connection is needed only for the first install and for live mode.
+
+### Quickstart (one command)
 
 ```bash
 git clone https://github.com/aishwaryspanwar/iiit-delhi-aishwary-panwar-hackathon.git
 cd iiit-delhi-aishwary-panwar-hackathon
-python -m venv .venv
-.venv\Scripts\activate            # macOS/Linux: source .venv/bin/activate
-pip install -r requirements.txt
-streamlit run src/app/dashboard.py
+python run.py
 ```
 
-The Streamlit app opens at http://127.0.0.1:8501 with four tabs:
+On Windows, if `python` points to an older version, use `py -3.13 run.py`.
 
-- **Signal feed:** replay, impact timeline and filters.
-- **Stress test:** P&L, IFRS 9, capital and the severity curve.
-- **Alerts and evaluation.**
-- **Try a headline:** live scoring and a what-if preview.
+`run.py` does everything:
 
-**React app.**
+1. creates a virtual environment in `.venv` and installs `requirements.txt` (first run only);
+2. installs and builds the web app with npm (first run, or when the frontend changes);
+3. starts the API, waits until it is ready (about a minute, while it loads the model and datasets) and opens **http://127.0.0.1:8000** in your browser;
+4. with `--live`, also starts the live GDELT poller;
+5. stops everything when you press Ctrl+C.
+
+| Option | What it does |
+|---|---|
+| `--live` | Also poll the live GDELT feed every 15 minutes (needs internet) |
+| `--port 8100` | Use another port if 8000 is busy |
+| `--no-browser` | Do not open a browser tab |
+| `--rebuild` | Rebuild the web app even if it looks current |
+
+### Live feed
 
 ```bash
-python -m src.api                  # API on http://127.0.0.1:8000
-cd frontend && npm install && npm run build   # once; then open http://127.0.0.1:8000
+python run.py --live                 # app + live poller together
+python -m scripts.live_gdelt         # poller on its own
+python -m scripts.live_gdelt --once  # one refresh, then exit
 ```
 
-The React app has seven pages: Overview with real-time alerts, Signal feed, Companies, Stress test, Evaluation, Try a headline and Methodology. For development, use `npm run dev` (http://127.0.0.1:5173). Details are in [frontend/README.md](frontend/README.md).
+- **First poll:** it backfills 7 days of hourly GDELT files, about 170 downloads, which takes a few minutes. After that, a new file arrives every 15 minutes.
+- **Output:** each poll rewrites `data/processed/live/` (gitignored) with signals, events, alerts and a Module B stress result for every live alert. Switch the header to **Live** to see it.
+- **No tweets in live mode:** live news has no social-media source, because the tweet dataset is historical.
+- **Sentiment model:** FinBERT if the build requirements are installed, otherwise VADER.
 
-**Rebuild, evaluate, test.**
+### Manual setup (what `run.py` does)
+
+```bash
+python -m venv .venv
+.venv\Scripts\activate          # Windows
+source .venv/bin/activate       # macOS / Linux
+pip install -r requirements.txt
+cd frontend
+npm ci
+npm run build
+cd ..
+python -m src.api               # serves the app at http://127.0.0.1:8000
+```
+
+### Developing the web app
+
+Run the API and the Vite dev server in two terminals:
+
+```bash
+python -m src.api               # terminal 1, repository root
+cd frontend && npm run dev      # terminal 2, http://127.0.0.1:5173 (proxies /api to port 8000)
+```
+
+API routes, design notes and frontend scripts are in [frontend/README.md](frontend/README.md).
+
+### Rebuild data, evaluate and test
 
 ```bash
 pip install -r requirements-build.txt         # PyTorch, transformers, yfinance (build only)
 python -m src.pipeline --dataset w1           # also w3, n1, stub
-python -m scripts.evaluate                    # metrics.json, window_comparison.json
-python -m scripts.backtest_stress             # backtest.json
-python -m scripts.benchmark                   # benchmark.json
+python -m scripts.evaluate                    # data/eval/metrics.json, window_comparison.json
+python -m scripts.backtest_stress             # data/eval/backtest.json
+python -m scripts.benchmark                   # data/eval/benchmark.json
 python -m scripts.render_results              # docs/results.md
-python -m pytest -q                           # 264 tests
-cd frontend && npm test                       # 14 tests
+python -m pytest -q                           # engine, stress and API tests
+cd frontend && npm test                       # web app tests
 ```
 
-Optional live mode, which needs network: `python -m scripts.live_gdelt` polls GDELT every 15 minutes and writes signals, events and alerts to `data/processed/live/`.
+### Troubleshooting
 
-## 5. Key Results & Domain Impact
+| Problem | Fix |
+|---|---|
+| `Python 3.13 or later is required` | Install Python 3.13 and run `py -3.13 run.py` (Windows) or `python3.13 run.py` |
+| `Node.js 20.19+ is required` | Install Node.js 20.19+ or 22.12+, then run `python run.py` again |
+| Port 8000 already in use | `python run.py --port 8100` |
+| The page loads but looks out of date | `python run.py --rebuild`, then refresh the browser |
+| "Live" is greyed out in the header | No live data yet: start it with `python run.py --live` and wait for the first poll |
+| Startup takes about a minute | Expected on the first request: the API loads the datasets and the sentiment model |
 
-Full tables, with 95% confidence intervals: [docs/results.md](docs/results.md). Method and limitations: [docs/evaluation.md](docs/evaluation.md).
+## 6. Key results & domain impact
 
-**Alerts on the untouched shock window (W3, Sep 2022).**
+Full tables, with 95% confidence intervals: [docs/results.md](docs/results.md). Method and limitations: [docs/evaluation.md](docs/evaluation.md). Times are India Standard Time (IST).
 
-- The engine fired 8 alerts on 5 trading days, with 80% precision and 83% recall against market-stress days (|S&P 500| > 1.5% or VIX +10%). Firing every day would score 67% precision.
-- It flagged the US inflation story at 05:00 UTC on 13 Sep, hours before the CPI release and the S&P 500's −4.3% day.
-- It also flagged the Fed's 75 bp decision (21 Sep) and the Bank of England's gilt intervention (27 Sep).
-- Alerts arrive a median of 12 hours before an end-of-day batch run would see the same event, and all of them before the US close.
+### Two engine versions, reported separately
 
-**Calm window (N1).** There were no market-stress days at all, yet the engine fired 4 alerts on US macro and Iran-Israel news. These are false alarms in market terms: the engine measures how severe and abnormal the news is, not how markets will react.
+- **0.2.0 (frozen, git tag `eval-freeze`).** Rules were tuned on W1 only, the configuration was frozen, and only then were W3 and N1 scored. These are the clean out-of-sample numbers.
+- **0.3.0 (shipped).** After the freeze, the vocabulary was widened so the live "Try a headline" demo handles common news it previously missed: policy actions (bans, tariffs, licence revocations, nationalisation), corporate events (guidance cuts, beats and misses, recalls, fraud), coups and unrest, credit stress (bail-outs, bank runs) and rate cuts. No test label was used to write these rules, but they were written after W3 and N1 had been seen, so for 0.3.0 those windows are no longer untouched. Every number below is from 0.3.0 unless marked as 0.2.0.
 
-**Stress results.**
+### Alerts on the shock window (W3, Sep 2022)
+
+- 0.3.0 fired 9 alerts on 6 trading days: 83% precision and 100% recall against market-stress days (|S&P 500| > 1.5% or VIX +10%). Firing every day would score 67% precision. The frozen 0.2.0 engine fired 8 alerts on 5 days, with 80% precision and 83% recall.
+- At 10:30 IST on 13 Sep it flagged the build-up of US inflation coverage, before the CPI release at 18:00 IST and the S&P 500's −4.3% day. This is anticipation of a scheduled release, not a forecast of the surprise.
+- It flagged Fed coverage at 13:30 IST on 21 Sep, before the 75 bp decision at 23:30 IST, and again after it. It also flagged the gilt-market stress and Bank of England statements on 27 Sep, the day before the Bank's emergency gilt purchases on 28 Sep.
+- Alerts arrive a median of 16 hours before an end-of-day batch run would see the same event, and all of them before the US close.
+
+### Calm window (N1)
+
+There were no market-stress days, yet 0.3.0 fired 8 alerts (0.2.0 fired 4) on US macro, Iran-Israel and tariff news. These are false alarms in market terms: the engine measures how severe and abnormal the news is, not how markets will react. The wider policy vocabulary makes the engine more sensitive, and the calm window shows the cost.
+
+### Stress results
 
 - The calibrated scenarios cost the book −0.2% to −2.3% per alert.
-- Credit events are the most severe: Fitch's Russia downgrade cost −$83.0m, mostly IFRS 9 stage-2 provisions on Russian loans.
+- Credit events are the most severe. Fitch's Russia downgrade cost −$83.0m (−2.28%), mostly through bond spread widening (−$58.2m) and equity falls (−$42.9m), partly offset by lower rates. IFRS 9 provisions moved only −$3.4m, as one loan went to stage 2.
 - Geopolitical market shocks are mild, because historical analogues show broad markets rarely fall far on geopolitics. The loss sits in the targeted exposures.
-- In the backtest, the realised loss on the liquid sleeve stayed within the stressed loss after 88-92% of triggers in the shock windows (1-day horizon).
+- In the backtest, the realised 1-day loss on the liquid sleeve stayed within the stressed loss after 86% (W1) and 89% (W3) of triggers.
 
-**NLP quality on held-out labels.**
+### NLP quality on held-out labels
 
 | Model | W1 test | W3 test | Majority baseline | Keyword baseline |
 |---|---|---|---|---|
-| Event class, macro-F1 | **0.57** [0.43-0.69] | **0.40** [0.28-0.54] | 0.10 / 0.07 | 0.58 / 0.36 |
-| Sentiment (FinBERT), macro-F1 | **0.57** [0.43-0.68] | **0.44** [0.34-0.54] | 0.27 / 0.25 | VADER 0.46 / 0.46 |
+| Event class, macro-F1 (0.3.0) | **0.59** [0.44-0.72] | **0.35** [0.23-0.48] | 0.10 / 0.07 | 0.58 / 0.36 |
+| Event class, macro-F1 (0.2.0, frozen) | 0.57 [0.43-0.69] | 0.40 [0.28-0.54] | 0.10 / 0.07 | 0.58 / 0.36 |
+| Sentiment (FinBERT), macro-F1 | **0.57** [0.43-0.68] | **0.44** [0.34-0.54] | 0.27 / 0.25 | VADER 0.46 / 0.48 |
 
-Both models clearly beat the majority baseline. Two claims we wrote down before scoring did not hold:
+Both models clearly beat the majority baseline. Claims written down before scoring, and what happened:
 
-- the rules do not beat a naive keyword classifier on W1 test;
+- The rules beat a naive keyword classifier on W1 test with 0.3.0, but only within noise (0.59 vs 0.58; 0.2.0 did not). On W3 they do not (0.35 vs 0.36).
 - FinBERT does not beat VADER on W3.
 
-Both are reported rather than tuned away. Event-class accuracy also falls on the rates-shock window, where the vocabulary differs from the war window the rules were written on.
+The wider vocabulary helped W1 test and the W3 alert recall, but lowered W3 event-class F1. One example is an export ban on rice, which 0.3.0 reads as a regulatory action while the label says commodity. These results are reported, not tuned away: the test labels were not used to adjust the rules.
 
-**Why it matters.** A risk team sees within hours which headline moved which number:
+### Throughput
+
+About 1,900 items/s end to end with VADER on a laptop CPU, and about 22 items/s for FinBERT, so a 15-minute GDELT file is scored well within its interval.
+
+### Why it matters
+
+A risk team sees within hours which headline moved which number:
 
 - the matched rules and the impact components;
 - the checks against their thresholds;
 - the calibrated shocks and the analogue episodes behind them;
 - the IFRS 9 stage moves and the capital cost.
 
-Each piece can be audited, challenged and re-run from configuration. The engine is a triage layer that decides when to run scenario analysis, not a market forecaster, and the evaluation shows where that line is.
+Each piece can be audited, challenged and re-run from configuration. Ripple is a triage layer that decides when to run scenario analysis, not a market forecaster, and the evaluation shows where that line is.
 
-**Throughput.** 2,463 items/s end to end with VADER on a laptop CPU. FinBERT scores 24 items/s, so a 15-minute GDELT file is scored well within its interval.
-
-**Limitations.**
+## 7. Limitations
 
 - Test labels are LLM annotations under human verification.
 - 100-120 test items per window and 14-28 trading days give wide intervals.
@@ -173,3 +322,20 @@ Each piece can be audited, challenged and re-run from configuration. The engine 
 - The portfolio and its ratings are synthetic.
 - Valuation is first- and second-order sensitivity: no FX, correlation, liquidity or counterparty risk.
 - This is not a regulatory stress test and not investment advice.
+
+## 8. Repository layout
+
+| Path | Contents |
+|---|---|
+| `run.py` | One-command setup and launch |
+| `src/riskengine/` | Cleaning, de-duplication, entities, rules, sentiment, impact, schemas |
+| `src/stream/` | As-of streaming engine: rolling windows, baselines, alerts |
+| `src/stress/` | Portfolio, calibrated shocks, contagion, valuation, IFRS 9, capital, explanations |
+| `src/pipeline.py`, `src/api/` | Batch pipeline and the read-only JSON API |
+| `frontend/` | The Ripple web app (React) |
+| `scripts/` | Data fetching, live GDELT poller, labelling, calibration, evaluation, backtest, benchmark, diagram |
+| `config/` | Every rule, weight, threshold, scenario and the portfolio recipe (no magic numbers in code) |
+| `data/` | All inputs and outputs, with provenance in [data/SOURCES.md](data/SOURCES.md) |
+| `docs/` | [results](docs/results.md), [evaluation](docs/evaluation.md), [impact calibration](docs/impact_calibration.md), [assumptions](docs/assumptions.md), [labelling guide](docs/labelling_guide.md), [data spike](docs/data_spike.md) |
+| `docs/screenshots/` | App screenshots used in this README |
+| `tests/` | Engine, stress, stream, API and launcher tests |

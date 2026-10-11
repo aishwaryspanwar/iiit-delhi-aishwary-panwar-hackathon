@@ -33,8 +33,11 @@ export function score(value: number, digits = 1): string {
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+export const TIME_ZONE_LABEL = "IST";
+const IST_OFFSET_MS = 330 * 60 * 1000;
+
 function parts(iso: string) {
-  const date = new Date(iso.length === 10 ? `${iso}T00:00:00Z` : iso);
+  const date = iso.length === 10 ? new Date(`${iso}T00:00:00Z`) : new Date(Date.parse(iso) + IST_OFFSET_MS);
   return {
     day: String(date.getUTCDate()).padStart(2, "0"),
     month: MONTHS[date.getUTCMonth()],
@@ -61,7 +64,7 @@ export function dayWithWeekday(iso: string): string {
 
 export function dateTime(iso: string): string {
   const p = parts(iso);
-  return `${p.day} ${p.month} ${p.year}, ${p.time} UTC`;
+  return `${p.day} ${p.month} ${p.year}, ${p.time} ${TIME_ZONE_LABEL}`;
 }
 
 export function time(iso: string): string {

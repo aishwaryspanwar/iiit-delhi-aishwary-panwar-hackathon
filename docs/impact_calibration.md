@@ -55,7 +55,7 @@ An alert fires at the first hour in which all checks pass:
 
 - 34,298 signals, 4,243 daily event records, 54 above impact 7.
 - 12 alerts: five on the Russia-Ukraine escalation (14, 17, 22, 24 and 28 Feb), oil on 7 Mar, Fitch's Russia downgrade on 9 Mar, gas on 9 Mar, US CPI on 10 Mar, Fed coverage on 14 and 16 Mar, and China-Russia reports on 15 Mar.
-- On 24 Feb, an earlier Ukraine-scoped cluster passed every check at 04:00 UTC, about an hour after the invasion began, but was suppressed by the cooldown from the 22 Feb alert. The re-armed alert fired at 12:00 UTC at impact 8.1.
+- With the frozen engine 0.2.0: on 24 Feb, an earlier Ukraine-scoped cluster passed every check at 09:30 IST, about an hour after the invasion began, but was suppressed by the cooldown from the 22 Feb alert. The re-armed alert fired at 17:30 IST at impact 8.1. With 0.3.0 the 22 Feb alert scores higher (8.2), so the 24 Feb clusters do not clear the re-arm margin and the next alert fires on 25 Feb.
 - The market and trigger statistics for every window, with confidence intervals, are in `docs/evaluation.md`.
 
 ## 5. Honest caveats

@@ -3,11 +3,12 @@ import { ChevronLeft, ChevronRight, Search, SearchX, X } from "lucide-react";
 import { useApp } from "../state";
 import { api, type SignalQuery } from "../lib/api";
 import { useAsync } from "../lib/useAsync";
-import { day, integer, shortDay, time } from "../lib/format";
+import { integer, shortDay, time } from "../lib/format";
 import { SENTIMENT_TEXT, SOURCE_TEXT, impactBand } from "../lib/risk";
 import type { Signal } from "../lib/types";
 import { MultiSelect } from "../components/MultiSelect";
-import { ClassTag, EmptyState, ErrorState, ImpactMeter, LoadingBlock, SentimentValue, cx } from "../components/ui";
+import { ClassTag, EmptyState, ErrorState, ImpactMeter, SentimentValue, cx } from "../components/ui";
+import { SignalRowsSkeleton } from "../components/Skeletons";
 
 const PAGE_SIZE = 50;
 const IMPACT_STEPS = [1, 3, 5, 6, 7, 8, 9];
@@ -21,10 +22,10 @@ function useDebounced<T>(value: T, delay: number): T {
   return debounced;
 }
 
-const TH = "caption py-3 pr-5 text-left font-medium";
+const TH = "caption py-3 pr-5 text-left font-normal";
 
 export function Signals() {
-  const { dataset, summary, replay, className, openDetail } = useApp();
+  const { dataset, summary, replay, className, openDetail, revision } = useApp();
   const threshold = summary.trigger_settings.impact_threshold;
   const [search, setSearch] = useState("");
   const [classes, setClasses] = useState<string[]>([]);
@@ -42,7 +43,7 @@ export function Signals() {
   );
   useEffect(() => setOffset(0), [followReplay, replay.day, classes, sources, sentiments, minImpact, q, sort, dataset]);
 
-  const page = useAsync((signal) => api.signals(dataset, query, signal), [dataset, JSON.stringify(query)]);
+  const page = useAsync((signal) => api.signals(dataset, query, signal), [dataset, JSON.stringify(query), revision]);
   const filtersActive = classes.length + sources.length + sentiments.length > 0 || minImpact > 1 || q.trim().length > 0;
   const reset = () => {
     setSearch("");
@@ -59,13 +60,13 @@ export function Signals() {
 
   return (
     <section className="panel" aria-labelledby="feed-title">
-      <header className="flex flex-wrap items-end justify-between gap-4 px-6 pt-6">
-        <div>
-          <h2 id="feed-title" className="text-[15.5px] font-semibold text-ink">
-            Scored signals
-          </h2>
-          <p className="mt-1 text-[13px] text-ink-3">{followReplay ? `Published up to ${day(replay.day)}, following the replay date` : "Across the entire window"}</p>
-        </div>
+      <header className="flex flex-wrap items-center justify-between gap-4 px-6 pt-6">
+        <h2 id="feed-title" className="sr-only">
+          Scored signals
+        </h2>
+        <span className="text-[13.5px] text-ink-2" aria-live="polite">
+          {statusText}
+        </span>
         <div className="flex gap-1.5">
           <button type="button" className="chip" aria-pressed={followReplay} onClick={() => setFollowReplay(true)}>
             Up to replay date
@@ -109,15 +110,13 @@ export function Signals() {
         )}
       </div>
 
-      <div className="flex items-center justify-between gap-3 border-t border-line px-6 py-3 text-[12.5px] text-ink-3">
-        <span aria-live="polite">{statusText}</span>
-        <span className="hidden sm:inline">Select a row to see how it was scored</span>
-      </div>
+      <div className="border-t border-line" />
 
       {page.error && <ErrorState error={page.error} onRetry={page.reload} />}
       {!page.error && !page.data && (
-        <div className="px-6 pb-6">
-          <LoadingBlock rows={10} label="Loading signals" />
+        <div role="status">
+          <span className="sr-only">Loading signals</span>
+          <SignalRowsSkeleton />
         </div>
       )}
       {!page.error && page.data && page.data.items.length === 0 && (
@@ -209,7 +208,6 @@ function SignalRow({ signal, threshold, label, onOpen }: { signal: Signal; thres
       </td>
       <td className="py-3.5 pr-5 align-top">
         <ClassTag label={label} emphasis={signal.event.class !== "other"} />
-        <span className="num mt-1 block text-[12px] text-ink-3">Confidence {signal.event.confidence.toFixed(2)}</span>
       </td>
       <td className="py-3.5 pr-5 align-top">
         <SentimentValue value={signal.sentiment.score} label={signal.sentiment.label} />

@@ -16,6 +16,7 @@ export function Panel({
   children,
   className,
   bodyClassName,
+  tour,
   as: Tag = "section",
 }: {
   title?: ReactNode;
@@ -24,10 +25,11 @@ export function Panel({
   children: ReactNode;
   className?: string;
   bodyClassName?: string;
+  tour?: string;
   as?: "section" | "div" | "article" | "aside";
 }) {
   return (
-    <Tag className={cx("panel flex min-w-0 flex-col", className)}>
+    <Tag data-tour={tour} className={cx("panel flex min-w-0 flex-col", className)}>
       {(title || description || actions) && (
         <header className="flex items-start justify-between gap-4 px-5 pt-5 md:px-6">
           <div className="min-w-0">
@@ -133,7 +135,7 @@ export function SentimentValue({ value, label }: { value: number; label?: Sentim
   else if (value >= 0.05) tone = "text-gain";
   return (
     <span className="inline-flex items-baseline gap-1.5" title={label ? SENTIMENT_TEXT[label] : undefined}>
-      <span className={cx("num text-[13.5px] font-medium", tone)}>{signed(value)}</span>
+      <span className={cx("num text-[13.5px] font-normal", tone)}>{signed(value)}</span>
       {label && <span className="text-[12px] text-ink-3">{SENTIMENT_TEXT[label]}</span>}
     </span>
   );
@@ -143,7 +145,7 @@ export function ClassTag({ label, emphasis = false }: { label: string; emphasis?
   return (
     <span
       className={cx(
-        "inline-flex h-[22px] max-w-full items-center truncate rounded-full px-2.5 text-[11.5px] font-medium",
+        "inline-flex h-[22px] max-w-full items-center truncate rounded-full px-2.5 text-[11.5px] font-normal",
         emphasis ? "bg-teal-soft text-teal-ink" : "bg-surface-2 text-ink-2",
       )}
     >

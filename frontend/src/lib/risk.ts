@@ -81,6 +81,3 @@ export const CHECK_ORDER: CheckName[] = [
   "baseline_ready",
   "cooldown",
 ];
-
-export const DISCLAIMER =
-  "Illustrative model on a synthetic portfolio — not a regulatory stress test and not investment advice. Ratings, PDs and sensitivities are synthetic.";

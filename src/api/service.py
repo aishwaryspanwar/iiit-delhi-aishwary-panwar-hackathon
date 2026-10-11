@@ -1,9 +1,10 @@
 import math
 from collections import Counter, defaultdict
 from dataclasses import dataclass
+from datetime import date, datetime, timedelta, timezone
 from functools import lru_cache
 
-from src.pipeline import DATASET_LABELS, available_datasets
+from src.pipeline import DATASET_LABELS, LIVE_DATASET, available_datasets
 from src.riskengine.build import score_single_text
 from src.riskengine.config import ENGINE_VERSION, PROCESSED_DIR, load_yaml
 from src.riskengine.entities import entity_table
@@ -22,6 +23,10 @@ DEFAULT_PAGE_SIZE = 50
 MAX_QUERY_LENGTH = 120
 CLUSTER_SIGNAL_LIMIT = 25
 SIGNAL_SORTS = ("time", "impact")
+CACHED_VERSIONS = 16
+GEO_ENTITY_TYPES = ("country", "central_bank", "index")
+GEO_HEADLINES = 12
+MAX_GEO_DAYS = 366
 
 
 class NotFound(Exception):
@@ -46,10 +51,26 @@ class DatasetBundle:
     status_by_id: dict[str, str]
 
 
-@lru_cache(maxsize=None)
+def data_version(name: str) -> int:
+    path = PROCESSED_DIR / name / "stress_results_v1.json"
+    return path.stat().st_mtime_ns if path.exists() else 0
+
+
+def updated_at(name: str) -> str | None:
+    if name != LIVE_DATASET:
+        return None
+    version = data_version(name)
+    return datetime.fromtimestamp(version / 1e9, tz=timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ") if version else None
+
+
 def bundle(name: str) -> DatasetBundle:
     if name not in available_datasets():
         raise NotFound(f"Dataset '{name}' is not available")
+    return load_bundle(name, data_version(name))
+
+
+@lru_cache(maxsize=CACHED_VERSIONS)
+def load_bundle(name: str, version: int) -> DatasetBundle:
     folder = PROCESSED_DIR / name
     signals = sorted(read_jsonl(folder / "signals_v1.jsonl.gz"), key=lambda s: (s["published_at"], s["signal_id"]), reverse=True)
     events = sorted(read_jsonl(folder / "events_v1.jsonl.gz"), key=lambda e: (e["t_start"], e["cluster_id"]))
@@ -84,7 +105,7 @@ def health() -> dict:
 
 
 def datasets() -> list[dict]:
-    return [{"id": name, "label": DATASET_LABELS[name]} for name in available_datasets()]
+    return [{"id": name, "label": DATASET_LABELS[name], "live": name == LIVE_DATASET, "updated_at": updated_at(name)} for name in available_datasets()]
 
 
 def meta() -> dict:
@@ -160,8 +181,13 @@ def empty_day(day: str) -> dict:
     }
 
 
-@lru_cache(maxsize=None)
 def summary(name: str) -> dict:
+    bundle(name)
+    return load_summary(name, data_version(name))
+
+
+@lru_cache(maxsize=CACHED_VERSIONS)
+def load_summary(name: str, version: int) -> dict:
     data = bundle(name)
     days: dict[str, dict] = {}
     for signal in data.signals:
@@ -185,6 +211,8 @@ def summary(name: str) -> dict:
     first = data.signals[-1] if data.signals else None
     return {
         "dataset": {"id": name, "label": DATASET_LABELS[name]},
+        "live": name == LIVE_DATASET,
+        "updated_at": updated_at(name),
         "build": first["build"] if first else None,
         "sentiment_models": sorted({s["sentiment"]["model"] for s in data.signals}),
         "sources": sorted({s["source"] for s in data.signals}),
@@ -199,8 +227,13 @@ def summary(name: str) -> dict:
     }
 
 
-@lru_cache(maxsize=None)
 def events(name: str) -> list[dict]:
+    bundle(name)
+    return load_events(name, data_version(name))
+
+
+@lru_cache(maxsize=CACHED_VERSIONS)
+def load_events(name: str, version: int) -> list[dict]:
     data = bundle(name)
     return [event_row(data, event) for event in data.events]
 
@@ -316,10 +349,13 @@ def signal_detail(name: str, signal_id: str) -> dict:
     return {"signal": signal, "cluster": event_detail(name, cluster_id) if cluster_id in data.events_by_id else None}
 
 
-@lru_cache(maxsize=None)
 def alerts(name: str) -> list[dict]:
-    if name not in available_datasets():
-        raise NotFound(f"Dataset '{name}' is not available")
+    bundle(name)
+    return load_alerts(name, data_version(name))
+
+
+@lru_cache(maxsize=CACHED_VERSIONS)
+def load_alerts(name: str, version: int) -> list[dict]:
     path = PROCESSED_DIR / name / "alerts_v1.jsonl.gz"
     data = bundle(name)
     rows = []
@@ -336,63 +372,77 @@ def alerts(name: str) -> list[dict]:
     return rows
 
 
-@lru_cache(maxsize=1)
-def evaluation() -> dict:
-    files = {"metrics": "metrics.json", "windows": "window_comparison.json", "backtest": "backtest.json", "benchmark": "benchmark.json"}
-    folder = PROCESSED_DIR.parent / "eval"
-    return {key: read_json(folder / name) if (folder / name).exists() else None for key, name in files.items()}
-
-
-@lru_cache(maxsize=None)
-def entity_signals(name: str) -> dict[str, list[dict]]:
-    by_entity: dict[str, list[dict]] = defaultdict(list)
-    for signal in bundle(name).signals:
-        for entity in signal["entities"]:
-            by_entity[entity["id"]].append(signal)
-    return dict(by_entity)
-
-
-def entities(name: str) -> list[dict]:
+def signal_countries(signal: dict) -> list[str]:
     table = entity_table()
-    rows = []
-    for entity_id, members in entity_signals(name).items():
-        row = table.get(entity_id, {})
-        rows.append({
-            "id": entity_id,
-            "name": row.get("name", entity_id),
-            "type": row.get("type"),
-            "signals": len(members),
-            "mean_sentiment": round(sum(s["sentiment"]["score"] for s in members) / len(members), 4),
-            "max_impact": max(s["impact"]["score"] for s in members),
-        })
-    return sorted(rows, key=lambda r: (-r["signals"], r["id"]))
+    codes = set()
+    for entity in signal["entities"]:
+        row = table.get(entity["id"], {})
+        if row.get("type") in GEO_ENTITY_TYPES and row.get("country"):
+            codes.add(row["country"])
+    return sorted(codes)
 
 
-def entity_detail(name: str, entity_id: str) -> dict:
-    members = entity_signals(name).get(entity_id)
-    if not members:
-        raise NotFound("No signals mention this entity")
-    data = bundle(name)
-    days: dict[str, dict] = {}
-    for signal in members:
-        day = days.setdefault(signal["published_at"][:10], {"date": signal["published_at"][:10], "signals": 0, "sentiment_sum": 0.0, "max_impact": 0.0, "by_class": {}})
-        day["signals"] += 1
-        day["sentiment_sum"] += signal["sentiment"]["score"]
-        day["max_impact"] = max(day["max_impact"], signal["impact"]["score"])
-        day["by_class"][signal["event"]["class"]] = day["by_class"].get(signal["event"]["class"], 0) + 1
-    timeline = []
-    for key in sorted(days):
-        day = days[key]
-        timeline.append({**{k: v for k, v in day.items() if k != "sentiment_sum"}, "mean_sentiment": round(day["sentiment_sum"] / day["signals"], 4)})
-    related = [event_row(data, e) for e in data.events if entity_id in e["scope_targets"]]
-    top = sorted(members, key=lambda s: (-s["impact"]["score"], s["signal_id"]))[:CLUSTER_SIGNAL_LIMIT]
-    row = entity_table().get(entity_id, {})
+def located_signals(name: str) -> list[tuple[dict, list[str]]]:
+    bundle(name)
+    return load_located_signals(name, data_version(name))
+
+
+@lru_cache(maxsize=CACHED_VERSIONS)
+def load_located_signals(name: str, version: int) -> list[tuple[dict, list[str]]]:
+    located = [(signal, signal_countries(signal)) for signal in bundle(name).signals]
+    return [(signal, codes) for signal, codes in located if codes]
+
+
+def headline_row(signal: dict) -> dict:
     return {
-        "entity": {"id": entity_id, "name": row.get("name", entity_id), "type": row.get("type"), "ticker": row.get("ticker") or None, "sector": row.get("sector") or None, "country": row.get("country") or None},
+        "signal_id": signal["signal_id"],
+        "text": signal["text"],
+        "outlet": signal["outlet"],
+        "source": signal["source"],
+        "published_at": signal["published_at"],
+        "impact": signal["impact"]["score"],
+        "sentiment": signal["sentiment"]["score"],
+        "sentiment_label": signal["sentiment"]["label"],
+        "class": signal["event"]["class"],
+    }
+
+
+def in_range(day_key: str, since: str | None, until: str | None) -> bool:
+    return (not until or day_key <= until) and (not since or day_key >= since)
+
+
+def country_row(code: str, members: list[dict]) -> dict:
+    ranked = sorted(members, key=lambda s: (-s["impact"]["score"], s["published_at"], s["signal_id"]))
+    by_class = Counter(s["event"]["class"] for s in members)
+    return {
+        "code": code,
         "signals": len(members),
-        "timeline": timeline,
-        "events": sorted(related, key=lambda e: (-e["impact"], e["cluster_id"]))[:CLUSTER_SIGNAL_LIMIT],
-        "top_signals": top,
+        "mean_sentiment": round(sum(s["sentiment"]["score"] for s in members) / len(members), 4),
+        "max_impact": ranked[0]["impact"]["score"],
+        "top_class": by_class.most_common(1)[0][0],
+        "by_class": dict(sorted(by_class.items())),
+        "headlines": [headline_row(s) for s in ranked[:GEO_HEADLINES]],
+    }
+
+
+def geo(name: str, params: dict[str, list[str]]) -> dict:
+    data = bundle(name)
+    until = parse_day(single(params, "until"))
+    days = parse_int(single(params, "days"), 0, 0, MAX_GEO_DAYS, "days")
+    since = (date.fromisoformat(until) - timedelta(days=days - 1)).isoformat() if until and days else None
+    in_period = [s for s in data.signals if in_range(s["published_at"][:10], since, until)]
+    by_country: dict[str, list[dict]] = defaultdict(list)
+    for signal, codes in located_signals(name):
+        if in_range(signal["published_at"][:10], since, until):
+            for code in codes:
+                by_country[code].append(signal)
+    countries = sorted((country_row(code, members) for code, members in by_country.items()), key=lambda c: (-c["signals"], c["code"]))
+    return {
+        "until": until,
+        "since": since or (in_period[-1]["published_at"][:10] if in_period else None),
+        "total_signals": len(in_period),
+        "located_signals": len({s["signal_id"] for members in by_country.values() for s in members}),
+        "countries": countries,
     }
 
 
@@ -423,24 +473,6 @@ def stress_detail(name: str, cluster_id: str) -> dict:
         "representative_signals": [data.signals_by_id[i] for i in event["representative_signal_ids"] if i in data.signals_by_id],
         "base_scenario": shock_config()["scenarios"].get(run["class"]),
         "trigger_settings": data.stress["trigger_settings"],
-    }
-
-
-def clean_value(value):
-    if isinstance(value, float) and not math.isfinite(value):
-        return None
-    return value
-
-
-def portfolio() -> dict:
-    frame = load_portfolio()
-    positions = [{k: clean_value(v) for k, v in row.items()} for row in frame.to_dict("records")]
-    grouped = frame.groupby("asset_class", sort=True)["market_value_usd"].agg(["count", "sum"])
-    return {
-        "currency": "USD",
-        "total_market_value": round(float(frame["market_value_usd"].sum()), 2),
-        "by_asset_class": [{"asset_class": key, "positions": int(row["count"]), "market_value": round(float(row["sum"]), 2)} for key, row in grouped.iterrows()],
-        "positions": positions,
     }
 
 

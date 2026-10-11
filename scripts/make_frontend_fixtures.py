@@ -17,7 +17,6 @@ def main() -> None:
     signals = service.signals(DATASET, {"limit": [str(PAGE_SIZE)]})
     stress = service.stress(DATASET)
     first_run = stress["runs"][0]["cluster_id"]
-    entity_rows = service.entities(DATASET)
     payloads = {
         "meta": service.meta(),
         "datasets": [d for d in service.datasets() if d["id"] == DATASET],
@@ -27,11 +26,8 @@ def main() -> None:
         "signal": service.signal_detail(DATASET, signals["items"][0]["signal_id"]),
         "stress": stress,
         "stressRun": service.stress_detail(DATASET, first_run),
-        "portfolio": service.portfolio(),
         "alerts": service.alerts(DATASET),
-        "entities": entity_rows,
-        "entity": service.entity_detail(DATASET, entity_rows[0]["id"]),
-        "evaluation": service.evaluation(),
+        "geo": service.geo(DATASET, {}),
     }
     for name, payload in payloads.items():
         write(name, payload)

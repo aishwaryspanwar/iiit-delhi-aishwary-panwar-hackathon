@@ -5,80 +5,69 @@ import { useTheme } from "./lib/theme";
 import { DetailDrawer } from "./components/Detail";
 import { ReplayBar } from "./components/Replay";
 import { BrandMark, PageHeader, TopNav } from "./components/Shell";
-import { ErrorState, Skeleton } from "./components/ui";
+import { Tour, useTour } from "./components/Tour";
+import { ErrorState } from "./components/ui";
+import { PageSkeleton } from "./components/Skeletons";
 import { Overview } from "./pages/Overview";
 import { Signals } from "./pages/Signals";
 import { Stress } from "./pages/Stress";
 import { Headline } from "./pages/Headline";
-import { System } from "./pages/System";
-import { Entities } from "./pages/Entities";
-import { Evaluation } from "./pages/Evaluation";
 
-const PAGE_COPY: Record<PageId, { title: string; subtitle: string; replay: boolean }> = {
-  overview: { title: "Dashboard", subtitle: "What is happening, how risky it is, what caused it, and what it could do to the book", replay: true },
-  signals: { title: "Signal feed", subtitle: "Every news item and post, scored for event class, sentiment and impact", replay: true },
-  entities: { title: "Companies and countries", subtitle: "Sentiment, impact and event clusters for a given company, country or sector", replay: false },
-  evaluation: { title: "Evaluation", subtitle: "Held-out accuracy, market validation, trigger quality and stress backtest, with uncertainty", replay: false },
-  stress: { title: "Portfolio stress test", subtitle: "Module B: event-triggered stress of a synthetic wholesale-banking book", replay: false },
-  headline: { title: "Try a headline", subtitle: "Score your own text with the live rule engine and preview its stress impact", replay: false },
-  system: { title: "Methodology", subtitle: "Data provenance, pipeline, trigger rules and scenario library", replay: false },
+const PAGE_COPY: Record<PageId, { title: string; subtitle?: string; replay: boolean; centered?: boolean }> = {
+  overview: { title: "Dashboard", replay: true },
+  signals: { title: "Signal feed", replay: true },
+  stress: { title: "Portfolio stress test", subtitle: "What a major news event would do to a synthetic bank portfolio", replay: false },
+  headline: { title: "Try a headline", replay: false },
 };
 
 function Workspace() {
   const route = useRoute();
   const copy = PAGE_COPY[route.page];
   const { closeDetail } = useApp();
+  const tour = useTour();
   useEffect(() => closeDetail(), [route.page, route.param, closeDetail]);
   useEffect(() => {
-    document.title = `${copy.title} | Risk Engine`;
+    if (tour.open) closeDetail();
+  }, [tour.open, closeDetail]);
+  useEffect(() => {
+    document.title = `Ripple · ${copy.title}`;
   }, [copy.title]);
   return (
     <div className="flex min-h-screen flex-col">
-      <TopNav page={route.page} />
+      <TopNav page={route.page} onTour={tour.start} />
       <div className="flex min-w-0 flex-1 flex-col">
-        <PageHeader title={copy.title} subtitle={copy.subtitle}>
+        <PageHeader title={copy.title} subtitle={copy.subtitle} centered={copy.centered}>
           {copy.replay ? <ReplayBar /> : null}
         </PageHeader>
-        <main id="main" key={route.page} className="fade mx-auto w-full max-w-[1440px] flex-1 px-4 pb-10 md:px-8">
+        <main id="main" key={route.page} className="fade page-width mx-auto w-full flex-1 px-4 pb-10 md:px-8 3xl:px-10">
           {route.page === "overview" && <Overview />}
           {route.page === "signals" && <Signals />}
-          {route.page === "entities" && <Entities selected={route.param} />}
           {route.page === "stress" && <Stress selected={route.param} />}
-          {route.page === "evaluation" && <Evaluation />}
           {route.page === "headline" && <Headline />}
-          {route.page === "system" && <System />}
         </main>
-        <footer className="mx-auto w-full max-w-[1440px] px-4 pb-8 text-[12.5px] text-ink-3 md:px-8">
+        <footer className="page-width mx-auto w-full px-4 pb-8 text-[12.5px] text-ink-3 md:px-8 3xl:px-10">
           Historical replay of precomputed data on a synthetic portfolio. Not investment advice.
         </footer>
       </div>
       <DetailDrawer />
+      {tour.open && <Tour onClose={tour.finish} />}
     </div>
   );
 }
 
 function BootScreen({ state }: { state: BootState }) {
   useTheme();
+  const route = useRoute();
+  const copy = PAGE_COPY[route.page];
+  if (state.phase !== "error" || !state.error) return <PageSkeleton page={route.page} title={copy.title} subtitle={copy.subtitle} replay={copy.replay} />;
   return (
     <div className="flex min-h-screen items-center justify-center p-6">
       <div className="panel w-full max-w-lg p-8">
         <div className="mb-5 flex items-center gap-3">
           <BrandMark size={32} />
-          <div>
-            <div className="text-[17px] font-semibold text-ink">Risk Engine</div>
-            <div className="text-[13px] text-ink-3">Event-driven risk signals and portfolio stress testing</div>
-          </div>
+          <div className="text-[17px] font-semibold text-ink">Ripple</div>
         </div>
-        {state.phase === "error" && state.error ? (
-          <ErrorState error={state.error} onRetry={state.retry} compact />
-        ) : (
-          <div role="status" aria-live="polite" className="flex flex-col gap-2.5">
-            <span className="text-[13.5px] text-ink-2">Loading precomputed signals and stress results</span>
-            <Skeleton className="h-3" />
-            <Skeleton className="h-3 w-4/5" />
-            <Skeleton className="h-3 w-3/5" />
-          </div>
-        )}
+        <ErrorState error={state.error} onRetry={state.retry} compact />
       </div>
     </div>
   );

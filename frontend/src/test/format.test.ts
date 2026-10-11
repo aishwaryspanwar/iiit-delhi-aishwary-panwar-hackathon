@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { percent, safeHttpUrl, signed, usdMillions } from "../lib/format";
+import { dateTime, day, percent, safeHttpUrl, signed, time, usdMillions } from "../lib/format";
 import { impactBand } from "../lib/risk";
 import { parseHash } from "../lib/router";
 
@@ -10,6 +10,13 @@ describe("formatting", () => {
     expect(usdMillions(5_100_000, 1, true)).toBe("+$5.1m");
     expect(percent(-0.02785)).toBe("−2.79%");
     expect(signed(0.0001)).toBe("0.00");
+  });
+
+  it("shows timestamps in India Standard Time and keeps calendar days as they are", () => {
+    expect(dateTime("2022-03-09T08:00:00Z")).toBe("09 Mar 2022, 13:30 IST");
+    expect(dateTime("2022-09-13T20:00:00Z")).toBe("14 Sep 2022, 01:30 IST");
+    expect(time("2026-10-10T22:45:00Z")).toBe("04:15");
+    expect(day("2022-02-24")).toBe("24 Feb 2022");
   });
 
   it("only allows http(s) links from data", () => {

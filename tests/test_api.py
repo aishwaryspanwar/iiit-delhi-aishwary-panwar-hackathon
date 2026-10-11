@@ -45,7 +45,7 @@ def test_health_and_datasets(base_url):
     assert status == 200 and payload["status"] == "ok"
     assert DATASET in payload["datasets"]
     status, datasets, _ = fetch(f"{base_url}/api/datasets")
-    assert {"id": DATASET, "label": "Stub sample (hand-written)"} in datasets
+    assert {"id": DATASET, "label": "Stub sample (hand-written)", "live": False, "updated_at": None} in datasets
 
 
 def test_summary_matches_processed_files():
@@ -61,7 +61,7 @@ def test_summary_matches_processed_files():
     assert [r["totals"] for r in summary["runs"]] == [r["totals"] for r in stress["runs"]]
 
 
-def test_event_status_matches_streamlit_labels():
+def test_event_status_matches_trigger_labels():
     stress = read_json(PROCESSED_DIR / DATASET / "stress_results_v1.json")
     triggered = {d["cluster_id"] for d in stress["decisions"] if d["triggered"]}
     rows = service.events(DATASET)
@@ -126,23 +126,11 @@ def test_alerts_are_the_stream_output_with_stress_pnl(base_url):
     assert all(r["pnl"] == pnl[r["cluster_id"]] for r in rows)
 
 
-def test_entity_views_aggregate_signals(base_url):
-    status, rows, _ = fetch(f"{base_url}/api/datasets/{DATASET}/entities")
-    assert status == 200 and rows
-    top = rows[0]
-    status, detail, _ = fetch(f"{base_url}/api/datasets/{DATASET}/entities/{top['id'].replace(':', '%3A')}")
-    assert status == 200 and detail["signals"] == top["signals"]
-    assert sum(day["signals"] for day in detail["timeline"]) == top["signals"]
-
-
-def test_evaluation_endpoint_serves_committed_files(base_url):
-    status, payload, _ = fetch(f"{base_url}/api/evaluation")
-    assert status == 200 and payload["metrics"] == read_json(PROCESSED_DIR.parent / "eval" / "metrics.json")
-
-
 @pytest.mark.parametrize("path", [
     "/api/datasets/nope/summary",
-    f"/api/datasets/{DATASET}/entities/company:NOPE",
+    f"/api/datasets/{DATASET}/entities",
+    "/api/evaluation",
+    "/api/portfolio",
     f"/api/datasets/{DATASET}/signals/0000000000000000",
     f"/api/datasets/{DATASET}/events/missing",
     f"/api/datasets/{DATASET}/stress/missing",
@@ -153,7 +141,7 @@ def test_not_found_is_json_without_traceback(base_url, path):
     assert status == 404 and "Traceback" not in payload["error"]
 
 
-def test_score_matches_streamlit_try_headline_flow(base_url):
+def test_score_matches_engine_try_headline_flow(base_url):
     status, payload, _ = fetch(f"{base_url}/api/score", {"text": INVASION, "outlets": 25, "volume_multiple": 8.0})
     assert status == 200
     assert payload["signal"]["event"]["class"] == "geopolitical"
@@ -208,3 +196,32 @@ def test_static_files_cannot_escape_build_dir(tmp_path):
     assert static_file("/../secret.txt", dist) == dist.resolve() / "index.html"
     assert static_file("/%2e%2e/secret.txt", dist) == dist.resolve() / "index.html"
     assert static_file("/anything", tmp_path / "missing") is None
+
+
+def test_geo_places_headlines_on_named_countries(base_url):
+    status, payload, _ = fetch(f"{base_url}/api/datasets/{DATASET}/geo")
+    assert status == 200
+    signals = {s["signal_id"]: s for s in service.bundle(DATASET).signals}
+    assert payload["total_signals"] == len(signals)
+    located = set()
+    for country in payload["countries"]:
+        assert country["signals"] >= len(country["headlines"]) > 0
+        impacts = [h["impact"] for h in country["headlines"]]
+        assert impacts == sorted(impacts, reverse=True) and country["max_impact"] == impacts[0]
+        for headline in country["headlines"]:
+            assert country["code"] in service.signal_countries(signals[headline["signal_id"]])
+            located.add(headline["signal_id"])
+    assert payload["located_signals"] >= len(located)
+    counts = [c["signals"] for c in payload["countries"]]
+    assert counts == sorted(counts, reverse=True)
+
+
+def test_geo_period_filter_and_validation(base_url):
+    status, full, _ = fetch(f"{base_url}/api/datasets/{DATASET}/geo")
+    status, day, _ = fetch(f"{base_url}/api/datasets/{DATASET}/geo?until=2022-02-24&days=1")
+    assert status == 200 and day["since"] == day["until"] == "2022-02-24"
+    assert day["total_signals"] == sum(1 for s in service.bundle(DATASET).signals if s["published_at"].startswith("2022-02-24"))
+    assert day["total_signals"] <= full["total_signals"]
+    for query in ("days=-1", "days=abc", "until=24-02-2022"):
+        status, error, _ = fetch(f"{base_url}/api/datasets/{DATASET}/geo?{query}")
+        assert status == 400 and error["error"]

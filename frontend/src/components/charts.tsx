@@ -7,25 +7,20 @@ import {
   LabelList,
   Line,
   LineChart,
-  ReferenceArea,
   ReferenceLine,
   ResponsiveContainer,
-  Scatter,
-  ScatterChart,
   Tooltip,
   XAxis,
   YAxis,
-  ZAxis,
 } from "recharts";
 import { useApp } from "../state";
-import { dateTime, integer, score, shortDay, signed, usdMillions, percent } from "../lib/format";
-import { ASSET_TEXT, FACTOR_ORDER, FACTOR_TEXT, STATUS_TEXT } from "../lib/risk";
-import type { AssetBreakdown, DaySummary, EventRow, EventStatus, Factor } from "../lib/types";
+import { integer, score, shortDay, signed, usdMillions, percent } from "../lib/format";
+import { ASSET_TEXT, FACTOR_ORDER, FACTOR_TEXT } from "../lib/risk";
+import type { AssetBreakdown, DaySummary, Factor } from "../lib/types";
 import type { ChartPalette } from "../lib/theme";
-import { StatusIcon, cx } from "./ui";
+import { cx } from "./ui";
 
-const FONT = "Risk Signs, Open Sauce Sans, sans-serif";
-const DAY_MS = 86_400_000;
+const FONT = "Google Sans Flex, sans-serif";
 
 function tick(palette: ChartPalette, size = 11.5) {
   return { fontSize: size, fontFamily: FONT, fill: palette.ink3 };
@@ -35,161 +30,7 @@ function TooltipCard({ children }: { children: ReactNode }) {
   return <div className="overlay max-w-[320px] rounded-xl px-4 py-3 text-[12.5px] leading-relaxed text-ink">{children}</div>;
 }
 
-const STATUS_ORDER: EventStatus[] = ["below", "blocked", "triggered"];
-const STATUS_SHAPE: Record<EventStatus, "circle" | "triangle" | "diamond"> = { below: "circle", blocked: "triangle", triggered: "diamond" };
 const FACTOR_SHORT: Record<Factor, string> = { rates: "Rates", spread: "Spread", migration: "Migration", equity: "Equity", vol: "Vol", second_order: "Convexity" };
-
-interface TimelinePoint {
-  x: number;
-  y: number;
-  z: number;
-  event: EventRow;
-}
-
-function ReplayCursor({ viewBox, palette, label, position }: { viewBox?: { x?: number; y?: number; height?: number }; palette: ChartPalette; label: string; position: number }) {
-  const x = viewBox?.x ?? 0;
-  const y = viewBox?.y ?? 0;
-  const h = viewBox?.height ?? 0;
-  const chipWidth = label.length * 7 + 22;
-  let chipX = x - chipWidth / 2;
-  if (position > 0.9) chipX = x - chipWidth + 4;
-  else if (position < 0.1) chipX = x - 4;
-  return (
-    <g pointerEvents="none">
-      <defs>
-        <radialGradient id="replay-glow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor={palette.accent} stopOpacity={0.26} />
-          <stop offset="100%" stopColor={palette.accent} stopOpacity={0} />
-        </radialGradient>
-      </defs>
-      <ellipse cx={position > 0.9 ? x - 40 : x} cy={y + h * 0.45} rx={70} ry={h * 0.55} fill="url(#replay-glow)" />
-      <rect x={chipX} y={y - 27} width={chipWidth} height={22} rx={11} fill={palette.accent} />
-      <text x={chipX + chipWidth / 2} y={y - 12} textAnchor="middle" fontSize={11.5} fontWeight={600} fontFamily={FONT} fill="#1a0b02">
-        {label}
-      </text>
-    </g>
-  );
-}
-
-export function ImpactTimeline({ events, cutoffDay, threshold, height = 340 }: { events: EventRow[]; cutoffDay: string; threshold: number; height?: number }) {
-  const { palette, className, openDetail, summary } = useApp();
-  const domain = useMemo(() => {
-    const days = summary.days;
-    if (!days.length) return [0, 1];
-    return [Date.parse(`${days[0].date}T00:00:00Z`), Date.parse(`${days[days.length - 1].date}T00:00:00Z`) + DAY_MS];
-  }, [summary.days]);
-  const cutoff = Math.min(Date.parse(`${cutoffDay}T00:00:00Z`) + DAY_MS, domain[1]);
-  const series = useMemo(() => {
-    const grouped: Record<EventStatus, TimelinePoint[]> = { below: [], blocked: [], triggered: [] };
-    for (const event of events) {
-      const x = Date.parse(event.t_start);
-      if (x >= cutoff) continue;
-      grouped[event.status].push({ x, y: event.impact, z: event.status === "below" ? Math.min(event.n_items, 40) : 40, event });
-    }
-    return grouped;
-  }, [events, cutoff]);
-  const colors: Record<EventStatus, string> = { below: palette.neutral, blocked: palette.moderate, triggered: palette.critical };
-  const ticks = useMemo(() => {
-    const result: number[] = [];
-    const span = domain[1] - domain[0];
-    let stepDays = 1;
-    if (span > 30 * DAY_MS) stepDays = 7;
-    else if (span > 10 * DAY_MS) stepDays = 3;
-    for (let t = domain[0]; t <= domain[1]; t += stepDays * DAY_MS) result.push(t);
-    return result;
-  }, [domain]);
-
-  return (
-    <figure className="m-0">
-      <figcaption className="mb-4 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px] text-ink-2">
-        {STATUS_ORDER.map((status) => (
-          <span key={status} className="inline-flex items-center gap-2">
-            <span style={{ color: colors[status] }}>
-              <StatusIcon status={status} size={11} />
-            </span>
-            {STATUS_TEXT[status]}
-            <span className="num text-ink-3">{integer(series[status].length)}</span>
-          </span>
-        ))}
-        <span className="inline-flex items-center gap-2 text-ink-3">
-          <span className="inline-block w-5 border-t border-dashed border-ink-3" aria-hidden="true" />
-          Trigger threshold {threshold}
-        </span>
-        <span className="sr-only">Scatter plot of event-cluster impact over time up to the replay date. Points above the dashed threshold line may trigger a stress test.</span>
-      </figcaption>
-      <div style={{ height }} aria-hidden="true">
-        <ResponsiveContainer width="100%" height="100%">
-          <ScatterChart margin={{ top: 32, right: 16, bottom: 4, left: -14 }}>
-            <CartesianGrid stroke={palette.grid} vertical={false} />
-            <XAxis
-              type="number"
-              dataKey="x"
-              domain={domain}
-              ticks={ticks}
-              tickFormatter={(value: number) => shortDay(new Date(value).toISOString())}
-              tick={tick(palette)}
-              axisLine={false}
-              tickLine={false}
-              tickMargin={10}
-              scale="time"
-            />
-            <YAxis type="number" dataKey="y" domain={[1, 10]} ticks={[1, 4, 7, 10]} tick={tick(palette)} axisLine={false} tickLine={false} tickMargin={6} />
-            <ZAxis type="number" dataKey="z" range={[10, 90]} domain={[1, 40]} />
-            {cutoff < domain[1] && <ReferenceArea x1={cutoff} x2={domain[1]} fill={palette.surface2} fillOpacity={0.6} strokeOpacity={0} ifOverflow="hidden" />}
-            <ReferenceLine y={threshold} stroke={palette.ink3} strokeDasharray="5 5" strokeOpacity={0.7} />
-            <ReferenceLine
-              x={cutoff}
-              stroke={palette.accent}
-              strokeWidth={1.5}
-              label={(props: { viewBox?: { x?: number; y?: number; height?: number } }) => <ReplayCursor viewBox={props.viewBox} palette={palette} label={shortDay(cutoffDay)} position={(cutoff - domain[0]) / (domain[1] - domain[0])} />}
-            />
-            <Tooltip
-              cursor={{ stroke: palette.ink3, strokeDasharray: "3 4", strokeWidth: 1 }}
-              isAnimationActive={false}
-              content={({ active, payload }) => {
-                const point = active && payload?.length ? (payload[0].payload as TimelinePoint) : null;
-                if (!point) return null;
-                const e = point.event;
-                return (
-                  <TooltipCard>
-                    <div className="mb-1 flex items-center gap-2 font-semibold">
-                      <span style={{ color: colors[e.status] }}>
-                        <StatusIcon status={e.status} size={10} />
-                      </span>
-                      {className(e.class)}, impact <span className="num">{score(e.impact)}</span>
-                    </div>
-                    {e.lead?.text && <p className="mb-2 line-clamp-3 text-ink-2">“{e.lead.text}”</p>}
-                    <div className="num text-[12px] text-ink-3">{dateTime(e.t_start)}</div>
-                    <div className="text-[12px] text-ink-3">
-                      {e.n_items} items from {e.n_outlets} outlets. {STATUS_TEXT[e.status]}.
-                    </div>
-                  </TooltipCard>
-                );
-              }}
-            />
-            {STATUS_ORDER.map((status) => (
-              <Scatter
-                key={status}
-                data={series[status]}
-                fill={colors[status]}
-                fillOpacity={status === "below" ? 0.3 : 1}
-                stroke={status === "below" ? "none" : palette.surface}
-                strokeWidth={2}
-                shape={STATUS_SHAPE[status]}
-                isAnimationActive={false}
-                cursor="pointer"
-                onClick={(item: unknown) => {
-                  const point = (item as { payload?: TimelinePoint }).payload;
-                  if (point) openDetail({ kind: "event", id: point.event.cluster_id });
-                }}
-              />
-            ))}
-          </ScatterChart>
-        </ResponsiveContainer>
-      </div>
-    </figure>
-  );
-}
 
 export function DailySentiment({ days, cutoffIndex, height = 200 }: { days: DaySummary[]; cutoffIndex: number; height?: number }) {
   const { palette } = useApp();
@@ -235,7 +76,7 @@ export function DailySentiment({ days, cutoffIndex, height = 200 }: { days: DayS
 
 function ValueLabel({ x, y, text, anchor, palette }: { x: number; y: number; text: string; anchor: "start" | "middle"; palette: ChartPalette }) {
   return (
-    <text x={x} y={y} textAnchor={anchor} fontSize={12} fontWeight={500} fontFamily={FONT} fill={palette.ink2}>
+    <text x={x} y={y} textAnchor={anchor} fontSize={12} fontWeight={400} fontFamily={FONT} fill={palette.ink2}>
       {text}
     </text>
   );
@@ -392,7 +233,7 @@ export function HBarList({
           <li key={row.key}>
             <div className="mb-1.5 flex items-baseline justify-between gap-3 text-[13.5px]">
               <span className="line-clamp-2 min-w-0 text-ink-2">{row.label}</span>
-              <span className="num shrink-0 font-medium text-ink">{formatValue(row.value)}</span>
+              <span className="num shrink-0 font-normal text-ink">{formatValue(row.value)}</span>
             </div>
             <div className="h-[5px] rounded-full bg-surface-3" aria-hidden="true">
               <div

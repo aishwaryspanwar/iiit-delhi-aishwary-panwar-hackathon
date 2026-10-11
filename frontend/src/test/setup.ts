@@ -1,4 +1,4 @@
-import { afterEach, vi } from "vitest";
+import { afterEach, beforeEach, vi } from "vitest";
 import { cleanup } from "@testing-library/react";
 
 class ResizeObserverStub {
@@ -8,6 +8,10 @@ class ResizeObserverStub {
 }
 
 globalThis.ResizeObserver = ResizeObserverStub as unknown as typeof ResizeObserver;
+
+beforeEach(() => {
+  window.localStorage.setItem("risk-engine-tour", "done");
+});
 
 afterEach(() => {
   cleanup();

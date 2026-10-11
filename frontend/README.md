@@ -1,17 +1,18 @@
-# React frontend
+# Ripple web app
 
-A second presentation layer over the same Python engine. Streamlit (`src/app/dashboard.py`) remains the reference UI. Both read the same precomputed files in `data/processed/<dataset>/` through the same Python modules. React never re-implements scoring, triggers or valuation.
+The React frontend and the only user interface for the Python engine. It reads the files in `data/processed/<dataset>/` (the replay windows and the `live` feed) through a thin JSON API that calls the engine modules. React never re-implements scoring, triggers or valuation.
 
 ```
 config/ + data/processed/*.jsonl.gz + stress_results_v1.json + data/eval/*.json
                      │
         Python core (src/riskengine, src/stream, src/stress)
-             │                         │
-  Streamlit (src/app)        thin JSON API (src/api, stdlib http.server)
-   port 8501                  port 8000, read-only + POST /api/score
-                                        │
-                              React + Vite (frontend/), port 5173
-                              /api proxied to 127.0.0.1:8000
+                         │
+          thin JSON API (src/api, stdlib http.server)
+          port 8000, read-only + POST /api/score
+          serves frontend/dist after npm run build
+                         │
+          React + Vite (frontend/), dev server port 5173
+          /api proxied to 127.0.0.1:8000
 ```
 
 ## Run
@@ -32,10 +33,10 @@ npm install
 npm run dev                  # http://127.0.0.1:5173
 ```
 
-Optional terminal 3, from the repository root (Streamlit reference, for side-by-side comparison):
+Optional terminal 3, from the repository root (live feed; the `live` dataset appears in the dataset menu after the first poll):
 
 ```bash
-streamlit run src/app/dashboard.py   # http://127.0.0.1:8501
+python -m scripts.live_gdelt
 ```
 
 Single-process alternative: run `npm run build` once. `python -m src.api` then also serves the built app at http://127.0.0.1:8000/.
@@ -46,46 +47,47 @@ Other scripts: `npm run typecheck`, `npm test` (Vitest), `npm run preview`. To u
 
 | Method | Path | Backed by |
 |---|---|---|
-| GET | `/api/health`, `/api/datasets`, `/api/meta` | `src.pipeline` dataset registry; taxonomy, impact and shock configs |
+| GET | `/api/health`, `/api/datasets`, `/api/meta` | `src.pipeline` dataset registry (with `live` and `updated_at`); taxonomy, impact and shock configs |
 | GET | `/api/datasets/{id}/summary` | per-day aggregates of `signals_v1` / `events_v1`; trigger decisions |
 | GET | `/api/datasets/{id}/events`, `/events/{cluster_id}` | `events_v1` + status from `src.stress.trigger.event_status` |
 | GET | `/api/datasets/{id}/signals?until&class&source&sentiment&min_impact&q&sort&offset&limit` | `signals_v1`, filtered and paginated server-side (W1 has 34k signals) |
 | GET | `/api/datasets/{id}/signals/{signal_id}` | signal record + its cluster, decision and run |
 | GET | `/api/datasets/{id}/stress`, `/stress/{cluster_id}` | `stress_results_v1.json` runs and decisions, unchanged |
 | GET | `/api/datasets/{id}/alerts` | `alerts_v1` from the as-of stream, with the stress P&L of each alert |
-| GET | `/api/datasets/{id}/entities`, `/entities/{entity_id}` | per-entity signal counts, daily sentiment and impact, and the event clusters that target it |
-| GET | `/api/evaluation` | `data/eval/metrics.json`, `window_comparison.json`, `backtest.json`, `benchmark.json` |
-| GET | `/api/portfolio` | `data/portfolio/portfolio_v2.csv` via `load_portfolio` |
-| POST | `/api/score` | `score_single_text` → `what_if_event` → `condition_checks` → `run_stress` (same path as Streamlit's "Try a headline") |
+| GET | `/api/datasets/{id}/geo?until&days` | per-country headline counts, mean sentiment, peak impact and top headlines; a signal is placed on every country it names, or the home country of a named central bank or index |
+| POST | `/api/score` | `score_single_text` → `what_if_event` → `condition_checks` → `run_stress` (the engine path, unchanged) |
 
 The API binds to 127.0.0.1. It validates every query and body field (text ≤ 300 chars, outlets 1–30, volume from the fixed option list), caps bodies at 8 KB, gzips large responses and returns JSON errors without stack traces. It never fetches URLs. User text is rendered as plain text only.
 
 ## Screens
 
-- **Overview:** replay clock with play/pause and trigger markers, plus a risk posture card (peak event impact over the trailing 72 h). Also: KPIs, the event-impact timeline, **real-time alerts with detection times and lead over an end-of-day batch**, signal mix by class, latest high-impact events, sentiment, and the latest triggered stress test with its causal chain.
-- **Signal feed:** search plus class, source, sentiment and impact filters, following the replay clock. Clicking a row opens the explainability drawer: matched rules with their patterns, impact components × weights, entities, provenance, the cluster's trigger checks with their actual values, and a link to the stress run.
-- **Companies:** for any company, country or sector: daily signals, mean sentiment, peak impact and the event clusters that target it.
-- **Stress test:** triggered-event picker, the causal chain (event → classification → impact → scenario → shock → portfolio), before/after values, P&L by asset class, factor waterfall, before/after table by asset class, **credit losses and capital (P&L by book, IFRS 9 stages, loan-loss views, RWA)**, **severity curve**, base vs applied shocks, trigger checks, the engine's explanation, sortable positions, and the trigger funnel.
-- **Evaluation:** held-out classification and sentiment scores with confidence intervals and baselines, impact against market moves, trigger precision and recall against naive triggers, alert lead time, and the stress backtest.
-- **Try a headline:** live scoring, what-if outlets and volume, trigger checks, and a Module B preview.
-- **Methodology:** pipeline, dataset/build provenance, trigger settings, portfolio composition and scenario library.
+- **Overview:** replay bar with play/pause and trigger markers; an interactive world map of headlines by country (bubble size = coverage, colour = mean sentiment, orange ring = a headline above the trigger threshold) with a risk gauge, most-covered list and key figures; the event timeline as a dot matrix (one column per period, lit to the riskiest event's impact, dots above the trigger line in amber or red); real-time alerts with their lead over an end-of-day batch; latest high-impact events; signals by class; the latest stress test with its causal chain; market mood.
+- **Signal feed:** search plus class, source, sentiment and impact filters, following the replay date. Clicking a row opens the explainability drawer: matched rules with their patterns, impact components × weights, entities, provenance, the cluster's trigger checks with their actual values, and a link to the stress run.
+- **Stress test:** triggered-event picker, causal chain (event → classification → impact → scenario → shock → portfolio), before/after values, P&L by asset class, factor waterfall, value by asset class, credit losses and capital, severity curve, shocks applied, trigger checks (the engine's full explanation is behind a toggle), positions, and the trigger funnel.
+- **Try a headline:** live scoring, what-if outlets and volume, trigger checks, and a Module B preview. The page scrolls to the result after scoring.
+
+## Experience
+
+- **Walkthrough:** a six-step guided tour opens on the first visit (stored in `localStorage` as `risk-engine-tour`); it can be skipped at any step with the button, the close icon or Esc, and replayed from the **?** button in the header.
+- **Loading:** a full-page skeleton that matches each page's layout is shown while data loads; tables, the stress column and the causal chain have matching in-place skeletons.
+- **Responsive:** built for desktop widths from 1024 px to 2560 px and wider. The page width grows to 1680 px from 1800 px and to 2000 px from 2200 px (`--page-max` in `src/index.css`), and short screens get a tighter header.
 
 ## Design system
 
-The visual system is recorded in [DESIGN.md](../DESIGN.md), with machine-readable tokens in `.impeccable/design.json`. In short:
+- **Brand:** the Ripple mark lives in `src/assets/ripple-mark.svg` (exported from the `brand/mark` Figma component) and is drawn in the theme's ink colour, so it reads in both themes. The favicon (`src/assets/ripple-favicon.svg`) is a light mark on a dark tile, so it shows on any tab bar, and it is hashed by the build.
 - **Surfaces:** glass tiles (blur, hairline border) on a teal-black gradient with a light beam; top navigation in a glass pill.
 - **Accents:** orange #FF6703 for actions, focus and the replay cursor; teal #64A795 for emphasis bars, tags and status; white pills for the current selection.
-- **Typography:** Peace Sans for titles and key figures, Open Sauce Sans for everything else.
+- **Typography:** Google Sans Flex everywhere, in two weights: Regular (400) for text and SemiBold (600) for titles, labels and key figures.
 - **Light mode:** designed separately, not inverted.
 
 ## Presentation-only conventions
 
 - **Risk bands** are a display banding of the engine's 1–10 impact score: low below 4, moderate from 4 to the trigger threshold, high above the threshold (7 in `config/shocks.yaml`), critical from (threshold + 10) / 2. They do not affect any calculation.
 - **Colours:** losses are red and gains blue. Red against green fails colour-vision separation (checked with the dataviz palette validator), while red against blue passes in both themes. Status also has a shape (◆ triggered, ▲ blocked, ○ below) and a text label; risk bands carry a level glyph and a word.
+- **Live dataset:** the header shows when the feed was last rebuilt, and the app re-fetches it every minute; the API reloads a dataset whenever its files change.
 - **Theme:** dark by default, light available. The choice is stored in `localStorage` (`risk-engine-theme`).
 
 ## Assets
 
-- **Fonts:** [Peace Sans](https://fontsource.org/fonts/peace-sans) and [Open Sauce Sans](https://fontsource.org/fonts/open-sauce-sans), bundled from `@fontsource` (SIL Open Font License) so no CDN is needed offline. The packaged regular-weight Open Sauce `.woff2` is corrupt, so `src/assets/fonts/` serves its working `.woff` instead.
-- **Sign glyphs:** a `unicode-range` fallback named "Risk Signs" maps + − × Σ to the platform sans, so signs match across both faces.
+- **Fonts:** [Google Sans Flex](https://fontsource.org/fonts/google-sans-flex), Regular and SemiBold only, bundled from `@fontsource/google-sans-flex` (SIL Open Font License) so no CDN is needed offline.
 - **Images:** none. The interface uses no stock imagery.

@@ -1,12 +1,15 @@
 import gzip
 import io
 import json
+import os
+import time
 from functools import lru_cache
 from pathlib import Path
 
 from jsonschema import Draft202012Validator
 
 SCHEMA_DIR = Path(__file__).resolve().parent / "schema"
+REPLACE_ATTEMPTS = 5
 
 
 @lru_cache(maxsize=None)
@@ -27,15 +30,28 @@ def dumps(record: dict) -> str:
     return json.dumps(record, sort_keys=True, ensure_ascii=False, separators=(",", ":"))
 
 
-def write_jsonl(path: Path, records: list[dict]) -> None:
+def replace_file(path: Path, payload: bytes) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(path.name + ".tmp")
+    temporary.write_bytes(payload)
+    for attempt in range(REPLACE_ATTEMPTS):
+        try:
+            os.replace(temporary, path)
+            return
+        except PermissionError:
+            if attempt == REPLACE_ATTEMPTS - 1:
+                raise
+            time.sleep(0.2)
+
+
+def write_jsonl(path: Path, records: list[dict]) -> None:
     payload = "".join(dumps(record) + "\n" for record in records).encode("utf-8")
     if path.suffix == ".gz":
         buffer = io.BytesIO()
         with gzip.GzipFile(filename="", mode="wb", fileobj=buffer, mtime=0, compresslevel=9) as archive:
             archive.write(payload)
         payload = buffer.getvalue()
-    path.write_bytes(payload)
+    replace_file(path, payload)
 
 
 def read_jsonl(path: Path) -> list[dict]:
@@ -45,9 +61,7 @@ def read_jsonl(path: Path) -> list[dict]:
 
 
 def write_json(path: Path, payload: dict) -> None:
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("w", encoding="utf-8", newline="\n") as handle:
-        handle.write(json.dumps(payload, sort_keys=True, ensure_ascii=False, indent=1) + "\n")
+    replace_file(path, (json.dumps(payload, sort_keys=True, ensure_ascii=False, indent=1) + "\n").encode("utf-8"))
 
 
 def read_json(path: Path) -> dict:

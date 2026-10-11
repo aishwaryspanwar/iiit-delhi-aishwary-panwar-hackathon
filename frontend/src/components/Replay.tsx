@@ -13,7 +13,7 @@ export function ReplayBar() {
   const style = { "--fill": `${fill}%` } as CSSProperties;
   if (!days.length) return null;
   return (
-    <div className="panel flex flex-wrap items-center gap-x-6 gap-y-3 rounded-[28px] px-4 py-3 md:px-5" role="group" aria-label="Historical replay">
+    <div data-tour="replay" className="panel flex flex-wrap items-center gap-x-6 gap-y-3 rounded-[28px] px-4 py-3 md:px-5" role="group" aria-label="Historical replay">
       <div className="flex items-center gap-1.5">
         <button type="button" className="btn btn-ghost icon-btn" onClick={() => replay.step(-1)} disabled={replay.index === 0} aria-label="Previous day">
           <SkipBack size={15} aria-hidden="true" />

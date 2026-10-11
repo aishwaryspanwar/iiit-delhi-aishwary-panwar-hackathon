@@ -6,6 +6,7 @@ import { useAsync } from "./lib/useAsync";
 
 const DATASET_STORAGE_KEY = "risk-engine-dataset";
 const PLAY_INTERVAL_MS = 900;
+const LIVE_REFRESH_MS = 60_000;
 
 export type DetailTarget = { kind: "signal"; id: string } | { kind: "event"; id: string };
 
@@ -26,6 +27,8 @@ interface AppState {
   setDataset: (id: string) => void;
   summary: DatasetSummary;
   events: EventRow[];
+  live: boolean;
+  revision: string;
   replay: Replay;
   theme: Theme;
   toggleTheme: () => void;
@@ -88,6 +91,14 @@ export function AppProvider({ children, fallback }: { children: ReactNode; fallb
     [dataset],
   );
 
+  const live = Boolean(data.data?.[0].live);
+  const reloadData = data.reload;
+  useEffect(() => {
+    if (!live) return;
+    const timer = window.setInterval(reloadData, LIVE_REFRESH_MS);
+    return () => window.clearInterval(timer);
+  }, [live, reloadData]);
+
   const days = data.data?.[0].days ?? [];
   const last = Math.max(days.length - 1, 0);
   const [rawIndex, setIndexState] = useState<number | null>(null);
@@ -146,6 +157,8 @@ export function AppProvider({ children, fallback }: { children: ReactNode; fallb
       setDataset,
       summary,
       events,
+      live: Boolean(summary.live),
+      revision: summary.updated_at ?? "",
       replay: {
         index: clampedIndex,
         last: Math.max(summary.days.length - 1, 0),

@@ -1,14 +1,11 @@
 import type {
   Alert,
-  EntityDetail,
-  EntityRow,
-  Evaluation,
   DatasetInfo,
   DatasetSummary,
   EventDetail,
   EventRow,
+  GeoSummary,
   Meta,
-  Portfolio,
   ScoreRequest,
   ScoreResult,
   SignalDetail,
@@ -30,7 +27,7 @@ export class ApiError extends Error {
 }
 
 const UNAVAILABLE_MESSAGE =
-  "Risk signal service is unavailable. Start it with `python -m src.api` from the repository root. The Streamlit reference application remains available.";
+  "Risk signal service is unavailable. Start it with `python -m src.api` from the repository root, then try again.";
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
@@ -117,12 +114,9 @@ export const api = {
     request<StressOverview>(datasetPath(dataset, "/stress"), { signal }, hasKeys("runs", "trigger_settings")),
   stressRun: (dataset: string, clusterId: string, signal?: AbortSignal) =>
     request<StressDetail>(datasetPath(dataset, `/stress/${encodeURIComponent(clusterId)}`), { signal }, hasKeys("run", "event")),
-  portfolio: (signal?: AbortSignal) => request<Portfolio>("/portfolio", { signal }, hasKeys("positions")),
+  geo: (dataset: string, until: string, days: number, signal?: AbortSignal) =>
+    request<GeoSummary>(`${datasetPath(dataset, "/geo")}?${new URLSearchParams({ until, days: String(days) })}`, { signal }, hasKeys("countries", "total_signals")),
   alerts: (dataset: string, signal?: AbortSignal) => request<Alert[]>(datasetPath(dataset, "/alerts"), { signal }, isArray),
-  entities: (dataset: string, signal?: AbortSignal) => request<EntityRow[]>(datasetPath(dataset, "/entities"), { signal }, isArray),
-  entity: (dataset: string, entityId: string, signal?: AbortSignal) =>
-    request<EntityDetail>(datasetPath(dataset, `/entities/${encodeURIComponent(entityId)}`), { signal }, hasKeys("entity", "timeline")),
-  evaluation: (signal?: AbortSignal) => request<Evaluation>("/evaluation", { signal }, hasKeys("metrics", "windows")),
   score: (body: ScoreRequest, signal?: AbortSignal) =>
     request<ScoreResult>(
       "/score",

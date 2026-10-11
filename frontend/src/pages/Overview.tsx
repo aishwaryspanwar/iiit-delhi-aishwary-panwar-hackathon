@@ -1,48 +1,20 @@
 import { useMemo } from "react";
 import { Activity, ArrowRight, ChevronsRight, ShieldAlert } from "lucide-react";
 import { useApp } from "../state";
+import { WorldMap } from "../components/WorldMap";
 import { api } from "../lib/api";
 import { useAsync } from "../lib/useAsync";
-import { dateTime, dayWithWeekday, integer, percent, score, shortDay, usdMillions } from "../lib/format";
-import { BAND_LABELS, MODERATE_FROM, criticalFrom, impactBand, type RiskBand } from "../lib/risk";
+import { dateTime, integer, percent, score, shortDay, usdMillions } from "../lib/format";
+import { impactBand } from "../lib/risk";
 import { href } from "../lib/router";
 import type { EventClass, EventRow } from "../lib/types";
-import { DailySentiment, HBarList, ImpactTimeline, SentimentSplit } from "../components/charts";
+import { DailySentiment, HBarList, SentimentSplit } from "../components/charts";
+import { ImpactTimeline } from "../components/Timeline";
 import { BeforeAfter, CausalChain } from "../components/stress";
-import { BandBadge, ClassTag, EmptyState, ErrorState, LoadingBlock, Panel, Stat, StatusIcon, TONE_TEXT, cx } from "../components/ui";
+import { BandBadge, ClassTag, EmptyState, ErrorState, Panel, StatusIcon, cx } from "../components/ui";
+import { CausalChainSkeleton } from "../components/Skeletons";
 
 const TRAILING_DAYS = 3;
-
-const POSTURE_COPY: Record<RiskBand, string> = {
-  low: "No event cluster in the last three days scores above the moderate band.",
-  moderate: "News flow is elevated, but nothing is close to the stress-test trigger.",
-  high: "At least one event cluster is above the trigger threshold.",
-  critical: "A severe event cluster is in the window; scenario shocks would apply near full strength.",
-};
-
-const GAUGE_TONE: Record<RiskBand, string> = { low: "text-low", moderate: "text-moderate-mark", high: "text-high", critical: "text-critical" };
-
-function PostureGauge({ value, band }: { value: number; band: RiskBand }) {
-  const fraction = Math.max(0, Math.min(1, (value - 1) / 9));
-  const circumference = Math.PI * 64;
-  return (
-    <svg viewBox="0 0 152 88" className={cx("h-[86px] w-[150px] shrink-0", GAUGE_TONE[band])} aria-hidden="true">
-      <path d="M12 80 A64 64 0 0 1 140 80" fill="none" stroke="var(--surface-3)" strokeWidth="10" strokeLinecap="round" />
-      <path
-        d="M12 80 A64 64 0 0 1 140 80"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="10"
-        strokeLinecap="round"
-        strokeDasharray={`${circumference * fraction} ${circumference}`}
-        style={{ transition: "stroke-dasharray 500ms cubic-bezier(.16,1,.3,1)" }}
-      />
-      <text x="76" y="76" textAnchor="middle" fontSize="34" fill="var(--ink)" fontFamily="Peace Sans, sans-serif">
-        {value.toFixed(1)}
-      </text>
-    </svg>
-  );
-}
 
 function SeeAll({ to, label }: { to: string; label: string }) {
   return (
@@ -53,7 +25,7 @@ function SeeAll({ to, label }: { to: string; label: string }) {
 }
 
 export function Overview() {
-  const { summary, events, replay, className, openDetail, dataset, meta } = useApp();
+  const { summary, events, replay, className, openDetail, dataset, meta, revision } = useApp();
   const threshold = summary.trigger_settings.impact_threshold;
   const visibleDays = summary.days.slice(0, replay.index + 1);
 
@@ -89,10 +61,10 @@ export function Overview() {
     return [...pool].sort((a, b) => b.t_start.localeCompare(a.t_start)).slice(0, 6);
   }, [visibleEvents]);
 
-  const alerts = useAsync((signal) => api.alerts(dataset, signal), [dataset]);
+  const alerts = useAsync((signal) => api.alerts(dataset, signal), [dataset, revision]);
   const visibleAlerts = useMemo(() => [...(alerts.data ?? [])].filter((a) => a.detected_at <= cutoffIso).reverse(), [alerts.data, cutoffIso]);
 
-  const runDetail = useAsync(latestRun ? (signal) => api.stressRun(dataset, latestRun.cluster_id, signal) : null, [dataset, latestRun?.cluster_id]);
+  const runDetail = useAsync(latestRun ? (signal) => api.stressRun(dataset, latestRun.cluster_id, signal) : null, [dataset, latestRun?.cluster_id, revision]);
   const runReady = latestRun && runDetail.data && runDetail.data.run.cluster_id === latestRun.cluster_id ? runDetail.data : null;
 
   const band = impactBand(totals.peak, threshold);
@@ -102,30 +74,9 @@ export function Overview() {
 
   return (
     <div className="grid grid-cols-12 gap-5">
-      <section className="panel col-span-12 flex flex-col gap-4 px-6 py-5 md:px-7 xl:col-span-5" aria-labelledby="posture-title">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <h2 id="posture-title" className="text-[15.5px] font-semibold text-ink">
-              Risk posture
-            </h2>
-            <p className="mt-1 text-[13px] text-ink-3">Peak event impact over the 72 hours to {dayWithWeekday(replay.day)}</p>
-          </div>
-          <BandBadge band={band} size="md" />
-        </div>
-        <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-          <PostureGauge value={totals.peak} band={band} />
-          <div className="min-w-[200px] flex-1">
-            <p className={cx("figure text-[24px]", TONE_TEXT[band])}>{BAND_LABELS[band]} risk</p>
-            <p className="mt-1.5 max-w-[40ch] text-[13px] leading-relaxed text-ink-2">{POSTURE_COPY[band]}</p>
-            <p className="mt-1.5 text-[12px] text-ink-3">
-              Low below {MODERATE_FROM}, high above {threshold}, critical from {criticalFrom(threshold)}
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section className="panel col-span-12 grid grid-cols-2 content-center gap-x-8 gap-y-6 px-6 py-6 lg:grid-cols-4 xl:col-span-7 xl:px-7" aria-label="Key figures">
-        {[
+      <WorldMap
+        posture={{ value: totals.peak, band }}
+        stats={[
           {
             label: "Signals to date",
             value: integer(totals.signals),
@@ -136,32 +87,31 @@ export function Overview() {
             label: "Stress tests fired",
             value: integer(totals.triggered),
             sub: `of ${integer(summary.totals.triggered)} in the window`,
-            tone: totals.triggered ? ("critical" as const) : ("default" as const),
+            tone: totals.triggered ? "critical" : "default",
           },
           {
             label: "Latest stress P&L",
             value: latestRun ? usdMillions(latestRun.totals.pnl) : "None yet",
             sub: latestRun ? `${percent(latestRun.totals.pnl_pct)} of the book` : "No stress test yet",
-            tone: latestRun ? ("loss" as const) : ("default" as const),
+            tone: latestRun ? "loss" : "default",
           },
-        ].map((item) => (
-          <Stat key={item.label} label={item.label} value={item.value} sub={item.sub} tone={item.tone} />
-        ))}
-      </section>
+        ]}
+      />
 
       <Panel
         className="col-span-12"
+        tour="timeline"
         title="Event-cluster impact timeline"
-        description="Each mark is a cluster of related news and posts. The orange cursor is the replay date; press play to watch the window unfold."
+        description="The riskiest event in each period. Dots above the line crossed the stress-test trigger."
         actions={<span className="num text-[13px] text-ink-3">{integer(visibleEvents.length)} clusters so far</span>}
       >
-        <ImpactTimeline events={events} cutoffDay={replay.day} threshold={threshold} height={300} />
+        <ImpactTimeline events={events} cutoffDay={replay.day} threshold={threshold} height={320} />
       </Panel>
 
       <Panel
         className="col-span-12"
         title="Real-time alerts"
-        description="Fired by the hourly as-of stream using only data available at that hour; lead time is measured against an end-of-day batch run"
+        description="Raised as the news arrived, hours before an end-of-day run would have caught it"
         bodyClassName="px-3 pt-2 pb-3"
       >
         {alerts.error && <ErrorState error={alerts.error} onRetry={alerts.reload} compact />}
@@ -180,12 +130,12 @@ export function Overview() {
                     className="flex w-full items-start gap-4 rounded-xl px-3 py-3 text-left transition-colors duration-150 hover:bg-surface-2"
                   >
                     <span className="min-w-0 flex-1">
-                      <span className="line-clamp-1 text-[14px] font-medium text-ink">{alert.lead?.text ?? alert.cluster_id}</span>
+                      <span className="line-clamp-1 text-[14px] font-normal text-ink">{alert.lead?.text ?? alert.cluster_id}</span>
                       <span className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12.5px] text-ink-3">
                         <span className="num">detected {dateTime(alert.detected_at)}</span>
                         <ClassTag label={className(alert.class)} />
                         <span>{alert.scope_label}</span>
-                        <span className="num">{lead.toFixed(0)} h before an end-of-day batch</span>
+                        <span className="num">{lead.toFixed(0)} h early</span>
                       </span>
                     </span>
                     <span className="flex shrink-0 flex-col items-end gap-1">
@@ -203,7 +153,6 @@ export function Overview() {
       <Panel
         className="col-span-12 lg:col-span-7"
         title="Latest high-impact events"
-        description="Clusters above the trigger threshold, newest first"
         actions={<SeeAll to={href("signals")} label="Signal feed" />}
         bodyClassName="px-3 pt-2 pb-3"
       >
@@ -218,7 +167,7 @@ export function Overview() {
         )}
       </Panel>
 
-      <Panel className="col-span-12 lg:col-span-5" title="What the signals are about" description="Signals to date by event class">
+      <Panel className="col-span-12 lg:col-span-5" title="What the signals are about">
         {classRows.length ? (
           <HBarList rows={classRows} emphasisLabel="Can trigger a stress test" mutedLabel="Other classes" />
         ) : (
@@ -229,7 +178,6 @@ export function Overview() {
       <Panel
         className="col-span-12"
         title={latestRun ? `Latest stress test: ${className(latestRun.class)} event on ${shortDay(latestRun.t_start)}` : "Portfolio stress test"}
-        description="From the news event to the change in portfolio value"
       >
         {!latestRun && (
           <EmptyState
@@ -239,7 +187,12 @@ export function Overview() {
           />
         )}
         {latestRun && runDetail.error && <ErrorState error={runDetail.error} onRetry={runDetail.reload} compact />}
-        {latestRun && !runDetail.error && !runReady && <LoadingBlock rows={3} />}
+        {latestRun && !runDetail.error && !runReady && (
+          <div role="status">
+            <span className="sr-only">Loading stress test</span>
+            <CausalChainSkeleton />
+          </div>
+        )}
         {runReady && (
           <div className="flex flex-col gap-8">
             <CausalChain detail={runReady} />
@@ -263,7 +216,7 @@ export function Overview() {
         )}
       </Panel>
 
-      <Panel className="col-span-12" title="Market mood" description={`Sentiment of signals to date, scored with ${summary.sentiment_models.join(", ")}`}>
+      <Panel className="col-span-12" title="Market mood">
         <div className="grid gap-x-12 gap-y-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
           <SentimentSplit counts={totals.bySentiment} />
           <div>
@@ -286,7 +239,7 @@ function EventLine({ event, threshold, label, onOpen }: { event: EventRow; thres
           <StatusIcon status={event.status} size={12} />
         </span>
         <span className="min-w-0 flex-1">
-          <span className="line-clamp-2 text-[14px] font-medium text-ink md:line-clamp-1">{event.lead?.text ?? event.cluster_id}</span>
+          <span className="line-clamp-2 text-[14px] font-normal text-ink md:line-clamp-1">{event.lead?.text ?? event.cluster_id}</span>
           <span className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[12.5px] text-ink-3">
             <span className="num">{shortDay(event.t_start)}</span>
             <ClassTag label={label} />

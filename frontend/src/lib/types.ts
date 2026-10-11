@@ -173,6 +173,8 @@ export interface DaySummary {
 
 export interface DatasetSummary {
   dataset: { id: string; label: string };
+  live?: boolean;
+  updated_at?: string | null;
   build: BuildInfo | null;
   sentiment_models: string[];
   sources: string[];
@@ -226,6 +228,8 @@ export interface Meta {
 export interface DatasetInfo {
   id: string;
   label: string;
+  live?: boolean;
+  updated_at?: string | null;
 }
 
 export interface SignalPage {
@@ -390,100 +394,32 @@ export interface Alert {
   pnl_pct: number | null;
 }
 
-export interface EntityRow {
-  id: string;
-  name: string;
-  type: string | null;
+export interface GeoHeadline {
+  signal_id: string;
+  text: string;
+  outlet: string | null;
+  source: string;
+  published_at: string;
+  impact: number;
+  sentiment: number;
+  sentiment_label: SentimentLabel;
+  class: EventClass;
+}
+
+export interface GeoCountry {
+  code: string;
   signals: number;
   mean_sentiment: number;
   max_impact: number;
+  top_class: EventClass;
+  by_class: Partial<Record<EventClass, number>>;
+  headlines: GeoHeadline[];
 }
 
-export interface EntityDetail {
-  entity: { id: string; name: string; type: string | null; ticker: string | null; sector: string | null; country: string | null };
-  signals: number;
-  timeline: { date: string; signals: number; mean_sentiment: number; max_impact: number; by_class: Partial<Record<EventClass, number>> }[];
-  events: EventRow[];
-  top_signals: Signal[];
-}
-
-export interface ClassReport {
-  n: number;
-  accuracy: number;
-  macro_f1: number;
-  majority_label: string;
-  majority_accuracy: number;
-  majority_macro_f1: number;
-  accuracy_ci95?: [number, number];
-  macro_f1_ci95?: [number, number];
-}
-
-export interface SplitReport {
-  n: number;
-  human_verified: number;
-  label_counts: { event_class: Record<string, number>; sentiment: Record<string, number> };
-  event_class: ClassReport;
-  event_class_naive_keywords: ClassReport;
-  sentiment_finbert: ClassReport;
-  sentiment_vader: ClassReport;
-  per_class: Record<string, { precision: number; recall: number; f1: number; support: number }>;
-}
-
-export interface Correlation {
-  n: number;
-  rho: number;
-  ci95: [number, number];
-}
-
-export interface DetectionQuality {
-  flags: number;
-  precision: number | null;
-  recall: number | null;
-}
-
-export interface Metrics {
-  engine_version: string;
-  config_hash: string;
-  splits: Record<string, { role: string; representative: SplitReport }>;
-  llm_vs_human_blind: { n: number; event_class_agreement?: number; event_class_kappa?: number; sentiment_agreement?: number; sentiment_kappa?: number };
-  impact_vs_market: Record<string, { abs_sp500: Correlation; vix_change: Correlation; abs_rate_change: Correlation }>;
-  trigger_quality: Record<string, {
-    trading_days: number;
-    stress_days: number;
-    base_rate: number | null;
-    engine_alerts: DetectionQuality;
-    impact_above_7_without_gates: DetectionQuality;
-    naive_headline_volume_spike: DetectionQuality;
-    naive_fire_every_day: DetectionQuality;
-  }>;
-  alert_lead_times: Record<string, { alerts: number; median_hours_before_end_of_day_batch: number | null; median_hours_after_first_headline: number | null; share_before_us_close: number | null }>;
-  definitions: Record<string, string>;
-}
-
-export interface WindowSummary {
-  dataset: string;
-  role: string;
-  window: { start: string; end: string };
-  signals: number;
-  entity_coverage: number;
-  clusters: number;
-  clusters_above_threshold: number;
-  stress_tests_triggered: number;
-  cluster_impact_max: number;
-  signal_class_share: Record<string, number>;
-  runs: { date: string; detected_at: string | null; class: EventClass; scope_targets: string[]; impact: number; pnl: number; pnl_pct: number }[];
-  market: { trading_days: number; sp500_annualised_volatility: number; sp500_worst_day: number; sp500_window_return: number };
-}
-
-export interface BacktestWindow {
-  triggers: { cluster_id: string; detected_at: string; trading_day: string; stressed_sleeve_pnl: number; realised_sleeve_pnl_1d: number | null; realised_sleeve_pnl_5d: number | null }[];
-  summary: Record<string, { triggers: number; coverage_realised_loss_within_stress: number | null; direction_hit_realised_negative: number | null; mean_realised_pnl: number | null; mean_stressed_pnl: number | null }>;
-  unconditional_all_days: Record<string, { days: number; share_negative: number | null; mean_pnl: number | null }>;
-}
-
-export interface Evaluation {
-  metrics: Metrics | null;
-  windows: Record<string, WindowSummary> | null;
-  backtest: { sleeve: { positions: number; value: number; proxies: string[] }; windows: Record<string, BacktestWindow>; definitions: Record<string, string> } | null;
-  benchmark: { dataset: string; deduplicated_items: number; items_per_second_vader_pipeline: number; finbert_items_per_second_cpu?: number; seconds: Record<string, number> } | null;
+export interface GeoSummary {
+  until: string | null;
+  since: string | null;
+  total_signals: number;
+  located_signals: number;
+  countries: GeoCountry[];
 }

@@ -35,19 +35,19 @@ company:SHEL,Shell,company,,energy,GB,0.7,true,Shell
 company:BP,BP,company,,energy,GB,0.7,true,BP
 company:JPM,JPMorgan,company,,financials,US,0.8,false,JPMorgan|JP Morgan|JPMorgan Chase
 company:ATVI,Activision Blizzard,company,,communication,US,0.4,false,Activision Blizzard|Activision
-country:US,United States,country,,,US,1.0,true,United States|U.S.|US|USA|America|American
+country:US,United States,country,,,US,1.0,true,United States|U.S.|US|USA|America|American|White House|Biden|Trump
 country:RU,Russia,country,,,RU,0.9,false,Russia|Russian|Moscow|Kremlin|Putin
 country:UA,Ukraine,country,,,UA,0.7,false,Ukraine|Ukrainian|Kyiv|Kiev|Zelenskiy|Zelensky
 country:BY,Belarus,country,,,BY,0.4,false,Belarus|Belarusian|Minsk
-country:CN,China,country,,,CN,0.9,false,China|Chinese|Beijing
+country:CN,China,country,,,CN,0.9,false,China|Chinese|Beijing|Xi Jinping
 country:TW,Taiwan,country,,,TW,0.6,false,Taiwan|Taiwanese
 country:DE,Germany,country,,,DE,0.8,false,Germany|German|Berlin
-country:GB,United Kingdom,country,,,GB,0.8,true,United Kingdom|Britain|British|UK|U.K.
+country:GB,United Kingdom,country,,,GB,0.8,true,United Kingdom|Britain|British|UK|U.K.|Downing Street
 country:FR,France,country,,,FR,0.7,false,France|French
 country:IT,Italy,country,,,IT,0.6,false,Italy|Italian
 country:PL,Poland,country,,,PL,0.5,false,Poland|Polish
 country:TR,Turkey,country,,,TR,0.5,false,Turkey|Turkish|Turkiye
-country:IN,India,country,,,IN,0.7,false,India|Indian
+country:IN,India,country,,,IN,0.7,false,India|Indian|Modi|New Delhi
 country:JP,Japan,country,,,JP,0.7,false,Japan|Japanese
 country:EU,European Union,country,,,EU,0.9,true,European Union|EU|eurozone|euro zone|Europe|European
 sector:energy,Energy,sector,,energy,,0.6,false,energy sector|energy stocks|energy companies|oil companies|oil majors

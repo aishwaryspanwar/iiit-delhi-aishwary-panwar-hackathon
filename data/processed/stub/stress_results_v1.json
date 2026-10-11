@@ -205,7 +205,7 @@
     "baseline_ready": true,
     "confidence_ok": true,
     "corroborated": false,
-    "direction_ok": true,
+    "direction_ok": false,
     "enough_mentions": false,
     "impact_above_threshold": false,
     "not_positive": true,
@@ -216,6 +216,7 @@
    "failed": [
     "stress_class",
     "impact_above_threshold",
+    "direction_ok",
     "corroborated",
     "enough_mentions"
    ],
@@ -242,7 +243,7 @@
   {
    "checks": {
     "baseline_ready": true,
-    "confidence_ok": true,
+    "confidence_ok": false,
     "corroborated": false,
     "direction_ok": true,
     "enough_mentions": false,
@@ -254,6 +255,7 @@
    "detected_at": null,
    "failed": [
     "impact_above_threshold",
+    "confidence_ok",
     "corroborated",
     "enough_mentions"
    ],

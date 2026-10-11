@@ -1,4 +1,4 @@
-weights_version: impact-v2
+weights_version: impact-v3
 weights:
   class_prior: 0.35
   sentiment_mag: 0.25
@@ -19,6 +19,7 @@ cue_patterns:
   - '\b(invasion|invades?|default(s|ed)?|downgrad(e|ed|es)|bankrupt(cy)?|emergency|collapse[sd]?|crash(es|ed)?|plunge[sd]?|soar(s|ed)?|surge[sd]?)\b'
   - '\b(biggest|largest|highest|lowest|worst|first) (since|in|ever)\b'
   - '\b(record|unprecedented|sweeping|severe|full-scale|junk|imminent)\b'
+  - '\b(bans?|banned|blacklist(s|ed)?|halt(s|ed)?|suspend(s|ed)?|seize[sd]?|nationali[sz]\w+|expropriat\w+|coup|crisis|shock|meltdown|turmoil|panic|plummet(s|ed)?|tumble[sd]?|slump(s|ed)?|sank|collapse[sd]?|fraud|scandal)\b'
 cue_full_at: 2
 cluster:
   weights:

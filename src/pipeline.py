@@ -2,6 +2,7 @@ import argparse
 from pathlib import Path
 
 from src.riskengine.build import run_engine
+from src.riskengine.cluster import StreamResult
 from src.riskengine.config import PROCESSED_DIR
 from src.riskengine.ingest.gdelt import gdelt_source_path, read_gdelt_documents
 from src.riskengine.ingest.stub import read_stub_documents
@@ -25,7 +26,9 @@ DATASETS = {
     "w3": lambda: read_window_documents("w3"),
     "n1": lambda: read_window_documents("n1"),
 }
+LIVE_DATASET = "live"
 DATASET_LABELS = {
+    LIVE_DATASET: "Live · GDELT news feed",
     "w1": "W1 · Feb–Mar 2022 (GDELT + tweets)",
     "w3": "W3 · Sep 2022, Fed and gilt shock (GDELT + tweets)",
     "n1": "N1 · Aug–Sep 2026, calm market (GDELT news only)",
@@ -38,17 +41,14 @@ def output_dir(dataset: str) -> Path:
 
 
 def available_datasets() -> list[str]:
-    return [name for name in DATASET_LABELS if (PROCESSED_DIR / name / "signals_v1.jsonl.gz").exists()]
+    return [name for name in DATASET_LABELS if all((PROCESSED_DIR / name / f).exists() for f in ("signals_v1.jsonl.gz", "events_v1.jsonl.gz", "stress_results_v1.json"))]
 
 
 def default_sentiment(dataset: str) -> str:
     return "vader" if dataset == "stub" else BUILD_DEFAULT
 
 
-def run_pipeline(dataset: str, sentiment: str | None = None, out: Path | None = None) -> dict:
-    target = out or output_dir(dataset)
-    docs: list[RawDoc] = DATASETS[dataset]()
-    signals, stream = run_engine(docs, load_sentiment_model(sentiment or default_sentiment(dataset)))
+def write_outputs(target: Path, signals: list[dict], stream: StreamResult) -> dict:
     validate_records(signals, "signal_v1")
     validate_records(stream.events, "event_v1")
     validate_records(stream.alerts, "alert_v1")
@@ -59,6 +59,14 @@ def run_pipeline(dataset: str, sentiment: str | None = None, out: Path | None = 
     write_jsonl(target / "events_v1.jsonl.gz", stream.events)
     write_jsonl(target / "alerts_v1.jsonl.gz", stream.alerts)
     write_json(target / "stress_results_v1.json", results)
+    return results
+
+
+def run_pipeline(dataset: str, sentiment: str | None = None, out: Path | None = None) -> dict:
+    target = out or output_dir(dataset)
+    docs: list[RawDoc] = DATASETS[dataset]()
+    signals, stream = run_engine(docs, load_sentiment_model(sentiment or default_sentiment(dataset)))
+    write_outputs(target, signals, stream)
     return {"signals": len(signals), "events": len(stream.events), "output": str(target)}
 
 

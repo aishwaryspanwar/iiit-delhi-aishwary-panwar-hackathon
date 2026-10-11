@@ -135,7 +135,7 @@ rules:
   - id: REG-001
     class: regulatory
     weight: 1.5
-    patterns: ['\b(regulators?|regulatory|antitrust|watchdog|sec|ftc|doj|cma|competition (commission|authority)|fined|fines|penalty)\b', '\bprobe (into|of)\b']
+    patterns: ['\b(regulators?|regulatory|antitrust|watchdog|sec|ftc|doj|cma|sebi|cci|fca|esma|fda|trai|competition (commission|authority)|fined|fines|penalty)\b', '\bprobe (into|of)\b']
     exclude_patterns: ['\b(masks?|passengers?|parking|speeding|traffic) (fines?|violations?)\b', '\bmask violations?\b']
   - id: REG-002
     class: regulatory
@@ -190,3 +190,62 @@ rules:
     class: product_launch
     weight: 1.5
     patterns: ['\bbeta (version|build|release)\b', '\bbeta \d+(\.\d+)+\b', '\b(ios|android|windows) \d+(\.\d+)?\b', '\bproduct launch\b', '\blaunch event\b']
+  - id: REG-005
+    class: regulatory
+    weight: 1.5
+    direction: negative
+    patterns: ['\b(ban|bans|banned|banning|blacklist(s|ed|ing)?|prohibit(s|ed|ing|ion)?|outlaw(s|ed)?)\b', '\b(barred|bars) (from|imports?|exports?|sales?)\b', '\b(blocks?|blocked|blocking) (the |a |its )?(deal|merger|acquisition|takeover|sale|imports?|exports?|access|listing|ipo)\b', '\b(revok(e|es|ed|ing)|cancel(s|led|ed)|suspend(s|ed|ing)?|withdraw(s|n)?) (\S+ ){0,3}(licen[cs]e|permit|approval|registration|operations|trading|sales|production)\b', '\b(licen[cs]e|permit|approval) (revoked|cancelled|canceled|suspended|withdrawn|denied|rejected)\b', '\b(nationali[sz](e|es|ed|ation)|expropriat\w+)\b', '\b(tariffs?|import dut(y|ies)|anti-dumping|export (curbs?|controls?|restrictions?)|trade (curbs?|restrictions?|barriers?))\b', '\b(raid(s|ed)?|cracks? down on|cracked down on|fined|fines|penalt(y|ies)|recall(s|ed|ing)?)\b']
+    exclude_patterns: ['\b(lift(s|ed|ing)?|ends?|ended|scraps?|scrapped|eases?|eased|removes?|removed|overturns?|overturned|drops?|dropped|rolls? back|rolled back|exempts?|exempted|cuts?|slashe[sd]) (the |a |an |its |their )?(\w+ )?(ban|tariffs?|dut(y|ies)|curbs?|restrictions?)\b', '\b(masks?|passengers?|parking|speeding|traffic) (fines?|violations?)\b', '\b(\w+-match|match|game|race) ban\b', '\b(tariff plans?|mobile tariffs?|telecom tariffs?|data tariffs?|electricity tariffs?|prepaid tariffs?)\b']
+  - id: REG-006
+    class: regulatory
+    weight: 1.5
+    direction: positive
+    patterns: ['\b(lift(s|ed|ing)?|ends?|ended|scraps?|scrapped|eases?|eased|removes?|removed|overturns?|overturned|rolls? back|rolled back) (the |a |an |its |their )?(\w+ )?(ban|tariffs?|dut(y|ies)|curbs?|restrictions?)\b', '\b(wins?|won|secures?|secured|receives?|received|gets?|granted|grants?) (\w+ )?(regulatory |fda |sec |government )?(approval|clearance|licen[cs]e|permit|green light|nod)\b', '\b(approves?|approved|clears?|cleared) (\S+ ){0,4}(deal|merger|acquisition|takeover|drug|vaccine|listing|ipo|sale)\b', '\b(subsid(y|ies)|tax (breaks?|cuts?|relief|incentives?)|production-linked incentive)\b']
+  - id: ERN-006
+    class: earnings_corporate
+    weight: 1.5
+    direction: positive
+    patterns: ['\b(beats?|tops?|topped|exceeds?|exceeded|surpass(es|ed)?) (\w+ )?(estimates|expectations|forecasts|consensus)\b', '\b(record|all-time high|bumper) (\w+ )?(profits?|revenue|sales|earnings|quarter|orders|deliveries)\b', '\b(raises?|raised|lifts?|lifted|boosts?|boosted|hikes?|hiked|upgrades?|upgraded) (its |full-year |annual )?(guidance|forecast|outlook|dividend)\b', '\b(wins?|won|secures?|secured|lands?|landed|bags?|bagged) (a |an |the )?([$\d.,]+ ?(bn|billion|mn|million|crore)? )?(contract|order|deal|tender)\b', '\b(expands? into|enters? (the )?\w+ market|strategic partnership)\b']
+  - id: ERN-007
+    class: earnings_corporate
+    weight: 1.5
+    direction: negative
+    patterns: ['\b(miss(es|ed)?|falls? short of|fell short of) (\w+ )?(estimates|expectations|forecasts|consensus)\b', '\b(profit warning|warns on profits?|loss widens|swings? to (a )?loss|revenue (falls?|drops?|declines?|slumps?))\b', '\b(cuts?|lowers?|lowered|slashe[sd]|withdraws?|withdrew|suspends?|suspended) (its |full-year |annual )?(guidance|forecast|outlook|dividend)\b', '\b(job cuts|cuts? [\d,]+ jobs|lay(s|ing)? off|laid off|redundancies)\b', '\b(data breach|hack(ed|ers?)|cyber-?attack|ransomware|outage|fraud|scandal|whistleblower|accounting irregularities|short seller)\b', '\b(halts?|halted|stops?|stopped|shuts?|shut) (\w+ )?(production|output|deliveries|operations|plant|factory)\b', '\b(ceo|cfo|chairman|founder) (resigns?|quits?|ousted|fired|steps down|arrested|charged)\b']
+  - id: GEO-008
+    class: geopolitical
+    weight: 1.5
+    direction: negative
+    patterns: ['\b(coup|martial law|assassinat\w+|terror(ist|ism)? attacks?|terrorists?|hostages?|blockade|mobili[sz](e|es|ed|ation)|nuclear tests?|missile tests?|ballistic missiles?|border (clash|clashes|skirmish|skirmishes)|civil war|insurgen\w+|uprising|unrest|riots?|state of emergency|curfew)\b']
+    exclude_patterns: ['\briot (games|platforms|blockchain)\b']
+  - id: GEO-009
+    class: geopolitical
+    weight: 1.0
+    direction: positive
+    patterns: ['\b(truce|peace (deal|agreement|accord|treaty)|de-?escalat\w+|withdraw(s|n)? troops|troops? withdraw\w*|lifts? sanctions|sanctions (lifted|eased)|normali[sz]e (ties|relations))\b', '\bagree(s|d)? (to )?(a |on a )?ceasefire\b', '\bceasefire (deal|agreement|holds)\b']
+    exclude_patterns: ['\b(attacks?|attacked|invasion|invad\w+|war|strikes?|shelling|bomb\w*|killed|missiles?|offensive)\b', '\b(calls?|called|urges?|urged|appeals?|appealed|pleads?|pleaded) (\w+ ){0,2}(for|to)\b']
+  - id: COM-004
+    class: commodity_energy
+    weight: 1.0
+    patterns: ['\b(supply (disruptions?|crunch|squeeze|cuts?)|output cuts?|production cuts?|drought|crop failure|poor harvest|refinery (fire|outage|shutdown)|price cap|gas rationing|blackouts?|power cuts?)\b']
+  - id: CRD-007
+    class: credit_event
+    weight: 2.0
+    direction: negative
+    patterns: ['\b(bail-?outs?|bank run|run on the bank|liquidity (crisis|crunch|squeeze)|margin calls?|debt crisis|write-?downs?|loan losses|bad loans|non-performing (loans|assets)|missed (bond|loan|coupon) payments?|debt (moratorium|standstill)|creditor haircuts?)\b']
+    exclude_patterns: ['\b(student loans?|credit cards?|mortgages?|car loans?|auto loans?|personal loans?)\b']
+  - id: MAC-007
+    class: macroeconomic
+    weight: 1.0
+    direction: negative
+    patterns: ['\b(hard landing|currency crisis|devaluation|devalues|hyperinflation|economic (downturn|crisis|slump)|economy (shrinks|shrank|contracts|contracted))\b']
+  - id: MAC-008
+    class: macroeconomic
+    weight: 1.0
+    direction: positive
+    patterns: ['\b(rate cuts?|cuts? (interest )?rates|soft landing|inflation (eases|cools|slows|falls|moderates)|cooling inflation|economy (grows|expands|rebounds)|stimulus (package|plan|measures))\b']
+    exclude_patterns: ['\b(no|not|rules? out|ruled out|delays?|delayed|pushes back|pushed back|fewer|dims?|dimmed|doubts? over) (\w+ ){0,2}rate cuts?\b']
+  - id: REG-007
+    class: regulatory
+    weight: 2.5
+    direction: negative
+    patterns: ['\b(blocks?|blocked|rejects?|rejected|vetoes|vetoed|bars|barred|halts?|halted) (\S+ ){0,3}(deal|merger|acquisition|takeover|buyout|bid|listing|ipo)\b']
