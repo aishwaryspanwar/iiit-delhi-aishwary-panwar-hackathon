@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import argparse
 import hashlib
 import os
@@ -20,6 +22,7 @@ DIST_STAMP = FRONTEND / "dist" / ".source.sha256"
 FRONTEND_INPUTS = ("src", "public", "index.html", "package.json", "package-lock.json", "vite.config.ts", "tsconfig.json")
 STARTUP_SECONDS = 240
 MIN_PYTHON = (3, 11)
+PREFERRED_MINORS = (13, 12, 14, 11, 15)
 
 
 def say(message: str) -> None:
@@ -46,13 +49,55 @@ def ensure_requirements(python: Path) -> None:
     STAMP.write_text(requirements_hash(), encoding="utf-8")
 
 
+def interpreter_version(command: list[str]) -> tuple[int, int] | None:
+    try:
+        result = subprocess.run(
+            [*command, "-c", "import sys; print(sys.version_info[0], sys.version_info[1])"],
+            capture_output=True,
+            text=True,
+            timeout=20,
+        )
+        major, minor = result.stdout.split()
+        return int(major), int(minor)
+    except (OSError, ValueError, subprocess.SubprocessError):
+        return None
+
+
+def find_python() -> list[str] | None:
+    if sys.version_info >= MIN_PYTHON:
+        return [sys.executable]
+    candidates = []
+    for minor in PREFERRED_MINORS:
+        if os.name == "nt":
+            if shutil.which("py"):
+                candidates.append(["py", f"-3.{minor}"])
+        else:
+            found = shutil.which(f"python3.{minor}")
+            if found:
+                candidates.append([found])
+    for name in ("python3", "python"):
+        found = shutil.which(name)
+        if found:
+            candidates.append([found])
+    for command in candidates:
+        version = interpreter_version(command)
+        if version is not None and version >= MIN_PYTHON:
+            return command
+    return None
+
+
 def ensure_venv() -> Path:
     python = venv_python()
     if not python.exists():
-        if sys.version_info < MIN_PYTHON:
-            sys.exit(f"[run] Python {MIN_PYTHON[0]}.{MIN_PYTHON[1]} or later is required to create .venv (found {sys.version.split()[0]})")
-        say("creating the virtual environment in .venv")
-        subprocess.run([sys.executable, "-m", "venv", str(VENV)], check=True)
+        interpreter = find_python()
+        if interpreter is None:
+            sys.exit(
+                f"[run] Python {MIN_PYTHON[0]}.{MIN_PYTHON[1]} or later is required (this one is {sys.version.split()[0]}, and no newer one was found). "
+                "Install it from https://www.python.org/downloads/ or create a conda environment with `conda create -n ripple python=3.13 -y`, "
+                "activate it, and run this script again"
+            )
+        say(f"creating the virtual environment in .venv with {' '.join(interpreter)}")
+        subprocess.run([*interpreter, "-m", "venv", str(VENV)], check=True)
     ensure_requirements(python)
     return python
 

@@ -118,7 +118,7 @@ cd iiit-delhi-aishwary-panwar-hackathon
 python run.py
 ```
 
-On Windows, if `python` is older than 3.11, run it with an installed newer version, for example `py -3.15 run.py`.
+If `python` is older than 3.11 (for example a Conda base environment on 3.10), `run.py` looks for a newer installed Python (`py -3.13`, `python3.12` and so on) and builds `.venv` with it. It only stops if none is installed.
 
 This one command runs both modes:
 
@@ -196,7 +196,7 @@ cd frontend && npm test                       # web app tests
 
 | Problem                              | Fix                                                                                                                                    |
 | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
-| `Python 3.11 or later is required`   | Install Python 3.11 to 3.15 and run, for example, `py -3.15 run.py` (Windows) or `python3.15 run.py`                                   |
+| `Python 3.11 or later is required`   | No newer Python was found. Install Python 3.11 to 3.15, or run `conda create -n ripple python=3.13 -y`, `conda activate ripple`, then `python run.py` |
 | `Node.js 20.19+ is required`         | Only shown if `frontend/dist` was deleted or the frontend was edited: install Node.js 20.19+ or 22.12+, then run `python run.py` again |
 | Port 8000 already in use             | `python run.py --port 8100`                                                                                                            |
 | The page loads but looks out of date | `python run.py --rebuild`, then refresh the browser                                                                                    |

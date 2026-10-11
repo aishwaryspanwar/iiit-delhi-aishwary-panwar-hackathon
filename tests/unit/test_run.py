@@ -46,6 +46,22 @@ def test_requirements_are_reinstalled_when_the_file_changes(tmp_path, monkeypatc
     assert len(calls) == 2
 
 
+def test_a_newer_python_is_found_when_the_current_one_is_too_old(monkeypatch):
+    monkeypatch.setattr(run.sys, "version_info", (3, 10, 9, "final", 0))
+    monkeypatch.setattr(run.os, "name", "nt")
+    monkeypatch.setattr(run.shutil, "which", lambda name: "py.exe" if name == "py" else None)
+    versions = {"-3.13": (3, 13), "-3.12": None}
+    monkeypatch.setattr(run, "interpreter_version", lambda command: versions.get(command[1], (3, 10)))
+    assert run.find_python() == ["py", "-3.13"]
+    monkeypatch.setattr(run, "interpreter_version", lambda command: (3, 10))
+    assert run.find_python() is None
+
+
+def test_current_python_is_used_when_it_is_new_enough(monkeypatch):
+    monkeypatch.setattr(run.sys, "version_info", (3, 12, 1, "final", 0))
+    assert run.find_python() == [run.sys.executable]
+
+
 def test_busy_port_is_detected():
     import socket
 
