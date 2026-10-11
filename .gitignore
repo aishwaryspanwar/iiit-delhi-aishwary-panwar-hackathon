@@ -1,18 +1,38 @@
+# Python
 .venv/
 __pycache__/
 *.pyc
 .pytest_cache/
+
+# Data that is downloaded or rebuilt locally
 data/raw/
-.env
-.kaggle/
+data/processed/live/
 *.zip
-.streamlit/secrets.toml
+
+# Secrets and credentials
+.env
+.env.*
+!.env.example
+.kaggle/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/coverage/
+*.tsbuildinfo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editors, tools and OS files
 .idea/
 .vscode/
 .claude/
-frontend/node_modules/
-frontend/dist/
 .impeccable/
+.DS_Store
+Thumbs.db
+
+# Local design notes
 PRODUCT.md
 DESIGN.md
-data/processed/live/
